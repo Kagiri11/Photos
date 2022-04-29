@@ -6,14 +6,13 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
     }
 }
 rootProject.name = "Fotos"
-include ':app'
-include ':domain'
-include ':data:network'
-include ':data:local'
+include(":app")
+include(":domain")
+include(":data:network")
+include(":data:local")
