@@ -1,6 +1,7 @@
 import Configurations.CompileSdk
 import Libraries.appCompat
 import Libraries.core
+import Libraries.gson
 import Libraries.retrofit
 import TestLibraries.androidEspresso
 import TestLibraries.jUnit
@@ -44,6 +45,7 @@ android {
 dependencies {
     Libraries.also {
         implementation(retrofit)
+        implementation(gson)
         implementation(core)
         implementation(appCompat)
     }
