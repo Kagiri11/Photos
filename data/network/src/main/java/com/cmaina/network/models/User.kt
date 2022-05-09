@@ -13,7 +13,7 @@ data class User(
     val name: String,
     val portfolio_url: String,
     val userProfile_image: UserProfileImage,
-    val userSocial: UserSocial,
+    val social: Social,
     val total_collections: Int,
     val total_likes: Int,
     val total_photos: Int,

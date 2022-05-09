@@ -5,4 +5,5 @@ object Versions {
     const val core = "1.7.0"
     const val appCompat = "1.4.1"
     const val googleGradleSecrets = "0.4"
+    const val coroutines = "1.6.0"
 }
