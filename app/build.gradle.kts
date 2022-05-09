@@ -7,6 +7,7 @@ import Configurations.VersionName
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
 val composeVersion = "1.0.3"

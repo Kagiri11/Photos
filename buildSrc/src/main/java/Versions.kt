@@ -4,4 +4,5 @@ object Versions {
     const val material = "1.5.0"
     const val core = "1.7.0"
     const val appCompat = "1.4.1"
+    const val googleGradleSecrets = "0.4"
 }
