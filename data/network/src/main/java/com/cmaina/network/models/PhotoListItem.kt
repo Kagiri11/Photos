@@ -1,5 +1,8 @@
 package com.cmaina.network.models
 
+import com.cmaina.network.models.specificphoto.Exif
+import com.cmaina.network.models.specificphoto.Location
+
 data class PhotoListItem(
     val alt_description: String,
     val blur_hash: String,
@@ -19,5 +22,10 @@ data class PhotoListItem(
     val updated_at: String,
     val urls: Urls,
     val user: User,
-    val width: Int
+    val width: Int,
+    // you can exclude these
+    val exif: Exif,
+    val location: Location,
+    val views: Int,
+    val downloads: Int
 )
