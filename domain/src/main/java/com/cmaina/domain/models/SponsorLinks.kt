@@ -1,6 +1,6 @@
-package com.cmaina.network.models
+package com.cmaina.domain.models
 
-data class LinksXX(
+data class SponsorLinks(
     val followers: String,
     val following: String,
     val html: String,

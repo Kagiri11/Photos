@@ -1,6 +1,6 @@
 package com.cmaina.network.models
 
-data class SocialX(
+data class UserSocial(
     val instagram_username: String,
     val paypal_email: Any,
     val portfolio_url: String,

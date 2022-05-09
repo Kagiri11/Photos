@@ -1,4 +1,4 @@
-package com.cmaina.network
+package com.cmaina.network.api
 
 import retrofit2.Response
 import retrofit2.http.GET
