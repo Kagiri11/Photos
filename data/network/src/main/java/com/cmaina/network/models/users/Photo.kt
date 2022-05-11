@@ -1,8 +1,8 @@
-package com.cmaina.network.models.specificphoto
+package com.cmaina.network.models.users
 
 import com.cmaina.network.models.Urls
 
-data class PreviewPhoto(
+data class Photo(
     val blur_hash: String,
     val created_at: String,
     val id: String,

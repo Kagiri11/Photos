@@ -1,10 +1,11 @@
-package com.cmaina.network.models
+package com.cmaina.network.models.search
 
-import com.cmaina.network.models.search.TopicSubmissions
-import com.cmaina.network.models.specificphoto.Exif
-import com.cmaina.network.models.specificphoto.Location
+import com.cmaina.network.models.PhotoLinks
+import com.cmaina.network.models.Urls
+import com.cmaina.network.models.User
+import com.cmaina.network.models.specificphoto.Tag
 
-data class PhotoListItem(
+data class Result(
     val alt_description: String,
     val blur_hash: String,
     val categories: List<Any>,
@@ -18,15 +19,11 @@ data class PhotoListItem(
     val likes: Int,
     val links: PhotoLinks,
     val promoted_at: String,
-    val sponsorship: Sponsorship,
+    val sponsorship: Any,
+    val tags: List<Tag>,
     val topic_submissions: TopicSubmissions,
     val updated_at: String,
     val urls: Urls,
     val user: User,
-    val width: Int,
-    // you can exclude these
-    val exif: Exif,
-    val location: Location,
-    val views: Int,
-    val downloads: Int
+    val width: Int
 )

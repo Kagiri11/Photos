@@ -2,9 +2,9 @@ package com.cmaina.network.models.specificphoto
 
 import com.cmaina.network.models.PhotoLinks
 import com.cmaina.network.models.Sponsorship
-import com.cmaina.network.models.TopicSubmissions
 import com.cmaina.network.models.Urls
 import com.cmaina.network.models.User
+import com.cmaina.network.models.search.TopicSubmissions
 
 data class SpecificPhoto(
     val alt_description: Any,
