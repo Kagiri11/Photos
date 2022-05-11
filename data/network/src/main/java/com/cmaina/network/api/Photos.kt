@@ -1,6 +1,7 @@
 package com.cmaina.network.api
 
 import com.cmaina.network.models.PhotoListItem
+import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.specificphoto.SpecificPhoto
 import retrofit2.Response
 import retrofit2.http.GET
@@ -29,4 +30,10 @@ interface Photos {
         @Path("id") id: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): Response<PhotoListItem>
+
+    @GET("photos/{id}/statistics")
+    suspend fun fetchPhotoStatistics(
+        @Path("id") id: String,
+        @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
+    ): Response<PhotoStatistics>
 }
