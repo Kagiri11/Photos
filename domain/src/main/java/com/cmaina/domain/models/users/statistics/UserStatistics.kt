@@ -1,9 +1,9 @@
 package com.cmaina.network.models.users.statistics
 
-import com.cmaina.network.models.photostats.Downloads
+import com.cmaina.domain.models.photostats.DomainPhotoStatDownloads
 
 data class UserStatistics(
-    val downloads: Downloads,
+    val domainPhotoStatDownloads: DomainPhotoStatDownloads,
     val id: String,
     val username: String,
     val views: Views

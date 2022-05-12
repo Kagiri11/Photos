@@ -1,6 +1,6 @@
 package com.cmaina.domain.models.photos
 
-data class PhotoListItem(
+data class DomainPhotoListItem(
     val altDescription: String,
     val blurHash: String,
     val categories: List<Any>,
@@ -12,12 +12,12 @@ data class PhotoListItem(
     val id: String,
     val likedByUser: Boolean,
     val likes: Int,
-    val links: PhotoLinks,
+    val linksDomain: DomainPhotoLinks,
     val promotedAt: String,
     val sponsorship: Sponsorship,
-    val topicSubmissions: TopicSubmissions,
+    val domainTopicSubmissions: DomainTopicSubmissions,
     val updatedAt: String,
-    val urls: Urls,
-    val user: User,
+    val domainUrls: DomainUrls,
+    val domainPhotoUser: DomainPhotoUser,
     val width: Int
 )
