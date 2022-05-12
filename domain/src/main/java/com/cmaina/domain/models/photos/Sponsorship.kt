@@ -1,6 +1,4 @@
-package com.cmaina.domain.models
-
-import com.cmaina.domain.models.Sponsor
+package com.cmaina.domain.models.photos
 
 data class Sponsorship(
     val impressionUrls: List<String>,

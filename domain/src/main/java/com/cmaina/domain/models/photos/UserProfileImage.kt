@@ -1,6 +1,6 @@
-package com.cmaina.domain.models
+package com.cmaina.domain.models.photos
 
-data class ProfileImage(
+data class UserProfileImage(
     val large: String,
     val medium: String,
     val small: String

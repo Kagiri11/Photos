@@ -1,6 +1,6 @@
-package com.cmaina.domain.models
+package com.cmaina.domain.models.photos
 
-data class UserSocial(
+data class SponsorSocial(
     val instagramUsername: String,
     val paypalEmail: Any,
     val portfolioUrl: String,
