@@ -1,4 +1,4 @@
-package com.cmaina.network.models
+package com.cmaina.network.models.photos
 
 import com.cmaina.network.models.search.TopicSubmissions
 import com.cmaina.network.models.specificphoto.Exif

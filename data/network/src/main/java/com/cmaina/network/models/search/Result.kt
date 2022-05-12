@@ -1,8 +1,8 @@
 package com.cmaina.network.models.search
 
-import com.cmaina.network.models.PhotoLinks
-import com.cmaina.network.models.Urls
-import com.cmaina.network.models.User
+import com.cmaina.network.models.photos.PhotoLinks
+import com.cmaina.network.models.photos.Urls
+import com.cmaina.network.models.photos.User
 import com.cmaina.network.models.specificphoto.Tag
 
 data class Result(

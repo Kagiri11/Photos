@@ -1,7 +1,7 @@
 package com.cmaina.network.models.users
 
-import com.cmaina.network.models.Social
-import com.cmaina.network.models.SponsorLinks
+import com.cmaina.network.models.photos.Social
+import com.cmaina.network.models.photos.SponsorLinks
 import com.cmaina.network.models.specificphoto.Meta
 import com.google.gson.annotations.SerializedName
 

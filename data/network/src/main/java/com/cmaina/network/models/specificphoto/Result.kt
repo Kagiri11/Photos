@@ -1,6 +1,6 @@
 package com.cmaina.network.models.specificphoto
 
-import com.cmaina.network.models.User
+import com.cmaina.network.models.photos.User
 
 data class Result(
     val cover_photo: CoverPhoto,

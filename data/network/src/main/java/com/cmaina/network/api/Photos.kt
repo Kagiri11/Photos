@@ -1,7 +1,7 @@
 package com.cmaina.network.api
 
-import com.cmaina.network.models.PhotoList
-import com.cmaina.network.models.PhotoListItem
+import com.cmaina.network.models.photos.PhotoList
+import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.specificphoto.SpecificPhoto

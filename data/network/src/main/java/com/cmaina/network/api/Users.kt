@@ -1,6 +1,6 @@
 package com.cmaina.network.api
 
-import com.cmaina.network.models.PhotoList
+import com.cmaina.network.models.photos.PhotoList
 import com.cmaina.network.models.users.UserDto
 import com.cmaina.network.models.users.portfolio.UserPortFolioDto
 import com.cmaina.network.models.users.statistics.UserStatistics

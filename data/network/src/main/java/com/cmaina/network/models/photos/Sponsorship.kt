@@ -1,4 +1,4 @@
-package com.cmaina.network.models
+package com.cmaina.network.models.photos
 
 data class Sponsorship(
     val impression_urls: List<String>,

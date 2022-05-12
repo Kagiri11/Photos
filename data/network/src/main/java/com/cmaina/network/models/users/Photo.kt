@@ -1,6 +1,6 @@
 package com.cmaina.network.models.users
 
-import com.cmaina.network.models.Urls
+import com.cmaina.network.models.photos.Urls
 
 data class Photo(
     val blur_hash: String,
