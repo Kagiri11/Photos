@@ -1,4 +1,5 @@
 import Libraries.coroutinesCore
+import Libraries.koinCore
 
 plugins {
     id("java-library")
@@ -13,5 +14,6 @@ java {
 dependencies {
     Libraries.also {
         implementation(coroutinesCore)
+        implementation(koinCore)
     }
 }

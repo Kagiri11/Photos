@@ -7,7 +7,7 @@ import com.cmaina.network.models.users.Photo
 import com.cmaina.network.models.users.ProfileImage
 import com.cmaina.network.models.users.Tags
 
-data class UserDto(
+data class UserDomainModel(
     val accepted_tos: Boolean,
     val allow_messages: Boolean,
     val badge: Any,

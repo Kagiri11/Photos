@@ -16,5 +16,8 @@ object Libraries {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
 
     // Coroutines
-    const val coroutinesCore= "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+
+    //
+    const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
 }
