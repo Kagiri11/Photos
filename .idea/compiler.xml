@@ -6,6 +6,7 @@
       <module name="Fotos.buildSrc" target="11" />
       <module name="Fotos.data.local" target="11" />
       <module name="Fotos.data.network" target="11" />
+      <module name="Fotos.data.repository" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

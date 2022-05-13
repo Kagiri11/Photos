@@ -1,3 +1,5 @@
 package com.cmaina.network.models.photos
 
-class PhotoList : ArrayList<PhotoListItem>()
+data class PhotoList(
+    val photoList: List<PhotoListItem>
+)
