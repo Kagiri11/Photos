@@ -1,4 +1,4 @@
-package com.cmaina.network.models.search
+package com.cmaina.domain.models.search
 
 data class History(
     val approved_on: String,

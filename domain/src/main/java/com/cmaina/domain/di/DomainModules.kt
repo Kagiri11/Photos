@@ -5,6 +5,7 @@ import com.cmaina.domain.usecases.FetchPhotos
 import com.cmaina.domain.usecases.FetchRandomPhoto
 import com.cmaina.domain.usecases.FetchSpecificPhoto
 import com.cmaina.domain.usecases.FetchUserPhotos
+import com.cmaina.domain.usecases.FetchUserPortFolio
 import com.cmaina.domain.usecases.FetchUserProfile
 import org.koin.dsl.module
 
@@ -15,4 +16,5 @@ val domainModules = module {
     single { FetchUserProfile(get()) }
     single { FetchSpecificPhoto(get()) }
     single { FetchUserPhotos(get()) }
+    single { FetchUserPortFolio(get()) }
 }

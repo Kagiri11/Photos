@@ -1,4 +1,4 @@
-package com.cmaina.network.models.search
+package com.cmaina.domain.models.search
 
 data class Architecture(
     val approved_on: String,

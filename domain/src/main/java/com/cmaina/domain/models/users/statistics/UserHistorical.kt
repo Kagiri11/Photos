@@ -1,4 +1,4 @@
-package com.cmaina.network.models.users.statistics
+package com.cmaina.domain.models.users.statistics
 
 data class UserHistorical(
     val average: Int,

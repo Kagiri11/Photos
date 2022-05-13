@@ -1,6 +1,6 @@
 package com.cmaina.network.models.users
 
-import com.cmaina.network.models.specificphoto.Tag
+import com.cmaina.domain.models.specificphoto.Tag
 
 
 data class Tags(

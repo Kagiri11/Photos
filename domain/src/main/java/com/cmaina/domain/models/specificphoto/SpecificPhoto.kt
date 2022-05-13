@@ -1,10 +1,10 @@
-package com.cmaina.network.models.specificphoto
+package com.cmaina.domain.models.specificphoto
 
-import com.cmaina.network.models.PhotoLinks
-import com.cmaina.network.models.Sponsorship
-import com.cmaina.network.models.Urls
-import com.cmaina.network.models.User
-import com.cmaina.network.models.search.TopicSubmissions
+import com.cmaina.domain.models.photos.DomainPhotoLinks
+import com.cmaina.domain.models.photos.DomainPhotoUser
+import com.cmaina.domain.models.photos.DomainUrls
+import com.cmaina.domain.models.photos.Sponsorship
+import com.cmaina.domain.models.search.TopicSubmissions
 
 data class SpecificPhoto(
     val alt_description: Any,
@@ -20,20 +20,20 @@ data class SpecificPhoto(
     val id: String,
     val liked_by_user: Boolean,
     val likes: Int,
-    val links: PhotoLinks,
-    val location: Location,
-    val meta: Meta,
+    val links: DomainPhotoLinks,
+    val locationDomainModel: LocationDomainModel,
+    val metaDomainModel: MetaDomainModel,
     val promoted_at: Any,
     val public_domain: Boolean,
-    val related_collections: RelatedCollections,
+    val related_collectionsDomainModel: RelatedCollectionsDomainModel,
     val sponsorship: Sponsorship,
     val tags: List<Any>,
     val tags_preview: List<Any>,
     val topic_submissions: TopicSubmissions,
     val topics: List<Topic>,
     val updated_at: String,
-    val urls: Urls,
-    val user: User,
+    val urls: DomainUrls,
+    val user: DomainPhotoUser,
     val views: Int,
     val width: Int
 )

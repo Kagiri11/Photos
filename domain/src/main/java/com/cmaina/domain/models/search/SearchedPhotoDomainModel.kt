@@ -1,11 +1,11 @@
-package com.cmaina.network.models.specificphoto
+package com.cmaina.domain.models.search
 
-import com.cmaina.network.models.PhotoLinks
-import com.cmaina.network.models.Urls
-import com.cmaina.network.models.User
-import com.cmaina.network.models.search.TopicSubmissions
+import com.cmaina.domain.models.photos.DomainPhotoLinks
+import com.cmaina.domain.models.photos.DomainPhotoUser
+import com.cmaina.domain.models.photos.DomainUrls
+import com.cmaina.domain.models.specificphoto.Tag
 
-data class CoverPhoto(
+data class SearchedPhotoDomainModel(
     val alt_description: String,
     val blur_hash: String,
     val categories: List<Any>,
@@ -17,12 +17,13 @@ data class CoverPhoto(
     val id: String,
     val liked_by_user: Boolean,
     val likes: Int,
-    val links: PhotoLinks,
+    val links: DomainPhotoLinks,
     val promoted_at: String,
     val sponsorship: Any,
+    val tags: List<Tag>,
     val topic_submissions: TopicSubmissions,
     val updated_at: String,
-    val urls: Urls,
-    val user: User,
+    val urls: DomainUrls,
+    val user: DomainPhotoUser,
     val width: Int
 )

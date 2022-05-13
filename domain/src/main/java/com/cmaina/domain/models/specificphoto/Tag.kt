@@ -1,4 +1,6 @@
-package com.cmaina.network.models.specificphoto
+package com.cmaina.domain.models.specificphoto
+
+import com.cmaina.network.models.specificphoto.Source
 
 data class Tag(
     val source: Source,

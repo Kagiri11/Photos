@@ -1,6 +1,6 @@
 package com.cmaina.domain.models.specificphoto
 
-data class Type(
+data class CategoryDomainModel(
     val pretty_slug: String,
     val slug: String
 )

@@ -1,7 +1,7 @@
-package com.cmaina.network.models.search
+package com.cmaina.domain.models.search
 
-import com.cmaina.network.models.specificphoto.TexturesPatterns
-import com.cmaina.network.models.specificphoto.Wallpapers
+import com.cmaina.domain.models.specificphoto.TexturesPatterns
+import com.cmaina.domain.models.specificphoto.Wallpapers
 
 data class TopicSubmissions(
     val architecture: Architecture,

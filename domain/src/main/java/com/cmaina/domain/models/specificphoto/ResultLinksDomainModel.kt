@@ -1,6 +1,6 @@
-package com.cmaina.network.models.specificphoto
+package com.cmaina.domain.models.specificphoto
 
-data class ResultLinks(
+data class ResultLinksDomainModel(
     val html: String,
     val photos: String,
     val related: String,

@@ -1,4 +1,4 @@
-package com.cmaina.network.models.specificphoto
+package com.cmaina.domain.models.specificphoto
 
 data class Exif(
     val aperture: String,

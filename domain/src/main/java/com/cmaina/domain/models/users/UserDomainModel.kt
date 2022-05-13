@@ -2,8 +2,7 @@ package com.cmaina.domain.models.users
 
 import com.cmaina.domain.models.photos.DomainSponsorLinks
 import com.cmaina.domain.models.photos.DomainUserSocial
-import com.cmaina.network.models.specificphoto.Meta
-import com.cmaina.network.models.users.Photo
+import com.cmaina.domain.models.specificphoto.MetaDomainModel
 import com.cmaina.network.models.users.ProfileImage
 import com.cmaina.network.models.users.Tags
 
@@ -23,7 +22,7 @@ data class UserDomainModel(
     val last_name: Any,
     val links: DomainSponsorLinks,
     val location: Any,
-    val meta: Meta,
+    val metaDomainModel: MetaDomainModel,
     val name: String,
     val numeric_id: Int,
     val photos: List<Photo>,

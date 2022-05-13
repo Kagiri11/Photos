@@ -1,5 +1,8 @@
 package com.cmaina.domain.models.search
 
+import com.cmaina.domain.models.photos.DomainPhotoLinks
+import com.cmaina.domain.models.photos.DomainPhotoUser
+import com.cmaina.domain.models.photos.DomainUrls
 
 data class CoverPhoto(
     val alt_description: String,
@@ -13,12 +16,12 @@ data class CoverPhoto(
     val id: String,
     val liked_by_user: Boolean,
     val likes: Int,
-    val links: PhotoLinks,
+    val links: DomainPhotoLinks,
     val promoted_at: Any,
     val sponsorship: Any,
     val topic_submissions: TopicSubmissions,
     val updated_at: String,
-    val urls: Urls,
-    val user: User,
+    val urls: DomainUrls,
+    val user: DomainPhotoUser,
     val width: Int
 )
