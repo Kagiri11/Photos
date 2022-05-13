@@ -1,8 +1,5 @@
-package com.cmaina.network.models.search
+package com.cmaina.domain.models.search
 
-import com.cmaina.network.models.PhotoLinks
-import com.cmaina.network.models.Urls
-import com.cmaina.network.models.User
 
 data class CoverPhoto(
     val alt_description: String,
