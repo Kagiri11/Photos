@@ -1,20 +1,20 @@
 package com.cmaina.domain.di
 
-import com.cmaina.domain.usecases.FetchPhotoStatistics
-import com.cmaina.domain.usecases.FetchPhotos
-import com.cmaina.domain.usecases.FetchRandomPhoto
-import com.cmaina.domain.usecases.FetchSpecificPhoto
-import com.cmaina.domain.usecases.FetchUserPhotos
-import com.cmaina.domain.usecases.FetchUserPortFolio
-import com.cmaina.domain.usecases.FetchUserProfile
+import com.cmaina.domain.usecases.FetchPhotoStatisticsUseCase
+import com.cmaina.domain.usecases.FetchPhotosUseCase
+import com.cmaina.domain.usecases.FetchRandomPhotoUseCase
+import com.cmaina.domain.usecases.FetchSpecificPhotoUseCase
+import com.cmaina.domain.usecases.FetchUserPhotosUseCase
+import com.cmaina.domain.usecases.FetchUserPortFolioUseCase
+import com.cmaina.domain.usecases.FetchUserProfileUseCase
 import org.koin.dsl.module
 
 val domainModules = module {
-    single { FetchPhotos(get()) }
-    single { FetchPhotoStatistics(get()) }
-    single { FetchRandomPhoto(get()) }
-    single { FetchUserProfile(get()) }
-    single { FetchSpecificPhoto(get()) }
-    single { FetchUserPhotos(get()) }
-    single { FetchUserPortFolio(get()) }
+    single { FetchPhotosUseCase(get()) }
+    single { FetchPhotoStatisticsUseCase(get()) }
+    single { FetchRandomPhotoUseCase(get()) }
+    single { FetchUserProfileUseCase(get()) }
+    single { FetchSpecificPhotoUseCase(get()) }
+    single { FetchUserPhotosUseCase(get()) }
+    single { FetchUserPortFolioUseCase(get()) }
 }
