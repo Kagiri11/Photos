@@ -14,7 +14,7 @@ data class DomainPhotoListItem(
     val likes: Int,
     val linksDomain: DomainPhotoLinks,
     val promotedAt: String,
-    val sponsorship: Sponsorship,
+    val sponsorshipDomainModel: SponsorshipDomainModel,
     val domainTopicSubmissions: DomainTopicSubmissions,
     val updatedAt: String,
     val domainUrls: DomainUrls,

@@ -2,7 +2,7 @@ package com.cmaina.domain.models.users
 
 import com.cmaina.domain.models.photos.DomainUrls
 
-data class Photo(
+data class UserPhotoDomainModel(
     val blur_hash: String,
     val created_at: String,
     val id: String,

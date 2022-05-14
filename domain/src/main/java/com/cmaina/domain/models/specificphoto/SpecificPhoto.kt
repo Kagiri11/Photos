@@ -3,7 +3,7 @@ package com.cmaina.domain.models.specificphoto
 import com.cmaina.domain.models.photos.DomainPhotoLinks
 import com.cmaina.domain.models.photos.DomainPhotoUser
 import com.cmaina.domain.models.photos.DomainUrls
-import com.cmaina.domain.models.photos.Sponsorship
+import com.cmaina.domain.models.photos.SponsorshipDomainModel
 import com.cmaina.domain.models.search.TopicSubmissions
 
 data class SpecificPhoto(
@@ -26,7 +26,7 @@ data class SpecificPhoto(
     val promoted_at: Any,
     val public_domain: Boolean,
     val related_collectionsDomainModel: RelatedCollectionsDomainModel,
-    val sponsorship: Sponsorship,
+    val sponsorshipDomainModel: SponsorshipDomainModel,
     val tags: List<Any>,
     val tags_preview: List<Any>,
     val topic_submissions: TopicSubmissions,

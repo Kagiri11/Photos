@@ -25,7 +25,7 @@ data class UserDomainModel(
     val metaDomainModel: MetaDomainModel,
     val name: String,
     val numeric_id: Int,
-    val photos: List<Photo>,
+    val userPhotoDomainModels: List<UserPhotoDomainModel>,
     val portfolio_url: String,
     val profile_image: ProfileImage,
     val social: DomainUserSocial,

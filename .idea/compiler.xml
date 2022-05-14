@@ -4,6 +4,8 @@
     <bytecodeTargetLevel target="1.8">
       <module name="Fotos.app" target="11" />
       <module name="Fotos.buildSrc" target="11" />
+      <module name="Fotos.buildSrc.main" target="11" />
+      <module name="Fotos.buildSrc.test" target="11" />
       <module name="Fotos.data.local" target="11" />
       <module name="Fotos.data.network" target="11" />
       <module name="Fotos.data.repository" target="11" />
