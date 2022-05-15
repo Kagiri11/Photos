@@ -3,6 +3,7 @@ import Libraries.appCompat
 import Libraries.core
 import Libraries.gson
 import Libraries.retrofit
+import Libraries.sandwich
 import TestLibraries.androidEspresso
 import TestLibraries.jUnit
 import TestLibraries.jUnitAndroid
@@ -48,6 +49,7 @@ dependencies {
         implementation(gson)
         implementation(core)
         implementation(appCompat)
+        implementation(sandwich)
     }
 
     TestLibraries.also {

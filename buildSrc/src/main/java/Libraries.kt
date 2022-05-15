@@ -18,6 +18,9 @@ object Libraries {
     // Coroutines
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
 
-    //
+    // Koin
     const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
+
+    // Sandwich
+    const val sandwich = "com.github.skydoves:sandwich:${Versions.sandwich}"
 }
