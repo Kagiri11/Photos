@@ -19,7 +19,7 @@ data class CoverPhoto(
     val links: DomainPhotoLinks,
     val promoted_at: Any,
     val sponsorship: Any,
-    val topic_submissions: TopicSubmissions,
+    val topic_submissions: TopicSubmissionsDomainModel,
     val updated_at: String,
     val urls: DomainUrls,
     val user: DomainPhotoUser,

@@ -4,7 +4,7 @@ import com.cmaina.domain.models.photos.DomainPhotoList
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.search.PhotoSearchResultDomainModel
-import com.cmaina.domain.models.specificphoto.SpecificPhoto
+import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.mappers.toDomain
@@ -28,17 +28,37 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
                     message()
                 }
                 .suspendOnException {
-                    message
+                    message()
                 }
         }
     }
 
     override suspend fun getRandomPhoto(): Flow<DomainPhotoListItem> {
-        return flowOf()
+        return flow {
+            val response = photosRemoteSource.fetchRandomPhoto()
+            response.suspendOnSuccess {
+                emit(data.toDomain())
+            }.suspendOnError {
+                message()
+            }.suspendOnException {
+                message()
+            }
+        }
     }
 
-    override suspend fun getSpecificPhoto(): Flow<SpecificPhoto> {
-        return flowOf()
+    override suspend fun getSpecificPhoto(photoId: String): Flow<SpecificPhotoDomainModel> {
+        return flow {
+            photosRemoteSource.fetchPhoto(photoId)
+                .suspendOnSuccess {
+                   emit()
+                }
+                .suspendOnError {
+
+                }
+                .suspendOnException {
+
+                }
+        }
     }
 
     override suspend fun getPhotoStatistics(): Flow<DomainPhotoStatistics> {

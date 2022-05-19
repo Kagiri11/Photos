@@ -21,7 +21,7 @@ data class SearchedPhotoDomainModel(
     val promoted_at: String,
     val sponsorship: Any,
     val tags: List<Tag>,
-    val topic_submissions: TopicSubmissions,
+    val topic_submissions: TopicSubmissionsDomainModel,
     val updated_at: String,
     val urls: DomainUrls,
     val user: DomainPhotoUser,

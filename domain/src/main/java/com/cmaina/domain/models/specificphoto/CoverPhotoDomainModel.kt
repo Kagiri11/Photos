@@ -3,7 +3,7 @@ package com.cmaina.domain.models.specificphoto
 import com.cmaina.domain.models.photos.DomainPhotoLinks
 import com.cmaina.domain.models.photos.DomainPhotoUser
 import com.cmaina.domain.models.photos.DomainUrls
-import com.cmaina.domain.models.search.TopicSubmissions
+import com.cmaina.domain.models.search.TopicSubmissionsDomainModel
 
 data class CoverPhotoDomainModel(
     val alt_description: String,
@@ -11,17 +11,12 @@ data class CoverPhotoDomainModel(
     val categories: List<Any>,
     val color: String,
     val created_at: String,
-    val current_user_collections: List<Any>,
     val description: String,
     val height: Int,
     val id: String,
     val liked_by_user: Boolean,
     val likes: Int,
     val links: DomainPhotoLinks,
-    val promoted_at: String,
-    val sponsorship: Any,
-    val topic_submissions: TopicSubmissions,
-    val updated_at: String,
     val urls: DomainUrls,
     val user: DomainPhotoUser,
     val width: Int
