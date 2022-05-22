@@ -20,7 +20,12 @@ object Libraries {
 
     // Koin
     const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
+    const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
+    const val koinCompose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
 
     // Sandwich
     const val sandwich = "com.github.skydoves:sandwich:${Versions.sandwich}"
+
+    // Reflection
+    const val reflection = "org.jetbrains.kotlin:kotlin-reflect:${Versions.reflection}"
 }

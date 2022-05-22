@@ -28,6 +28,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        multiDexEnabled= true
     }
 
     buildTypes {
@@ -63,7 +64,10 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation(project(mapOf("path" to ":domain")))
+    implementation(project(":domain"))
+    implementation(project(":data:network"))
+    implementation(Libraries.koinCompose)
+    implementation ("com.android.support:multidex:1.0.3")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")

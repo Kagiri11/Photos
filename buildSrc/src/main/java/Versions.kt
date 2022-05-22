@@ -8,4 +8,5 @@ object Versions {
     const val coroutines = "1.6.0"
     const val koin = "3.2.0-beta-1"
     const val sandwich = "1.2.4"
+    const val reflection = "1.6.21"
 }

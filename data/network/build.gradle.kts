@@ -2,6 +2,8 @@ import Configurations.CompileSdk
 import Libraries.appCompat
 import Libraries.core
 import Libraries.gson
+import Libraries.koinCore
+import Libraries.reflection
 import Libraries.retrofit
 import Libraries.sandwich
 import TestLibraries.androidEspresso
@@ -50,6 +52,7 @@ dependencies {
         implementation(core)
         implementation(appCompat)
         implementation(sandwich)
+        implementation(koinCore)
     }
 
     TestLibraries.also {
