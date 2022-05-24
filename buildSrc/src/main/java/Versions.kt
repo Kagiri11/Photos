@@ -9,4 +9,5 @@ object Versions {
     const val koin = "3.2.0-beta-1"
     const val sandwich = "1.2.4"
     const val reflection = "1.6.21"
+    const val okHttpLoggingInterceptor = "4.2.1"
 }

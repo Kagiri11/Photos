@@ -7,7 +7,7 @@ data class Sponsor(
     val for_hire: Boolean,
     val id: String,
     val instagram_username: String,
-    val last_name: Any,
+    val last_name: String?,
     val sponsorLinks: SponsorLinks,
     val location: Any,
     val name: String,

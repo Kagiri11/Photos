@@ -3,7 +3,7 @@ import Libraries.appCompat
 import Libraries.core
 import Libraries.gson
 import Libraries.koinCore
-import Libraries.reflection
+import Libraries.okHttpLoggingInterceptor
 import Libraries.retrofit
 import Libraries.sandwich
 import TestLibraries.androidEspresso
@@ -53,6 +53,7 @@ dependencies {
         implementation(appCompat)
         implementation(sandwich)
         implementation(koinCore)
+        implementation(okHttpLoggingInterceptor)
     }
 
     TestLibraries.also {

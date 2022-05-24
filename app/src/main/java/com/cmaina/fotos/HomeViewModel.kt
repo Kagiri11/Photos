@@ -1,5 +1,6 @@
 package com.cmaina.fotos
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -17,7 +18,8 @@ class HomeViewModel(private val fetchPhotosUseCase: FetchPhotosUseCase) : ViewMo
 
     private fun fetchPhotos() = viewModelScope.launch {
         fetchPhotosUseCase().collect {
-            numberOfPics.value = it.domainPhotoList.size
+            Log.d("PhotosCollected", "This is the data collected: $it")
+            numberOfPics.value = it.size
         }
     }
 }

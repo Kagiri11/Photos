@@ -1,5 +1,6 @@
 package com.cmaina.repository.sources
 
+import android.util.Log
 import com.cmaina.domain.models.photos.DomainPhotoList
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
@@ -9,6 +10,9 @@ import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.mappers.toDomain
 import com.skydoves.sandwich.message
+import com.skydoves.sandwich.onError
+import com.skydoves.sandwich.onFailure
+import com.skydoves.sandwich.onSuccess
 import com.skydoves.sandwich.suspendOnError
 import com.skydoves.sandwich.suspendOnException
 import com.skydoves.sandwich.suspendOnSuccess
@@ -18,18 +22,15 @@ import kotlinx.coroutines.flow.flowOf
 
 class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) : PhotosRepository {
     override suspend fun fetchPhotos(): Flow<DomainPhotoList> {
+        val response = photosRemoteSource.fetchPhotos()
         return flow {
-            val response = photosRemoteSource.fetchPhotos()
-            response
-                .suspendOnSuccess {
-                    emit(data.toDomain())
-                }
-                .suspendOnError {
-                    message()
-                }
-                .suspendOnException {
-                    message()
-                }
+            response.onSuccess {
+                Log.d("PhotosCollected", "This is the data collected: $data")
+                data.toDomain()
+            }.onError {
+                errorBody
+            }.onFailure {
+            }
         }
     }
 
@@ -50,13 +51,10 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
         return flow {
             photosRemoteSource.fetchPhoto(photoId)
                 .suspendOnSuccess {
-                   emit()
                 }
                 .suspendOnError {
-
                 }
                 .suspendOnException {
-
                 }
         }
     }

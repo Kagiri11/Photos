@@ -32,6 +32,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(viewModel: HomeViewModel = getViewModel()) {
     Surface(Modifier.fillMaxSize()) {
-        Text(text ="There are ${viewModel.numberOfPics.value} pictures")
+        Text(text = "There are ${viewModel.numberOfPics.value} pictures")
     }
 }

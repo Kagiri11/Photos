@@ -2,6 +2,7 @@ object Libraries {
     // Networking
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    const val okHttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpLoggingInterceptor}"
 
     // Storage
     const val room = "androidx.room:room-runtime:${Versions.room}"

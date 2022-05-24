@@ -1,7 +1,6 @@
 package com.cmaina.repository.mappers
 
 import com.cmaina.domain.models.photos.DomainPhotoLinks
-import com.cmaina.domain.models.photos.DomainPhotoList
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photos.DomainPhotoUser
 import com.cmaina.domain.models.photos.DomainProfileImage
@@ -22,10 +21,12 @@ import com.cmaina.domain.models.specificphoto.PreviewPhotoDomainModel
 import com.cmaina.domain.models.specificphoto.RelatedCollectionsDomainModel
 import com.cmaina.domain.models.specificphoto.ResultLinksDomainModel
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
+import com.cmaina.domain.models.specificphoto.TagDomainModel
+import com.cmaina.domain.models.users.ProfileImageDomainModel
+import com.cmaina.domain.models.users.TagsDomainModel
 import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.models.users.UserPhotoDomainModel
 import com.cmaina.network.models.photos.PhotoLinks
-import com.cmaina.network.models.photos.PhotoList
 import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photos.ProfileImage
 import com.cmaina.network.models.photos.Social
@@ -44,15 +45,15 @@ import com.cmaina.network.models.specificphoto.PreviewPhoto
 import com.cmaina.network.models.specificphoto.RelatedCollections
 import com.cmaina.network.models.specificphoto.Result
 import com.cmaina.network.models.specificphoto.ResultLinks
+import com.cmaina.network.models.specificphoto.Source
 import com.cmaina.network.models.specificphoto.SpecificPhoto
 import com.cmaina.network.models.specificphoto.Tag
 import com.cmaina.network.models.specificphoto.Topic
 import com.cmaina.network.models.users.Photo
+import com.cmaina.network.models.users.Tags
 import com.cmaina.network.models.users.UserDto
 
-internal fun PhotoList.toDomain() = DomainPhotoList(
-    domainPhotoList = photoList.map { it.toDomain() }
-)
+internal fun List<PhotoListItem>.toDomain() = this.map { it.toDomain() }
 
 internal fun PhotoListItem.toDomain() = DomainPhotoListItem(
     altDescription = alt_description,
@@ -206,10 +207,19 @@ internal fun UserDto.toDomain() = UserDomainModel(
     numeric_id = numeric_id,
     userPhotoDomainModels = photos.map { it.toDomain() },
     portfolio_url = portfolio_url,
-    profile_image = profile_image,
+    profile_image = profile_image.toDomain(),
     social = social.toDomain(),
-    tags, total_collections, total_likes, total_photos, twitter_username, updated_at, username
+    tags.toDomain(),
+    total_collections,
+    total_likes,
+    total_photos,
+    twitter_username,
+    updated_at,
+    username
 )
+
+internal fun com.cmaina.network.models.users.ProfileImage.toDomain() =
+    ProfileImageDomainModel(large, medium, small)
 
 internal fun Meta.toDomain() = MetaDomainModel(index = index)
 
@@ -260,14 +270,27 @@ internal fun Result.toDomain() = CollectionDomainModel(
     preview_photoDomainModels = preview_photos.map { it.toDomain() },
     resultLinksDomainModel = resultLinks.toDomain(),
     share_key = share_key,
-    tags = tags.map { it.toDomain() },
+    tagDomainModels = tags.map { it.toDomain() },
     title = title,
     total_photos = total_photos,
     updated_at = updated_at,
     user = user.toDomain()
 )
 
-internal fun Tag.toDomain() = com.cmaina.domain.models.specificphoto.Tag(source, title, type)
+internal fun Tag.toDomain() = TagDomainModel(source.toDomain(), title, type)
+
+internal fun Tags.toDomain() =
+    TagsDomainModel(aggregated = aggregated.map { it.toDomain() }, custom = null)
+
+internal fun Source.toDomain() = com.cmaina.domain.models.specificphoto.Source(
+    ancestryDomainModel = null,
+    cover_photoDomainModel = null,
+    description,
+    meta_description,
+    meta_title,
+    subtitle,
+    title
+)
 
 internal fun ResultLinks.toDomain() = ResultLinksDomainModel(html, photos, related, self)
 
