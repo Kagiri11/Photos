@@ -67,12 +67,12 @@ internal fun PhotoListItem.toDomain() = DomainPhotoListItem(
     id = id,
     likedByUser = liked_by_user,
     likes = likes,
-    linksDomain = links.toDomain(),
+    linksDomain = links?.toDomain(),
     promotedAt = promoted_at,
-    sponsorshipDomainModel = sponsorship.toDomain(),
+    sponsorshipDomainModel = sponsorship?.toDomain(),
     updatedAt = updated_at,
-    domainUrls = urls.toDomain(),
-    domainPhotoUser = user.toDomain(),
+    domainUrls = urls?.toDomain(),
+    domainPhotoUser = user?.toDomain(),
     width = width
 )
 
@@ -82,11 +82,11 @@ internal fun User.toDomain() = DomainPhotoUser(
     id = id,
     instagramUsername = instagram_username,
     lastName = last_name,
-    domainUserLinks = userLinks.toDomian(),
+    domainUserLinks = userLinks?.toDomian(),
     location = location, name = name,
     portfolioUrl = portfolio_url,
-    domainUserProfileImage = userProfile_image.toDomain(),
-    domainUserSocial = social.toDomain(),
+    domainUserProfileImage = userProfile_image?.toDomain(),
+    domainUserSocial = social?.toDomain(),
     totalCollections = total_collections,
     totalLikes = total_likes,
     totalPhotos = total_photos,
@@ -140,12 +140,12 @@ internal fun Sponsor.toDomain() = DomainSponsor(
     id = id,
     instagramUsername = instagram_username,
     lastName = last_name,
-    domainSponsorLinks = sponsorLinks.toDomain(),
+    domainSponsorLinks = sponsorLinks?.toDomain(),
     location = location,
     name = name,
     portfolioUrl = portfolio_url,
-    domainProfileImage = profile_image.toDomain(),
-    domainSponsorSocial = sponsorSocial.toDomainSponsorSocial(),
+    domainProfileImage = profile_image?.toDomain(),
+    domainSponsorSocial = sponsorSocial?.toDomainSponsorSocial(),
     totalCollections = total_collections,
     totalLikes = total_likes,
     totalPhotos = total_photos,
@@ -182,7 +182,7 @@ internal fun Sponsorship.toDomain() = SponsorshipDomainModel(
     tagline = tagline,
     taglineUrl = tagline_url,
     impressionUrls = impression_urls,
-    domainSponsor = sponsor.toDomain()
+    domainSponsor = sponsor?.toDomain()
 )
 
 // user section
@@ -322,7 +322,7 @@ internal fun Location.toDomain() = LocationDomainModel(
     city = city,
     country = country,
     name = name,
-    positionDomainModel = position.toDomain(),
+    positionDomainModel = position?.toDomain(),
     title = title
 )
 

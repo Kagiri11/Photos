@@ -18,7 +18,7 @@ class HomeViewModel(private val fetchPhotosUseCase: FetchPhotosUseCase) : ViewMo
 
     private fun fetchPhotos() = viewModelScope.launch {
         fetchPhotosUseCase().collect {
-            Log.d("PhotosCollected", "This is the data collected: $it")
+            Log.d("PhotosCollected", "This is the data collected: ${it.size}")
             numberOfPics.value = it.size
         }
     }
