@@ -1,5 +1,6 @@
 import Libraries.coroutinesCore
 import Libraries.koinCore
+import Libraries.paging
 
 plugins {
     id("java-library")
@@ -15,5 +16,6 @@ dependencies {
     Libraries.also {
         implementation(coroutinesCore)
         implementation(koinCore)
+        implementation(paging)
     }
 }

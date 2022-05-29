@@ -32,4 +32,7 @@ object Libraries {
 
     // Coil
     const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
+
+    // Paging
+    const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
 }

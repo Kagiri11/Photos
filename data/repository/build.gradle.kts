@@ -2,6 +2,7 @@ import Libraries.appCompat
 import Libraries.core
 import Libraries.coroutinesCore
 import Libraries.koinCore
+import Libraries.paging
 import Libraries.sandwich
 
 plugins {
@@ -44,6 +45,7 @@ dependencies {
         implementation(core)
         implementation(appCompat)
         implementation(sandwich)
+        implementation(paging)
     }
     implementation(project(mapOf("path" to ":data:network")))
     implementation(project(mapOf("path" to ":domain")))
