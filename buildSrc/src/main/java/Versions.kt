@@ -10,4 +10,5 @@ object Versions {
     const val sandwich = "1.2.4"
     const val reflection = "1.6.21"
     const val okHttpLoggingInterceptor = "4.2.1"
+    const val coil = "2.1.0"
 }

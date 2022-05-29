@@ -29,4 +29,7 @@ object Libraries {
 
     // Reflection
     const val reflection = "org.jetbrains.kotlin:kotlin-reflect:${Versions.reflection}"
+
+    // Coil
+    const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
 }

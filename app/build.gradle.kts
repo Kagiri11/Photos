@@ -3,6 +3,8 @@ import Configurations.MinSdk
 import Configurations.TargetSdk
 import Configurations.VersionCode
 import Configurations.VersionName
+import Libraries.coil
+import Libraries.koinCompose
 
 plugins {
     id("com.android.application")
@@ -28,7 +30,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        multiDexEnabled= true
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -67,7 +69,10 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data:network"))
     implementation(project(":data:repository"))
-    implementation(Libraries.koinCompose)
+    Libraries.also {
+        implementation(koinCompose)
+        implementation(coil)
+    }
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")

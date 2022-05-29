@@ -1,6 +1,5 @@
 package com.cmaina.domain.repository
 
-import com.cmaina.domain.models.photos.DomainPhotoList
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.search.PhotoSearchResultDomainModel
@@ -9,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PhotosRepository {
 
-    suspend fun fetchPhotos(): Flow<DomainPhotoList>
+    suspend fun fetchPhotos(): Flow<List<DomainPhotoListItem>>
 
     suspend fun getRandomPhoto(): Flow<DomainPhotoListItem>
 
