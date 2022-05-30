@@ -5,6 +5,7 @@ import Configurations.VersionCode
 import Configurations.VersionName
 import Libraries.coil
 import Libraries.koinCompose
+import Libraries.paging
 
 plugins {
     id("com.android.application")
@@ -72,6 +73,7 @@ dependencies {
     Libraries.also {
         implementation(koinCompose)
         implementation(coil)
+        implementation(paging)
     }
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
