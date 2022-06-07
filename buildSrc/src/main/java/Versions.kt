@@ -12,4 +12,5 @@ object Versions {
     const val okHttpLoggingInterceptor = "4.2.1"
     const val coil = "2.1.0"
     const val paging = "3.1.1"
+    const val pagingCompose = "1.0.0-alpha15"
 }

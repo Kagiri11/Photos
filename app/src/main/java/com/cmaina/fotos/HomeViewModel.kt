@@ -1,6 +1,5 @@
 package com.cmaina.fotos
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -9,8 +8,10 @@ import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.usecases.FetchPhotosUseCase
 import com.cmaina.domain.usecases.FetchRandomPhotoUseCase
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -22,19 +23,15 @@ class HomeViewModel(
         fetchRandomPhoto()
     }
 
-    val pics: MutableState<List<DomainPhotoListItem>?> = mutableStateOf(null)
-    val randomPhotoId: MutableState<String> = mutableStateOf("not loaded")
+    val pics: MutableStateFlow<List<DomainPhotoListItem>> = MutableStateFlow(listOf())
+    private val randomPhotoId: MutableState<String> = mutableStateOf("not loaded")
 
-    private fun fetchPhotos() = viewModelScope.launch {
-        fetchPhotosUseCase().collect { it as PagingData<List<DomainPhotoListItem>>
-            Log.d("PhotosCollected", "This is the data collected: ${it.size}")
-            pics.value = it
+    private fun fetchPhotos() {
+        viewModelScope.launch {
+            fetchPhotosUseCase().collect{
+                pics.value = it
+            }
         }
-        val somthing = fetchPhotosUseCase() as Flow<PagingData<List<DomainPhotoListItem>>>
-        somthing.collectLatest {
-
-        }
-
     }
 
     private fun fetchRandomPhoto() = viewModelScope.launch {

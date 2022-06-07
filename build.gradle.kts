@@ -1,13 +1,13 @@
 buildscript {
-   val composeVersion = "1.2.0-alpha01"
-}// Top-level build file where you can add configuration options common to all sub-projects/modules.
+    val composeVersion = "1.2.0-alpha01"
+} // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id ("com.android.application") version "7.1.3" apply false
-    id ("com.android.library") version "7.1.3" apply false
-    id ("org.jetbrains.kotlin.android") version "1.5.30" apply false
-    id ("org.jetbrains.kotlin.jvm") version "1.5.30" apply false
+    id("com.android.application") version "7.1.3" apply false
+    id("com.android.library") version "7.1.3" apply false
+    id("org.jetbrains.kotlin.android") version "1.6.21" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.5.30" apply false
 }
 
-tasks.register(name= "type", type = Delete::class){
+tasks.register(name = "type", type = Delete::class) {
     delete(rootProject.buildDir)
 }

@@ -13,7 +13,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Fotos"
 include(":app")
-include(":domain")
 include(":data:network")
 include(":data:local")
 include(":data:repository")
+include(":domain")

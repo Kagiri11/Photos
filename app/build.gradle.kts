@@ -6,6 +6,7 @@ import Configurations.VersionName
 import Libraries.coil
 import Libraries.koinCompose
 import Libraries.paging
+import Libraries.pagingCompose
 
 plugins {
     id("com.android.application")
@@ -13,7 +14,7 @@ plugins {
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
-val composeVersion = "1.0.3"
+val composeVersion = "1.2.0-beta01"
 
 android {
     compileSdk = Configurations.CompileSdk
@@ -74,6 +75,7 @@ dependencies {
         implementation(koinCompose)
         implementation(coil)
         implementation(paging)
+        implementation(pagingCompose)
     }
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")

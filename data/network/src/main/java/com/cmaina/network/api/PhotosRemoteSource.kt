@@ -5,7 +5,6 @@ import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.specificphoto.SpecificPhoto
 import com.skydoves.sandwich.ApiResponse
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
@@ -15,7 +14,7 @@ interface PhotosRemoteSource {
     @GET("photos")
     suspend fun fetchPhotos(
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk",
-        @Query("page") page: Int = 1
+        @Query("page") page: Int
     ): ApiResponse<List<PhotoListItem>>
 
     @GET("photos/{id}")
