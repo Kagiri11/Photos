@@ -11,9 +11,8 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.paging.compose.items
 import coil.compose.AsyncImage
-import com.cmaina.fotos.ui.theme.FotosTheme
+import com.cmaina.presentation.ui.theme.FotosTheme
 import org.koin.androidx.compose.getViewModel
 
 class MainActivity : ComponentActivity() {

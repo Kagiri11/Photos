@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/data/network" />
             <option value="$PROJECT_DIR$/data/repository" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/presentation" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,4 +1,4 @@
-package com.cmaina.fotos.ui.theme
+package com.cmaina.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
