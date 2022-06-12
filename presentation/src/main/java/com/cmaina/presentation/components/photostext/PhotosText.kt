@@ -7,16 +7,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun PhotosText(text: String, textColor: Color, modifier: Modifier = Modifier) {
-    Text(text = text, style = MaterialTheme.typography.body1.copy(color = textColor), modifier = modifier)
+fun FotosText(text: String, textColor: Color, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.body1.copy(color = textColor),
+        modifier = modifier
+    )
 }
 
 @Composable
-fun PhotosTitleText(text: String, textColor: Color) {
+fun FotosTitleText(text: String, textColor: Color) {
     Text(text = text, style = MaterialTheme.typography.h1.copy(color = textColor))
 }
 
 @Composable
-fun PhotosButtonText(text: String, textColor: Color) {
+fun FotosButtonText(text: String, textColor: Color) {
     Text(text = text, style = MaterialTheme.typography.button.copy(color = textColor))
 }
