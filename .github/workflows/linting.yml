@@ -1,0 +1,22 @@
+name: Linting Work
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout written code
+        uses: actions/checkout@v2
+
+      - name: Start Linting
+        run: bash ./gradlew lintDebug
+
+      - name: Submit lint report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Fotos_lint_report.html
+          path: app/build/reports/lint-results-debug.html
