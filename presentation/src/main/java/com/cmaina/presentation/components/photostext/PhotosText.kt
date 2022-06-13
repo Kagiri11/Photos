@@ -12,8 +12,8 @@ fun PhotosText(text: String, textColor: Color, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PhotosTitleText(text: String, textColor: Color) {
-    Text(text = text, style = MaterialTheme.typography.h1.copy(color = textColor))
+fun PhotosTitleText(text: String, textColor: Color, modifier: Modifier = Modifier) {
+    Text(text = text, style = MaterialTheme.typography.h1.copy(color = textColor), modifier = modifier)
 }
 
 @Composable
