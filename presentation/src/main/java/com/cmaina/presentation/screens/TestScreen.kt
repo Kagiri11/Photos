@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.cmaina.presentation.components.photostext.PhotosTitleText
+import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.ui.theme.FotosBlack
 
 @Composable
