@@ -49,7 +49,7 @@ fun Greeting(viewModel: HomeViewModel = getViewModel()) {
                 start.linkTo(parent.start, margin = 10.dp)
             }
         )
-        LazyVerticalGrid(
+        /*LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier.constrainAs(fotosGrid) {
                 top.linkTo(title.bottom, margin = 20.dp)
@@ -61,17 +61,17 @@ fun Greeting(viewModel: HomeViewModel = getViewModel()) {
             items(myPictures) { pic ->
                 PhotoCardItem(imageUrl = pic.domainUrls?.regular)
             }
-        }
-       /* StaggeredVerticalGrid(
+        }*/
+        StaggeredVerticalGrid(
             maxColumnWidth = 200.dp,
             modifier = Modifier.constrainAs(fotosGrid) {
                 top.linkTo(title.bottom, margin = 20.dp)
-            }.padding(10.dp)
+            }.padding(5.dp)
         ) {
             myPictures.forEach {
                 PhotoCardItem(imageUrl = it.domainUrls?.regular)
             }
-        }*/
+        }
     }
 }
 
