@@ -1,14 +1,14 @@
 import Configurations.MinSdk
 import Configurations.TargetSdk
-import Configurations.VersionCode
-import Configurations.VersionName
+import Libraries.coil
+import Libraries.koinCompose
+import Libraries.paging
+import Libraries.pagingCompose
 
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
-
-val composeVersion = "1.2.0-beta01"
 
 android {
     compileSdk = 32
@@ -35,7 +35,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
+        kotlinCompilerExtensionVersion = Versions.compose
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -48,9 +48,18 @@ android {
 
 dependencies {
 
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
+    implementation("androidx.compose.ui:ui:${Versions.compose}")
+    implementation("androidx.compose.material:material:${Versions.compose}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
+
+    implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}")
+
+    Libraries.also {
+        implementation(koinCompose)
+        implementation(coil)
+        implementation(paging)
+        implementation(pagingCompose)
+    }
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.activity:activity-compose:1.3.1")
@@ -62,6 +71,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Versions.compose}")
+    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
 }

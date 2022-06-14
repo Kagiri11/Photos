@@ -68,6 +68,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}")
     implementation(project(":domain"))
     implementation(project(":data:network"))
     implementation(project(":data:repository"))
