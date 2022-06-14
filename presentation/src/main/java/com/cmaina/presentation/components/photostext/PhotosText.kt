@@ -15,12 +15,20 @@ fun FotosText(text: String, textColor: Color, modifier: Modifier = Modifier) {
     )
 }
 
-
-fun FotosTitleText(text: String, textColor: Color) {
-    Text(text = text, style = MaterialTheme.typography.h1.copy(color = textColor))
+@Composable
+fun FotosTitleText(text: String, textColor: Color, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.h1.copy(color = textColor),
+        modifier = modifier
+    )
 }
 
 @Composable
-fun FotosButtonText(text: String, textColor: Color) {
-    Text(text = text, style = MaterialTheme.typography.button.copy(color = textColor))
+fun FotosButtonText(text: String, textColor: Color, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.button.copy(color = textColor),
+        modifier = modifier
+    )
 }
