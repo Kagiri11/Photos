@@ -36,4 +36,7 @@ object Libraries {
     // Paging
     const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
     const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
+
+    // Accompanist
+    const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:${Versions.systemUIController}"
 }

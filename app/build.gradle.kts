@@ -7,6 +7,7 @@ import Libraries.coil
 import Libraries.koinCompose
 import Libraries.paging
 import Libraries.pagingCompose
+import Libraries.systemUiController
 
 plugins {
     id("com.android.application")
@@ -78,6 +79,7 @@ dependencies {
         implementation(coil)
         implementation(paging)
         implementation(pagingCompose)
+        implementation(systemUiController)
     }
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
