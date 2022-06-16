@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.cmaina.fotos.HomeViewModel
-import com.cmaina.fotos.StaggeredVerticalGrid
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.materials.StaggeredVerticalGrid
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosWhite
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -19,10 +19,6 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun Greeting(viewModel: HomeViewModel = getViewModel()) {
-    val systemUIController = rememberSystemUiController()
-    SideEffect {
-        systemUIController.setSystemBarsColor(FotosWhite)
-    }
     val myPictures = viewModel.pics.collectAsState().value
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (title, fotosGrid) = createRefs()
