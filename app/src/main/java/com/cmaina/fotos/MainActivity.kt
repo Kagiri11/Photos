@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,9 +32,11 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.view.WindowCompat
 import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
-import com.cmaina.fotos.di.PhotoDetailsScreen
 import com.cmaina.presentation.components.photostext.FotosText
+import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
+import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -48,7 +51,7 @@ class MainActivity : ComponentActivity() {
                 SideEffect {
                     systemUIController.setSystemBarsColor(Color.Transparent)
                 }
-                PhotoDetailsScreen()
+                UserScreen()
             }
         }
     }
@@ -64,11 +67,29 @@ fun UserScreen() {
 
 @Composable
 fun TopPart() {
-    Row(
+    Column(
         Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.3f)
+            .fillMaxHeight(0.25f)
     ) {
+        Spacer(modifier = Modifier.height(40.dp))
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Spacer(modifier = Modifier.width(20.dp))
+            Image(
+                painter = painterResource(id = com.cmaina.presentation.R.drawable.ic_baseline_chevron_left_24),
+                contentDescription = "back",
+                modifier = Modifier.size(30.dp)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Image(
+                painter = painterResource(id = com.cmaina.presentation.R.drawable.ic_more_vert),
+                contentDescription = "more"
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+        }
     }
 }
 
@@ -77,15 +98,100 @@ fun BottomPart() {
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.7f)
+            .fillMaxHeight(1f)
+            .background(FotosGreyShadeOneLightTheme)
     ) {
+        val (
+            userImage, username,
+            followingSection
+        ) = createRefs()
+
+        Card(
+            modifier = Modifier
+                .size(80.dp)
+                .constrainAs(userImage) {
+                    top.linkTo(parent.top, (-40).dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            shape = RoundedCornerShape(50)
+        ) {
+            AsyncImage(
+                model = "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb",
+                contentDescription = "",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+        }
+
+        FotosTitleText(
+            text = "Kate Lingard",
+            textColor = FotosBlack,
+            modifier = Modifier.constrainAs(username) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(userImage.bottom, margin = 10.dp)
+            }
+        )
+
+        FollowingSection(modifier = Modifier.constrainAs(followingSection) {
+            top.linkTo(username.bottom, margin = 15.dp)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        }
+        )
+
+        /* UserImage(
+             url = "https://images.unsplash.com/photo-1518893063132-36e46dbe2428?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb",
+             size = 60,
+             modifier = Modifier
+                 .constrainAs(userImage) {
+                     top.linkTo(parent.top, 30.dp)
+                     start.linkTo(parent.start)
+                     end.linkTo(parent.end)
+                 }
+                 .fillMaxSize()
+         )*/
     }
 }
 
 @Composable
-fun UserImage(url: String, size: Int) {
+fun FollowingSection(modifier: Modifier) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(30.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Spacer(modifier = modifier.width(30.dp))
+        DetailsColumn(text = "Photos", number = 219)
+        Spacer(
+            modifier = modifier
+                .width(1.dp)
+                .background(FotosGreyShadeThreeLightTheme)
+        )
+        DetailsColumn(text = "Followers", number = 3296)
+        Spacer(
+            modifier = modifier
+                .width(1.dp)
+                .background(FotosGreyShadeThreeLightTheme)
+        )
+        DetailsColumn(text = "Following", number = 542)
+        Spacer(modifier = modifier.width(30.dp))
+    }
+}
+
+@Composable
+fun DetailsColumn(text: String, number: Int) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        FotosText(text = text, textColor = FotosGreyShadeThreeLightTheme)
+        FotosTitleText(text = number.toString(), textColor = FotosBlack)
+    }
+}
+
+@Composable
+fun UserImage(url: String, size: Int, modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier.size(size.dp),
+        modifier = modifier.size(size.dp),
         shape = RoundedCornerShape(50)
     ) {
         AsyncImage(
