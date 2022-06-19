@@ -5,9 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -29,21 +28,25 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.core.view.WindowCompat
 import coil.compose.AsyncImage
+import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.fotos.di.PhotoDetailsScreen
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosTheme
-import com.cmaina.presentation.ui.theme.FotosWhite
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             FotosTheme {
+//                val controller = rememberAndroidSystemUiController()
                 val systemUIController = rememberSystemUiController()
                 SideEffect {
-                    systemUIController.setSystemBarsColor(FotosWhite)
+                    systemUIController.setSystemBarsColor(Color.Transparent)
                 }
                 PhotoDetailsScreen()
             }
@@ -52,42 +55,45 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PhotoDetailsScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(FotosGreyShadeOneLightTheme)
+fun UserScreen() {
+    Column(Modifier.fillMaxSize()) {
+        TopPart()
+        BottomPart()
+    }
+}
+
+@Composable
+fun TopPart() {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.3f)
     ) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.6f)
-                .align(Alignment.TopCenter)
-                .background(Color.Transparent),
-            shape = RoundedCornerShape(
-                bottomStart = 20.dp,
-                bottomEnd = 20.dp
-            )
-        ) {
-        }
-        /*Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.4f)
-                .align(Alignment.TopCenter),
-            shape = RoundedCornerShape(
-                bottomStart = 20.dp,
-                bottomEnd = 20.dp
-            )
-        ) {
-            AsyncImage(
-                modifier = Modifier.fillMaxSize(),
-                model = "https://images.unsplash.com/photo-1652794121113-1a2a9563daaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjU1OTB8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTU0MDM0MTg&ixlib=rb-1.2.1&q=80&w=1080",
-                contentDescription = "randomImage",
-                contentScale = ContentScale.Crop
-            )
-        }*/
-        SpecificPhotoDetail()
+    }
+}
+
+@Composable
+fun BottomPart() {
+    ConstraintLayout(
+        Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.7f)
+    ) {
+    }
+}
+
+@Composable
+fun UserImage(url: String, size: Int) {
+    Card(
+        modifier = Modifier.size(size.dp),
+        shape = RoundedCornerShape(50)
+    ) {
+        AsyncImage(
+            model = url,
+            contentDescription = "",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
     }
 }
 
@@ -106,7 +112,7 @@ fun LikesAndStuff(@DrawableRes resId: Int, text: String, colorFilter: ColorFilte
 }
 
 @Composable
-fun SpecificPhotoDetail() {
+fun SpecificPhotoDetail(photo: DomainPhotoListItem) {
     ConstraintLayout() {
         val (image, likebar, userarea) = createRefs()
         Card(
@@ -125,7 +131,7 @@ fun SpecificPhotoDetail() {
         ) {
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
-                model = "https://images.unsplash.com/photo-1652794121113-1a2a9563daaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjU1OTB8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTU0MDM0MTg&ixlib=rb-1.2.1&q=80&w=1080",
+                model = photo.domainUrls?.regular,
                 contentDescription = "randomImage",
                 contentScale = ContentScale.Crop
             )
@@ -142,10 +148,10 @@ fun SpecificPhotoDetail() {
             horizontalArrangement = Arrangement.spacedBy(30.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LikesAndStuff(resId = R.drawable.ic_likes, text = "256")
+            LikesAndStuff(resId = R.drawable.ic_likes, text = photo.likes.toString())
             LikesAndStuff(
                 resId = R.drawable.ic_baseline_message_24,
-                text = "24",
+                text = photo.created_at ?: "24",
                 colorFilter = ColorFilter.tint(
                     FotosGreyShadeOneLightTheme
                 )
