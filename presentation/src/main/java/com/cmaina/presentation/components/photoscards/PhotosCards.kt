@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
@@ -17,11 +16,10 @@ import coil.compose.AsyncImage
 fun PhotoCardItem(imageUrl: String?) {
     Card(
         modifier = Modifier
-            .height((80..280).random().dp)
+            .height((90..280).random().dp)
             .fillMaxWidth()
-            .padding(5.dp)
-        ,
-        shape = RoundedCornerShape(20.dp)
+            .padding(bottom = 5.dp, start = 2.dp, end = 3.dp),
+        shape = RoundedCornerShape(10.dp)
     ) {
         AsyncImage(
             model = imageUrl,
