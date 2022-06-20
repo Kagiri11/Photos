@@ -26,7 +26,7 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
     }*/
 
     override suspend fun fetchPhotos(): Flow<List<DomainPhotoListItem>> {
-        return when (val result = photosRemoteSource.fetchPhotos(page = 100)) {
+        return when (val result = photosRemoteSource.fetchPhotos(page = 4)) {
             is ApiResponse.Success -> {
                 flowOf(result.data.toDomain())
             }
