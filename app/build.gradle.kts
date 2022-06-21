@@ -79,7 +79,6 @@ dependencies {
         implementation(coil)
         implementation(paging)
         implementation(pagingCompose)
-        implementation(systemUiController)
     }
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")

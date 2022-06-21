@@ -1,4 +1,4 @@
-package com.cmaina.fotos
+package com.cmaina.presentation.viewmodels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

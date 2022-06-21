@@ -1,20 +1,17 @@
-package com.cmaina.fotos.di
+package com.cmaina.presentation.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.cmaina.fotos.HomeViewModel
+import com.cmaina.presentation.viewmodels.HomeViewModel
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.materials.StaggeredVerticalGrid
 import com.cmaina.presentation.ui.theme.FotosBlack
-import com.cmaina.presentation.ui.theme.FotosWhite
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.getViewModel
 
 @Composable

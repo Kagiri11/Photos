@@ -1,4 +1,4 @@
-package com.cmaina.fotos
+package com.cmaina.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -42,12 +42,14 @@ import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.screens.PhotoDetailsScreen
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
+import com.cmaina.presentation.viewmodels.HomeViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.getViewModel
 
@@ -57,12 +59,11 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             FotosTheme {
-//                val controller = rememberAndroidSystemUiController()
                 val systemUIController = rememberSystemUiController()
                 SideEffect {
-                    systemUIController.setSystemBarsColor(Color.Transparent)
+                    systemUIController.setSystemBarsColor(FotosWhite)
                 }
-                UserScreen()
+                PhotoDetailsScreen()
             }
         }
     }

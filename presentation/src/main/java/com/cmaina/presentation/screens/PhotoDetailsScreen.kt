@@ -1,4 +1,4 @@
-package com.cmaina.fotos.di
+package com.cmaina.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,9 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.cmaina.fotos.HomeViewModel
-import com.cmaina.fotos.SpecificPhotoDetail
+import com.cmaina.presentation.SpecificPhotoDetail
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
+import com.cmaina.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

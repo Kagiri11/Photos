@@ -4,6 +4,7 @@ import Libraries.coil
 import Libraries.koinCompose
 import Libraries.paging
 import Libraries.pagingCompose
+import Libraries.systemUiController
 
 plugins {
     id("com.android.library")
@@ -51,14 +52,15 @@ dependencies {
     implementation("androidx.compose.ui:ui:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
+    implementation(project(":domain"))
 
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}")
-
     Libraries.also {
         implementation(koinCompose)
         implementation(coil)
         implementation(paging)
         implementation(pagingCompose)
+        implementation(systemUiController)
     }
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
