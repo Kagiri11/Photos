@@ -1,4 +1,4 @@
-package com.cmaina.presentation
+package com.cmaina.fotos
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -28,6 +28,7 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,7 +43,7 @@ import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
-import com.cmaina.presentation.screens.PhotoDetailsScreen
+import com.cmaina.presentation.screens.HomeScreen
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
@@ -63,7 +64,7 @@ class MainActivity : ComponentActivity() {
                 SideEffect {
                     systemUIController.setSystemBarsColor(FotosWhite)
                 }
-                PhotoDetailsScreen()
+                HomeScreen()
             }
         }
     }
@@ -107,7 +108,7 @@ fun TopPart() {
 
 @Composable
 fun BottomPart(viewModel: HomeViewModel = getViewModel()) {
-    val photos = viewModel.pics.collectAsState().value
+    val photos = viewModel.pics.observeAsState().value
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -165,7 +166,7 @@ fun BottomPart(viewModel: HomeViewModel = getViewModel()) {
             }
         )
 
-        UserPhotos(
+        /*UserPhotos(
             modifier = Modifier.constrainAs(userPhotos) {
                 top.linkTo(followButtons.bottom, margin = 20.dp)
                 start.linkTo(parent.start)
@@ -174,7 +175,7 @@ fun BottomPart(viewModel: HomeViewModel = getViewModel()) {
                 height = Dimension.fillToConstraints
             },
             photos = photos
-        )
+        )*/
     }
 }
 
@@ -345,9 +346,12 @@ fun SpecificPhotoDetail(photo: DomainPhotoListItem) {
             horizontalArrangement = Arrangement.spacedBy(30.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LikesAndStuff(resId = R.drawable.ic_likes, text = photo.likes.toString())
             LikesAndStuff(
-                resId = R.drawable.ic_baseline_message_24,
+                resId = com.cmaina.presentation.R.drawable.ic_likes,
+                text = photo.likes.toString()
+            )
+            LikesAndStuff(
+                resId = com.cmaina.presentation.R.drawable.ic_baseline_message_24,
                 text = photo.created_at ?: "24",
                 colorFilter = ColorFilter.tint(
                     FotosGreyShadeOneLightTheme
@@ -355,7 +359,7 @@ fun SpecificPhotoDetail(photo: DomainPhotoListItem) {
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
-                painter = painterResource(id = R.drawable.ic_bookmark),
+                painter = painterResource(id = com.cmaina.presentation.R.drawable.ic_bookmark),
                 contentDescription = "bookmark",
                 colorFilter = ColorFilter.tint(
                     FotosGreyShadeOneLightTheme

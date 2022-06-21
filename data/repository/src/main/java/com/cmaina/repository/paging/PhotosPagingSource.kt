@@ -9,17 +9,18 @@ import com.cmaina.repository.mappers.toDomain
 import com.skydoves.sandwich.ApiResponse
 
 class PhotosPagingSource(private val photosRemoteSource: PhotosRemoteSource) :
-    PagingSource<Int, List<DomainPhotoListItem>>() {
+    PagingSource<Int, DomainPhotoListItem>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, List<DomainPhotoListItem>> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainPhotoListItem> {
         Log.d("DomainPhotos", "This has been called")
         val nextPageNumber = params.key ?: 1
         return when (val sourceResponse = photosRemoteSource.fetchPhotos(page = nextPageNumber)) {
             is ApiResponse.Success -> {
-                val list = sourceResponse.data.toDomain()
-                Log.d("DomainPhotos", "This is the list: ${list.size}")
+                val dataResponse = sourceResponse.data.map { it.toDomain() }
+                Log.d("DomainPhotos", "This is the list: ${dataResponse.size}")
+
                 LoadResult.Page(
-                    data = listOf(list),
+                    data = dataResponse,
                     prevKey = null,
                     nextKey = nextPageNumber + (params.loadSize / 10)
                 )
@@ -33,7 +34,7 @@ class PhotosPagingSource(private val photosRemoteSource: PhotosRemoteSource) :
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, List<DomainPhotoListItem>>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, DomainPhotoListItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition = anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

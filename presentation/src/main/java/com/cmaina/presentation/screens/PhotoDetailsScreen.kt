@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.cmaina.presentation.SpecificPhotoDetail
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.compose.getViewModel
@@ -55,7 +54,9 @@ fun PhotoDetailsScreen(homeViewModel: HomeViewModel = getViewModel()) {
             )
         }*/
         if (photo != null) {
+/*
             SpecificPhotoDetail(photo = photo)
+*/
         }
     }
 }

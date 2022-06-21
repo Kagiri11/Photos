@@ -1,22 +1,27 @@
 package com.cmaina.presentation.screens
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.cmaina.presentation.viewmodels.HomeViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
-import com.cmaina.presentation.materials.StaggeredVerticalGrid
 import com.cmaina.presentation.ui.theme.FotosBlack
+import com.cmaina.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun Greeting(viewModel: HomeViewModel = getViewModel()) {
-    val myPictures = viewModel.pics.collectAsState().value
+fun HomeScreen(viewModel: HomeViewModel = getViewModel()) {
+    val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
+
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (title, fotosGrid) = createRefs()
         FotosTitleText(
@@ -27,7 +32,7 @@ fun Greeting(viewModel: HomeViewModel = getViewModel()) {
                 start.linkTo(parent.start, margin = 10.dp)
             }
         )
-        /*LazyVerticalGrid(
+        LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(2.dp),
             modifier = Modifier
@@ -35,12 +40,14 @@ fun Greeting(viewModel: HomeViewModel = getViewModel()) {
                     top.linkTo(title.bottom, margin = 20.dp)
                 }
         ) {
-            items(myPictures) { pic ->
-                PhotoCardItem(imageUrl = pic.domainUrls?.regular)
+            myPictures?.let {
+                items(it) { pic->
+                    PhotoCardItem(imageUrl = pic?.domainUrls?.regular )
+                }
             }
-        }*/
+        }
 
-        StaggeredVerticalGrid(
+        /*StaggeredVerticalGrid(
             maxColumnWidth = 200.dp,
             modifier = Modifier
                 .constrainAs(fotosGrid) {
@@ -51,6 +58,6 @@ fun Greeting(viewModel: HomeViewModel = getViewModel()) {
             myPictures.forEach {
                 PhotoCardItem(imageUrl = it.domainUrls?.regular)
             }
-        }
+        }*/
     }
 }
