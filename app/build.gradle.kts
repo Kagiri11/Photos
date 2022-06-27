@@ -70,10 +70,14 @@ dependencies {
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}")
+    implementation("androidx.core:core-splashscreen:1.0.0-rc01")
     implementation(project(":domain"))
     implementation(project(":data:network"))
     implementation(project(":data:repository"))
     implementation(project(":presentation"))
+
+    implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-rc02")
     Libraries.also {
         implementation(koinCompose)
         implementation(coil)

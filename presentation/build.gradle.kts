@@ -51,9 +51,11 @@ dependencies {
     implementation("androidx.compose.ui:ui:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
+    implementation(project(":domain"))
 
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}")
-
+    implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-rc02")
     Libraries.also {
         implementation(koinCompose)
         implementation(coil)

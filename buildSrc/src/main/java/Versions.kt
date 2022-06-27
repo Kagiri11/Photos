@@ -12,7 +12,7 @@ object Versions {
     const val okHttpLoggingInterceptor = "4.2.1"
     const val coil = "2.1.0"
     const val paging = "3.1.1"
-    const val pagingCompose = "1.0.0-alpha15"
+    const val pagingCompose = "1.0.0-alpha14"
     const val compose = "1.2.0-beta01"
     const val constraintLayout = "1.0.0-rc02"
     const val systemUIController = "0.24.10-beta"

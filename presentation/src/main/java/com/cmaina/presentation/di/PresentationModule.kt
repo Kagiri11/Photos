@@ -1,6 +1,6 @@
-package com.cmaina.fotos.di
+package com.cmaina.presentation.di
 
-import com.cmaina.fotos.HomeViewModel
+import com.cmaina.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 

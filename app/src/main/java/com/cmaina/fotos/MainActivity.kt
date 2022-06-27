@@ -3,7 +3,9 @@ package com.cmaina.fotos
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,11 +18,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,29 +37,40 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.screens.HomeScreen
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
+import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 import com.cmaina.presentation.ui.theme.FotosTheme
+import com.cmaina.presentation.ui.theme.FotosWhite
+import com.cmaina.presentation.viewmodels.HomeViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import org.koin.androidx.compose.getViewModel
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition{
+                false
+            }
+        }
         setContent {
             FotosTheme {
-//                val controller = rememberAndroidSystemUiController()
                 val systemUIController = rememberSystemUiController()
                 SideEffect {
-                    systemUIController.setSystemBarsColor(Color.Transparent)
+                    systemUIController.setSystemBarsColor(FotosWhite)
                 }
-                UserScreen()
+                HomeScreen()
             }
         }
     }
@@ -70,7 +89,7 @@ fun TopPart() {
     Column(
         Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.25f)
+            .fillMaxHeight(0.15f)
     ) {
         Spacer(modifier = Modifier.height(40.dp))
         Row(
@@ -94,7 +113,8 @@ fun TopPart() {
 }
 
 @Composable
-fun BottomPart() {
+fun BottomPart(viewModel: HomeViewModel = getViewModel()) {
+    val photos = viewModel.pics.observeAsState().value
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -103,7 +123,9 @@ fun BottomPart() {
     ) {
         val (
             userImage, username,
-            followingSection
+            followingSection,
+            followButtons,
+            userPhotos
         ) = createRefs()
 
         Card(
@@ -134,57 +156,133 @@ fun BottomPart() {
             }
         )
 
-        FollowingSection(modifier = Modifier.constrainAs(followingSection) {
-            top.linkTo(username.bottom, margin = 15.dp)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        }
+        FollowingSection(
+            modifier = Modifier.constrainAs(followingSection) {
+                top.linkTo(username.bottom, margin = 15.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
         )
 
-        /* UserImage(
-             url = "https://images.unsplash.com/photo-1518893063132-36e46dbe2428?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb",
-             size = 60,
-             modifier = Modifier
-                 .constrainAs(userImage) {
-                     top.linkTo(parent.top, 30.dp)
-                     start.linkTo(parent.start)
-                     end.linkTo(parent.end)
-                 }
-                 .fillMaxSize()
-         )*/
+        FollowAndMessageButtons(
+            modifier = Modifier.constrainAs(followButtons) {
+                top.linkTo(followingSection.bottom, margin = 10.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        )
+
+        /*UserPhotos(
+            modifier = Modifier.constrainAs(userPhotos) {
+                top.linkTo(followButtons.bottom, margin = 20.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+                height = Dimension.fillToConstraints
+            },
+            photos = photos
+        )*/
     }
 }
 
 @Composable
 fun FollowingSection(modifier: Modifier) {
     Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(30.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Spacer(modifier = modifier.width(30.dp))
         DetailsColumn(text = "Photos", number = 219)
         Spacer(
             modifier = modifier
                 .width(1.dp)
-                .background(FotosGreyShadeThreeLightTheme)
+                .fillMaxHeight()
+                .background(FotosGreyShadeTwoLightTheme.copy(alpha = 0.2f))
         )
         DetailsColumn(text = "Followers", number = 3296)
         Spacer(
             modifier = modifier
                 .width(1.dp)
-                .background(FotosGreyShadeThreeLightTheme)
+                .fillMaxHeight()
+                .background(FotosGreyShadeTwoLightTheme.copy(alpha = 0.2f))
         )
         DetailsColumn(text = "Following", number = 542)
-        Spacer(modifier = modifier.width(30.dp))
     }
 }
 
 @Composable
 fun DetailsColumn(text: String, number: Int) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(100.dp)) {
         FotosText(text = text, textColor = FotosGreyShadeThreeLightTheme)
         FotosTitleText(text = number.toString(), textColor = FotosBlack)
+    }
+}
+
+@Composable
+fun FollowAndMessageButtons(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth(0.9f)
+            .wrapContentHeight(),
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        UserButton(
+            text = "Follow",
+            buttonColor = FotosBlack,
+            textColor = FotosWhite,
+            modifier = Modifier.weight(1f)
+        )
+        UserButton(
+            text = "Message",
+            buttonColor = FotosWhite,
+            textColor = FotosBlack,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
+fun UserButton(text: String, buttonColor: Color, textColor: Color, modifier: Modifier) {
+    Button(
+        onClick = {},
+        shape = RoundedCornerShape(15.dp),
+        modifier = modifier
+            .height(55.dp),
+        border = BorderStroke(width = 1.dp, color = FotosBlack),
+        colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
+        elevation = ButtonDefaults.elevation(0.dp)
+
+    ) {
+        FotosText(text = text, textColor = textColor)
+    }
+}
+
+@Composable
+fun UserPhotos(modifier: Modifier = Modifier, photos: List<DomainPhotoListItem>) {
+    LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        items(photos) { pic ->
+            UserPhoto(userImageUrl = pic.domainUrls?.regular ?: "")
+        }
+    }
+}
+
+@Composable
+fun UserPhoto(userImageUrl: String, description: String = "") {
+    Card(
+        Modifier
+            .fillMaxWidth(0.9f)
+            .height(200.dp),
+        shape = RoundedCornerShape(10),
+        elevation = 0.dp
+    ) {
+        AsyncImage(
+            model = userImageUrl,
+            contentDescription = description,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
     }
 }
 
@@ -254,9 +352,12 @@ fun SpecificPhotoDetail(photo: DomainPhotoListItem) {
             horizontalArrangement = Arrangement.spacedBy(30.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LikesAndStuff(resId = R.drawable.ic_likes, text = photo.likes.toString())
             LikesAndStuff(
-                resId = R.drawable.ic_baseline_message_24,
+                resId = com.cmaina.presentation.R.drawable.ic_likes,
+                text = photo.likes.toString()
+            )
+            LikesAndStuff(
+                resId = com.cmaina.presentation.R.drawable.ic_baseline_message_24,
                 text = photo.created_at ?: "24",
                 colorFilter = ColorFilter.tint(
                     FotosGreyShadeOneLightTheme
@@ -264,7 +365,7 @@ fun SpecificPhotoDetail(photo: DomainPhotoListItem) {
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
-                painter = painterResource(id = R.drawable.ic_bookmark),
+                painter = painterResource(id = com.cmaina.presentation.R.drawable.ic_bookmark),
                 contentDescription = "bookmark",
                 colorFilter = ColorFilter.tint(
                     FotosGreyShadeOneLightTheme

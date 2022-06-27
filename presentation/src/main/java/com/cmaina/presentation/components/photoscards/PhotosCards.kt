@@ -16,7 +16,7 @@ import coil.compose.AsyncImage
 fun PhotoCardItem(imageUrl: String?) {
     Card(
         modifier = Modifier
-            .height((90..280).random().dp)
+            .height(250.dp)
             .fillMaxWidth()
             .padding(bottom = 5.dp, start = 2.dp, end = 3.dp),
         shape = RoundedCornerShape(10.dp)
