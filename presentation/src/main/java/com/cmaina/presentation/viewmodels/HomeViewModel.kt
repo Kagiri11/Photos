@@ -12,8 +12,6 @@ import com.cmaina.domain.usecases.FetchPhotosUseCase
 import com.cmaina.domain.usecases.FetchRandomPhotoUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -26,15 +24,13 @@ class HomeViewModel(
     }
 
     private val _pics = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>(null)
-    val pics : LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _pics
+    val pics: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _pics
     val randomPhoto: MutableState<DomainPhotoListItem?> = mutableStateOf(null)
 
-    private fun fetchPhotos() {
-        viewModelScope.launch {
-            fetchPhotosUseCase().let {
-                delay(200)
-                _pics.value = it
-            }
+    fun fetchPhotos() = viewModelScope.launch {
+        fetchPhotosUseCase().let {
+            delay(200)
+            _pics.value = it
         }
     }
 

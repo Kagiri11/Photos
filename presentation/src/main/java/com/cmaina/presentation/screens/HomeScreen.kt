@@ -1,5 +1,6 @@
 package com.cmaina.presentation.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -13,6 +14,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.ui.theme.FotosBlack
+import com.cmaina.presentation.ui.theme.FotosWhite
 import com.cmaina.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
@@ -20,7 +22,7 @@ import org.koin.androidx.compose.getViewModel
 fun HomeScreen(viewModel: HomeViewModel = getViewModel()) {
     val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
 
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+    ConstraintLayout(modifier = Modifier.fillMaxSize().background(FotosWhite)) {
         val (title, fotosGrid) = createRefs()
         FotosTitleText(
             text = "Explore",
