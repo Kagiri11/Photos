@@ -2,7 +2,6 @@ package com.cmaina.presentation.screens
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -11,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.ui.theme.FotosBlack
@@ -41,8 +39,8 @@ fun HomeScreen(viewModel: HomeViewModel = getViewModel()) {
                 }
         ) {
             myPictures?.let {
-                items(it) { pic->
-                    PhotoCardItem(imageUrl = pic?.domainUrls?.regular )
+                items(it) { pic ->
+                    PhotoCardItem(imageUrl = pic?.domainUrls?.regular)
                 }
             }
         }
