@@ -4,6 +4,7 @@ import Configurations.TargetSdk
 import Configurations.VersionCode
 import Configurations.VersionName
 import Libraries.coil
+import Libraries.composeNavigation
 import Libraries.koinCompose
 import Libraries.paging
 import Libraries.pagingCompose
@@ -84,6 +85,7 @@ dependencies {
         implementation(paging)
         implementation(pagingCompose)
         implementation(systemUiController)
+        implementation(composeNavigation)
     }
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")

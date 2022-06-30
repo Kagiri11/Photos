@@ -39,4 +39,7 @@ object Libraries {
 
     // Accompanist
     const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:${Versions.systemUIController}"
+
+    // Navigation
+    const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
 }
