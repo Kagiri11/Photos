@@ -38,7 +38,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
 import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.components.photostext.FotosText
@@ -58,12 +57,8 @@ class MainActivity : ComponentActivity() {
     private val viewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        installSplashScreen().apply {
-            setKeepOnScreenCondition{
-                false
-            }
-        }
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+        installSplashScreen()
         setContent {
             FotosTheme {
                 val systemUIController = rememberSystemUiController()
