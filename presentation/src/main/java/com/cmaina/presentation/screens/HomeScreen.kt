@@ -13,6 +13,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.materials.LazyStaggeredGrid
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosWhite
 import com.cmaina.presentation.viewmodels.HomeViewModel
@@ -40,12 +41,22 @@ fun HomeScreen(viewModel: HomeViewModel = getViewModel()) {
                     top.linkTo(title.bottom, margin = 20.dp)
                 }
         ) {
+
             myPictures?.let {
                 items(it) { pic ->
                     PhotoCardItem(imageUrl = pic?.domainUrls?.regular)
                 }
             }
         }
+
+        /*LazyStaggeredGrid(
+            columnCount = 2,
+            contentPadding = PaddingValues(2.dp),
+        ) {
+            item {
+
+            }
+        }*/
 
         /*StaggeredVerticalGrid(
             maxColumnWidth = 200.dp,

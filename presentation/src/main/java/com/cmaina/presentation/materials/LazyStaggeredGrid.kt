@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridItemScope
+import androidx.compose.foundation.lazy.grid.LazyGridItemSpanScope
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -130,8 +133,22 @@ class LazyStaggeredGridScope(
     val items: Array<MutableList<Pair<Any?, @Composable () -> Unit>>> =
         Array(columnCount) { mutableListOf() }
 
-    fun item(key: Any? = null, content: @Composable () -> Unit) {
+    fun item(
+        key: Any? = null,
+        content: @Composable () -> Unit,
+        itemsContent: @Composable LazyStaggeredGridScope.() -> Unit
+    ) {
         items[currentIndex % columnCount] += key to content
         currentIndex += 1
+    }
+
+    fun items(
+        count: Int,
+        key: ((index: Int) -> Any)? = null,
+        span: (LazyGridItemSpanScope.(index: Int) -> GridItemSpan)? = null,
+        contentType: (index: Int) -> Any? = { null },
+        itemContent: @Composable LazyGridItemScope.(index: Int) -> Unit
+    ){
+
     }
 }
