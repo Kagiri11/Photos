@@ -41,9 +41,7 @@ fun HomeScreen(viewModel: HomeViewModel = getViewModel()) {
                     top.linkTo(title.bottom, margin = 20.dp)
                 }
         ) {
-            items(){
 
-            }
             myPictures?.let {
                 items(it) { pic ->
                     PhotoCardItem(imageUrl = pic?.domainUrls?.regular)
@@ -51,14 +49,14 @@ fun HomeScreen(viewModel: HomeViewModel = getViewModel()) {
             }
         }
 
-        LazyStaggeredGrid(
+        /*LazyStaggeredGrid(
             columnCount = 2,
             contentPadding = PaddingValues(2.dp),
         ) {
             item {
 
             }
-        }
+        }*/
 
         /*StaggeredVerticalGrid(
             maxColumnWidth = 200.dp,

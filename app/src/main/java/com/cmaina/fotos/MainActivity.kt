@@ -43,6 +43,7 @@ import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.screens.HomeScreen
+import com.cmaina.presentation.screens.PhotoDetailsScreen
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
@@ -65,7 +66,7 @@ class MainActivity : ComponentActivity() {
                 SideEffect {
                     systemUIController.setSystemBarsColor(FotosWhite)
                 }
-                HomeScreen()
+                PhotoDetailsScreen()
             }
         }
     }
