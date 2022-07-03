@@ -1,6 +1,8 @@
 import Configurations.MinSdk
 import Configurations.TargetSdk
 import Libraries.coil
+import Libraries.composeImageBlur
+import Libraries.composeNavigation
 import Libraries.koinCompose
 import Libraries.paging
 import Libraries.pagingCompose
@@ -61,6 +63,7 @@ dependencies {
         implementation(coil)
         implementation(paging)
         implementation(pagingCompose)
+        implementation(composeNavigation)
     }
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")

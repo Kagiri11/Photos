@@ -10,6 +10,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
@@ -20,7 +22,7 @@ import com.cmaina.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = getViewModel()) {
+fun HomeScreen(viewModel: HomeViewModel = getViewModel(), navController: NavController) {
     val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
 
     ConstraintLayout(modifier = Modifier.fillMaxSize().background(FotosWhite)) {
@@ -44,7 +46,7 @@ fun HomeScreen(viewModel: HomeViewModel = getViewModel()) {
 
             myPictures?.let {
                 items(it) { pic ->
-                    PhotoCardItem(imageUrl = pic?.domainUrls?.regular)
+                    PhotoCardItem(imageUrl = pic?.domainUrls?.regular, navController = navController)
                 }
             }
         }

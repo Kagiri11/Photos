@@ -39,4 +39,10 @@ object Libraries {
 
     // Accompanist
     const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:${Versions.systemUIController}"
+
+    // Navigation
+    const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
+
+    // ImageBlur
+    const val composeImageBlur = "com.github.orlando-dev-code:compose-image-blurhash:${Versions.composeImageBlur}"
 }

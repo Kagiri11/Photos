@@ -38,12 +38,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
-import com.cmaina.presentation.screens.HomeScreen
-import com.cmaina.presentation.screens.PhotoDetailsScreen
+import com.cmaina.presentation.ui.navigation.NavGraph
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
@@ -62,11 +62,12 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             FotosTheme {
+                val navController = rememberNavController()
                 val systemUIController = rememberSystemUiController()
                 SideEffect {
                     systemUIController.setSystemBarsColor(FotosWhite)
                 }
-                PhotoDetailsScreen()
+                NavGraph(navController = navController)
             }
         }
     }
