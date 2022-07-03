@@ -1,6 +1,7 @@
 import Configurations.MinSdk
 import Configurations.TargetSdk
 import Libraries.coil
+import Libraries.composeImageBlur
 import Libraries.composeNavigation
 import Libraries.koinCompose
 import Libraries.paging

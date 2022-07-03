@@ -4,6 +4,7 @@ import Configurations.TargetSdk
 import Configurations.VersionCode
 import Configurations.VersionName
 import Libraries.coil
+import Libraries.composeImageBlur
 import Libraries.composeNavigation
 import Libraries.koinCompose
 import Libraries.paging
