@@ -32,8 +32,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
-import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.models.users.UserPhotoDomainModel
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
@@ -46,7 +47,7 @@ import com.cmaina.presentation.viewmodels.UserViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun UserScreen(userViewModel: UserViewModel = getViewModel()) {
+fun UserScreen(username: String) {
     Column(Modifier.fillMaxSize()) {
         TopPart()
         BottomPart()
@@ -84,6 +85,10 @@ fun TopPart() {
 @Composable
 fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
     val user = userViewModel.user.observeAsState().value
+    val photos = user?.total_photos ?: 0
+    val followers = user?.followers_count ?: 0
+    val following = user?.following_count ?: 0
+    val userPhotos = user?.userPhotoDomainModels
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -94,7 +99,7 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
             userImage, username,
             followingSection,
             followButtons,
-            userPhotos
+            userPhotosRef
         ) = createRefs()
 
         Card(
@@ -117,22 +122,27 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
             }
         }
 
-        FotosTitleText(
-            text = "Kate Lingard",
-            textColor = FotosBlack,
-            modifier = Modifier.constrainAs(username) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                top.linkTo(userImage.bottom, margin = 10.dp)
-            }
-        )
+        user?.name?.let {
+            FotosTitleText(
+                text = it,
+                textColor = FotosBlack,
+                modifier = Modifier.constrainAs(username) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(userImage.bottom, margin = 10.dp)
+                }
+            )
+        }
 
         FollowingSection(
             modifier = Modifier.constrainAs(followingSection) {
                 top.linkTo(username.bottom, margin = 15.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            }
+            },
+            photos = photos,
+            followers = followers,
+            following = following
         )
 
         FollowAndMessageButtons(
@@ -143,24 +153,26 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
             }
         )
 
-        /*UserPhotos(
-            modifier = Modifier.constrainAs(userPhotos) {
-                top.linkTo(followButtons.bottom, margin = 20.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-                height = Dimension.fillToConstraints
-            },
-            photos = photos
-        )*/
+        userPhotos?.let {
+            UserPhotos(
+                modifier = Modifier.constrainAs(userPhotosRef) {
+                    top.linkTo(followButtons.bottom, margin = 20.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                    height = Dimension.fillToConstraints
+                },
+                photos = it
+            )
+        }
     }
 }
 
 @Composable
-fun UserPhotos(modifier: Modifier = Modifier, photos: List<DomainPhotoListItem>) {
+fun UserPhotos(modifier: Modifier = Modifier, photos: List<UserPhotoDomainModel>) {
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
         items(photos) { pic ->
-            UserPhoto(userImageUrl = pic.domainUrls?.regular ?: "")
+            UserPhoto(userImageUrl = pic.urls?.regular ?: "")
         }
     }
 }
@@ -245,7 +257,7 @@ fun DetailsColumn(text: String, number: Int) {
 }
 
 @Composable
-fun FollowingSection(modifier: Modifier) {
+fun FollowingSection(modifier: Modifier, photos: Int, followers: Int, following: Int) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -253,20 +265,20 @@ fun FollowingSection(modifier: Modifier) {
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        DetailsColumn(text = "Photos", number = 219)
+        DetailsColumn(text = "Photos", number = photos)
         Spacer(
             modifier = modifier
                 .width(1.dp)
                 .fillMaxHeight()
                 .background(FotosGreyShadeTwoLightTheme.copy(alpha = 0.2f))
         )
-        DetailsColumn(text = "Followers", number = 3296)
+        DetailsColumn(text = "Followers", number = followers)
         Spacer(
             modifier = modifier
                 .width(1.dp)
                 .fillMaxHeight()
                 .background(FotosGreyShadeTwoLightTheme.copy(alpha = 0.2f))
         )
-        DetailsColumn(text = "Following", number = 542)
+        DetailsColumn(text = "Following", number = following)
     }
 }

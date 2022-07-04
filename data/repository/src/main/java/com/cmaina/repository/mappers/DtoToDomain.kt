@@ -209,7 +209,7 @@ internal fun UserDto.toDomain() = UserDomainModel(
     portfolio_url = portfolio_url,
     profile_image = profile_image.toDomain(),
     social = social.toDomain(),
-    tags.toDomain(),
+    tags?.toDomain(),
     total_collections,
     total_likes,
     total_photos,
@@ -280,7 +280,7 @@ internal fun Result.toDomain() = CollectionDomainModel(
 internal fun Tag.toDomain() = TagDomainModel(source.toDomain(), title, type)
 
 internal fun Tags.toDomain() =
-    TagsDomainModel(aggregated = aggregated.map { it.toDomain() }, custom = null)
+    TagsDomainModel(aggregated = null, custom = null)
 
 internal fun Source.toDomain() = com.cmaina.domain.models.specificphoto.Source(
     ancestryDomainModel = null,

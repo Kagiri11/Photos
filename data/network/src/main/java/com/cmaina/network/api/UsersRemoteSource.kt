@@ -12,25 +12,25 @@ import retrofit2.http.Path
 
 interface UsersRemoteSource {
     @GET("users/{username}")
-    fun getUser(
+    suspend fun getUser(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): ApiResponse<UserDto>
 
     @GET("users/{username}/portfolio")
-    fun getUserPortFolio(
+    suspend fun getUserPortFolio(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): Response<UserPortFolioDto>
 
     @GET("users/{username}/photos")
-    fun getUserPhotos(
+    suspend fun getUserPhotos(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): Response<PhotoList>
 
     @GET("users/{username}/statistics")
-    fun getUserStatistics(
+    suspend fun getUserStatistics(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): Response<UserStatistics>
