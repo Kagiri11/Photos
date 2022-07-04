@@ -6,27 +6,17 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: 🔍 Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout written code
-        uses: actions/checkout@v1
-
-      - name: set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Lint
-        run: ./gradlew ktlintCheck
+      - name: Checkout code
+        uses: actions/checkout@v2
         
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
+      - name: Run Lint
+        run: bash ./gradlew lintDebug
 
-      - name: Submit lint report
+      - name: Generate lint report
         uses: actions/upload-artifact@v2
         with:
-          name: Fotos_lint_report.html
+          name: lint_report.html
           path: app/build/reports/lint-results-debug.html
