@@ -18,7 +18,7 @@ import coil.request.ImageRequest
 import com.cmaina.presentation.ui.navigation.Destination
 
 @Composable
-fun PhotoCardItem(imageUrl: String?, navController: NavController) {
+fun PhotoCardItem(imageUrl: String?, username: String, navController: NavController) {
     Card(
         modifier = Modifier
             .height(250.dp)
@@ -32,7 +32,7 @@ fun PhotoCardItem(imageUrl: String?, navController: NavController) {
                 .crossfade(true).build(),
             contentDescription = "image",
             modifier = Modifier.fillMaxSize().clickable {
-                navController.navigate(Destination.PhotoDetailScreen.route)
+                navController.navigate("user_screen/$username")
             },
             contentScale = ContentScale.Crop
         )

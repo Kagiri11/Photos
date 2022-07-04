@@ -1,35 +1,37 @@
 package com.cmaina.network.api
 
 import com.cmaina.network.models.photos.PhotoList
+import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.users.UserDto
 import com.cmaina.network.models.users.portfolio.UserPortFolioDto
 import com.cmaina.network.models.users.statistics.UserStatistics
+import com.skydoves.sandwich.ApiResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
 
-interface Users {
+interface UsersRemoteSource {
     @GET("users/{username}")
-    fun getUser(
+    suspend fun getUser(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
-    ): Response<UserDto>
+    ): ApiResponse<UserDto>
 
     @GET("users/{username}/portfolio")
-    fun getUserPortFolio(
+    suspend fun getUserPortFolio(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): Response<UserPortFolioDto>
 
     @GET("users/{username}/photos")
-    fun getUserPhotos(
+    suspend fun getUserPhotos(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
-    ): Response<PhotoList>
+    ): ApiResponse<List<PhotoListItem>>
 
     @GET("users/{username}/statistics")
-    fun getUserStatistics(
+    suspend fun getUserStatistics(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): Response<UserStatistics>

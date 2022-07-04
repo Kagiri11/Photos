@@ -7,6 +7,7 @@ import com.cmaina.domain.usecases.FetchSpecificPhotoUseCase
 import com.cmaina.domain.usecases.FetchUserPhotosUseCase
 import com.cmaina.domain.usecases.FetchUserPortFolioUseCase
 import com.cmaina.domain.usecases.FetchUserProfileUseCase
+import com.cmaina.domain.usecases.FetchUserUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -18,4 +19,5 @@ val domainModules = module {
     singleOf(::FetchUserPhotosUseCase)
     singleOf(::FetchUserProfileUseCase)
     singleOf(::FetchUserPortFolioUseCase)
+    singleOf(::FetchUserUseCase)
 }

@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.cmaina.presentation.screens.HomeScreen
 import com.cmaina.presentation.screens.PhotoDetailsScreen
+import com.cmaina.presentation.screens.UserScreen
 
 @Composable
 fun NavGraph(
@@ -17,12 +18,30 @@ fun NavGraph(
         composable(route = Destination.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
-        composable(Destination.PhotoDetailScreen.route, arguments = listOf(navArgument("photoID"){
-            type = NavType.StringType
-        })) {
+        composable(
+            Destination.PhotoDetailScreen.route,
+            arguments = listOf(
+                navArgument("photoID") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
             val photoId = it.arguments?.getString("photoID")
-            photoId?.let {  id ->
+            photoId?.let { id ->
                 PhotoDetailsScreen(photoId = id)
+            }
+        }
+        composable(
+            route = Destination.UserScreen.route,
+            arguments = listOf(
+                navArgument("username") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val username = it.arguments?.getString("username")
+            username?.let {
+                UserScreen(it)
             }
         }
     }
@@ -31,4 +50,5 @@ fun NavGraph(
 sealed class Destination(val route: String) {
     object HomeScreen : Destination(route = "home_screen")
     object PhotoDetailScreen : Destination(route = "photo_detail_screen/{photoID}")
+    object UserScreen : Destination(route = "user_screen/{username}")
 }

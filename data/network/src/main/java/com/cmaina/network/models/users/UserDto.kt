@@ -51,7 +51,7 @@ data class UserDto(
     @SerializedName("social")
     val social: Social,
     @SerializedName("tags")
-    val tags: Tags,
+    val tags: Tags? = null,
     @SerializedName("total_collections")
     val total_collections: Int,
     @SerializedName("total_likes")

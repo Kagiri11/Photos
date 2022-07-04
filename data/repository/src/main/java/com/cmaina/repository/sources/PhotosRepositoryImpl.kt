@@ -12,11 +12,7 @@ import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
 import com.skydoves.sandwich.ApiResponse
-import com.skydoves.sandwich.suspendOnError
-import com.skydoves.sandwich.suspendOnException
-import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
 class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) : PhotosRepository {
@@ -51,14 +47,10 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
     }
 
     override suspend fun getSpecificPhoto(photoId: String): Flow<SpecificPhotoDomainModel> {
-        return flow {
-            photosRemoteSource.fetchPhoto(photoId)
-                .suspendOnSuccess {
-                }
-                .suspendOnError {
-                }
-                .suspendOnException {
-                }
+        return when (val result = photosRemoteSource.fetchPhoto(photoId)) {
+            is ApiResponse.Success -> flowOf(result.data.toDomain())
+            is ApiResponse.Failure.Error -> flowOf()
+            is ApiResponse.Failure.Exception -> flowOf()
         }
     }
 
