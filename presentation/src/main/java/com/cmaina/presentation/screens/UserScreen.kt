@@ -54,6 +54,7 @@ fun UserScreen(username: String, userViewModel: UserViewModel = getViewModel()) 
     Column(Modifier.fillMaxSize()) {
         TopPart()
         BottomPart()
+        
     }
 }
 
