@@ -1,5 +1,6 @@
 package com.cmaina.presentation.screens
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -47,7 +48,9 @@ import com.cmaina.presentation.viewmodels.UserViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun UserScreen(username: String) {
+fun UserScreen(username: String, userViewModel: UserViewModel = getViewModel()) {
+    Log.d("USerName", "This is the sent name: $username")
+    userViewModel.fetchUser(username)
     Column(Modifier.fillMaxSize()) {
         TopPart()
         BottomPart()

@@ -11,11 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
-import com.cmaina.presentation.materials.LazyStaggeredGrid
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosWhite
 import com.cmaina.presentation.viewmodels.HomeViewModel
@@ -46,7 +44,12 @@ fun HomeScreen(viewModel: HomeViewModel = getViewModel(), navController: NavCont
 
             myPictures?.let {
                 items(it) { pic ->
-                    PhotoCardItem(imageUrl = pic?.domainUrls?.regular, navController = navController)
+                    val photoUserName = pic?.domainPhotoUser?.username
+                    PhotoCardItem(
+                        imageUrl = pic?.domainUrls?.regular,
+                        navController = navController,
+                        username = photoUserName ?: ""
+                    )
                 }
             }
         }

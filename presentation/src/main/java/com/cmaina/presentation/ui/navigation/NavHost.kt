@@ -14,7 +14,7 @@ import com.cmaina.presentation.screens.UserScreen
 fun NavGraph(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = Destination.UserScreen.route) {
+    NavHost(navController = navController, startDestination = Destination.HomeScreen.route) {
         composable(route = Destination.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
@@ -31,8 +31,18 @@ fun NavGraph(
                 PhotoDetailsScreen(photoId = id)
             }
         }
-        composable(route = Destination.UserScreen.route) {
-            UserScreen()
+        composable(
+            route = Destination.UserScreen.route,
+            arguments = listOf(
+                navArgument("username") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val username = it.arguments?.getString("username")
+            username?.let {
+                UserScreen(it)
+            }
         }
     }
 }
@@ -40,5 +50,5 @@ fun NavGraph(
 sealed class Destination(val route: String) {
     object HomeScreen : Destination(route = "home_screen")
     object PhotoDetailScreen : Destination(route = "photo_detail_screen/{photoID}")
-    object UserScreen : Destination(route = "user_screen")
+    object UserScreen : Destination(route = "user_screen/{username}")
 }
