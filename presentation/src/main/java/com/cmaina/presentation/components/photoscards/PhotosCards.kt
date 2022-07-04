@@ -30,7 +30,7 @@ fun PhotoCardItem(imageUrl: String?, username: String, navController: NavControl
             model = ImageRequest.Builder(LocalContext.current)
                 .data(imageUrl)
                 .crossfade(true).build(),
-            contentDescription = "image",
+            contentDescription = "image flani",
             modifier = Modifier.fillMaxSize().clickable {
                 navController.navigate("user_screen/$username")
             },
