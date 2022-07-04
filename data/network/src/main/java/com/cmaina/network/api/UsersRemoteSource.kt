@@ -1,6 +1,7 @@
 package com.cmaina.network.api
 
 import com.cmaina.network.models.photos.PhotoList
+import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.users.UserDto
 import com.cmaina.network.models.users.portfolio.UserPortFolioDto
 import com.cmaina.network.models.users.statistics.UserStatistics
@@ -27,7 +28,7 @@ interface UsersRemoteSource {
     suspend fun getUserPhotos(
         @Path("username") username: String,
         @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
-    ): Response<PhotoList>
+    ): ApiResponse<List<PhotoListItem>>
 
     @GET("users/{username}/statistics")
     suspend fun getUserStatistics(

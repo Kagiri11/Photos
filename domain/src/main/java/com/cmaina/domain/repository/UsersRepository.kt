@@ -12,7 +12,7 @@ interface UsersRepository {
 
     suspend fun fetchUserProfile(): Flow<UserDomainModel>
 
-    suspend fun fetchUserPhotos(): Flow<DomainPhotoListItem>
+    suspend fun fetchUserPhotos(username: String): Flow<List<DomainPhotoListItem>>
 
     suspend fun fetchUserPortFolio(): Flow<UserPortFolioDomainModel>
 

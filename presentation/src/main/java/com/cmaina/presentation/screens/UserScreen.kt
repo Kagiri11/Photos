@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
-import com.cmaina.domain.models.users.UserPhotoDomainModel
+import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
@@ -49,8 +49,8 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun UserScreen(username: String, userViewModel: UserViewModel = getViewModel()) {
-    Log.d("USerName", "This is the sent name: $username")
     userViewModel.fetchUser(username)
+    userViewModel.fetchUserPhotos(username)
     Column(Modifier.fillMaxSize()) {
         TopPart()
         BottomPart()
@@ -91,7 +91,7 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
     val photos = user?.total_photos ?: 0
     val followers = user?.followers_count ?: 0
     val following = user?.following_count ?: 0
-    val userPhotos = user?.userPhotoDomainModels
+    val userPhotos = userViewModel.userPhotos.observeAsState().value
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -115,7 +115,7 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
                 },
             shape = RoundedCornerShape(50)
         ) {
-            user?.profile_image?.medium.let {
+            user?.profile_image?.large.let {
                 AsyncImage(
                     model = it,
                     contentDescription = "",
@@ -172,10 +172,10 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
 }
 
 @Composable
-fun UserPhotos(modifier: Modifier = Modifier, photos: List<UserPhotoDomainModel>) {
+fun UserPhotos(modifier: Modifier = Modifier, photos: List<DomainPhotoListItem>) {
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
         items(photos) { pic ->
-            UserPhoto(userImageUrl = pic.urls?.regular ?: "")
+            UserPhoto(userImageUrl = pic.domainUrls?.regular ?: "")
         }
     }
 }

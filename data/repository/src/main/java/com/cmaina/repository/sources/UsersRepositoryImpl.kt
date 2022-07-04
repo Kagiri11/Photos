@@ -11,10 +11,10 @@ import com.skydoves.sandwich.ApiResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class UsersRepositoryImpl(private val usersRemoteSource: UsersRemoteSource): UsersRepository {
+class UsersRepositoryImpl(private val usersRemoteSource: UsersRemoteSource) : UsersRepository {
 
     override suspend fun fetchUser(username: String): Flow<UserDomainModel> {
-        return when(val result = usersRemoteSource.getUser(username = username)){
+        return when (val result = usersRemoteSource.getUser(username = username)) {
             is ApiResponse.Success -> {
                 flowOf(result.data.toDomain())
             }
@@ -27,8 +27,14 @@ class UsersRepositoryImpl(private val usersRemoteSource: UsersRemoteSource): Use
         return flowOf()
     }
 
-    override suspend fun fetchUserPhotos(): Flow<DomainPhotoListItem> {
-        return flowOf()
+    override suspend fun fetchUserPhotos(username: String): Flow<List<DomainPhotoListItem>> {
+        return when (val result = usersRemoteSource.getUserPhotos(username = username)) {
+            is ApiResponse.Success -> {
+                flowOf(result.data.map { it.toDomain() })
+            }
+            is ApiResponse.Failure.Error -> flowOf()
+            is ApiResponse.Failure.Exception -> flowOf()
+        }
     }
 
     override suspend fun fetchUserPortFolio(): Flow<UserPortFolioDomainModel> {
