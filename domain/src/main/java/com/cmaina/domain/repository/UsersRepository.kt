@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UsersRepository {
 
-    suspend fun getUser(username: String): Flow<UserDomainModel>
+    suspend fun fetchUser(username: String): Flow<UserDomainModel>
 
     suspend fun fetchUserProfile(): Flow<UserDomainModel>
 
