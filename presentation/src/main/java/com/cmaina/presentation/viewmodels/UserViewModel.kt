@@ -10,6 +10,10 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(private val fetchUserUseCase: FetchUserUseCase) : ViewModel() {
 
+    init {
+        fetchUser("montylov")
+    }
+
     private val _user = MutableLiveData<UserDomainModel>()
     val user: LiveData<UserDomainModel> get() = _user
 

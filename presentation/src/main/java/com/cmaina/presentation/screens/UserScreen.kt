@@ -42,11 +42,11 @@ import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
-import com.cmaina.presentation.viewmodels.HomeViewModel
+import com.cmaina.presentation.viewmodels.UserViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun UserScreen() {
+fun UserScreen(userViewModel: UserViewModel = getViewModel()) {
     Column(Modifier.fillMaxSize()) {
         TopPart()
         BottomPart()
@@ -82,8 +82,8 @@ fun TopPart() {
 }
 
 @Composable
-fun BottomPart(viewModel: HomeViewModel = getViewModel()) {
-    val photos = viewModel.pics.observeAsState().value
+fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
+    val user = userViewModel.user.observeAsState().value
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -107,12 +107,14 @@ fun BottomPart(viewModel: HomeViewModel = getViewModel()) {
                 },
             shape = RoundedCornerShape(50)
         ) {
-            AsyncImage(
-                model = "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb",
-                contentDescription = "",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
+            user?.profile_image?.medium.let {
+                AsyncImage(
+                    model = it,
+                    contentDescription = "",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+            }
         }
 
         FotosTitleText(
