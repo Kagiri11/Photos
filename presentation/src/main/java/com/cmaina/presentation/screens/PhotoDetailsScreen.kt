@@ -2,7 +2,6 @@ package com.cmaina.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -24,7 +23,7 @@ fun PhotoDetailsScreen(homeViewModel: HomeViewModel = getViewModel(), photoId: S
         verticalArrangement = Arrangement.spacedBy(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items((0..10).toList()){
+        items((0..10).toList()) {
             SpecificFotoCard()
         }
     }
