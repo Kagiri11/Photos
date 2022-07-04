@@ -9,8 +9,6 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
 
       - name: Checkout written code
         uses: actions/checkout@v1
@@ -20,10 +18,10 @@ jobs:
         with:
           java-version: 11
       - name: Build with Gradle
-        run: ./gradlew build
+        run: bash ./gradlew build
 
       - name: Lint
-        run: ./gradlew ktlintCheck
+        run: bash ./gradlew ktlintCheck
 
       - name: Submit lint report
         uses: actions/upload-artifact@v2
