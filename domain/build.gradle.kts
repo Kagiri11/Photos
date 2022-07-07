@@ -37,9 +37,7 @@ android {
 }
 
 dependencies {
-    Libraries.also {
-        implementation(coroutinesCore)
-        implementation(koinCore)
-        implementation(paging)
-    }
+    implementation(coroutinesCore)
+    implementation(koinCore)
+    implementation(paging)
 }
