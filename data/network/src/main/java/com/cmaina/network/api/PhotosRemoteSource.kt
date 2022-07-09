@@ -13,7 +13,6 @@ import retrofit2.http.Query
 interface PhotosRemoteSource {
     @GET("photos")
     suspend fun fetchPhotos(
-        @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk",
         @Query("page") page: Int
     ): ApiResponse<List<PhotoListItem>>
 
