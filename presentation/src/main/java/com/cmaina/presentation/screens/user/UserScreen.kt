@@ -40,7 +40,6 @@ import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
-import com.cmaina.presentation.viewmodels.UserViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

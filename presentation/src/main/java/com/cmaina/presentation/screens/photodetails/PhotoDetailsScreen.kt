@@ -12,12 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cmaina.presentation.components.photoscards.SpecificFotoCard
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
-import com.cmaina.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun PhotoDetailsScreen(homeViewModel: HomeViewModel = getViewModel(), photoId: String) {
-    val photo = homeViewModel.randomPhoto.value
+fun PhotoDetailsScreen(homeViewModel: PhotoDetailsViewModel = getViewModel(), photoId: String) {
+    val photo = homeViewModel.specificPhoto.value
     LazyColumn(
         modifier = Modifier.fillMaxSize().background(FotosGreyShadeOneLightTheme),
         verticalArrangement = Arrangement.spacedBy(20.dp),

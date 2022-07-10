@@ -1,4 +1,4 @@
-package com.cmaina.presentation.viewmodels
+package com.cmaina.presentation.screens.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.cmaina.presentation.viewmodels
+package com.cmaina.presentation.screens.photodetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.usecases.FetchSpecificPhotoUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class PhotoDetailsViewModel(
@@ -19,7 +17,7 @@ class PhotoDetailsViewModel(
 
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
-            fetchSpecificPhotoUseCase(photoId = photoId).collect{
+            fetchSpecificPhotoUseCase(photoId = photoId).collect {
                 _specificPhoto.value = it
             }
         }
