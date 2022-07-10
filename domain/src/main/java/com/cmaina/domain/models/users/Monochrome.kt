@@ -1,4 +1,4 @@
-package com.cmaina.network.models.users
+package com.cmaina.domain.models.users
 
 data class Monochrome(
     val status: String

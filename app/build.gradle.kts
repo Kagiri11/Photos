@@ -3,6 +3,13 @@ import Configurations.MinSdk
 import Configurations.TargetSdk
 import Configurations.VersionCode
 import Configurations.VersionName
+import Libraries.coil
+import Libraries.composeImageBlur
+import Libraries.composeNavigation
+import Libraries.koinCompose
+import Libraries.paging
+import Libraries.pagingCompose
+import Libraries.systemUiController
 
 plugins {
     id("com.android.application")
@@ -10,7 +17,7 @@ plugins {
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
-val composeVersion = "1.0.3"
+val composeVersion = "1.2.0-beta01"
 
 android {
     compileSdk = Configurations.CompileSdk
@@ -28,6 +35,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -63,6 +71,23 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}")
+    implementation("androidx.core:core-splashscreen:1.0.0-rc01")
+    implementation(project(":domain"))
+    implementation(project(":data:network"))
+    implementation(project(":data:repository"))
+    implementation(project(":presentation"))
+
+    implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-rc02")
+    Libraries.also {
+        implementation(koinCompose)
+        implementation(coil)
+        implementation(paging)
+        implementation(pagingCompose)
+        implementation(systemUiController)
+        implementation(composeNavigation)
+    }
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
@@ -70,6 +95,5 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
+
 }

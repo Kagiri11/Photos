@@ -1,3 +1,10 @@
+import Libraries.appCompat
+import Libraries.core
+import Libraries.coroutinesCore
+import Libraries.koinCore
+import Libraries.paging
+import Libraries.sandwich
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -5,7 +12,6 @@ plugins {
 
 android {
     compileSdk = 32
-
     defaultConfig {
         minSdk = 21
         targetSdk = 32
@@ -33,9 +39,14 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.6.0")
+    Libraries.also {
+        implementation(coroutinesCore)
+        implementation(koinCore)
+        implementation(core)
+        implementation(appCompat)
+        implementation(sandwich)
+        implementation(paging)
+    }
     implementation(project(mapOf("path" to ":data:network")))
     implementation(project(mapOf("path" to ":domain")))
     testImplementation("junit:junit:4.13.2")

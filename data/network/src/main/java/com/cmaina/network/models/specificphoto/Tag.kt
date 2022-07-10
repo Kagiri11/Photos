@@ -1,7 +1,12 @@
 package com.cmaina.network.models.specificphoto
 
+import com.google.gson.annotations.SerializedName
+
 data class Tag(
+    @SerializedName("source")
     val source: Source,
-    val title: String,
-    val type: String
+    @SerializedName("title")
+    val title: String? =null,
+    @SerializedName("type")
+    val type: String? = null
 )
