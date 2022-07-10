@@ -1,4 +1,4 @@
-package com.cmaina.presentation.screens
+package com.cmaina.presentation.screens.user
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -40,7 +40,6 @@ import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
-import com.cmaina.presentation.viewmodels.UserViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

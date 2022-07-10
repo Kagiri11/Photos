@@ -1,4 +1,4 @@
-package com.cmaina.presentation.viewmodels
+package com.cmaina.presentation.screens.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,10 @@ import com.cmaina.domain.usecases.FetchUserPhotosUseCase
 import com.cmaina.domain.usecases.FetchUserUseCase
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val fetchUserUseCase: FetchUserUseCase, private val fetchUserPhotosUseCase: FetchUserPhotosUseCase) : ViewModel() {
+class UserViewModel(
+    private val fetchUserUseCase: FetchUserUseCase,
+    private val fetchUserPhotosUseCase: FetchUserPhotosUseCase
+) : ViewModel() {
 
     private val _user = MutableLiveData<UserDomainModel>()
     val user: LiveData<UserDomainModel> get() = _user
@@ -25,7 +28,7 @@ class UserViewModel(private val fetchUserUseCase: FetchUserUseCase, private val 
     }
 
     fun fetchUserPhotos(username: String) = viewModelScope.launch {
-        fetchUserPhotosUseCase(username = username).collect{
+        fetchUserPhotosUseCase(username = username).collect {
             _userPhotos.value = it
         }
     }

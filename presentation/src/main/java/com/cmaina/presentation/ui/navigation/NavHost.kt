@@ -6,9 +6,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.cmaina.presentation.screens.HomeScreen
-import com.cmaina.presentation.screens.PhotoDetailsScreen
-import com.cmaina.presentation.screens.UserScreen
+import com.cmaina.presentation.screens.home.HomeScreen
+import com.cmaina.presentation.screens.photodetails.PhotoDetailsScreen
+import com.cmaina.presentation.screens.user.UserScreen
 
 @Composable
 fun NavGraph(
