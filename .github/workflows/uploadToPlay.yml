@@ -1,0 +1,39 @@
+name: Upload To Playstore
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: App build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v1
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Generate a release bundle
+        run: ./gradlew bundleRelease
+
+      - name: Sign Release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SHA_1_CERTIFICATE }}
+          alias: ${{ secrets.KEYSTORE_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Create service_account.json
+        run: echo '${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}' > service_account.json
+
+
+
