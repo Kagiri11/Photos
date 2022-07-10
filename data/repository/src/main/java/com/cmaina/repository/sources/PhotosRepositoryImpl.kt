@@ -12,6 +12,7 @@ import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
 import com.skydoves.sandwich.ApiResponse
+import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -24,20 +25,6 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
         }.flow
         return photosPager
     }
-
-    /*override suspend fun fetchPhotos(): Flow<List<DomainPhotoListItem>> {
-        return when (val result = photosRemoteSource.fetchPhotos(page = 4)) {
-            is ApiResponse.Success -> {
-                flowOf(result.data.toDomain())
-            }
-            is ApiResponse.Failure.Error -> {
-                error(result.message())
-            }
-            is ApiResponse.Failure.Exception -> {
-                flowOf()
-            }
-        }
-    }*/
 
     override suspend fun getRandomPhoto(): Flow<DomainPhotoListItem> {
         return when (val response = photosRemoteSource.fetchRandomPhoto()) {
