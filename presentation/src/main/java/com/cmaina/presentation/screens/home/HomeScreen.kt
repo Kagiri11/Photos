@@ -1,4 +1,4 @@
-package com.cmaina.presentation.screens
+package com.cmaina.presentation.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.screens.items
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosWhite
 import com.cmaina.presentation.viewmodels.HomeViewModel

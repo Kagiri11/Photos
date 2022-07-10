@@ -1,4 +1,4 @@
-package com.cmaina.presentation.screens
+package com.cmaina.presentation.screens.user
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

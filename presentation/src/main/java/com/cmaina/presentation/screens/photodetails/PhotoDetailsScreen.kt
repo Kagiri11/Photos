@@ -1,4 +1,4 @@
-package com.cmaina.presentation.screens
+package com.cmaina.presentation.screens.photodetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
