@@ -24,7 +24,7 @@ import com.cmaina.presentation.components.bottomnav.TopLevelDestinations
 import com.cmaina.presentation.ui.navigation.NavGraph
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
-import com.cmaina.presentation.viewmodels.HomeViewModel
+import com.cmaina.presentation.screens.home.HomeViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {

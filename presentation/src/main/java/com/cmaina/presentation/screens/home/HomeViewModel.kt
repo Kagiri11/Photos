@@ -1,4 +1,4 @@
-package com.cmaina.presentation.viewmodels
+package com.cmaina.presentation.screens.home
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.usecases.FetchPhotosUseCase
 import com.cmaina.domain.usecases.FetchRandomPhotoUseCase
@@ -30,7 +31,7 @@ class HomeViewModel(
     fun fetchPhotos() = viewModelScope.launch {
         fetchPhotosUseCase().let {
             delay(200)
-            _pics.value = it
+            _pics.value = it.cachedIn(viewModelScope)
         }
     }
 
