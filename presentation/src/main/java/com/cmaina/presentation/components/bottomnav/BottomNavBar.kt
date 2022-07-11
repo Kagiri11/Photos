@@ -7,7 +7,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.navigation.NavDestination
@@ -16,6 +15,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.cmaina.presentation.ui.navigation.Destination
 import com.cmaina.presentation.ui.theme.FotosBlack
+import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
 
 val TopLevelDestinations = listOf(
@@ -47,10 +47,11 @@ fun RowScope.AddBottomNavItem(
     currentScreen: NavDestination?,
     navController: NavHostController,
 ) {
+    val isSelected = currentScreen?.hierarchy?.any {
+        it.route == screen.route
+    } == true
     BottomNavigationItem(
-        selected = currentScreen?.hierarchy?.any {
-            it.route == screen.label
-        } == true,
+        selected = isSelected,
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.startDestinationId)
@@ -58,14 +59,17 @@ fun RowScope.AddBottomNavItem(
             }
         },
         label = {
-            Text(text = screen.label, style = TextStyle(color = FotosBlack))
+            Text(
+                text = screen.label,
+                style = TextStyle(color = if (isSelected) FotosBlack else FotosGreyShadeTwoLightTheme)
+            )
         },
         alwaysShowLabel = true,
         icon = {
             Icon(
                 painter = painterResource(id = screen.icon),
                 contentDescription = screen.label,
-                tint = Color.Black
+                tint = if (isSelected) FotosBlack else FotosGreyShadeTwoLightTheme
             )
         },
     )
