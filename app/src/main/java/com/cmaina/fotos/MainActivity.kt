@@ -4,51 +4,54 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.presentation.components.bottomnav.FotosBottomNav
+import com.cmaina.presentation.components.bottomnav.TopLevelDestinations
 import com.cmaina.presentation.ui.navigation.NavGraph
-import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
-import com.cmaina.presentation.viewmodels.HomeViewModel
+import com.cmaina.presentation.screens.home.HomeViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()
         setContent {
             FotosTheme {
                 val navController = rememberNavController()
                 val systemUIController = rememberSystemUiController()
+                val isTopLevelDestination =
+                    navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }
                 SideEffect {
                     systemUIController.setSystemBarsColor(FotosWhite)
                 }
-                NavGraph(navController = navController)
+                Scaffold(
+                    bottomBar = {
+                        if (isTopLevelDestination) {
+                            FotosBottomNav(navHostController = navController)
+                        }
+                    }
+                ) { paddingValues ->
+                    NavGraph(
+                        navController = navController,
+                        modifier = Modifier.padding(paddingValues)
+                    )
+                }
             }
         }
     }
@@ -74,7 +77,7 @@ fun SpecificPhotoDetail(photo: DomainPhotoListItem) {
     ConstraintLayout() {
         val (image, likebar, userarea) = createRefs()
         Card(
-            modifier = Modifier
+            modfier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f)
                 .constrainAs(image) {
