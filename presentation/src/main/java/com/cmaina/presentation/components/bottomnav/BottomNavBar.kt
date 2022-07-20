@@ -64,7 +64,7 @@ fun RowScope.AddBottomNavItem(
                 style = TextStyle(color = if (isSelected) FotosBlack else FotosGreyShadeTwoLightTheme)
             )
         },
-        alwaysShowLabel = true,
+        alwaysShowLabel = isSelected,
         icon = {
             Icon(
                 painter = painterResource(id = screen.icon),
