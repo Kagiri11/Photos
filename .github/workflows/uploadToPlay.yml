@@ -47,5 +47,5 @@ jobs:
         with:
           serviceAccountJson: service_account.json
           packageName: com.cmaina.fotos
-          releaseFiles: app/release/app-release.aab
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: internal testing
