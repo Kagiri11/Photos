@@ -3,6 +3,7 @@ package com.cmaina.presentation.screens.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -10,8 +11,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,17 +45,19 @@ fun HomeScreen(viewModel: HomeViewModel = getViewModel(), navController: NavCont
             text = "Explore",
             textColor = FotosBlack,
             modifier = Modifier.constrainAs(title) {
-                top.linkTo(parent.top, margin = 30.dp)
+                top.linkTo(parent.top, margin = 20.dp)
                 start.linkTo(parent.start, margin = 10.dp)
             }
         )
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(2.dp),
+            contentPadding = PaddingValues(1.dp),
             modifier = Modifier
                 .constrainAs(fotosGrid) {
                     top.linkTo(title.bottom, margin = 20.dp)
-                }
+                    bottom.linkTo(parent.bottom)
+                    height = Dimension.fillToConstraints
+                }.fillMaxWidth()
         ) {
 
             myPictures?.let {
