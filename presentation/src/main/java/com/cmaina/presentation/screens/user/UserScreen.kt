@@ -5,17 +5,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -159,6 +162,7 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
                 },
                 photos = it
             )
@@ -168,9 +172,13 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
 
 @Composable
 fun UserPhotos(modifier: Modifier = Modifier, photos: List<DomainPhotoListItem>) {
-    LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
+    LazyVerticalGrid(
+        modifier = modifier,
+        columns = GridCells.Fixed(3),
+        contentPadding = PaddingValues(1.dp)
+    ) {
         items(photos) { pic ->
-            UserPhoto(userImageUrl = pic.domainUrls?.regular ?: "")
+            UserPhoto(userImageUrl = pic.domainUrls?.small ?: "")
         }
     }
 }
@@ -218,8 +226,10 @@ fun UserButton(text: String, buttonColor: Color, textColor: Color, modifier: Mod
 fun UserPhoto(userImageUrl: String, description: String = "") {
     Card(
         Modifier
-            .fillMaxWidth(0.9f)
-            .height(200.dp),
+            .fillMaxWidth()
+            .height(100.dp)
+            .width(100.dp)
+            .padding(0.5.dp),
         shape = RoundedCornerShape(5),
         elevation = 0.dp
     ) {
