@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Fotos
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/bundle/release
 
 #      - name: Sign Release apk
 #        uses: r0adkll/sign-android-release@v1
