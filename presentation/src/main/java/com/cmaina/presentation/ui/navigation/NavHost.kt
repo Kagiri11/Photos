@@ -50,8 +50,8 @@ fun NavGraph(
             )
         ) {
             val username = it.arguments?.getString("username")
-            username?.let {
-                UserScreen(it)
+            username?.let { name ->
+                UserScreen(username = name, navController = navController)
             }
         }
         composable(route = Destination.FavouritesScreen.route) {

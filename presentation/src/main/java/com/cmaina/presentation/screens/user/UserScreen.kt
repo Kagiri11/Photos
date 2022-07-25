@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -34,6 +35,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
@@ -50,19 +52,19 @@ import com.cmaina.presentation.ui.theme.FotosWhite
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun UserScreen(username: String, userViewModel: UserViewModel = getViewModel()) {
+fun UserScreen(username: String, userViewModel: UserViewModel = getViewModel(), navController: NavController) {
     userViewModel.fetchUser(username)
     SideEffect {
         userViewModel.fetchUserPhotos(username)
     }
     Column(Modifier.fillMaxSize()) {
-        TopPart()
+        TopPart(navController)
         BottomPart()
     }
 }
 
 @Composable
-fun TopPart() {
+fun TopPart(navController: NavController) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -77,7 +79,9 @@ fun TopPart() {
             Image(
                 painter = painterResource(id = R.drawable.ic_baseline_chevron_left_24),
                 contentDescription = "back",
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier.size(30.dp).clickable {
+                    navController.navigateUp()
+                }
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
