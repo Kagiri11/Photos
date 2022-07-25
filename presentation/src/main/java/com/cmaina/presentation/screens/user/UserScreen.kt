@@ -1,5 +1,6 @@
 package com.cmaina.presentation.screens.user
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,12 +19,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,11 +34,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.screens.items
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
@@ -48,7 +52,9 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun UserScreen(username: String, userViewModel: UserViewModel = getViewModel()) {
     userViewModel.fetchUser(username)
-    userViewModel.fetchUserPhotos(username)
+    SideEffect {
+        userViewModel.fetchUserPhotos(username)
+    }
     Column(Modifier.fillMaxSize()) {
         TopPart()
         BottomPart()
@@ -89,7 +95,7 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
     val photos = user?.total_photos ?: 0
     val followers = user?.followers_count ?: 0
     val following = user?.following_count ?: 0
-    val userPhotos = userViewModel.userPhotos.observeAsState().value
+    val userPhotos = userViewModel.userPhotos.observeAsState().value?.collectAsLazyPagingItems()
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -154,6 +160,8 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
             }
         )
 
+        Log.d("UserDomainPhotos", "This is the users photos $userPhotos")
+
         userPhotos?.let {
             UserPhotos(
                 modifier = Modifier.constrainAs(userPhotosRef) {
@@ -171,14 +179,14 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
 }
 
 @Composable
-fun UserPhotos(modifier: Modifier = Modifier, photos: List<DomainPhotoListItem>) {
+fun UserPhotos(modifier: Modifier = Modifier, photos: LazyPagingItems<DomainPhotoListItem>) {
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(1.dp)
     ) {
         items(photos) { pic ->
-            UserPhoto(userImageUrl = pic.domainUrls?.small ?: "")
+            UserPhoto(userImageUrl = pic?.domainUrls?.small ?: "")
         }
     }
 }
@@ -227,10 +235,9 @@ fun UserPhoto(userImageUrl: String, description: String = "") {
     Card(
         Modifier
             .fillMaxWidth()
-            .height(100.dp)
-            .width(100.dp)
+            .size(100.dp)
             .padding(0.5.dp),
-        shape = RoundedCornerShape(5),
+        shape = RoundedCornerShape(2),
         elevation = 0.dp
     ) {
         AsyncImage(
