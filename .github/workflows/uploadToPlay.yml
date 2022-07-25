@@ -67,6 +67,7 @@ jobs:
     steps:
     
       - name: Download APK from build
+        id: download_artifact
         uses: actions/download-artifact@v1
         with:
           name: Fotos
@@ -79,7 +80,7 @@ jobs:
         with:
           serviceAccountJson: service_account.json
           packageName: com.cmaina.fotos
-          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          releaseFiles: ${{ steps.download_artifact.outputs.app-release.aab }}
           track: internal
 
   create-release:
