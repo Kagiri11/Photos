@@ -50,8 +50,8 @@ fun NavGraph(
             )
         ) {
             val username = it.arguments?.getString("username")
-            username?.let {
-                UserScreen(it)
+            username?.let { name ->
+                UserScreen(username = name, navController = navController)
             }
         }
         composable(route = Destination.FavouritesScreen.route) {
@@ -73,13 +73,19 @@ sealed class Destination(
 ) {
     object HomeScreen :
         Destination(route = "home_screen", label = "Home", icon = R.drawable.ic_home)
+
     object PhotoDetailScreen : Destination(route = "photo_detail_screen/{photoID}")
     object UserScreen : Destination(route = "user_screen/{username}")
     object SearchScreen :
         Destination(route = "search_screen", label = "Search", icon = R.drawable.ic_search)
 
     object FavouritesScreen :
-        Destination(route = "favourites_screen", label = "Favorites", icon = R.drawable.ic_favourite)
+        Destination(
+            route = "favourites_screen",
+            label = "Favorites",
+            icon = R.drawable.ic_favourite
+        )
+
     object SettingsScreen :
         Destination(route = "settings_screen", label = "Settings", icon = R.drawable.ic_settings)
 }

@@ -1,19 +1,29 @@
 package com.cmaina.fotos
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Card
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -24,7 +34,6 @@ import com.cmaina.presentation.components.bottomnav.TopLevelDestinations
 import com.cmaina.presentation.ui.navigation.NavGraph
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
-import com.cmaina.presentation.screens.home.HomeViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
@@ -44,6 +53,20 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         if (isTopLevelDestination) {
                             FotosBottomNav(navHostController = navController)
+                        }
+                    },
+                    isFloatingActionButtonDocked = true,
+                    floatingActionButtonPosition = FabPosition.Center,
+                    floatingActionButton = {
+                        if (isTopLevelDestination) {
+                            FloatingActionButton(
+                                onClick = {
+                                    Toast.makeText(this, "Camera is pressed", Toast.LENGTH_SHORT).show()
+                                },
+
+                            ) {
+                                Icon(painter = painterResource(id = R.drawable.ic_camera), contentDescription = "camera")
+                            }
                         }
                     }
                 ) { paddingValues ->

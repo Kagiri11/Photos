@@ -7,13 +7,19 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 fun provideRetrofit(): Retrofit {
+    val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
     val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor())
+        .addInterceptor(loggingInterceptor)
         .addInterceptor { chain ->
             val request = chain.request()
-                .newBuilder()
-                .addHeader("Authorization", "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")
-            chain.proceed(request.build())
+                /*.newBuilder()
+                .addHeader("Authorization", "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")*/
+            val newRequest = request.newBuilder().apply {
+                addHeader("Authorization", "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")
+            }.build()
+            chain.proceed(newRequest)
         }
         .build()
     return Retrofit.Builder()

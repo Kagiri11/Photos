@@ -1,12 +1,14 @@
 package com.cmaina.presentation.components.bottomnav
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.navigation.NavDestination
@@ -30,7 +32,7 @@ fun FotosBottomNav(navHostController: NavHostController) {
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentScreen = navBackStackEntry?.destination
 
-    BottomNavigation(backgroundColor = FotosWhite) {
+    BottomNavigation(backgroundColor = FotosWhite, modifier = Modifier.fillMaxWidth()) {
         TopLevelDestinations.forEach { screen ->
             AddBottomNavItem(
                 screen = screen,
