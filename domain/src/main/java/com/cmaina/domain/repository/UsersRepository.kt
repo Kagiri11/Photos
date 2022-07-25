@@ -1,5 +1,6 @@
 package com.cmaina.domain.repository
 
+import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.models.users.portfolio.UserPortFolioDomainModel
@@ -12,7 +13,7 @@ interface UsersRepository {
 
     suspend fun fetchUserProfile(): Flow<UserDomainModel>
 
-    suspend fun fetchUserPhotos(username: String): Flow<List<DomainPhotoListItem>>
+    suspend fun fetchUserPhotos(username: String): Flow<PagingData<DomainPhotoListItem>>
 
     suspend fun fetchUserPortFolio(): Flow<UserPortFolioDomainModel>
 

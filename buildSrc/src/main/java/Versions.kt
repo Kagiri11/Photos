@@ -9,7 +9,7 @@ object Versions {
     const val koin = "3.2.0-beta-1"
     const val sandwich = "1.2.4"
     const val reflection = "1.6.21"
-    const val okHttpLoggingInterceptor = "4.2.1"
+    const val okHttpLoggingInterceptor = "4.10.0"
     const val coil = "2.1.0"
     const val paging = "3.1.1"
     const val pagingCompose = "1.0.0-alpha14"

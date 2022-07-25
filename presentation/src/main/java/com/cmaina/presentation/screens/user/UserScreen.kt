@@ -1,26 +1,30 @@
 package com.cmaina.presentation.screens.user
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,11 +34,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.screens.items
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
@@ -45,7 +52,9 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun UserScreen(username: String, userViewModel: UserViewModel = getViewModel()) {
     userViewModel.fetchUser(username)
-    userViewModel.fetchUserPhotos(username)
+    SideEffect {
+        userViewModel.fetchUserPhotos(username)
+    }
     Column(Modifier.fillMaxSize()) {
         TopPart()
         BottomPart()
@@ -86,7 +95,7 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
     val photos = user?.total_photos ?: 0
     val followers = user?.followers_count ?: 0
     val following = user?.following_count ?: 0
-    val userPhotos = userViewModel.userPhotos.observeAsState().value
+    val userPhotos = userViewModel.userPhotos.observeAsState().value?.collectAsLazyPagingItems()
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -151,6 +160,8 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
             }
         )
 
+        Log.d("UserDomainPhotos", "This is the users photos $userPhotos")
+
         userPhotos?.let {
             UserPhotos(
                 modifier = Modifier.constrainAs(userPhotosRef) {
@@ -159,6 +170,7 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
                 },
                 photos = it
             )
@@ -167,10 +179,14 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
 }
 
 @Composable
-fun UserPhotos(modifier: Modifier = Modifier, photos: List<DomainPhotoListItem>) {
-    LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(20.dp)) {
+fun UserPhotos(modifier: Modifier = Modifier, photos: LazyPagingItems<DomainPhotoListItem>) {
+    LazyVerticalGrid(
+        modifier = modifier,
+        columns = GridCells.Fixed(3),
+        contentPadding = PaddingValues(1.dp)
+    ) {
         items(photos) { pic ->
-            UserPhoto(userImageUrl = pic.domainUrls?.regular ?: "")
+            UserPhoto(userImageUrl = pic?.domainUrls?.small ?: "")
         }
     }
 }
@@ -218,9 +234,10 @@ fun UserButton(text: String, buttonColor: Color, textColor: Color, modifier: Mod
 fun UserPhoto(userImageUrl: String, description: String = "") {
     Card(
         Modifier
-            .fillMaxWidth(0.9f)
-            .height(200.dp),
-        shape = RoundedCornerShape(5),
+            .fillMaxWidth()
+            .size(100.dp)
+            .padding(0.5.dp),
+        shape = RoundedCornerShape(2),
         elevation = 0.dp
     ) {
         AsyncImage(
