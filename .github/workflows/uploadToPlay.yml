@@ -19,6 +19,9 @@ jobs:
 
       - name: Build
         run: ./gradlew build
+        
+      - name: Generate release bundle
+        run: ./gradlew bundleRelease
 
   generate-release-bundle:
     needs: [ build ]
