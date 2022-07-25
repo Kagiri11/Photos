@@ -46,12 +46,6 @@ jobs:
           alias: ${{ secrets.KEYSTORE_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Upload release artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: Fotos
-          path: app/build/outputs/bundle/release
 #
 ##      - name: Bump version
 ##      uses: chkfung/android-version-actions@v1.1
@@ -82,17 +76,18 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-      - name: Download APK from build
-        uses: actions/download-artifact@v1
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v1
         with:
           name: Fotos
-
+          path: app/build/outputs/bundle/release
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
