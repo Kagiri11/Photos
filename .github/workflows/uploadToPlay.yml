@@ -20,11 +20,15 @@ jobs:
       - name: Build
         run: ./gradlew build
 
+      - name: Generate release bundle
+        run: ./gradlew bundleRelease
+
   generate-release-bundle:
     needs: [ build ]
     name: Generate a release bundle
     runs-on: ubuntu-latest
     steps:
+
       - name: Tell gradle to generate a release bundle
         run: ./gradlew bundleRelease
 
