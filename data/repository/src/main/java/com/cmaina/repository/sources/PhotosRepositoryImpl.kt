@@ -12,7 +12,6 @@ import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
 import com.skydoves.sandwich.ApiResponse
-import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
