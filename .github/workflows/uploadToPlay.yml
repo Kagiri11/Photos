@@ -25,6 +25,8 @@ jobs:
     name: Generate a release bundle
     runs-on: ubuntu-latest
     steps:
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
       - name: Tell gradle to generate a release bundle
         run: ./gradlew bundleRelease
 
