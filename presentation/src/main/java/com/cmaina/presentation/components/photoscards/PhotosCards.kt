@@ -52,8 +52,8 @@ fun PhotoCardItem(imageUrl: String?, username: String, navController: NavControl
         modifier = Modifier
             .height(250.dp)
             .fillMaxWidth()
-            .padding(bottom = 5.dp, start = 2.dp, end = 3.dp),
-        shape = RoundedCornerShape(5.dp)
+            .padding(1.dp),
+        shape = RoundedCornerShape(2)
     ) {
         AsyncImage(
             model = request,

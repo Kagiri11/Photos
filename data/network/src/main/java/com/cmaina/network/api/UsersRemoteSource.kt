@@ -9,24 +9,23 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface UsersRemoteSource {
     @GET("users/{username}")
     suspend fun getUser(
         @Path("username") username: String,
-        @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): ApiResponse<UserDto>
 
     @GET("users/{username}/portfolio")
     suspend fun getUserPortFolio(
         @Path("username") username: String,
-        @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
     ): Response<UserPortFolioDto>
 
     @GET("users/{username}/photos")
     suspend fun getUserPhotos(
         @Path("username") username: String,
-        @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
+        @Query("page") page: Int
     ): ApiResponse<List<PhotoListItem>>
 
     @GET("users/{username}/statistics")
