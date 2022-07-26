@@ -65,36 +65,5 @@ jobs:
 ##      versionCode: ${{github.run_number}}
 ##      versionName: 1.0.0
 
-  create-release:
-    needs: [ generate-release-bundle ]
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Upload release artifact
-        uses: actions/upload-artifact@v1
-        with:
-          path: app/build/outputs/bundle/release
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-
-      - name: Upload Release APK
-        id: upload_release_asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: Fotos/release.aab
-          asset_name: Fotos.aab
-          asset_content_type: application/zip
-
 #  generate-github-release:
 #    name: Generate release
