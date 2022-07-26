@@ -9,3 +9,5 @@
 </table>
 </p>
 
+A photo viewing application that consumes the unsplash API.
+
