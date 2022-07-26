@@ -74,7 +74,6 @@ jobs:
       - name: Upload release artifact
         uses: actions/upload-artifact@v1
         with:
-          name: Fotos
           path: app/build/outputs/bundle/release
 
       - name: Create Release
