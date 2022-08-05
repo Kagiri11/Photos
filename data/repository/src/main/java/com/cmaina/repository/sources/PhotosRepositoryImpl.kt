@@ -10,6 +10,7 @@ import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
+import com.cmaina.repository.paging.SearchedPhotosPagingSource
 import com.skydoves.sandwich.ApiResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -43,10 +44,14 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
         return flowOf()
     }
 
-    override suspend fun searchPhoto(searchString: String): Flow<List<DomainPhotoListItem>> {
-        return when (val result = photosRemoteSource.searchPhotos(searchQuery = searchString)) {
-            is ApiResponse.Success -> flowOf(result.data.results.map { it.toDomain() })
-            else -> flowOf()
-        }
+    override suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>> {
+        val pagingConfig = PagingConfig(pageSize = 30)
+        val searchedPhotosPager = Pager(pagingConfig) {
+            SearchedPhotosPagingSource(
+                photosRemoteSource = photosRemoteSource,
+                searchString = searchString
+            )
+        }.flow
+        return searchedPhotosPager
     }
 }
