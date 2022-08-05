@@ -20,5 +20,5 @@ interface PhotosRepository {
 
     suspend fun searchPhoto(
         searchString: String
-    ): Flow<PhotoSearchResultDomainModel>
+    ): Flow<List<DomainPhotoListItem>>
 }

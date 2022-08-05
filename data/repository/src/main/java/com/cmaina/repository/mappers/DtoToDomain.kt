@@ -335,14 +335,23 @@ internal fun PhotoSearchResultDto.toDomain() = PhotoSearchResultDomainModel(
     totalPages = total_pages
 )
 
-internal fun SearchedPhotoDto.toDomain() = SearchedPhotoDomainModel(
+internal fun SearchedPhotoDto.toDomain() = DomainPhotoListItem(
     altDescription = alt_description,
     blurHash = blur_hash,
+    categories = categories,
+    color = color,
+    created_at = created_at,
+    currentUserCollections = current_user_collections,
     description = description,
+    height = height,
     id = id,
     likedByUser = liked_by_user,
     likes = likes,
-    links = links.toDomain(),
-    urls = urls.toDomain(),
-    user = user.toDomain()
+    linksDomain = links.toDomain(),
+    promotedAt = promoted_at,
+    sponsorshipDomainModel = sponsorship?.toDomain(),
+    updatedAt = updated_at,
+    domainUrls = urls.toDomain(),
+    domainPhotoUser = user.toDomain(),
+    width = width
 )

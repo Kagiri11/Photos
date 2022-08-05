@@ -5,7 +5,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
-import com.cmaina.domain.models.search.PhotoSearchResultDomainModel
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.network.api.PhotosRemoteSource
@@ -44,9 +43,9 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
         return flowOf()
     }
 
-    override suspend fun searchPhoto(searchString: String): Flow<PhotoSearchResultDomainModel> {
-        return when (val result = photosRemoteSource.searchPhotos(searchQuery = searchString)){
-            is ApiResponse.Success -> flowOf(result.data.toDomain())
+    override suspend fun searchPhoto(searchString: String): Flow<List<DomainPhotoListItem>> {
+        return when (val result = photosRemoteSource.searchPhotos(searchQuery = searchString)) {
+            is ApiResponse.Success -> flowOf(result.data.results.map { it.toDomain() })
             else -> flowOf()
         }
     }
