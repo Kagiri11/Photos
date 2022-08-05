@@ -3,9 +3,8 @@ package com.cmaina.network.models.search
 import com.cmaina.network.models.photos.PhotoLinks
 import com.cmaina.network.models.photos.Urls
 import com.cmaina.network.models.photos.User
-import com.cmaina.network.models.specificphoto.Tag
 
-data class Result(
+data class SearchedPhotoDto(
     val alt_description: String,
     val blur_hash: String,
     val categories: List<Any>,
@@ -20,7 +19,6 @@ data class Result(
     val links: PhotoLinks,
     val promoted_at: String,
     val sponsorship: Any,
-    val tags: List<Tag>,
     val topic_submissions: TopicSubmissions,
     val updated_at: String,
     val urls: Urls,

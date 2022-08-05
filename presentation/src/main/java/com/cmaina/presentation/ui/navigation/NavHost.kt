@@ -58,10 +58,10 @@ fun NavGraph(
             FavouritesScreen()
         }
         composable(route = Destination.SearchScreen.route) {
-            SearchScreen()
+            SearchScreen(navController = navController)
         }
         composable(route = Destination.SettingsScreen.route) {
-            SearchScreen()
+            SearchScreen(navController = navController)
         }
     }
 }

@@ -18,5 +18,7 @@ interface PhotosRepository {
 
     suspend fun getPhotoStatistics(): Flow<DomainPhotoStatistics>
 
-    suspend fun searchPhoto(): Flow<PhotoSearchResultDomainModel>
+    suspend fun searchPhoto(
+        searchString: String
+    ): Flow<PhotoSearchResultDomainModel>
 }

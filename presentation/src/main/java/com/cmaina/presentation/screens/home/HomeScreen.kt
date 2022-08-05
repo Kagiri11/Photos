@@ -48,36 +48,14 @@ fun HomeScreen(viewModel: HomeViewModel = getViewModel(), navController: NavCont
 
             myPictures?.let {
                 items(it) { pic ->
-                    val photoUserName = pic?.domainPhotoUser?.username
+                    val photoUserName = pic?.id
                     PhotoCardItem(
                         imageUrl = pic?.domainUrls?.regular,
                         navController = navController,
-                        username = photoUserName ?: ""
+                        photoID = photoUserName ?: ""
                     )
                 }
             }
         }
-
-        /*LazyStaggeredGrid(
-            columnCount = 2,
-            contentPadding = PaddingValues(2.dp),
-        ) {
-            item {
-
-            }
-        }*/
-
-        /*StaggeredVerticalGrid(
-            maxColumnWidth = 200.dp,
-            modifier = Modifier
-                .constrainAs(fotosGrid) {
-                    top.linkTo(title.bottom, margin = 20.dp)
-                }
-                .padding(5.dp)
-        ) {
-            myPictures.forEach {
-                PhotoCardItem(imageUrl = it.domainUrls?.regular)
-            }
-        }*/
     }
 }

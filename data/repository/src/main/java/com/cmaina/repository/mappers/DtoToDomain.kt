@@ -12,6 +12,8 @@ import com.cmaina.domain.models.photos.DomainUserLinks
 import com.cmaina.domain.models.photos.DomainUserProfileImage
 import com.cmaina.domain.models.photos.DomainUserSocial
 import com.cmaina.domain.models.photos.SponsorshipDomainModel
+import com.cmaina.domain.models.search.PhotoSearchResultDomainModel
+import com.cmaina.domain.models.search.SearchedPhotoDomainModel
 import com.cmaina.domain.models.specificphoto.CollectionDomainModel
 import com.cmaina.domain.models.specificphoto.CoverPhotoDomainModel
 import com.cmaina.domain.models.specificphoto.LocationDomainModel
@@ -37,6 +39,8 @@ import com.cmaina.network.models.photos.Urls
 import com.cmaina.network.models.photos.User
 import com.cmaina.network.models.photos.UserLinks
 import com.cmaina.network.models.photos.UserProfileImage
+import com.cmaina.network.models.search.PhotoSearchResultDto
+import com.cmaina.network.models.search.SearchedPhotoDto
 import com.cmaina.network.models.specificphoto.CoverPhoto
 import com.cmaina.network.models.specificphoto.Location
 import com.cmaina.network.models.specificphoto.Meta
@@ -248,7 +252,7 @@ internal fun SpecificPhoto.toDomain() = SpecificPhotoDomainModel(
     locationDomainModel = location.toDomain(),
     metaDomainModel = meta.toDomain(),
     relatedCollectionsDomainModel = related_collections.toDomain(),
-    sponsorshipDomainModel = sponsorship.toDomain(),
+    sponsorshipDomainModel = sponsorship?.toDomain(),
     tags = tags,
     topics = topics.map { it.toDomain() },
     urls = urls.toDomain(),
@@ -264,17 +268,13 @@ internal fun RelatedCollections.toDomain() = RelatedCollectionsDomainModel(
 )
 
 internal fun Result.toDomain() = CollectionDomainModel(
-    cover_photoDomainModel = cover_photo.toDomain(),
     description = description,
     id = id,
-    preview_photoDomainModels = preview_photos.map { it.toDomain() },
-    resultLinksDomainModel = resultLinks.toDomain(),
-    share_key = share_key,
-    tagDomainModels = tags.map { it.toDomain() },
+    previewPhotoDomainModels = preview_photos.map { it.toDomain() },
+    resultLinksDomainModel = links.toDomain(),
     title = title,
-    total_photos = total_photos,
-    updated_at = updated_at,
-    user = user.toDomain()
+    user = user.toDomain(),
+    totalPhotos = total_photos
 )
 
 internal fun Tag.toDomain() = TagDomainModel(source.toDomain(), title, type)
@@ -296,9 +296,7 @@ internal fun ResultLinks.toDomain() = ResultLinksDomainModel(html, photos, relat
 
 internal fun PreviewPhoto.toDomain() = PreviewPhotoDomainModel(
     blur_hash = blur_hash,
-    created_at = created_at,
     id = id,
-    updated_at = updated_at,
     urls = urls.toDomain()
 )
 
@@ -330,3 +328,21 @@ internal fun Position.toDomain() = PositionDomainModel(latitude, longitude)
 
 internal fun Topic.toDomain() =
     com.cmaina.domain.models.specificphoto.Topic(id, slug, title, visibility)
+
+internal fun PhotoSearchResultDto.toDomain() = PhotoSearchResultDomainModel(
+    searchedPhotoDomainModels = results.map { it.toDomain() },
+    total = total,
+    totalPages = total_pages
+)
+
+internal fun SearchedPhotoDto.toDomain() = SearchedPhotoDomainModel(
+    altDescription = alt_description,
+    blurHash = blur_hash,
+    description = description,
+    id = id,
+    likedByUser = liked_by_user,
+    likes = likes,
+    links = links.toDomain(),
+    urls = urls.toDomain(),
+    user = user.toDomain()
+)

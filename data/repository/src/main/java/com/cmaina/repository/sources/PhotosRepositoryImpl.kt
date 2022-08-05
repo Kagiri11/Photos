@@ -44,7 +44,10 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
         return flowOf()
     }
 
-    override suspend fun searchPhoto(): Flow<PhotoSearchResultDomainModel> {
-        return flowOf()
+    override suspend fun searchPhoto(searchString: String): Flow<PhotoSearchResultDomainModel> {
+        return when (val result = photosRemoteSource.searchPhotos(searchQuery = searchString)){
+            is ApiResponse.Success -> flowOf(result.data.toDomain())
+            else -> flowOf()
+        }
     }
 }

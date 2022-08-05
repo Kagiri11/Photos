@@ -51,11 +51,14 @@ import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.placeholder
+import com.google.accompanist.placeholder.shimmer
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun UserScreen(
-    username: String,
+    username: String = "montylov",
     userViewModel: UserViewModel = getViewModel(),
     navController: NavController
 ) {
@@ -246,7 +249,7 @@ fun UserPhoto(userImageUrl: String, description: String = "") {
         Modifier
             .fillMaxWidth()
             .size(100.dp)
-            .padding(0.5.dp),
+            .padding(0.5.dp).placeholder(visible = false, highlight = PlaceholderHighlight.shimmer(highlightColor = FotosGreyShadeOneLightTheme), color = FotosGreyShadeThreeLightTheme),
         shape = RoundedCornerShape(2),
         elevation = 0.dp
     ) {

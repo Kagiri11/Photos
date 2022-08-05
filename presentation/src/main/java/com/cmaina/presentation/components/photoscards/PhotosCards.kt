@@ -26,7 +26,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
 @Composable
-fun PhotoCardItem(imageUrl: String?, username: String, navController: NavController) {
+fun PhotoCardItem(imageUrl: String?, photoID: String, navController: NavController) {
     val colors = listOf(
         Color.LightGray.copy(alpha = 0.9f),
         Color.LightGray.copy(alpha = 0.3f),
@@ -59,7 +59,7 @@ fun PhotoCardItem(imageUrl: String?, username: String, navController: NavControl
             model = request,
             contentDescription = "image flani",
             modifier = Modifier.fillMaxSize().clickable {
-                navController.navigate("user_screen/$username")
+                navController.navigate("photo_detail_screen/$photoID")
             }.background(brush = linearGradient),
             contentScale = ContentScale.Crop,
         )

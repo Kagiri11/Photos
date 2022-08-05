@@ -26,7 +26,7 @@ data class SpecificPhoto(
     val promoted_at: Any,
     val public_domain: Boolean,
     val related_collections: RelatedCollections,
-    val sponsorship: Sponsorship,
+    val sponsorship: Sponsorship?,
     val tags: List<Any>,
     val tags_preview: List<Any>,
     val topic_submissions: TopicSubmissions,
