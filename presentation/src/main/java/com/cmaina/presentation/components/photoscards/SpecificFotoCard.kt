@@ -1,5 +1,6 @@
 package com.cmaina.presentation.components.photoscards
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,9 +19,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
 @Composable
-fun SpecificFotoCard(imageUrl: String) {
+fun ColumnScope.SpecificFotoCard(imageUrl: String) {
     Card(
-        modifier = Modifier.fillMaxHeight(0.8f).fillMaxWidth(),
+        modifier = Modifier.weight(0.7f).fillMaxWidth(),
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)

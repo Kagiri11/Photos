@@ -45,6 +45,6 @@ object Libraries {
     // Navigation
     const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
 
-    // ImageBlur
-    const val composeImageBlur = "com.github.orlando-dev-code:compose-image-blurhash:${Versions.composeImageBlur}"
+    // blurHash
+    const val blurHash = "xyz.belvi.blurHash:blurHash:${Versions.blurHash}"
 }

@@ -17,7 +17,7 @@ object Versions {
     const val constraintLayout = "1.0.0-rc02"
     const val systemUIController = "0.24.10-beta"
     const val composeNavigation = "2.5.0"
-    const val composeImageBlur = "1.0.0-alpha02"
+    const val blurHash = "1.0.4"
     const val placeholder = "0.24.13-rc"
     const val permission = "0.26.0-alpha"
 }

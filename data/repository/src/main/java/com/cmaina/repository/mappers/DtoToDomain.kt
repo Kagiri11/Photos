@@ -13,7 +13,6 @@ import com.cmaina.domain.models.photos.DomainUserProfileImage
 import com.cmaina.domain.models.photos.DomainUserSocial
 import com.cmaina.domain.models.photos.SponsorshipDomainModel
 import com.cmaina.domain.models.search.PhotoSearchResultDomainModel
-import com.cmaina.domain.models.search.SearchedPhotoDomainModel
 import com.cmaina.domain.models.specificphoto.CollectionDomainModel
 import com.cmaina.domain.models.specificphoto.CoverPhotoDomainModel
 import com.cmaina.domain.models.specificphoto.LocationDomainModel
@@ -89,7 +88,7 @@ internal fun User.toDomain() = DomainPhotoUser(
     domainUserLinks = userLinks?.toDomian(),
     location = location, name = name,
     portfolioUrl = portfolio_url,
-    domainUserProfileImage = userProfile_image?.toDomain(),
+    domainUserProfileImage = userProfileImage?.toDomain(),
     domainUserSocial = social?.toDomain(),
     totalCollections = total_collections,
     totalLikes = total_likes,

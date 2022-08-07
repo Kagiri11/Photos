@@ -62,8 +62,8 @@ fun UserScreen(
     userViewModel: UserViewModel = getViewModel(),
     navController: NavController
 ) {
-    userViewModel.fetchUser(username)
     SideEffect {
+        userViewModel.fetchUser(username)
         userViewModel.fetchUserPhotos(username)
     }
     Column(Modifier.fillMaxSize()) {

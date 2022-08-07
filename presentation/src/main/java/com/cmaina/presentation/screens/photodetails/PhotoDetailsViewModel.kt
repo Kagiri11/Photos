@@ -14,20 +14,31 @@ class PhotoDetailsViewModel(
     private val fetchSpecificPhotoUseCase: FetchSpecificPhotoUseCase
 ) : ViewModel() {
 
-    private val _specificPhoto = MutableLiveData<SpecificPhotoDomainModel>()
-    val specificPhoto: LiveData<SpecificPhotoDomainModel> get() = _specificPhoto
+    private val _photoUrlLink = MutableLiveData<String>()
+    val photoUrlLink: LiveData<String> get() = _photoUrlLink
+
+    private val _username = MutableLiveData<String>()
+    val username: LiveData<String> get() = _username
+
+    private val _userPhotoUrl = MutableLiveData<String>()
+    val userPhotoUrl: LiveData<String> get() = _userPhotoUrl
+
+    private val _numberOfLikes = MutableLiveData<Int>()
+    val numberOfLikes: LiveData<Int> get() = _numberOfLikes
 
     private val _relatedPhotos = MutableLiveData<List<PreviewPhotoDomainModel>>()
     val relatedPhotos: LiveData<List<PreviewPhotoDomainModel>> get() = _relatedPhotos
 
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
-            fetchSpecificPhotoUseCase(photoId = photoId).collect {
-                Log.d("SpecificPhotoImage", "Specific photo in vm: $it")
-                _specificPhoto.value = it
+            fetchSpecificPhotoUseCase(photoId = photoId).collect { photo ->
+                _photoUrlLink.value = photo.urls?.raw
+                _username.value = photo.user?.username
+                _numberOfLikes.value = photo.likes
+                _userPhotoUrl.value = photo.user?.domainUserProfileImage?.large
 
-                it.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
-                   _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
+                photo.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
+                    _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
                 }
             }
         }

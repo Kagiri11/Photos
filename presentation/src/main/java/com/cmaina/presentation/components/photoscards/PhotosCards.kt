@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.cmaina.presentation.materials.BlurHash
+import com.cmaina.presentation.materials.blurPlaceHolder
 
 @Composable
 fun PhotoCardItem(imageUrl: String?, photoID: String, navController: NavController) {
@@ -32,6 +34,7 @@ fun PhotoCardItem(imageUrl: String?, photoID: String, navController: NavControll
         Color.LightGray.copy(alpha = 0.3f),
         Color.LightGray.copy(alpha = 0.9f)
     )
+    val blurHash: BlurHash = BlurHash(LocalContext.current, lruSize = 20, punch = 1F)
     val transition = rememberInfiniteTransition()
     val translateAnimation = transition.animateFloat(
         initialValue = 0f,
@@ -47,7 +50,8 @@ fun PhotoCardItem(imageUrl: String?, photoID: String, navController: NavControll
     )
     val request = ImageRequest.Builder(LocalContext.current)
         .data(imageUrl)
-        .crossfade(true).build()
+        .crossfade(true)
+        .build()
     Card(
         modifier = Modifier
             .height(250.dp)

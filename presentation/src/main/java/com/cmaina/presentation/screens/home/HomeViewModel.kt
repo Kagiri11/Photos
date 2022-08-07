@@ -1,18 +1,14 @@
 package com.cmaina.presentation.screens.home
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.usecases.FetchPhotosUseCase
-import com.cmaina.domain.usecases.FetchRandomPhotoUseCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +20,6 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val fetchPhotosUseCase: FetchPhotosUseCase,
-    private val fetchRandomPhotoUseCase: FetchRandomPhotoUseCase,
     private val photosRepository: PhotosRepository
 ) : ViewModel() {
     init {
@@ -34,7 +29,6 @@ class HomeViewModel(
 
     private val _pics = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>(null)
     val pics: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _pics
-    val randomPhoto: MutableState<DomainPhotoListItem?> = mutableStateOf(null)
     val searchString = MutableStateFlow("")
 
     @OptIn(FlowPreview::class)
