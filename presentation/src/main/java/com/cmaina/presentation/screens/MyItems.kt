@@ -3,8 +3,14 @@ package com.cmaina.presentation.screens
 import androidx.compose.foundation.lazy.grid.LazyGridItemScope
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.paging.compose.LazyPagingItems
-import com.cmaina.presentation.materials.LazyStaggeredGridScope
+import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
+import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.fade
+import com.google.accompanist.placeholder.placeholder
 
 inline fun <T : Any> LazyGridScope.items(
     items: LazyPagingItems<T>,
@@ -16,3 +22,10 @@ inline fun <T : Any> LazyGridScope.items(
         itemContent(items[index])
     }
 }
+
+fun Modifier.myPlaceholder(shape: Shape) = this.placeholder(
+    visible = false,
+    color = FotosGreyShadeOneLightTheme,
+    highlight = PlaceholderHighlight.fade(highlightColor = FotosGreyShadeThreeLightTheme),
+    shape = shape
+)

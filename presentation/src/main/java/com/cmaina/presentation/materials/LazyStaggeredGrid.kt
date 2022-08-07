@@ -84,6 +84,7 @@ private fun shortestColumn(colHeights: IntArray): Int {
 @Composable
 fun LazyStaggeredGrid(
     columnCount: Int,
+    modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     content: @Composable LazyStaggeredGridScope.() -> Unit,
 ) {
@@ -112,7 +113,7 @@ fun LazyStaggeredGrid(
                     userScrollEnabled = false,
                     contentPadding = contentPadding,
                     state = states[index],
-                    modifier = Modifier.weight(1f)
+                    modifier = modifier.weight(1f)
                 ) {
                     for ((key, itemContent) in gridScope.items[index]) {
                         item(key = key) {
@@ -136,19 +137,8 @@ class LazyStaggeredGridScope(
     fun item(
         key: Any? = null,
         content: @Composable () -> Unit,
-        itemsContent: @Composable LazyStaggeredGridScope.() -> Unit
     ) {
         items[currentIndex % columnCount] += key to content
         currentIndex += 1
-    }
-
-    fun items(
-        count: Int,
-        key: ((index: Int) -> Any)? = null,
-        span: (LazyGridItemSpanScope.(index: Int) -> GridItemSpan)? = null,
-        contentType: (index: Int) -> Any? = { null },
-        itemContent: @Composable LazyGridItemScope.(index: Int) -> Unit
-    ){
-
     }
 }

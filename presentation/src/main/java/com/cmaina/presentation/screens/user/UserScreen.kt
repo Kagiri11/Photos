@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -44,17 +45,25 @@ import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.screens.items
+import com.cmaina.presentation.screens.myPlaceholder
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.placeholder
+import com.google.accompanist.placeholder.shimmer
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun UserScreen(username: String, userViewModel: UserViewModel = getViewModel(), navController: NavController) {
-    userViewModel.fetchUser(username)
+fun UserScreen(
+    username: String = "montylov",
+    userViewModel: UserViewModel = getViewModel(),
+    navController: NavController
+) {
     SideEffect {
+        userViewModel.fetchUser(username)
         userViewModel.fetchUserPhotos(username)
     }
     Column(Modifier.fillMaxSize()) {
@@ -121,13 +130,13 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel()) {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            shape = RoundedCornerShape(50)
+            shape = CircleShape
         ) {
             user?.profile_image?.large.let {
                 AsyncImage(
                     model = it,
                     contentDescription = "",
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -240,7 +249,7 @@ fun UserPhoto(userImageUrl: String, description: String = "") {
         Modifier
             .fillMaxWidth()
             .size(100.dp)
-            .padding(0.5.dp),
+            .padding(0.5.dp).placeholder(visible = false, highlight = PlaceholderHighlight.shimmer(highlightColor = FotosGreyShadeOneLightTheme), color = FotosGreyShadeThreeLightTheme),
         shape = RoundedCornerShape(2),
         elevation = 0.dp
     ) {
