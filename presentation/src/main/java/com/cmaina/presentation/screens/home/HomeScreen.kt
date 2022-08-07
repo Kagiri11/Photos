@@ -45,7 +45,7 @@ fun HomeScreen(
                 start.linkTo(parent.start, margin = 10.dp)
             }
         )
-        TextField(
+        /*TextField(
             value = searchText,
             onValueChange = {
                 viewModel.searchString.value = it
@@ -54,7 +54,7 @@ fun HomeScreen(
                 top.linkTo(title.bottom, margin = 10.dp)
                 end.linkTo(parent.end, margin = 10.dp)
             }
-        )
+        )*/
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(1.dp),
