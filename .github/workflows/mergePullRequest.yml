@@ -28,6 +28,7 @@ jobs:
         if: ${{ startsWith(github.event.comment.body, '/add-labels') }}
         with:
           labels: automerge
+          
 
   automerge:
     needs: [ add_labels ]
