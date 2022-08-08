@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
@@ -60,7 +59,7 @@ fun HomeScreen(
             contentPadding = PaddingValues(1.dp),
             modifier = Modifier
                 .constrainAs(fotosGrid) {
-                    top.linkTo(searchBar.bottom, margin = 10.dp)
+                    top.linkTo(title.bottom, margin = 10.dp)
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
                 }
