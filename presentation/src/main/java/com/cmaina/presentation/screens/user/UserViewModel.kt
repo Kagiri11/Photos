@@ -43,7 +43,7 @@ class UserViewModel(
             _usersPhotoCount.value = user.total_photos ?: 0
             _usersFollowersCount.value = user.followers_count ?: 0
             _usersFollowingCount.value = user.followers_count ?: 0
-            _userImageUrl.value = user.profile_image?.medium ?: ""
+            _userImageUrl.value = user.profile_image?.large ?: ""
         }
     }
 
