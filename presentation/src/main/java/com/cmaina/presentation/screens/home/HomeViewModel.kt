@@ -8,7 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.repository.PhotosRepository
-import com.cmaina.domain.usecases.FetchPhotosUseCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +18,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val fetchPhotosUseCase: FetchPhotosUseCase,
     private val photosRepository: PhotosRepository
 ) : ViewModel() {
     init {
@@ -52,8 +50,7 @@ class HomeViewModel(
     }
 
     private fun fetchPhotos() = viewModelScope.launch {
-        fetchPhotosUseCase().let {
-            delay(200)
+        photosRepository.fetchPhotos().let {
             _pics.value = it.cachedIn(viewModelScope)
         }
     }

@@ -1,17 +1,15 @@
 package com.cmaina.presentation.screens.photodetails
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.models.specificphoto.PreviewPhotoDomainModel
-import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
-import com.cmaina.domain.usecases.FetchSpecificPhotoUseCase
+import com.cmaina.domain.repository.PhotosRepository
 import kotlinx.coroutines.launch
 
 class PhotoDetailsViewModel(
-    private val fetchSpecificPhotoUseCase: FetchSpecificPhotoUseCase
+    private val photosRepository: PhotosRepository
 ) : ViewModel() {
 
     private val _photoUrlLink = MutableLiveData<String>()
@@ -31,7 +29,7 @@ class PhotoDetailsViewModel(
 
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
-            fetchSpecificPhotoUseCase(photoId = photoId).collect { photo ->
+            photosRepository.getSpecificPhoto(photoId = photoId).collect { photo ->
                 _photoUrlLink.value = photo.urls?.raw
                 _username.value = photo.user?.username
                 _numberOfLikes.value = photo.likes

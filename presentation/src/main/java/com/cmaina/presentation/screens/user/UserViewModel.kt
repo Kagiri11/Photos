@@ -8,15 +8,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.users.UserDomainModel
-import com.cmaina.domain.usecases.FetchUserPhotosUseCase
-import com.cmaina.domain.usecases.FetchUserUseCase
+import com.cmaina.domain.repository.UsersRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class UserViewModel(
-    private val fetchUserUseCase: FetchUserUseCase,
-    private val fetchUserPhotosUseCase: FetchUserPhotosUseCase
+    private val usersRepository: UsersRepository
 ) : ViewModel() {
 
     private val _user = MutableLiveData<UserDomainModel>()
@@ -26,16 +24,15 @@ class UserViewModel(
     val userPhotos: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _userPhotos
 
     fun fetchUser(username: String) = viewModelScope.launch {
-        fetchUserUseCase(username = username).collect {
+        usersRepository.fetchUser(username = username).collect {
             _user.value = it
         }
     }
 
     fun fetchUserPhotos(username: String) = viewModelScope.launch {
         Log.d("UserDomainPhotos", "This has been called")
-        fetchUserPhotosUseCase(username = username).let {
+        usersRepository.fetchUserPhotos(username = username).let {
             delay(200)
-            Log.d("UserDomainPhotos", "User photos in vm: $it")
             _userPhotos.value = it
         }
     }
