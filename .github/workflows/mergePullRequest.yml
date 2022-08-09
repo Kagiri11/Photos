@@ -1,10 +1,9 @@
-name: Merge Pull Request on dev branch
+name: Merge Pull Request
 
 on:
   pull_request:
     types:
       - labelled
-      - unlabelled
       - synchronize
       - opened
       - edited

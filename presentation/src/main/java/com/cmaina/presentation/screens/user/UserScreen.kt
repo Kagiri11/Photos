@@ -17,7 +17,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +46,7 @@ fun UserScreen(
     userViewModel: UserViewModel = getViewModel(),
     navController: NavController
 ) {
-    SideEffect {
+    LaunchedEffect(key1 = true) {
         userViewModel.fetchUser(username)
         userViewModel.fetchUserPhotos(username)
     }
@@ -91,9 +92,10 @@ fun TopPart(navController: NavController) {
 @Composable
 fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: NavController) {
     val user = userViewModel.user.observeAsState().value
-    val photos = user?.total_photos ?: 0
-    val followers = user?.followers_count ?: 0
-    val following = user?.following_count ?: 0
+    val photos = userViewModel.usersPhotoCount.collectAsState().value
+    val userImageUrl = userViewModel.userImageUrl.collectAsState().value
+    val followers = userViewModel.usersFollowersCount.collectAsState().value
+    val following = userViewModel.usersFollowingCount.collectAsState().value
     val userPhotos = userViewModel.userPhotos.observeAsState().value?.collectAsLazyPagingItems()
     ConstraintLayout(
         Modifier
@@ -118,14 +120,12 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: Nav
                 },
             shape = CircleShape
         ) {
-            user?.profile_image?.large.let {
-                AsyncImage(
-                    model = it,
-                    contentDescription = "",
-                    modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape),
-                    contentScale = ContentScale.Crop
-                )
-            }
+            AsyncImage(
+                model = userImageUrl,
+                contentDescription = "",
+                modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape),
+                contentScale = ContentScale.Crop
+            )
         }
 
         FotosTitleText(

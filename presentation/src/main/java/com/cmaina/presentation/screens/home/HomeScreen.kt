@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -27,6 +28,9 @@ fun HomeScreen(
     viewModel: HomeViewModel = getViewModel(),
     navController: NavController
 ) {
+    LaunchedEffect(key1 = true) {
+        viewModel.fetchPhotos()
+    }
     val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
     val searchText = viewModel.searchString.collectAsState().value
     ConstraintLayout(
