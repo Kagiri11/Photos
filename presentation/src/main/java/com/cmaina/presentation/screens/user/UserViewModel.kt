@@ -11,6 +11,8 @@ import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.repository.UsersRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class UserViewModel(
@@ -23,9 +25,25 @@ class UserViewModel(
     private val _userPhotos = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>()
     val userPhotos: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _userPhotos
 
+    private val _userImageUrl = MutableStateFlow("")
+    val userImageUrl = _userImageUrl.asStateFlow()
+
+    private val _usersPhotoCount = MutableStateFlow(0)
+    val usersPhotoCount = _usersPhotoCount.asStateFlow()
+
+    private val _usersFollowersCount = MutableStateFlow(0)
+    val usersFollowersCount = _usersFollowersCount.asStateFlow()
+
+    private val _usersFollowingCount = MutableStateFlow(0)
+    val usersFollowingCount = _usersFollowingCount.asStateFlow()
+
     fun fetchUser(username: String) = viewModelScope.launch {
-        usersRepository.fetchUser(username = username).collect {
-            _user.value = it
+        usersRepository.fetchUser(username = username).collect { user ->
+            _user.value = user
+            _usersPhotoCount.value = user.total_photos ?: 0
+            _usersFollowersCount.value = user.followers_count ?: 0
+            _usersFollowingCount.value = user.followers_count ?: 0
+            _userImageUrl.value = user.profile_image?.medium ?: ""
         }
     }
 

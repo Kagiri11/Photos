@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.repository.PhotosRepository
 import kotlinx.coroutines.FlowPreview
@@ -21,7 +20,6 @@ class HomeViewModel(
     private val photosRepository: PhotosRepository
 ) : ViewModel() {
     init {
-        fetchPhotos()
         searchPhotos()
     }
 
@@ -49,9 +47,11 @@ class HomeViewModel(
         }
     }
 
-    private fun fetchPhotos() = viewModelScope.launch {
-        photosRepository.fetchPhotos().let {
-            _pics.value = it.cachedIn(viewModelScope)
+    fun fetchPhotos() {
+        viewModelScope.launch {
+            photosRepository.fetchPhotos().let {
+                _pics.value = it
+            }
         }
     }
 
