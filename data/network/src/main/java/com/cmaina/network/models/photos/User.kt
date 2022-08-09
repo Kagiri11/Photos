@@ -25,8 +25,8 @@ data class User(
     val name: String?,
     @SerializedName("portfolio_url")
     val portfolio_url: String?,
-    @SerializedName("userProfile_image")
-    val userProfile_image: UserProfileImage?,
+    @SerializedName("profile_image")
+    val userProfileImage: UserProfileImage,
     @SerializedName("social")
     val social: Social?,
     @SerializedName("total_collections")

@@ -1,4 +1,4 @@
-package com.cmaina.presentation.screens.home
+package com.cmaina.presentation.screens.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,34 +11,33 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
+class SearchViewModel(
     private val photosRepository: PhotosRepository
 ) : ViewModel() {
+
+    val searchString = MutableStateFlow("")
+    private val _searchedPhotos = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>(null)
+    val searchedPhotos: LiveData<Flow<PagingData<DomainPhotoListItem>>> = _searchedPhotos
+
     init {
         searchPhotos()
     }
 
-    private val _pics = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>(null)
-    val pics: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _pics
-    val searchString = MutableStateFlow("")
-
     @OptIn(FlowPreview::class)
     fun searchPhotos() {
         viewModelScope.launch {
-            delay(100)
             searchString
                 .debounce(1000)
                 .distinctUntilChanged()
-                .collectLatest {
+                .collect {
                     if (it.isNotEmpty()) {
                         photosRepository.searchPhoto(searchString = it).let { result ->
-                            delay(200)
-                            _pics.value = result
+                            delay(50)
+                            _searchedPhotos.value = result
                         }
                     } else {
                         returnNullPhotos()
@@ -47,18 +46,9 @@ class HomeViewModel(
         }
     }
 
-    fun fetchPhotos() {
-        viewModelScope.launch {
-            photosRepository.fetchPhotos().let {
-                _pics.value = it
-            }
-        }
-    }
-
     private fun returnNullPhotos() {
         viewModelScope.launch {
-            _pics.value = null
-            fetchPhotos()
+            _searchedPhotos.value = null
         }
     }
 }

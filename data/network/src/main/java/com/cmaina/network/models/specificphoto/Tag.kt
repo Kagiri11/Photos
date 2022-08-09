@@ -6,7 +6,7 @@ data class Tag(
     @SerializedName("source")
     val source: Source,
     @SerializedName("title")
-    val title: String? =null,
+    val title: String? = null,
     @SerializedName("type")
     val type: String? = null
 )

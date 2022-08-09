@@ -64,6 +64,8 @@ dependencies {
         implementation(pagingCompose)
         implementation(composeNavigation)
     }
+    implementation(Libraries.placeholder)
+    implementation(Libraries.permissions)
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.activity:activity-compose:1.3.1")

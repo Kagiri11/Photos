@@ -38,7 +38,7 @@ fun NavGraph(
         ) {
             val photoId = it.arguments?.getString("photoID")
             photoId?.let { id ->
-                PhotoDetailsScreen(photoId = id)
+                PhotoDetailsScreen(photoId = id, navController = navController)
             }
         }
         composable(
@@ -58,10 +58,10 @@ fun NavGraph(
             FavouritesScreen()
         }
         composable(route = Destination.SearchScreen.route) {
-            SearchScreen()
+            SearchScreen(navController = navController)
         }
         composable(route = Destination.SettingsScreen.route) {
-            SearchScreen()
+            SearchScreen(navController = navController)
         }
     }
 }

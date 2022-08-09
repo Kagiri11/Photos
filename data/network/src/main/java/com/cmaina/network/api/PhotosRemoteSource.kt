@@ -36,5 +36,6 @@ interface PhotosRemoteSource {
     @GET("search/photos")
     suspend fun searchPhotos(
         @Query("query") searchQuery: String,
+        @Query("page") page: Int
     ): ApiResponse<PhotoSearchResultDto>
 }

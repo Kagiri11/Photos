@@ -5,6 +5,7 @@ import com.cmaina.network.models.photos.Sponsorship
 import com.cmaina.network.models.photos.Urls
 import com.cmaina.network.models.photos.User
 import com.cmaina.network.models.search.TopicSubmissions
+import com.google.gson.annotations.SerializedName
 
 data class SpecificPhoto(
     val alt_description: Any,
@@ -26,13 +27,14 @@ data class SpecificPhoto(
     val promoted_at: Any,
     val public_domain: Boolean,
     val related_collections: RelatedCollections,
-    val sponsorship: Sponsorship,
+    val sponsorship: Sponsorship?,
     val tags: List<Any>,
     val tags_preview: List<Any>,
     val topic_submissions: TopicSubmissions,
     val topics: List<Topic>,
     val updated_at: String,
     val urls: Urls,
+    @SerializedName("user")
     val user: User,
     val views: Int,
     val width: Int
