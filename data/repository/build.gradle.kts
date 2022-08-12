@@ -49,7 +49,8 @@ dependencies {
     }
     implementation(project(mapOf("path" to ":data:network")))
     implementation(project(mapOf("path" to ":domain")))
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    testImplementation(TestLibraries.jUnit)
+    testImplementation(TestLibraries.mockK)
+    testImplementation(TestLibraries.truth)
+
 }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,7 +21,8 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SearchScreen(searchViewModel: SearchViewModel = getViewModel(), navController: NavController) {
-    val searchedPhotos = searchViewModel.searchedPhotos.observeAsState().value?.collectAsLazyPagingItems()
+    val searchedPhotos =
+        searchViewModel.searchedPhotos.observeAsState().value?.collectAsLazyPagingItems()
     ConstraintLayout(Modifier.fillMaxSize()) {
         val searchText = searchViewModel.searchString.collectAsState().value
 
