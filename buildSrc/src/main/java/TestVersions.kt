@@ -5,4 +5,9 @@ object TestVersions {
 
     // espresso
     const val espressoAndroid = "3.4.0"
+    // mockK
+    const val mockK = "1.12.5"
+    // truth
+    const val truth = "1.1.3"
+
 }
