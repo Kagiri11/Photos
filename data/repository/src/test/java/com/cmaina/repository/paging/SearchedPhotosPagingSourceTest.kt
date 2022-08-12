@@ -7,6 +7,8 @@ class SearchedPhotosPagingSourceTest {
     // System under test
     private lateinit var searchedPhotosPagingSource: SearchedPhotosPagingSource
 
+    // Adding helpers
+
     @Before
     fun setup() {
     }
