@@ -1,6 +1,5 @@
 package com.cmaina.repository.paging
 
-import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadParams.Refresh
 import androidx.paging.PagingSource.LoadResult.Page
 import com.cmaina.network.api.PhotosRemoteSource
