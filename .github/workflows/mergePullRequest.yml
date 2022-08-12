@@ -1,6 +1,8 @@
 name: Merge Pull Request
 
 on:
+  workflow_run:
+    workflows: [ "Linting Work" ]
   pull_request:
     types:
       - labelled
