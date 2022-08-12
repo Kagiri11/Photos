@@ -3,7 +3,6 @@ name: Merge Pull Request
 on:
   workflow_run:
     workflows: [ "Linting Work" ]
-    branches: [ develop ]
     types:
       - completed
   pull_request:
