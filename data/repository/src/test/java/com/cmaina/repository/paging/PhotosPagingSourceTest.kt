@@ -75,4 +75,25 @@ class PhotosPagingSourceTest {
             )
         )
     }
+
+    @Test
+    fun loadReturnsOnNextNullOnEmptyData() = runBlocking {
+        every { apiResponse.data } returns emptyList()
+        coEvery { mockPhotosRemoteSource.fetchPhotos(1) } returns apiResponse
+        assertThat(
+            photosPagingSource.load(
+                Refresh(
+                    key = 1,
+                    loadSize = 2,
+                    placeholdersEnabled = false
+                )
+            )
+        ).isEqualTo(
+            Page(
+                emptyList(),
+                prevKey = null,
+                nextKey = null
+            )
+        )
+    }
 }
