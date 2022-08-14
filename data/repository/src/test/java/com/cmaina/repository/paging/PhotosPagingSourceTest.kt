@@ -46,19 +46,19 @@ class PhotosPagingSourceTest {
         views = null,
         downloads = 12
     )
+    private val apiResponse = mockk<ApiResponse.Success<List<PhotoListItem>>>()
 
     @Before
     fun setup() = runBlocking {
         mockPhotosRemoteSource = mockk()
-        val apiResponse = mockk<ApiResponse.Success<List<PhotoListItem>>>()
-        every { apiResponse.data } returns listOf(photoListItem)
-        coEvery { mockPhotosRemoteSource.fetchPhotos(1) } returns apiResponse
 
         photosPagingSource = PhotosPagingSource(mockPhotosRemoteSource)
     }
 
     @Test
     fun loadReturnsPageWhenOnSuccessfulLoadOfItemKeyedData() = runBlocking {
+        every { apiResponse.data } returns listOf(photoListItem)
+        coEvery { mockPhotosRemoteSource.fetchPhotos(1) } returns apiResponse
         assertThat(
             photosPagingSource.load(
                 Refresh(
@@ -72,6 +72,27 @@ class PhotosPagingSourceTest {
                 data = listOf(photoListItem.toDomain()),
                 prevKey = null,
                 nextKey = 2
+            )
+        )
+    }
+
+    @Test
+    fun loadReturnsOnNextNullOnEmptyData() = runBlocking {
+        every { apiResponse.data } returns emptyList()
+        coEvery { mockPhotosRemoteSource.fetchPhotos(1) } returns apiResponse
+        assertThat(
+            photosPagingSource.load(
+                Refresh(
+                    key = 1,
+                    loadSize = 2,
+                    placeholdersEnabled = false
+                )
+            )
+        ).isEqualTo(
+            Page(
+                emptyList(),
+                prevKey = null,
+                nextKey = null
             )
         )
     }
