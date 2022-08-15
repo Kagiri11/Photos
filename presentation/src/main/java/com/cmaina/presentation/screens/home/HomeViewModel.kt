@@ -20,8 +20,8 @@ class HomeViewModel(
 
     fun fetchPhotos() {
         viewModelScope.launch {
-            photosRepository.fetchPhotos().let {
-                _pics.value = it
+            photosRepository.fetchPhotos().let { pagingDataFlow ->
+                _pics.value = pagingDataFlow
             }
         }
     }
