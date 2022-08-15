@@ -9,4 +9,8 @@ object TestLibraries {
     // espresso
     const val androidEspresso =
         "androidx.test.espresso:espresso-core:${TestVersions.espressoAndroid}"
+    // mockK
+    const val mockK = "io.mockk:mockk:${TestVersions.mockK}"
+    // truth
+    const val truth = "com.google.truth:truth:${TestVersions.truth}"
 }

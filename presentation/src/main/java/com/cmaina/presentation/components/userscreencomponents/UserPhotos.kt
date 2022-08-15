@@ -1,5 +1,6 @@
 package com.cmaina.presentation.components.userscreencomponents
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,6 +43,7 @@ fun UserPhotos(
                     userImageUrl = pic?.domainUrls?.small ?: "",
                     description = pic?.description ?: ""
                 ) {
+                    Log.d("NAvigatien", "User navigates to photo_detail_screen/${pic?.id}")
                     navController.navigate("photo_detail_screen/${pic?.id}")
                 }
             }
@@ -60,7 +62,7 @@ fun UserPhoto(userImageUrl: String, description: String, onClick: () -> Unit) {
                 visible = false,
                 highlight = PlaceholderHighlight.shimmer(highlightColor = FotosGreyShadeOneLightTheme),
                 color = FotosGreyShadeThreeLightTheme
-            ).clickable { onClick },
+            ).clickable { onClick() },
         shape = RoundedCornerShape(2),
         elevation = 0.dp
     ) {

@@ -1,4 +1,4 @@
-package com.cmaina.presentation.components.bottomnav
+package com.cmaina.presentation.ui.navigation.bottomnav
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth

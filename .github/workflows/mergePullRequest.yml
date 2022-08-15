@@ -1,10 +1,13 @@
-name: Merge Pull Request on dev branch
+name: Merge Pull Request
 
 on:
+  workflow_run:
+    workflows: [ "Linting Work" ]
+    types:
+      - completed
   pull_request:
     types:
       - labelled
-      - unlabelled
       - synchronize
       - opened
       - edited

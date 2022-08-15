@@ -6,7 +6,6 @@ import Libraries.koinCore
 import Libraries.okHttpLoggingInterceptor
 import Libraries.retrofit
 import Libraries.sandwich
-import TestLibraries.androidEspresso
 import TestLibraries.jUnit
 import TestLibraries.jUnitAndroid
 
@@ -59,6 +58,5 @@ dependencies {
     TestLibraries.also {
         testImplementation(jUnit)
         androidTestImplementation(jUnitAndroid)
-        androidTestImplementation(androidEspresso)
     }
 }

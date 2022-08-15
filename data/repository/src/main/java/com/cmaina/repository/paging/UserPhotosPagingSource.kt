@@ -1,6 +1,5 @@
 package com.cmaina.repository.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.cmaina.domain.models.photos.DomainPhotoListItem
@@ -22,11 +21,10 @@ class UserPhotosPagingSource(
         ) {
             is ApiResponse.Success -> {
                 val dataResponse = sourceResponse.data.map { it.toDomain() }
-                Log.d("UserDomainPhotos", "This is the list: ${dataResponse.size}")
                 LoadResult.Page(
                     data = dataResponse,
-                    prevKey = null,
-                    nextKey = nextPageNumber + (params.loadSize / 10)
+                    prevKey = if (nextPageNumber == 1) null else nextPageNumber - 1,
+                    nextKey = if (dataResponse.isEmpty()) null else nextPageNumber + 1
                 )
             }
             is ApiResponse.Failure.Error -> {
