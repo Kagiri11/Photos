@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -32,7 +31,6 @@ fun HomeScreen(
         viewModel.fetchPhotos()
     }
     val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
-    val searchText = viewModel.searchString.collectAsState().value
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -48,16 +46,6 @@ fun HomeScreen(
                 start.linkTo(parent.start, margin = 10.dp)
             }
         )
-        /*TextField(
-            value = searchText,
-            onValueChange = {
-                viewModel.searchString.value = it
-            },
-            modifier = Modifier.constrainAs(searchBar) {
-                top.linkTo(title.bottom, margin = 10.dp)
-                end.linkTo(parent.end, margin = 10.dp)
-            }
-        )*/
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(1.dp),
@@ -70,15 +58,13 @@ fun HomeScreen(
                 .fillMaxWidth()
         ) {
 
-            myPictures?.let {
-                items(it) { pic ->
-                    val photoUserName = pic?.id
-                    PhotoCardItem(
-                        imageUrl = pic?.domainUrls?.regular,
-                        navController = navController,
-                        photoID = photoUserName ?: ""
-                    )
-                }
+            items(myPictures!!) { pic ->
+                val photoUserName = pic?.id
+                PhotoCardItem(
+                    imageUrl = pic?.domainUrls?.regular,
+                    navController = navController,
+                    photoID = photoUserName ?: ""
+                )
             }
         }
     }
