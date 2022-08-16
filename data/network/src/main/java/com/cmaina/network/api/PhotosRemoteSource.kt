@@ -5,6 +5,7 @@ import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.specificphoto.SpecificPhoto
 import com.skydoves.sandwich.ApiResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -13,7 +14,7 @@ interface PhotosRemoteSource {
     @GET("photos")
     suspend fun fetchPhotos(
         @Query("page") page: Int
-    ): ApiResponse<List<PhotoListItem>>
+    ): List<PhotoListItem>
 
     @GET("photos/{id}")
     suspend fun fetchPhoto(
@@ -21,7 +22,7 @@ interface PhotosRemoteSource {
     ): ApiResponse<SpecificPhoto>
 
     @GET("photos/random")
-    suspend fun fetchRandomPhoto(): ApiResponse<PhotoListItem>
+    suspend fun fetchRandomPhoto(): PhotoListItem
 
     @GET("photos/{id}/like")
     suspend fun likePhoto(
