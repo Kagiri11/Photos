@@ -1,10 +1,3 @@
-import Libraries.appCompat
-import Libraries.core
-import Libraries.coroutinesCore
-import Libraries.koinCore
-import Libraries.paging
-import Libraries.sandwich
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -39,18 +32,15 @@ android {
 }
 
 dependencies {
-    Libraries.also {
-        implementation(coroutinesCore)
-        implementation(koinCore)
-        implementation(core)
-        implementation(appCompat)
-        implementation(sandwich)
-        implementation(paging)
-    }
+    implementation(Libraries.coroutinesCore)
+    implementation(Libraries.koinCore)
+    implementation(Libraries.core)
+    implementation(Libraries.appCompat)
+    implementation(Libraries.sandwich)
+    implementation(Libraries.paging)
     implementation(project(mapOf("path" to ":data:network")))
     implementation(project(mapOf("path" to ":domain")))
     testImplementation(TestLibraries.jUnit)
     testImplementation(TestLibraries.mockK)
     testImplementation(TestLibraries.truth)
-
 }

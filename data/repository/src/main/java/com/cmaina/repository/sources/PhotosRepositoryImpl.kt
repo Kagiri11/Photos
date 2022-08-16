@@ -7,13 +7,16 @@ import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
+import com.cmaina.domain.utils.NetworkResult
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
 import com.cmaina.repository.paging.SearchedPhotosPagingSource
+import com.cmaina.repository.utils.flowSafeApiCall
 import com.skydoves.sandwich.ApiResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 
 class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) : PhotosRepository {
 
@@ -25,11 +28,8 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
         return photosPager
     }
 
-    override suspend fun getRandomPhoto(): Flow<DomainPhotoListItem> {
-        return when (val response = photosRemoteSource.fetchRandomPhoto()) {
-            is ApiResponse.Success -> flowOf(response.data.toDomain())
-            else -> flowOf()
-        }
+    override suspend fun getRandomPhoto(): Flow<NetworkResult<DomainPhotoListItem>> {
+        return  flowSafeApiCall { photosRemoteSource.fetchRandomPhoto().toDomain() }
     }
 
     override suspend fun getSpecificPhoto(photoId: String): Flow<SpecificPhotoDomainModel> {
