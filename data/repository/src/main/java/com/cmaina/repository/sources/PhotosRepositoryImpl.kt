@@ -13,10 +13,7 @@ import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
 import com.cmaina.repository.paging.SearchedPhotosPagingSource
 import com.cmaina.repository.utils.flowSafeApiCall
-import com.skydoves.sandwich.ApiResponse
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 
 class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) : PhotosRepository {
 
@@ -28,21 +25,14 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
         return photosPager
     }
 
-    override suspend fun getRandomPhoto(): Flow<NetworkResult<DomainPhotoListItem>> {
-        return  flowSafeApiCall { photosRemoteSource.fetchRandomPhoto().toDomain() }
-    }
+    override suspend fun getRandomPhoto(): Flow<NetworkResult<DomainPhotoListItem>> =
+        flowSafeApiCall { photosRemoteSource.fetchRandomPhoto().toDomain() }
 
-    override suspend fun getSpecificPhoto(photoId: String): Flow<SpecificPhotoDomainModel> {
-        return when (val result = photosRemoteSource.fetchPhoto(photoId)) {
-            is ApiResponse.Success -> flowOf(result.data.toDomain())
-            is ApiResponse.Failure.Error -> flowOf()
-            is ApiResponse.Failure.Exception -> flowOf()
-        }
-    }
+    override suspend fun getSpecificPhoto(photoId: String): Flow<NetworkResult<SpecificPhotoDomainModel>> =
+        flowSafeApiCall { photosRemoteSource.fetchPhoto(photoId).toDomain() }
 
-    override suspend fun getPhotoStatistics(): Flow<DomainPhotoStatistics> {
-        return flowOf()
-    }
+    override suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>> =
+        flowSafeApiCall { photosRemoteSource.fetchPhotoStatistics(photoId).toDomain() }
 
     override suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>> {
         val pagingConfig = PagingConfig(pageSize = 30)
