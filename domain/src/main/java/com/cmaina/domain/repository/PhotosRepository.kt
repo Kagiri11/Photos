@@ -13,9 +13,9 @@ interface PhotosRepository {
 
     suspend fun getRandomPhoto(): Flow<NetworkResult<DomainPhotoListItem>>
 
-    suspend fun getSpecificPhoto(photoId: String): Flow<SpecificPhotoDomainModel>
+    suspend fun getSpecificPhoto(photoId: String): Flow<NetworkResult<SpecificPhotoDomainModel>>
 
-    suspend fun getPhotoStatistics(): Flow<DomainPhotoStatistics>
+    suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>>
 
     suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>>
 }

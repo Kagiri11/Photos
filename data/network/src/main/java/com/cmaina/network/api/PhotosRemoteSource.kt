@@ -19,7 +19,7 @@ interface PhotosRemoteSource {
     @GET("photos/{id}")
     suspend fun fetchPhoto(
         @Path("id") id: String,
-    ): ApiResponse<SpecificPhoto>
+    ): SpecificPhoto
 
     @GET("photos/random")
     suspend fun fetchRandomPhoto(): PhotoListItem
@@ -27,16 +27,16 @@ interface PhotosRemoteSource {
     @GET("photos/{id}/like")
     suspend fun likePhoto(
         @Path("id") id: String,
-    ): ApiResponse<PhotoListItem>
+    ): PhotoListItem
 
     @GET("photos/{id}/statistics")
     suspend fun fetchPhotoStatistics(
         @Path("id") id: String,
-    ): ApiResponse<PhotoStatistics>
+    ): PhotoStatistics
 
     @GET("search/photos")
     suspend fun searchPhotos(
         @Query("query") searchQuery: String,
         @Query("page") page: Int
-    ): ApiResponse<PhotoSearchResultDto>
+    ): PhotoSearchResultDto
 }
