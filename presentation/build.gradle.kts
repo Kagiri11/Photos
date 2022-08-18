@@ -77,5 +77,5 @@ dependencies {
     androidTestImplementation(TestLibraries.jUnitAndroid)
     androidTestImplementation(TestLibraries.androidEspresso)
     androidTestImplementation(TestLibraries.jUnitCompose)
-    debugImplementation(Libraries)
+    debugImplementation(Libraries.tooling)
 }
