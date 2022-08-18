@@ -7,8 +7,8 @@ import Libraries.paging
 import Libraries.pagingCompose
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(BuildPlugins.androidLib)
+    id(BuildPlugins.kotlinAndroid)
 }
 
 android {
@@ -49,14 +49,14 @@ android {
 
 dependencies {
 
-    implementation("androidx.compose.ui:ui:${Versions.compose}")
-    implementation("androidx.compose.material:material:${Versions.compose}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
-    implementation(project(":domain"))
+    implementation(Libraries.composeUi)
+    implementation(Libraries.composeMaterial)
+    implementation(Libraries.preview)
+    implementation(project(Modules.DOMAIN))
 
-    implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}")
-    implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-rc02")
+    implementation(Libraries.constraintLayout)
+    implementation(Libraries.liveData)
+    implementation(Libraries.viewModel)
     Libraries.also {
         implementation(koinCompose)
         implementation(coil)
@@ -67,16 +67,15 @@ dependencies {
     implementation(Libraries.placeholder)
     implementation(Libraries.permissions)
 
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation(Libraries.lifeCycle)
+    implementation(Libraries.activity)
+    implementation(Libraries.core)
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("com.google.android.material:material:1.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Versions.compose}")
-    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
+    implementation(Libraries.appCompat)
+    implementation(Libraries.material)
+    testImplementation(TestLibraries.jUnit)
+    androidTestImplementation(TestLibraries.jUnitAndroid)
+    androidTestImplementation(TestLibraries.androidEspresso)
+    androidTestImplementation(TestLibraries.jUnitCompose)
+    debugImplementation(Libraries)
 }

@@ -53,6 +53,7 @@ object Libraries {
     const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}"
     const val preview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+    const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
 
     // Splash screen
     const val splashScreen = "androidx.core:core-splashscreen:${Versions.splashScreen}"
@@ -68,4 +69,5 @@ object Libraries {
 
     // Activity
     const val activity = "androidx.activity:activity-compose:${Versions.activity}"
+
 }

@@ -13,4 +13,7 @@ object TestLibraries {
     const val mockK = "io.mockk:mockk:${TestVersions.mockK}"
     // truth
     const val truth = "com.google.truth:truth:${TestVersions.truth}"
+
+    // compose testing
+    const val jUnitCompose = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
 }
