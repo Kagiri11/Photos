@@ -20,4 +20,8 @@ object Versions {
     const val blurHash = "1.0.4"
     const val placeholder = "0.24.13-rc"
     const val permission = "0.26.0-alpha"
+    const val splashScreen = "1.0.0-rc01"
+    const val viewModel = "2.5.0-rc02"
+    const val lifeCycle = "2.3.1"
+    const val activity = "1.3.1"
 }
