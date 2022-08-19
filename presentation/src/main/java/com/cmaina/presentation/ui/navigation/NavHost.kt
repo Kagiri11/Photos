@@ -13,6 +13,7 @@ import com.cmaina.presentation.screens.favourites.FavouritesScreen
 import com.cmaina.presentation.screens.home.HomeScreen
 import com.cmaina.presentation.screens.photodetails.PhotoDetailsScreen
 import com.cmaina.presentation.screens.search.SearchScreen
+import com.cmaina.presentation.screens.settings.SettingsScreen
 import com.cmaina.presentation.screens.user.UserScreen
 
 @Composable
@@ -61,7 +62,7 @@ fun NavGraph(
             SearchScreen(navController = navController)
         }
         composable(route = Destination.SettingsScreen.route) {
-            SearchScreen(navController = navController)
+            SettingsScreen()
         }
     }
 }

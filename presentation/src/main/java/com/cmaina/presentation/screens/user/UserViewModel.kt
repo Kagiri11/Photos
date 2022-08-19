@@ -9,6 +9,7 @@ import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.repository.UsersRepository
+import com.cmaina.domain.utils.NetworkResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,11 +40,17 @@ class UserViewModel(
 
     fun fetchUser(username: String) = viewModelScope.launch {
         usersRepository.fetchUser(username = username).collect { user ->
-            _user.value = user
-            _usersPhotoCount.value = user.total_photos ?: 0
-            _usersFollowersCount.value = user.followers_count ?: 0
-            _usersFollowingCount.value = user.followers_count ?: 0
-            _userImageUrl.value = user.profile_image?.large ?: ""
+            when (user) {
+                is NetworkResult.Success -> {
+                    _user.value = user.data
+                    _usersPhotoCount.value = user.data.total_photos ?: 0
+                    _usersFollowersCount.value = user.data.followers_count ?: 0
+                    _usersFollowingCount.value = user.data.followers_count ?: 0
+                    _userImageUrl.value = user.data.profile_image?.large ?: ""
+                }
+                is NetworkResult.Error -> {
+                }
+            }
         }
     }
 
