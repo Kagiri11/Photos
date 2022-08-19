@@ -43,7 +43,7 @@ fun HomeScreen(
             textColor = FotosBlack,
             modifier = Modifier.constrainAs(title) {
                 top.linkTo(parent.top, margin = 20.dp)
-                start.linkTo(parent.start, margin = 10.dp)
+                start.linkTo(parent.start, margin = 15.dp)
             }
         )
         LazyVerticalGrid(
