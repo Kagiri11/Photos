@@ -25,7 +25,8 @@ fun Setting(
     settingName: String,
     settingAttribute: String,
     attributeValue: String,
-    @DrawableRes settingIcon: Int
+    @DrawableRes settingIcon: Int,
+    onClick: () -> Unit
 ) {
     Column {
         Text(
@@ -40,7 +41,9 @@ fun Setting(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .clickable { }
+                .clickable {
+                    onClick()
+                }
         ) {
             Icon(
                 painter = painterResource(id = settingIcon),

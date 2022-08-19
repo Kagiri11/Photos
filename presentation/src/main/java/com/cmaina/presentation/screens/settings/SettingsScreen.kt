@@ -8,16 +8,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.settingscomponents.Setting
+import com.cmaina.presentation.components.settingscomponents.SettingItemDialog
 import com.cmaina.presentation.ui.theme.FotosBlack
 
 @Composable
 fun SettingsScreen() {
+    val isThemeDialogOpen = remember{ mutableStateOf(false)}
     ConstraintLayout(Modifier.fillMaxSize()) {
         val (titleRef, settingsOptionsColumnRef) = createRefs()
         Text(
@@ -47,7 +51,11 @@ fun SettingsScreen() {
                 settingAttribute = "Theme",
                 attributeValue = "Dark",
                 settingIcon = R.drawable.ic_dark_mode
-            )
+            ){
+                isThemeDialogOpen.value = true
+            }
+
+            SettingItemDialog(isThemeDialogOpen)
         }
     }
 }
