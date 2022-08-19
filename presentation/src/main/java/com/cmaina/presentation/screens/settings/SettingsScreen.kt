@@ -1,21 +1,19 @@
 package com.cmaina.presentation.screens.settings
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.cmaina.presentation.R
+import com.cmaina.presentation.components.settingscomponents.Setting
 import com.cmaina.presentation.ui.theme.FotosBlack
 
 @Composable
@@ -33,13 +31,23 @@ fun SettingsScreen() {
         Column(
             modifier = Modifier
                 .constrainAs(settingsOptionsColumnRef) {
-                    start.linkTo(parent.start, margin = 10.dp)
-                    top.linkTo(titleRef.bottom, margin = 15.dp)
+                    start.linkTo(parent.start, margin = 15.dp)
+                    top.linkTo(titleRef.bottom, margin = 10.dp)
+                    bottom.linkTo(parent.bottom)
+                    height = Dimension.fillToConstraints
+                }
+                .fillMaxWidth()
+                .clickable {
                 },
-            verticalArrangement = Arrangement.spacedBy(20.dp),
+            verticalArrangement = Arrangement.Top,
+
         ) {
-            Text(text = "Display", style = MaterialTheme.typography.body1.copy(color = FotosBlack))
-            Icon(painter = painterResource(id = R.drawable.ic_dark_mode), contentDescription = "", tint = FotosBlack)
+            Setting(
+                settingName = "Display",
+                settingAttribute = "Theme",
+                attributeValue = "Dark",
+                settingIcon = R.drawable.ic_dark_mode
+            )
         }
     }
 }
