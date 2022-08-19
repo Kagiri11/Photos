@@ -3,8 +3,8 @@ import TestLibraries.jUnit
 import TestLibraries.jUnitAndroid
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(BuildPlugins.androidLib)
+    id(BuildPlugins.kotlinAndroid)
 }
 
 android {

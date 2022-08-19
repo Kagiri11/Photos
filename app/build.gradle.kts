@@ -11,8 +11,8 @@ import Libraries.pagingCompose
 import Libraries.systemUiController
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id(BuildPlugins.androidLApp)
+    id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
@@ -68,17 +68,17 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}")
-    implementation("androidx.core:core-splashscreen:1.0.0-rc01")
-    implementation(project(":domain"))
-    implementation(project(":data:network"))
-    implementation(project(":data:repository"))
-    implementation(project(":presentation"))
+    implementation(Libraries.core)
+    implementation(Libraries.composeUi)
+    implementation(Libraries.constraintLayout)
+    implementation(Libraries.splashScreen)
+    implementation(project(Modules.DOMAIN))
+    implementation(project(Modules.NETWORK))
+    implementation(project(Modules.REPOSITORY))
+    implementation(project(Modules.PRESENTATION))
 
-    implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-rc02")
+    implementation(Libraries.liveData)
+    implementation(Libraries.viewModel)
     Libraries.also {
         implementation(koinCompose)
         implementation(coil)
@@ -87,11 +87,11 @@ dependencies {
         implementation(systemUiController)
         implementation(composeNavigation)
     }
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(Libraries.composeMaterial)
+    implementation(Libraries.preview)
+    implementation(Libraries.lifeCycle)
+    implementation(Libraries.activity)
+    testImplementation(TestLibraries.jUnit)
+    androidTestImplementation(TestLibraries.jUnitAndroid)
+    androidTestImplementation(TestLibraries.androidEspresso)
 }

@@ -11,6 +11,7 @@ object Libraries {
 
     // Material
     const val material = "com.google.android.material:material:${Versions.material}"
+    const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
 
     // Android
     const val core = "androidx.core:core-ktx:${Versions.core}"
@@ -47,4 +48,26 @@ object Libraries {
 
     // blurHash
     const val blurHash = "xyz.belvi.blurHash:blurHash:${Versions.blurHash}"
+
+    // composeUi
+    const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}"
+    const val preview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+    const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+
+    // Splash screen
+    const val splashScreen = "androidx.core:core-splashscreen:${Versions.splashScreen}"
+
+    // LiveData
+    const val liveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
+
+    // ViewModel
+    const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.viewModel}"
+
+    // Lifecycle
+    const val lifeCycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifeCycle}"
+
+    // Activity
+    const val activity = "androidx.activity:activity-compose:${Versions.activity}"
+
 }
