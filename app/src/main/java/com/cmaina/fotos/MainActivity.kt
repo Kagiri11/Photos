@@ -16,9 +16,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.cmaina.presentation.ui.navigation.bottomnav.FotosBottomNav
-import com.cmaina.presentation.ui.navigation.bottomnav.TopLevelDestinations
-import com.cmaina.presentation.ui.navigation.NavGraph
+import com.cmaina.presentation.navigation.bottomnav.FotosBottomNav
+import com.cmaina.presentation.navigation.bottomnav.TopLevelDestinations
+import com.cmaina.presentation.navigation.NavGraph
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.cmaina.presentation.ui.theme.FotosWhite
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

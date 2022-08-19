@@ -1,6 +1,5 @@
 package com.cmaina.presentation.screens.photodetails
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -35,7 +34,6 @@ import coil.request.ImageRequest
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photoscards.SpecificFotoCard
 import com.cmaina.presentation.components.photostext.FotosText
-import com.cmaina.presentation.ui.navigation.Destination
 import com.cmaina.presentation.ui.theme.FotosBlack
 import org.koin.androidx.compose.getViewModel
 

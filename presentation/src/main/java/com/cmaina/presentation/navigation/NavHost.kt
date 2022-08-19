@@ -1,4 +1,4 @@
-package com.cmaina.presentation.ui.navigation
+package com.cmaina.presentation.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
