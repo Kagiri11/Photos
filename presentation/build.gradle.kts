@@ -1,10 +1,5 @@
 import Configurations.MinSdk
 import Configurations.TargetSdk
-import Libraries.coil
-import Libraries.composeNavigation
-import Libraries.koinCompose
-import Libraries.paging
-import Libraries.pagingCompose
 
 plugins {
     id(BuildPlugins.androidLib)
@@ -57,13 +52,14 @@ dependencies {
     implementation(Libraries.constraintLayout)
     implementation(Libraries.liveData)
     implementation(Libraries.viewModel)
-    Libraries.also {
-        implementation(koinCompose)
-        implementation(coil)
-        implementation(paging)
-        implementation(pagingCompose)
-        implementation(composeNavigation)
-    }
+    implementation(Libraries.preferenceDataStore)
+    implementation(Libraries.splashScreen)
+    implementation(Libraries.koinCompose)
+    implementation(Libraries.coil)
+    implementation(Libraries.paging)
+    implementation(Libraries.pagingCompose)
+    implementation(Libraries.composeNavigation)
+    implementation(Libraries.systemUiController)
     implementation(Libraries.placeholder)
     implementation(Libraries.permissions)
 

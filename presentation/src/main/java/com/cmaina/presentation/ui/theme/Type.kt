@@ -27,6 +27,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     ),
+    h2 = TextStyle(
+        fontFamily = appFonts,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    ),
     button = TextStyle(
         fontFamily = appFonts,
         fontWeight = FontWeight.Normal,

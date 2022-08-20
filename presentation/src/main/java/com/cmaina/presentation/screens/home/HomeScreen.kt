@@ -1,11 +1,11 @@
 package com.cmaina.presentation.screens.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
@@ -19,7 +19,6 @@ import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.screens.items
 import com.cmaina.presentation.ui.theme.FotosBlack
-import com.cmaina.presentation.ui.theme.FotosWhite
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -34,16 +33,15 @@ fun HomeScreen(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-            .background(FotosWhite)
     ) {
         val (title, searchBar, fotosGrid) = createRefs()
 
         FotosTitleText(
             text = "Explore",
-            textColor = FotosBlack,
+            textColor = MaterialTheme.colors.onPrimary,
             modifier = Modifier.constrainAs(title) {
                 top.linkTo(parent.top, margin = 20.dp)
-                start.linkTo(parent.start, margin = 10.dp)
+                start.linkTo(parent.start, margin = 15.dp)
             }
         )
         LazyVerticalGrid(

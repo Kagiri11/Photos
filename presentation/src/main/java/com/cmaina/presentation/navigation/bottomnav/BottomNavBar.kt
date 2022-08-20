@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,7 +19,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.cmaina.presentation.navigation.Destination
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
-import com.cmaina.presentation.ui.theme.FotosWhite
 
 val TopLevelDestinations = listOf(
     Destination.HomeScreen,
@@ -32,7 +32,7 @@ fun FotosBottomNav(navHostController: NavHostController) {
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentScreen = navBackStackEntry?.destination
 
-    BottomNavigation(backgroundColor = FotosWhite, modifier = Modifier.fillMaxWidth()) {
+    BottomNavigation(modifier = Modifier.fillMaxWidth(), backgroundColor = MaterialTheme.colors.primary) {
         TopLevelDestinations.forEach { screen ->
             AddBottomNavItem(
                 screen = screen,
@@ -63,7 +63,7 @@ fun RowScope.AddBottomNavItem(
         label = {
             Text(
                 text = screen.label,
-                style = TextStyle(color = if (isSelected) FotosBlack else FotosGreyShadeTwoLightTheme)
+                style = TextStyle(color = if (isSelected) MaterialTheme.colors.onPrimary else MaterialTheme.colors.primary)
             )
         },
         alwaysShowLabel = isSelected,
@@ -71,7 +71,7 @@ fun RowScope.AddBottomNavItem(
             Icon(
                 painter = painterResource(id = screen.icon),
                 contentDescription = screen.label,
-                tint = if (isSelected) FotosBlack else FotosGreyShadeTwoLightTheme
+                tint = if (isSelected) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onPrimary
             )
         },
     )

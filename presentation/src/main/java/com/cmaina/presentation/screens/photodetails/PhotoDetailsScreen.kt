@@ -62,7 +62,12 @@ fun PhotoDetailsScreen(
 }
 
 @Composable
-fun ColumnScope.LikeAndDownloadSection(userName: String, userPhotoUrl: String, numberOfLikes: Int, navController: NavController) {
+fun ColumnScope.LikeAndDownloadSection(
+    userName: String,
+    userPhotoUrl: String,
+    numberOfLikes: Int,
+    navController: NavController
+) {
     val context = LocalContext.current
     Card(
         modifier = Modifier.fillMaxWidth().weight(0.1f),
@@ -134,10 +139,10 @@ fun ConstraintLayoutScope.UserSection(
                 )
             )
             Spacer(modifier = Modifier.width(5.dp))
-            FotosText(userName, textColor = FotosBlack)
+            FotosText(text = userName, textColor = FotosBlack)
         }
         Spacer(modifier = Modifier.height(3.dp))
-        FotosText("$numberOfLikes likes", textColor = FotosBlack)
+        FotosText(text = "$numberOfLikes likes", textColor = FotosBlack)
     }
 }
 

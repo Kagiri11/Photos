@@ -71,7 +71,7 @@ dependencies {
     implementation(Libraries.core)
     implementation(Libraries.composeUi)
     implementation(Libraries.constraintLayout)
-    implementation(Libraries.splashScreen)
+    implementation(Libraries.preferenceDataStore)
     implementation(project(Modules.DOMAIN))
     implementation(project(Modules.NETWORK))
     implementation(project(Modules.REPOSITORY))
