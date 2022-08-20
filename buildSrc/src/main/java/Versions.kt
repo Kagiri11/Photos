@@ -24,4 +24,5 @@ object Versions {
     const val viewModel = "2.5.0-rc02"
     const val lifeCycle = "2.3.1"
     const val activity = "1.3.1"
+    const val preferenceDatastore = "1.0.0"
 }

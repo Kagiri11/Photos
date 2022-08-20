@@ -1,5 +1,7 @@
 package com.cmaina.presentation.screens.settings
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,17 +13,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.cmaina.presentation.R
+import com.cmaina.presentation.activities.MainViewModel
 import com.cmaina.presentation.components.settingscomponents.Setting
 import com.cmaina.presentation.components.settingscomponents.SettingItemDialog
 import com.cmaina.presentation.ui.theme.FotosBlack
+import org.koin.androidx.compose.getViewModel
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 @Composable
-fun SettingsScreen() {
-    val isThemeDialogOpen = remember{ mutableStateOf(false)}
+fun SettingsScreen(mainViewModel: MainViewModel = getViewModel()) {
+    val isThemeDialogOpen = remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val dataStore = context.dataStore
     ConstraintLayout(Modifier.fillMaxSize()) {
         val (titleRef, settingsOptionsColumnRef) = createRefs()
         Text(
@@ -51,10 +63,9 @@ fun SettingsScreen() {
                 settingAttribute = "Theme",
                 attributeValue = "Dark",
                 settingIcon = R.drawable.ic_dark_mode
-            ){
+            ) {
                 isThemeDialogOpen.value = true
             }
-
             SettingItemDialog(isThemeDialogOpen)
         }
     }

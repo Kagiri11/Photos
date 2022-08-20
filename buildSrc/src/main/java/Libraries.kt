@@ -70,4 +70,7 @@ object Libraries {
     // Activity
     const val activity = "androidx.activity:activity-compose:${Versions.activity}"
 
+    // Datastore
+    const val preferenceDataStore = "androidx.datastore:datastore-preferences:${Versions.preferenceDatastore}"
+
 }
