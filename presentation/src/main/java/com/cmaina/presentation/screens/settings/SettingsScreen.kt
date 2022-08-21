@@ -1,7 +1,6 @@
 package com.cmaina.presentation.screens.settings
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -32,8 +30,6 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 @Composable
 fun SettingsScreen(mainViewModel: MainViewModel = getViewModel()) {
     val isThemeDialogOpen = remember { mutableStateOf(false) }
-    val context = LocalContext.current
-    val dataStore = context.dataStore
     ConstraintLayout(Modifier.fillMaxSize()) {
         val (titleRef, settingsOptionsColumnRef) = createRefs()
         Text(

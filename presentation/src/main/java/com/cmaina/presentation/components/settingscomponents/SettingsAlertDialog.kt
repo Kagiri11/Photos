@@ -22,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -75,7 +74,11 @@ fun SettingItemDialog(
                                 mainViewModel.changeAppTheme(dataStore, false)
                             }
                     ) {
-                        RadioButton(selected = isAppInDarkMode.not(), onClick = {},colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.onPrimary))
+                        RadioButton(
+                            selected = isAppInDarkMode.not(),
+                            onClick = {},
+                            colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.onPrimary)
+                        )
                         FotosText(text = "Light")
                     }
                     Row(
@@ -88,7 +91,9 @@ fun SettingItemDialog(
                             }
                     ) {
                         RadioButton(
-                            selected = isAppInDarkMode, onClick = {}, colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.onPrimary)
+                            selected = isAppInDarkMode,
+                            onClick = {},
+                            colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.onPrimary)
                         )
                         FotosText(text = "Dark")
                     }
