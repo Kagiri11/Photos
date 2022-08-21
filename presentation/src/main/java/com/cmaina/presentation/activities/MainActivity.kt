@@ -1,6 +1,7 @@
 package com.cmaina.presentation.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,7 +36,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val mainViewModel: MainViewModel = getViewModel()
             val context = LocalContext.current
-            val dataStore = context.dataStore
             val preferences = context.dataStore.data
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
@@ -43,6 +43,7 @@ class MainActivity : ComponentActivity() {
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }
             SideEffect {
+                Log.d("MainaViewModel"," Vm instance in activity : ${mainViewModel.toString()}")
                 mainViewModel.fetchAppTheme(preferences)
                 mainViewModel.changeSystemAppBarColors(systemUIController)
             }
@@ -82,7 +83,8 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         modifier = Modifier.padding(
                             paddingValues
-                        )
+                        ),
+                        mainViewModel = mainViewModel
                     )
                 }
             }
