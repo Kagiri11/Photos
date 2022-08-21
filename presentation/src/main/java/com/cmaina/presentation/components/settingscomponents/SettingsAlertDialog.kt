@@ -13,13 +13,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
+import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -37,6 +40,7 @@ fun SettingItemDialog(
 ) {
     val context = LocalContext.current
     val dataStore = context.dataStore
+    val isAppInDarkMode = mainViewModel.isAppInDarkTheme.collectAsState().value
     val isButtonSelected = remember { mutableStateOf(false) }
     if (openDialog.value) {
         Dialog(
@@ -68,11 +72,10 @@ fun SettingItemDialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                mainViewModel.changeAppTheme(dataStore)
-                                isButtonSelected.value = true
+                                mainViewModel.changeAppTheme(dataStore, false)
                             }
                     ) {
-                        RadioButton(selected = isButtonSelected.value, onClick = {})
+                        RadioButton(selected = isAppInDarkMode.not(), onClick = {},colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.onPrimary))
                         FotosText(text = "Light")
                     }
                     Row(
@@ -81,12 +84,11 @@ fun SettingItemDialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                mainViewModel.changeAppTheme(dataStore)
-                                isButtonSelected.value = false
+                                mainViewModel.changeAppTheme(dataStore, true)
                             }
                     ) {
                         RadioButton(
-                            selected = isButtonSelected.value.not(), onClick = {},
+                            selected = isAppInDarkMode, onClick = {}, colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.onPrimary)
                         )
                         FotosText(text = "Dark")
                     }
