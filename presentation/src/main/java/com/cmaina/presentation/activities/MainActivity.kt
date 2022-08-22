@@ -1,7 +1,6 @@
 package com.cmaina.presentation.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -43,7 +42,6 @@ class MainActivity : ComponentActivity() {
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }
             SideEffect {
-                Log.d("MainaViewModel"," Vm instance in activity : ${mainViewModel.toString()}")
                 mainViewModel.fetchAppTheme(preferences)
                 mainViewModel.changeSystemAppBarColors(systemUIController)
             }

@@ -1,23 +1,24 @@
 package com.cmaina.presentation.screens.settings
 
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
+import com.cmaina.presentation.activities.MainViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel(private val mainViewModel: MainViewModel) : ViewModel() {
 
-    private val _appTheme = MutableStateFlow(0)
-    val appTheme = _appTheme.asStateFlow()
+    private val _appTheme = MutableLiveData<Boolean>()
+    val appTheme: LiveData<Boolean> get() = _appTheme
 
-    fun fetchAppTheme(theme: Flow<Preferences>) = viewModelScope.launch {
-        val appTheme = intPreferencesKey("appTheme")
-        theme.map { it[appTheme] ?: 0 }.collect{
+    init {
+        fetchAppTheme()
+    }
+
+    private fun fetchAppTheme() = viewModelScope.launch {
+        mainViewModel.isAppInDarkTheme.collectLatest {
             _appTheme.value = it
         }
     }
