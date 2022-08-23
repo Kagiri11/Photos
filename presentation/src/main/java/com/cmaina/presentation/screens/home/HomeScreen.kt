@@ -59,6 +59,7 @@ fun HomeScreen(
             items(myPictures!!) { pic ->
                 val photoUserName = pic?.id
                 PhotoCardItem(
+                    blurHash = pic?.blurHash ?: "",
                     imageUrl = pic?.domainUrls?.regular,
                     navController = navController,
                     photoID = photoUserName ?: ""

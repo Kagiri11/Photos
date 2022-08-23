@@ -57,7 +57,8 @@ fun SearchScreen(searchViewModel: SearchViewModel = getViewModel(), navControlle
                         PhotoCardItem(
                             imageUrl = pic.domainUrls?.regular,
                             navController = navController,
-                            photoID = photoUserName ?: ""
+                            photoID = photoUserName ?: "",
+                            blurHash = pic.blurHash ?: ""
                         )
                     }
                 }
