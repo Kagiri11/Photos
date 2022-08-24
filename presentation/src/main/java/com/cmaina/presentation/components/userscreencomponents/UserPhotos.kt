@@ -1,6 +1,6 @@
 package com.cmaina.presentation.components.userscreencomponents
 
-import android.util.Log
+import android.content.res.Resources
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +13,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
-import coil.compose.AsyncImage
 import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.presentation.components.photoscards.AsyncImageBlur
 import com.cmaina.presentation.screens.items
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
@@ -32,6 +32,7 @@ fun UserPhotos(
     photos: LazyPagingItems<DomainPhotoListItem>?,
     navController: NavController
 ) {
+    val res = LocalContext.current.resources
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Fixed(3),
@@ -40,10 +41,11 @@ fun UserPhotos(
         photos?.let {
             items(it) { pic ->
                 UserPhoto(
+                    imageBlurHash = pic?.blurHash ?: "",
                     userImageUrl = pic?.domainUrls?.small ?: "",
-                    description = pic?.description ?: ""
+                    description = pic?.description ?: "",
+                    resources = res
                 ) {
-                    Log.d("NAvigatien", "User navigates to photo_detail_screen/${pic?.id}")
                     navController.navigate("photo_detail_screen/${pic?.id}")
                 }
             }
@@ -52,7 +54,13 @@ fun UserPhotos(
 }
 
 @Composable
-fun UserPhoto(userImageUrl: String, description: String, onClick: () -> Unit) {
+fun UserPhoto(
+    imageBlurHash: String,
+    userImageUrl: String,
+    description: String,
+    resources: Resources,
+    onClick: () -> Unit
+) {
     Card(
         Modifier
             .fillMaxWidth()
@@ -66,11 +74,11 @@ fun UserPhoto(userImageUrl: String, description: String, onClick: () -> Unit) {
         shape = RoundedCornerShape(2),
         elevation = 0.dp
     ) {
-        AsyncImage(
-            model = userImageUrl,
-            contentDescription = description,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+        AsyncImageBlur(
+            blurHash = imageBlurHash,
+            imageUrl = userImageUrl,
+            resources = resources,
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
