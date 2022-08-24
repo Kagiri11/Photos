@@ -72,5 +72,6 @@ object Libraries {
 
     // Datastore
     const val preferenceDataStore = "androidx.datastore:datastore-preferences:${Versions.preferenceDatastore}"
-
+    // Landscapist
+    const val landscapist = "com.github.skydoves:landscapist-glide:${Versions.landscapist}"
 }

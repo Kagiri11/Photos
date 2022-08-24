@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.cmaina.presentation.R
+import com.cmaina.presentation.activities.MainViewModel
 import com.cmaina.presentation.screens.favourites.FavouritesScreen
 import com.cmaina.presentation.screens.home.HomeScreen
 import com.cmaina.presentation.screens.photodetails.PhotoDetailsScreen
@@ -19,7 +20,8 @@ import com.cmaina.presentation.screens.user.UserScreen
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier,
+    mainViewModel: MainViewModel
 ) {
     NavHost(
         navController = navController,
@@ -62,7 +64,7 @@ fun NavGraph(
             SearchScreen(navController = navController)
         }
         composable(route = Destination.SettingsScreen.route) {
-            SettingsScreen()
+            SettingsScreen(mainViewModel= mainViewModel)
         }
     }
 }

@@ -62,7 +62,7 @@ dependencies {
     implementation(Libraries.systemUiController)
     implementation(Libraries.placeholder)
     implementation(Libraries.permissions)
-
+    implementation (Libraries.landscapist)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     implementation(Libraries.core)

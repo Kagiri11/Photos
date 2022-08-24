@@ -20,11 +20,9 @@ class MainViewModel : ViewModel() {
     private val _isAppInDarkTheme = MutableStateFlow(false)
     val isAppInDarkTheme = _isAppInDarkTheme.asStateFlow()
 
-    private var preferences: Preferences.Key<Boolean>? = null
+    val appTheme = booleanPreferencesKey("appTheme")
 
     fun fetchAppTheme(theme: Flow<Preferences>) = viewModelScope.launch {
-        val appTheme = booleanPreferencesKey("appTheme")
-        preferences = appTheme
         theme.map { it[appTheme] }.collect {
             it?.let {
                 _isAppInDarkTheme.value = it
@@ -32,12 +30,11 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun changeAppTheme(dataStore: DataStore<Preferences>) {
+    fun changeAppTheme(dataStore: DataStore<Preferences>, theme: Boolean) {
         viewModelScope.launch {
+            _isAppInDarkTheme.value = theme
             dataStore.edit { settings ->
-                preferences?.let {
-                    settings[it] = _isAppInDarkTheme.value.not()
-                }
+                settings[appTheme] = _isAppInDarkTheme.value
             }
         }
     }

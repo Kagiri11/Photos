@@ -35,7 +35,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val mainViewModel: MainViewModel = getViewModel()
             val context = LocalContext.current
-            val dataStore = context.dataStore
             val preferences = context.dataStore.data
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
@@ -82,7 +81,8 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         modifier = Modifier.padding(
                             paddingValues
-                        )
+                        ),
+                        mainViewModel = mainViewModel
                     )
                 }
             }

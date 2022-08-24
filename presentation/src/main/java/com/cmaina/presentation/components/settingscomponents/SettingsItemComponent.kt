@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Icon
@@ -17,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cmaina.presentation.ui.theme.FotosBlack
+import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 
 @Composable
@@ -28,33 +29,33 @@ fun Setting(
     @DrawableRes settingIcon: Int,
     onClick: () -> Unit
 ) {
-    Column {
-        Text(
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(vertical = 10.dp)
+            .clickable {
+                onClick()
+            }
+    ) {
+        FotosText(
             text = settingName,
-            style = MaterialTheme.typography.body1.copy(
-                color = FotosGreyShadeThreeLightTheme,
-                fontSize = 11.sp
-            )
+            textColor = FotosGreyShadeThreeLightTheme,
+            fontSize = 11
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .clickable {
-                    onClick()
-                }
         ) {
             Icon(
                 painter = painterResource(id = settingIcon),
                 contentDescription = "",
-                tint = FotosBlack
+                tint = MaterialTheme.colors.onPrimary
             )
             Spacer(modifier = Modifier.width(20.dp))
             Column {
-                Text(
+                FotosText(
                     text = settingAttribute,
-                    style = MaterialTheme.typography.body1.copy(color = FotosBlack)
+                    textColor = MaterialTheme.colors.onPrimary
                 )
                 Text(
                     text = attributeValue,
