@@ -16,6 +16,9 @@ class PhotoDetailsViewModel(
     private val _photoUrlLink = MutableLiveData<String>()
     val photoUrlLink: LiveData<String> get() = _photoUrlLink
 
+    private val _blurHashCode = MutableLiveData<String>()
+    val blurHashCode: LiveData<String> get() = _blurHashCode
+
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> get() = _username
 
@@ -31,19 +34,20 @@ class PhotoDetailsViewModel(
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
             photosRepository.getSpecificPhoto(photoId = photoId).collect { photo ->
-                when(photo){
+                when (photo) {
                     is NetworkResult.Success -> {
                         _photoUrlLink.value = photo.data.urls?.raw
                         _username.value = photo.data.user?.username
                         _numberOfLikes.value = photo.data.likes
                         _userPhotoUrl.value = photo.data.user?.domainUserProfileImage?.large
+                        _blurHashCode.value = photo.data.blurHash
 
                         photo.data.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
                             _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
                         }
                     }
+                    else -> {}
                 }
-
             }
         }
     }

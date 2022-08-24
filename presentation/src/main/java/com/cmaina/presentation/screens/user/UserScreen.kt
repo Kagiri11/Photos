@@ -22,14 +22,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.compose.AsyncImage
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.components.userscreencomponents.FollowAndMessageButtons
@@ -38,6 +36,7 @@ import com.cmaina.presentation.components.userscreencomponents.UserPhotos
 import com.cmaina.presentation.screens.myPlaceholder
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
+import com.skydoves.landscapist.glide.GlideImage
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -120,11 +119,9 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: Nav
                 },
             shape = CircleShape
         ) {
-            AsyncImage(
-                model = userImageUrl,
-                contentDescription = "",
+            GlideImage(
+                imageModel = userImageUrl,
                 modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape),
-                contentScale = ContentScale.Crop
             )
         }
 

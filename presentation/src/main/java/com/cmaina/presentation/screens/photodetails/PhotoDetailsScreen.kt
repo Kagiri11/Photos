@@ -1,6 +1,5 @@
 package com.cmaina.presentation.screens.photodetails
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -34,9 +33,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.cmaina.presentation.R
-import com.cmaina.presentation.components.photoscards.SpecificFotoCard
+import com.cmaina.presentation.components.photoscards.SpecificFotosCard
 import com.cmaina.presentation.components.photostext.FotosText
-import com.cmaina.presentation.ui.theme.FotosBlack
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -49,11 +47,12 @@ fun PhotoDetailsScreen(
         photoDetailsViewModel.fetchPhoto(photoId)
     }
     val url = photoDetailsViewModel.photoUrlLink.observeAsState().value ?: ""
+    val blurHash = photoDetailsViewModel.blurHashCode.observeAsState().value ?: ""
     val userName = photoDetailsViewModel.username.observeAsState().value ?: ""
     val userPhotoImageUrl = photoDetailsViewModel.userPhotoUrl.observeAsState().value ?: ""
     val numberOfLikes = photoDetailsViewModel.numberOfLikes.observeAsState().value ?: 0
-    Column(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.primary)) {
-        SpecificFotoCard(url)
+    Column(modifier = Modifier.fillMaxSize()) {
+        SpecificFotosCard(imageUrl = url, blurHash = blurHash)
         LikeAndDownloadSection(
             userName = userName,
             userPhotoUrl = userPhotoImageUrl,
