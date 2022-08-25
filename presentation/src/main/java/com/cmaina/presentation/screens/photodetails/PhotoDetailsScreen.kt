@@ -1,6 +1,5 @@
 package com.cmaina.presentation.screens.photodetails
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -14,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
@@ -33,10 +33,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.cmaina.presentation.R
-import com.cmaina.presentation.components.photoscards.SpecificFotoCard
+import com.cmaina.presentation.components.photoscards.SpecificFotosCard
 import com.cmaina.presentation.components.photostext.FotosText
-import com.cmaina.presentation.ui.navigation.Destination
-import com.cmaina.presentation.ui.theme.FotosBlack
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -49,11 +47,12 @@ fun PhotoDetailsScreen(
         photoDetailsViewModel.fetchPhoto(photoId)
     }
     val url = photoDetailsViewModel.photoUrlLink.observeAsState().value ?: ""
+    val blurHash = photoDetailsViewModel.blurHashCode.observeAsState().value ?: ""
     val userName = photoDetailsViewModel.username.observeAsState().value ?: ""
     val userPhotoImageUrl = photoDetailsViewModel.userPhotoUrl.observeAsState().value ?: ""
     val numberOfLikes = photoDetailsViewModel.numberOfLikes.observeAsState().value ?: 0
     Column(modifier = Modifier.fillMaxSize()) {
-        SpecificFotoCard(url)
+        SpecificFotosCard(imageUrl = url, blurHash = blurHash)
         LikeAndDownloadSection(
             userName = userName,
             userPhotoUrl = userPhotoImageUrl,
@@ -64,11 +63,16 @@ fun PhotoDetailsScreen(
 }
 
 @Composable
-fun ColumnScope.LikeAndDownloadSection(userName: String, userPhotoUrl: String, numberOfLikes: Int, navController: NavController) {
+fun ColumnScope.LikeAndDownloadSection(
+    userName: String,
+    userPhotoUrl: String,
+    numberOfLikes: Int,
+    navController: NavController
+) {
     val context = LocalContext.current
     Card(
         modifier = Modifier.fillMaxWidth().weight(0.1f),
-
+        backgroundColor = MaterialTheme.colors.primary
     ) {
         ConstraintLayout(
             modifier = Modifier.fillMaxSize(),
@@ -85,7 +89,7 @@ fun ColumnScope.LikeAndDownloadSection(userName: String, userPhotoUrl: String, n
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_download),
                 contentDescription = "Download photo",
-                tint = FotosBlack,
+                tint = MaterialTheme.colors.onPrimary,
                 modifier = Modifier.size(35.dp).constrainAs(downloadButton) {
                     top.linkTo(userSection.top)
                     end.linkTo(likeButton.start, margin = 20.dp)
@@ -94,7 +98,7 @@ fun ColumnScope.LikeAndDownloadSection(userName: String, userPhotoUrl: String, n
             Icon(
                 imageVector = Icons.Filled.Favorite,
                 contentDescription = "like photo",
-                tint = FotosBlack,
+                tint = MaterialTheme.colors.onPrimary,
                 modifier = Modifier.size(35.dp).constrainAs(likeButton) {
                     top.linkTo(userSection.top)
                     end.linkTo(parent.end, margin = 20.dp)
@@ -136,10 +140,10 @@ fun ConstraintLayoutScope.UserSection(
                 )
             )
             Spacer(modifier = Modifier.width(5.dp))
-            FotosText(userName, textColor = FotosBlack)
+            FotosText(text = userName, textColor = MaterialTheme.colors.onPrimary)
         }
         Spacer(modifier = Modifier.height(3.dp))
-        FotosText("$numberOfLikes likes", textColor = FotosBlack)
+        FotosText(text = "$numberOfLikes likes", textColor = MaterialTheme.colors.onPrimary)
     }
 }
 

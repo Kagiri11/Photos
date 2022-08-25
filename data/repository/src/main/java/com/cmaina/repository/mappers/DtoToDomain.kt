@@ -12,6 +12,10 @@ import com.cmaina.domain.models.photos.DomainUserLinks
 import com.cmaina.domain.models.photos.DomainUserProfileImage
 import com.cmaina.domain.models.photos.DomainUserSocial
 import com.cmaina.domain.models.photos.SponsorshipDomainModel
+import com.cmaina.domain.models.photostats.DomainPhotoStatDownloads
+import com.cmaina.domain.models.photostats.DomainPhotoStatLikes
+import com.cmaina.domain.models.photostats.DomainPhotoStatistics
+import com.cmaina.domain.models.photostats.DomainPhotoStatsViews
 import com.cmaina.domain.models.search.PhotoSearchResultDomainModel
 import com.cmaina.domain.models.specificphoto.CollectionDomainModel
 import com.cmaina.domain.models.specificphoto.CoverPhotoDomainModel
@@ -38,6 +42,10 @@ import com.cmaina.network.models.photos.Urls
 import com.cmaina.network.models.photos.User
 import com.cmaina.network.models.photos.UserLinks
 import com.cmaina.network.models.photos.UserProfileImage
+import com.cmaina.network.models.photostats.Downloads
+import com.cmaina.network.models.photostats.Likes
+import com.cmaina.network.models.photostats.PhotoStatistics
+import com.cmaina.network.models.photostats.Views
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.search.SearchedPhotoDto
 import com.cmaina.network.models.specificphoto.CoverPhoto
@@ -78,6 +86,21 @@ internal fun PhotoListItem.toDomain() = DomainPhotoListItem(
     domainPhotoUser = user?.toDomain(),
     width = width
 )
+
+internal fun PhotoStatistics.toDomain() = DomainPhotoStatistics(
+    id = id,
+    domainPhotoStatLikes = likes.toDomain(),
+    domainPhotoStatDownloads = downloads.toDomain(),
+    domainPhotoStatsViews = views.toDomain()
+)
+
+internal fun Likes.toDomain() = DomainPhotoStatLikes(
+    total = total,
+)
+
+internal fun Downloads.toDomain() = DomainPhotoStatDownloads(total = total)
+
+internal fun Views.toDomain() = DomainPhotoStatsViews(total = total)
 
 internal fun User.toDomain() = DomainPhotoUser(
     acceptedTos = accepted_tos, bio = bio, firstName = first_name,

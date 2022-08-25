@@ -3,9 +3,10 @@ package com.cmaina.repository.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.utils.NetworkResult
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.mappers.toDomain
-import com.skydoves.sandwich.ApiResponse
+import com.cmaina.repository.utils.safeApiCall
 
 class SearchedPhotosPagingSource(
     private val photosRemoteSource: PhotosRemoteSource,
@@ -14,11 +15,17 @@ class SearchedPhotosPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainPhotoListItem> {
         val nextPageNumber = params.key ?: 1
+        val sourceResponse = safeApiCall {
+            photosRemoteSource.searchPhotos(
+                searchQuery = searchString,
+                page = nextPageNumber
+            )
+        }
+
         return when (
-            val sourceResponse =
-                photosRemoteSource.searchPhotos(searchQuery = searchString, page = nextPageNumber)
+            sourceResponse
         ) {
-            is ApiResponse.Success -> {
+            is NetworkResult.Success -> {
                 val dataResponse = sourceResponse.data.results.map { it.toDomain() }
                 LoadResult.Page(
                     data = dataResponse,
@@ -26,11 +33,8 @@ class SearchedPhotosPagingSource(
                     nextKey = nextPageNumber + (params.loadSize / 10)
                 )
             }
-            is ApiResponse.Failure.Error -> {
-                LoadResult.Error(throwable = Throwable())
-            }
-            is ApiResponse.Failure.Exception -> {
-                LoadResult.Error(throwable = sourceResponse.exception)
+            is NetworkResult.Error -> {
+                LoadResult.Error(throwable = Throwable(sourceResponse.errorDetails))
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.cmaina.repository.sources
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -9,25 +8,18 @@ import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.models.users.portfolio.UserPortFolioDomainModel
 import com.cmaina.domain.models.users.statistics.UserStatistics
 import com.cmaina.domain.repository.UsersRepository
+import com.cmaina.domain.utils.NetworkResult
 import com.cmaina.network.api.UsersRemoteSource
 import com.cmaina.repository.mappers.toDomain
-import com.cmaina.repository.paging.PhotosPagingSource
 import com.cmaina.repository.paging.UserPhotosPagingSource
-import com.skydoves.sandwich.ApiResponse
+import com.cmaina.repository.utils.flowSafeApiCall
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class UsersRepositoryImpl(private val usersRemoteSource: UsersRemoteSource) : UsersRepository {
 
-    override suspend fun fetchUser(username: String): Flow<UserDomainModel> {
-        return when (val result = usersRemoteSource.getUser(username = username)) {
-            is ApiResponse.Success -> {
-                flowOf(result.data.toDomain())
-            }
-            is ApiResponse.Failure.Error -> flowOf()
-            is ApiResponse.Failure.Exception -> flowOf()
-        }
-    }
+    override suspend fun fetchUser(username: String): Flow<NetworkResult<UserDomainModel>> =
+        flowSafeApiCall { usersRemoteSource.getUser(username = username).toDomain() }
 
     override suspend fun fetchUserProfile(): Flow<UserDomainModel> {
         return flowOf()

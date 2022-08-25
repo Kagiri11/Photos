@@ -1,17 +1,10 @@
 import Configurations.CompileSdk
-import Libraries.appCompat
-import Libraries.core
-import Libraries.gson
-import Libraries.koinCore
-import Libraries.okHttpLoggingInterceptor
-import Libraries.retrofit
-import Libraries.sandwich
 import TestLibraries.jUnit
 import TestLibraries.jUnitAndroid
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(BuildPlugins.androidLib)
+    id(BuildPlugins.kotlinAndroid)
 }
 
 android {
@@ -45,15 +38,14 @@ android {
 }
 
 dependencies {
-    Libraries.also {
-        implementation(retrofit)
-        implementation(gson)
-        implementation(core)
-        implementation(appCompat)
-        implementation(sandwich)
-        implementation(koinCore)
-        implementation(okHttpLoggingInterceptor)
-    }
+    implementation(Libraries.coroutinesCore)
+    implementation(Libraries.retrofit)
+    implementation(Libraries.gson)
+    implementation(Libraries.core)
+    implementation(Libraries.appCompat)
+    implementation(Libraries.sandwich)
+    implementation(Libraries.koinCore)
+    implementation(Libraries.okHttpLoggingInterceptor)
 
     TestLibraries.also {
         testImplementation(jUnit)

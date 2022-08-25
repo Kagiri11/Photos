@@ -31,7 +31,7 @@ object BlurHashDecoder {
      *                 if the cache does not exist yet it will be created and populated with new calculations.
      *                 By default it is true.
      */
-    suspend fun decode(
+    fun decode(
         blurHash: String?,
         width: Int,
         height: Int,
