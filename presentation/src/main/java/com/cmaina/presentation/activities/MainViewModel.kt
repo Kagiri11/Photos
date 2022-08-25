@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
     private val _isAppInDarkTheme = MutableStateFlow(false)
     val isAppInDarkTheme = _isAppInDarkTheme.asStateFlow()
 
-    val appTheme = booleanPreferencesKey("appTheme")
+    private val appTheme = booleanPreferencesKey("appTheme")
 
     fun fetchAppTheme(theme: Flow<Preferences>) = viewModelScope.launch {
         theme.map { it[appTheme] }.collect {

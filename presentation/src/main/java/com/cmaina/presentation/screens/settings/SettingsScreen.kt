@@ -10,8 +10,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -24,15 +22,17 @@ import com.cmaina.presentation.R
 import com.cmaina.presentation.activities.MainViewModel
 import com.cmaina.presentation.components.settingscomponents.Setting
 import com.cmaina.presentation.components.settingscomponents.SettingItemDialog
+import org.koin.androidx.compose.getViewModel
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 @Composable
 fun SettingsScreen(
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    settingsViewModel: SettingsViewModel = getViewModel()
 ) {
     val isAppDarkTheme = mainViewModel.isAppInDarkTheme.collectAsState().value
-    val isThemeDialogOpen = remember { mutableStateOf(false) }
+    val isThemeDialogOpen = settingsViewModel.isThemeDialogOpen.collectAsState().value
     val context = LocalContext.current
     val dataStore = context.dataStore
     ConstraintLayout(Modifier.fillMaxSize()) {
@@ -65,11 +65,12 @@ fun SettingsScreen(
                 attributeValue = if (isAppDarkTheme) "Dark" else "Light",
                 settingIcon = R.drawable.ic_dark_mode
             ) {
-                isThemeDialogOpen.value = true
+                settingsViewModel.changeDialogOpenState()
             }
             SettingItemDialog(
-                isThemeDialogOpen,
-                isAppDarkTheme,
+                openDialog = isThemeDialogOpen,
+                isAppInDarkMode =isAppDarkTheme,
+                settingsViewModel = settingsViewModel,
                 {
                     mainViewModel.changeAppTheme(dataStore = dataStore, false)
                 },

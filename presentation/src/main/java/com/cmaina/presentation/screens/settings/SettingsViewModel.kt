@@ -1,25 +1,15 @@
 package com.cmaina.presentation.screens.settings
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.cmaina.presentation.activities.MainViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
-class SettingsViewModel(private val mainViewModel: MainViewModel) : ViewModel() {
+class SettingsViewModel : ViewModel() {
 
-    private val _appTheme = MutableLiveData<Boolean>()
-    val appTheme: LiveData<Boolean> get() = _appTheme
+    private val _isThemeDialogOpen = MutableStateFlow(false)
+    val isThemeDialogOpen = _isThemeDialogOpen.asStateFlow()
 
-    init {
-        fetchAppTheme()
-    }
-
-    private fun fetchAppTheme() = viewModelScope.launch {
-        mainViewModel.isAppInDarkTheme.collectLatest {
-            _appTheme.value = it
-        }
+    fun changeDialogOpenState() {
+        _isThemeDialogOpen.value = !_isThemeDialogOpen.value
     }
 }

@@ -16,7 +16,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -24,20 +23,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.cmaina.presentation.components.photostext.FotosText
+import com.cmaina.presentation.screens.settings.SettingsViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SettingItemDialog(
-    openDialog: MutableState<Boolean>,
+    openDialog: Boolean,
     isAppInDarkMode: Boolean,
+    settingsViewModel: SettingsViewModel,
     onLightClicked: () -> Unit,
-    onDarkClicked: () -> Unit
+    onDarkClicked: () -> Unit,
 ) {
     Log.d("FotosTheme", "Is app in dark mode settings dialog: $isAppInDarkMode")
-    if (openDialog.value) {
+    if (openDialog) {
         Dialog(
             onDismissRequest = {
-                openDialog.value = false
+                settingsViewModel.changeDialogOpenState()
             },
             properties = DialogProperties(usePlatformDefaultWidth = false)
         ) {
