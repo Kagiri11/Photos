@@ -1,6 +1,5 @@
 package com.cmaina.presentation.activities
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -25,7 +24,6 @@ class MainViewModel : ViewModel() {
 
     fun fetchAppTheme(theme: Flow<Preferences>) = viewModelScope.launch {
         theme.map { it[appTheme] }.collect {
-            Log.d("MyTheme", "Is app in dark theme: $it")
             it?.let {
                 _isAppInDarkTheme.value = it
             }
