@@ -5,6 +5,7 @@ import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
+import com.cmaina.domain.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -22,7 +23,6 @@ class HomeViewModelTest {
 
     @Test
     fun `fetchPhoto collects images from repository`() = runBlocking {
-
     }
 }
 
@@ -31,7 +31,7 @@ class FakePhotosRepository : PhotosRepository {
         return flowOf()
     }
 
-    override suspend fun getRandomPhoto(): Flow<DomainPhotoListItem> {
+    override suspend fun getRandomPhoto(): Flow<NetworkResult<DomainPhotoListItem>> {
         val fakeDomainPhotoListItem = DomainPhotoListItem(
             altDescription = "",
             blurHash = "",
@@ -50,18 +50,18 @@ class FakePhotosRepository : PhotosRepository {
             domainUrls = null,
             domainPhotoUser = null, width = 100
         )
-        return flowOf(fakeDomainPhotoListItem)
+        return flowOf()
     }
 
-    override suspend fun getSpecificPhoto(photoId: String): Flow<SpecificPhotoDomainModel> {
-        TODO("Not yet implemented")
+    override suspend fun getSpecificPhoto(photoId: String): Flow<NetworkResult<SpecificPhotoDomainModel>> {
+        return flowOf()
     }
 
-    override suspend fun getPhotoStatistics(): Flow<DomainPhotoStatistics> {
-        TODO("Not yet implemented")
+    override suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>> {
+        return flowOf()
     }
 
     override suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>> {
-        TODO("Not yet implemented")
+        return flowOf()
     }
 }

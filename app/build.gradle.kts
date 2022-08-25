@@ -11,7 +11,7 @@ import Libraries.pagingCompose
 import Libraries.systemUiController
 
 plugins {
-    id(BuildPlugins.androidLApp)
+    id(BuildPlugins.androidApp)
     id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
