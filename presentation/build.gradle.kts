@@ -55,6 +55,7 @@ dependencies {
     implementation(Libraries.preferenceDataStore)
     implementation(Libraries.splashScreen)
     implementation(Libraries.koinCompose)
+    implementation(Libraries.koinAndroid)
     implementation(Libraries.coil)
     implementation(Libraries.paging)
     implementation(Libraries.pagingCompose)
@@ -66,9 +67,9 @@ dependencies {
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     implementation(Libraries.core)
-
     implementation(Libraries.appCompat)
     implementation(Libraries.material)
+
     testImplementation(TestLibraries.jUnit)
     androidTestImplementation(TestLibraries.jUnitAndroid)
     androidTestImplementation(TestLibraries.androidEspresso)
