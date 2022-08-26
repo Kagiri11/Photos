@@ -1,7 +1,6 @@
 package com.cmaina.presentation.screens.settings
 
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,9 +52,7 @@ fun SettingsScreen(
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
                 }
-                .fillMaxWidth()
-                .clickable {
-                },
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.Top,
 
         ) {
@@ -69,7 +66,7 @@ fun SettingsScreen(
             }
             SettingItemDialog(
                 openDialog = isThemeDialogOpen,
-                isAppInDarkMode =isAppDarkTheme,
+                isAppInDarkMode = isAppDarkTheme,
                 settingsViewModel = settingsViewModel,
                 {
                     mainViewModel.changeAppTheme(dataStore = dataStore, false)
