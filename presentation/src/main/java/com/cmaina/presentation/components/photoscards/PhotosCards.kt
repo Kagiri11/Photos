@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.request.ImageRequest
+import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
 fun PhotoCardItem(
