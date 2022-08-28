@@ -34,11 +34,11 @@ android {
         kotlinCompilerExtensionVersion = Versions.compose
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -63,7 +63,7 @@ dependencies {
     implementation(Libraries.systemUiController)
     implementation(Libraries.placeholder)
     implementation(Libraries.permissions)
-    implementation (Libraries.landscapist)
+    implementation (Libraries.landscapistGlide)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     implementation(Libraries.core)

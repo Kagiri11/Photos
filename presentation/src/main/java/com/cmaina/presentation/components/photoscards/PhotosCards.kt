@@ -33,8 +33,7 @@ fun PhotoCardItem(
         AsyncImageBlur(
             blurHash = blurHash,
             imageUrl = imageUrl!!,
-            resources = res,
-
+            resources = res
         )
     }
 }

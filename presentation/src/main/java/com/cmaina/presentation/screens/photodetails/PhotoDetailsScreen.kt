@@ -1,5 +1,6 @@
 package com.cmaina.presentation.screens.photodetails
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -30,8 +31,7 @@ import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil.compose.rememberImagePainter
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photoscards.SpecificFotosCard
 import com.cmaina.presentation.components.photostext.FotosText
@@ -71,7 +71,9 @@ fun ColumnScope.LikeAndDownloadSection(
 ) {
     val context = LocalContext.current
     Card(
-        modifier = Modifier.fillMaxWidth().weight(0.1f),
+        modifier = Modifier
+            .fillMaxWidth()
+            .weight(0.1f),
         backgroundColor = MaterialTheme.colors.primary
     ) {
         ConstraintLayout(
@@ -90,19 +92,23 @@ fun ColumnScope.LikeAndDownloadSection(
                 painter = painterResource(id = R.drawable.ic_arrow_download),
                 contentDescription = "Download photo",
                 tint = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.size(35.dp).constrainAs(downloadButton) {
-                    top.linkTo(userSection.top)
-                    end.linkTo(likeButton.start, margin = 20.dp)
-                }
+                modifier = Modifier
+                    .size(35.dp)
+                    .constrainAs(downloadButton) {
+                        top.linkTo(userSection.top)
+                        end.linkTo(likeButton.start, margin = 20.dp)
+                    }
             )
             Icon(
                 imageVector = Icons.Filled.Favorite,
                 contentDescription = "like photo",
                 tint = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.size(35.dp).constrainAs(likeButton) {
-                    top.linkTo(userSection.top)
-                    end.linkTo(parent.end, margin = 20.dp)
-                }
+                modifier = Modifier
+                    .size(35.dp)
+                    .constrainAs(likeButton) {
+                        top.linkTo(userSection.top)
+                        end.linkTo(parent.end, margin = 20.dp)
+                    }
             )
         }
     }
@@ -116,6 +122,8 @@ fun ConstraintLayoutScope.UserSection(
     userName: String,
     onClick: () -> Unit
 ) {
+
+    val painter = rememberImagePainter(data = userImageUrl)
     Column(
         modifier = Modifier.constrainAs(ref) {
             top.linkTo(parent.top)
@@ -129,15 +137,14 @@ fun ConstraintLayoutScope.UserSection(
                 onClick()
             }
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(userImageUrl)
-                    .crossfade(true)
-                    .build(),
+            Image(
+                painter = painter,
                 contentDescription = "user image",
-                modifier = Modifier.size(35.dp).clip(
-                    CircleShape
-                )
+                modifier = Modifier
+                    .size(35.dp)
+                    .clip(
+                        CircleShape
+                    )
             )
             Spacer(modifier = Modifier.width(5.dp))
             FotosText(text = userName, textColor = MaterialTheme.colors.onPrimary)

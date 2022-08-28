@@ -10,7 +10,7 @@ object Versions {
     const val sandwich = "1.2.4"
     const val reflection = "1.6.21"
     const val okHttpLoggingInterceptor = "4.10.0"
-    const val coil = "2.1.0"
+    const val coil = "1.4.0"
     const val paging = "3.1.1"
     const val pagingCompose = "1.0.0-alpha14"
     const val compose = "1.2.0-rc02"
@@ -26,4 +26,5 @@ object Versions {
     const val activity = "1.3.1"
     const val preferenceDatastore = "1.0.0"
     const val landscapist = "1.6.1"
+    const val landscapistCoil = "1.6.1"
 }
