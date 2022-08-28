@@ -5,14 +5,9 @@ import android.graphics.drawable.BitmapDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalView
 import coil.compose.rememberImagePainter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cmaina.presentation.materials.BlurHashDecoder
-import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun AsyncImageBlur(

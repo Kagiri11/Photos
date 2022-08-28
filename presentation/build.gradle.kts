@@ -63,7 +63,6 @@ dependencies {
     implementation(Libraries.systemUiController)
     implementation(Libraries.placeholder)
     implementation(Libraries.permissions)
-    implementation (Libraries.landscapistGlide)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     implementation(Libraries.core)
