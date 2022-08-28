@@ -122,9 +122,8 @@ fun ConstraintLayoutScope.UserSection(
     userName: String,
     onClick: () -> Unit
 ) {
-    val painter = rememberImagePainter(data = userImageUrl) {
-        crossfade(true)
-    }
+
+    val painter = rememberImagePainter(data = userImageUrl)
     Column(
         modifier = Modifier.constrainAs(ref) {
             top.linkTo(parent.top)

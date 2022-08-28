@@ -64,7 +64,6 @@ dependencies {
     implementation(Libraries.placeholder)
     implementation(Libraries.permissions)
     implementation (Libraries.landscapistGlide)
-    implementation (Libraries.landscapistCoil)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     implementation(Libraries.core)
