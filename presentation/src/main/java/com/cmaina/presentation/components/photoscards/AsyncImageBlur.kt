@@ -24,8 +24,11 @@ fun AsyncImageBlur(
 ) {
     val bitmap = BlurHashDecoder.decode(blurHash, 4, 3)
     val bitmapDrawable = BitmapDrawable(resources, bitmap)
-    val requestBuilder = Glide.with(LocalView.current).asDrawable().load(imageUrl).placeholder(bitmapDrawable).transition(
-        DrawableTransitionOptions.withCrossFade(crossFadeAnimDuration))
+    val requestBuilder =
+        Glide.with(LocalView.current).asDrawable().load(imageUrl).placeholder(bitmapDrawable)
+            .transition(
+                DrawableTransitionOptions.withCrossFade(crossFadeAnimDuration)
+            )
     GlideImage(
         imageModel = imageUrl,
         requestBuilder = { requestBuilder },

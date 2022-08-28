@@ -69,7 +69,6 @@ fun ColumnScope.LikeAndDownloadSection(
     numberOfLikes: Int,
     navController: NavController
 ) {
-    val context = LocalContext.current
     Card(
         modifier = Modifier.fillMaxWidth().weight(0.1f),
         backgroundColor = MaterialTheme.colors.primary
