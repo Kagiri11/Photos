@@ -81,5 +81,4 @@ object Libraries {
 
     // Landscapist
     const val landscapistGlide = "com.github.skydoves:landscapist-glide:${Versions.landscapist}"
-    const val landscapistCoil = "com.github.skydoves:landscapist-coil:${Versions.landscapistCoil}"
 }
