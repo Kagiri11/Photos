@@ -19,6 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -47,6 +49,7 @@ fun SettingItemDialog(
                 modifier = Modifier
                     .fillMaxHeight(0.3f)
                     .fillMaxWidth(0.8f)
+                    .semantics { contentDescription = "Setting dialog" }
 
             ) {
                 Column(

@@ -3,12 +3,6 @@ import Configurations.MinSdk
 import Configurations.TargetSdk
 import Configurations.VersionCode
 import Configurations.VersionName
-import Libraries.coil
-import Libraries.composeNavigation
-import Libraries.koinCompose
-import Libraries.paging
-import Libraries.pagingCompose
-import Libraries.systemUiController
 
 plugins {
     id(BuildPlugins.androidApp)
@@ -67,30 +61,12 @@ android {
 }
 
 dependencies {
-
     implementation(Libraries.core)
-    implementation(Libraries.composeUi)
-    implementation(Libraries.constraintLayout)
-    implementation(Libraries.preferenceDataStore)
     implementation(project(Modules.DOMAIN))
     implementation(project(Modules.NETWORK))
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.PRESENTATION))
-
-    implementation(Libraries.liveData)
-    implementation(Libraries.viewModel)
-    Libraries.also {
-        implementation(koinCompose)
-        implementation(coil)
-        implementation(paging)
-        implementation(pagingCompose)
-        implementation(systemUiController)
-        implementation(composeNavigation)
-    }
-    implementation(Libraries.composeMaterial)
-    implementation(Libraries.preview)
-    implementation(Libraries.lifeCycle)
-    implementation(Libraries.activity)
+    implementation(Libraries.koinCore)
     testImplementation(TestLibraries.jUnit)
     androidTestImplementation(TestLibraries.jUnitAndroid)
     androidTestImplementation(TestLibraries.androidEspresso)
