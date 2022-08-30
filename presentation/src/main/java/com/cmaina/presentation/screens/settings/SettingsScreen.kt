@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -34,7 +36,7 @@ fun SettingsScreen(
     val isThemeDialogOpen = settingsViewModel.isThemeDialogOpen.collectAsState().value
     val context = LocalContext.current
     val dataStore = context.dataStore
-    ConstraintLayout(Modifier.fillMaxSize()) {
+    ConstraintLayout(Modifier.fillMaxSize().semantics { contentDescription = "Settings screen" }) {
         val (titleRef, settingsOptionsColumnRef) = createRefs()
         Text(
             text = "Settings",

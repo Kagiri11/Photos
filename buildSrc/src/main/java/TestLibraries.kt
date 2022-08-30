@@ -17,4 +17,7 @@ object TestLibraries {
     // compose testing
     const val jUnitComposeTest = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
     const val composeUiTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
+
+    // koin test
+    const val koinTest = "io.insert-koin:koin-junit5:${Versions.koin}"
 }

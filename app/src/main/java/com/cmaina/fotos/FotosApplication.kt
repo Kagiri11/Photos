@@ -9,7 +9,7 @@ import org.koin.core.context.startKoin
 class FotosApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        val allModules = listOf(presentationModule, networkModule, repositoryModule)
+        val allModules = listOf(presentationModule, networkModule, repositoryModule,)
         startKoin {
             modules(allModules)
         }
