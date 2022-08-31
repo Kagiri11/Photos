@@ -25,6 +25,7 @@ import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 
 @Composable
 fun Setting(
+    modifier: Modifier = Modifier.semantics { contentDescription = "setting column" },
     settingName: String,
     settingAttribute: String,
     attributeValue: String,
@@ -40,7 +41,7 @@ fun Setting(
                 onClick()
             }
             .semantics {
-                contentDescription = "Setting option"
+                contentDescription = "setting column"
             }
     ) {
         FotosText(

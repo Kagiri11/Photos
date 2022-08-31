@@ -20,4 +20,6 @@ object TestLibraries {
 
     // koin test
     const val koinTest = "io.insert-koin:koin-junit5:${Versions.koin}"
+    // objenesis
+    const val objenesis = "org.objenesis:objenesis:2.6"
 }

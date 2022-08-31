@@ -10,7 +10,6 @@ plugins {
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
-val composeVersion = "1.2.0-beta01"
 
 android {
     compileSdk = Configurations.CompileSdk
@@ -62,6 +61,9 @@ android {
 
 dependencies {
     implementation(Libraries.core)
+    implementation(Libraries.composeUi)
+    implementation(Libraries.composeMaterial)
+    implementation(Libraries.preview)
     implementation(project(Modules.DOMAIN))
     implementation(project(Modules.NETWORK))
     implementation(project(Modules.REPOSITORY))

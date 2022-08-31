@@ -53,7 +53,7 @@ fun SettingsScreen(
                     top.linkTo(titleRef.bottom, margin = 10.dp)
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
-                }
+                }.semantics { contentDescription = "setting column" }
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Top,
 
