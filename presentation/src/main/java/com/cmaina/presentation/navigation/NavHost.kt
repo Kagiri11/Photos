@@ -68,7 +68,7 @@ fun NavGraph(
             SettingsScreen(mainViewModel = mainViewModel)
         }
         composable(route = Destination.AuthenticationScreen.route) {
-            AuthenticationScreen()
+            AuthenticationScreen(navController = navController)
         }
     }
 }

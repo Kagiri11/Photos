@@ -57,6 +57,8 @@ dependencies {
     implementation(Libraries.koinCompose)
     implementation(Libraries.koinAndroid)
     implementation(Libraries.coil)
+    implementation(Libraries.landscapist)
+    implementation(Libraries.fresco)
     implementation(Libraries.paging)
     implementation(Libraries.pagingCompose)
     implementation(Libraries.composeNavigation)
