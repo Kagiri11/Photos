@@ -120,7 +120,11 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: Nav
             shape = CircleShape
         ) {
             val painter = rememberImagePainter(data = userImageUrl)
-            Image(painter = painter, contentDescription = "", modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape))
+            Image(
+                painter = painter,
+                contentDescription = "",
+                modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape)
+            )
         }
 
         FotosTitleText(

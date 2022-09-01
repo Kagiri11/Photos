@@ -78,4 +78,8 @@ object Libraries {
     // Datastore
     const val preferenceDataStore =
         "androidx.datastore:datastore-preferences:${Versions.preferenceDatastore}"
+
+    const val fresco = "com.facebook.fresco:fresco:${Versions.fresco}"
+
+    const val landscapist = "com.github.skydoves:landscapist-fresco:1.6.1"
 }

@@ -2,12 +2,15 @@ package com.cmaina.presentation.components.photoscards
 
 import android.content.res.Resources
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
 import com.cmaina.presentation.materials.BlurHashDecoder
+import com.facebook.imagepipeline.request.ImageRequestBuilder
+import com.skydoves.landscapist.fresco.FrescoImage
 
 @Composable
 fun AsyncImageBlur(
@@ -21,14 +24,18 @@ fun AsyncImageBlur(
 ) {
     val bitmap = BlurHashDecoder.decode(blurHash, 4, 3)
     val bitmapDrawable = BitmapDrawable(resources, bitmap)
+    val imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(imageUrl))
+        .setLocalThumbnailPreviewsEnabled(true)
+        .setProgressiveRenderingEnabled(true)
+        .build()
     val imagePainter = rememberImagePainter(data = imageUrl) {
         crossfade(crossFadeAnimDuration)
         placeholder(bitmapDrawable)
     }
-    Image(
-        painter = imagePainter,
-        contentDescription = contentDescription ?: "image",
-        modifier = modifier,
-        contentScale = contentScale
+    FrescoImage(
+        imageUrl = imageUrl,
+        imageRequest = { imageRequest },
+        contentScale = contentScale,
+        modifier = modifier
     )
 }

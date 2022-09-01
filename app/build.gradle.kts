@@ -89,6 +89,7 @@ dependencies {
     }
     implementation(Libraries.composeMaterial)
     implementation(Libraries.preview)
+    implementation(Libraries.fresco)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     testImplementation(TestLibraries.jUnit)
