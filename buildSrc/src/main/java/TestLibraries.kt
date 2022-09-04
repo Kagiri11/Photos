@@ -18,8 +18,6 @@ object TestLibraries {
     const val jUnitComposeTest = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
     const val composeUiTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 
-    // koin test
-    const val koinTest = "io.insert-koin:koin-junit5:${Versions.koin}"
-    // objenesis
-    const val objenesis = "org.objenesis:objenesis:2.6"
+    // mockWebServer
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:4.10.0"
 }
