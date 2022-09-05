@@ -33,21 +33,19 @@ class PhotoDetailsViewModel(
 
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
-            photosRepository.getSpecificPhoto(photoId = photoId).collect { photo ->
-                when (photo) {
-                    is NetworkResult.Success -> {
-                        _photoUrlLink.value = photo.data.urls?.raw
-                        _username.value = photo.data.user?.username
-                        _numberOfLikes.value = photo.data.likes
-                        _userPhotoUrl.value = photo.data.user?.domainUserProfileImage?.large
-                        _blurHashCode.value = photo.data.blurHash
+            when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
+                is NetworkResult.Success -> {
+                    _photoUrlLink.value = result.data.urls?.raw
+                    _username.value = result.data.user?.username
+                    _numberOfLikes.value = result.data.likes
+                    _userPhotoUrl.value = result.data.user?.domainUserProfileImage?.large
+                    _blurHashCode.value = result.data.blurHash
 
-                        photo.data.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
-                            _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
-                        }
+                    result.data.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
+                        _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
                     }
-                    else -> {}
                 }
+                is NetworkResult.Error -> {}
             }
         }
     }
