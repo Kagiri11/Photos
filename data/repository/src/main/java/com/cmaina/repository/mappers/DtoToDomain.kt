@@ -1,5 +1,6 @@
 package com.cmaina.repository.mappers
 
+import com.cmaina.domain.models.auth.AuthDomainResponse
 import com.cmaina.domain.models.photos.DomainPhotoLinks
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photos.DomainPhotoUser
@@ -31,6 +32,7 @@ import com.cmaina.domain.models.users.ProfileImageDomainModel
 import com.cmaina.domain.models.users.TagsDomainModel
 import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.models.users.UserPhotoDomainModel
+import com.cmaina.network.models.auth.AuthRemoteResponse
 import com.cmaina.network.models.photos.PhotoLinks
 import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photos.ProfileImage
@@ -376,4 +378,12 @@ internal fun SearchedPhotoDto.toDomain() = DomainPhotoListItem(
     domainUrls = urls.toDomain(),
     domainPhotoUser = user.toDomain(),
     width = width
+)
+
+internal fun AuthRemoteResponse.toDomain() = AuthDomainResponse(
+    accessToken = accessToken,
+    createdAt = createdAt,
+    scope = scope,
+    tokenType = tokenType,
+    refreshToken = refreshToken
 )

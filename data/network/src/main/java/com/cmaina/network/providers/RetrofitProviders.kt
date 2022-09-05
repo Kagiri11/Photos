@@ -14,8 +14,6 @@ fun provideRetrofit(): Retrofit {
         .addInterceptor(loggingInterceptor)
         .addInterceptor { chain ->
             val request = chain.request()
-                /*.newBuilder()
-                .addHeader("Authorization", "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")*/
             val newRequest = request.newBuilder().apply {
                 addHeader("Authorization", "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")
             }.build()

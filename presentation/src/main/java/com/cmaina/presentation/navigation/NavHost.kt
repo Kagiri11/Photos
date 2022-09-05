@@ -26,7 +26,7 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Destination.HomeScreen.route,
+        startDestination = Destination.AuthenticationScreen.route,
         modifier = modifier
     ) {
         composable(route = Destination.HomeScreen.route) {

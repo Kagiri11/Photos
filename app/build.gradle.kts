@@ -76,7 +76,6 @@ dependencies {
     implementation(project(Modules.NETWORK))
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.PRESENTATION))
-
     implementation(Libraries.liveData)
     implementation(Libraries.viewModel)
     Libraries.also {

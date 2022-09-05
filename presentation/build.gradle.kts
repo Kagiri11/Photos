@@ -56,6 +56,7 @@ dependencies {
     implementation(Libraries.splashScreen)
     implementation(Libraries.koinCompose)
     implementation(Libraries.koinAndroid)
+    implementation(Libraries.koinCore)
     implementation(Libraries.coil)
     implementation(Libraries.landscapist)
     implementation(Libraries.fresco)

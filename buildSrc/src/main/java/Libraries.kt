@@ -82,4 +82,8 @@ object Libraries {
     const val fresco = "com.facebook.fresco:fresco:${Versions.fresco}"
 
     const val landscapist = "com.github.skydoves:landscapist-fresco:1.6.1"
+
+    // Oauth
+    const val oauth = "com.auth0.android:jwtdecode:2.0.0"
+    const val openId = "net.openid:appauth:0.11.1"
 }

@@ -1,6 +1,7 @@
 package com.cmaina.presentation.di
 
 import com.cmaina.presentation.activities.MainViewModel
+import com.cmaina.presentation.screens.auth.AuthViewModel
 import com.cmaina.presentation.screens.home.HomeViewModel
 import com.cmaina.presentation.screens.photodetails.PhotoDetailsViewModel
 import com.cmaina.presentation.screens.search.SearchViewModel
@@ -16,4 +17,5 @@ val presentationModule = module {
     viewModelOf(::SearchViewModel)
     viewModelOf(::MainViewModel)
     viewModelOf(::SettingsViewModel)
+    viewModelOf(::AuthViewModel)
 }
