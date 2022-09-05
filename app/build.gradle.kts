@@ -3,6 +3,12 @@ import Configurations.MinSdk
 import Configurations.TargetSdk
 import Configurations.VersionCode
 import Configurations.VersionName
+import Libraries.coil
+import Libraries.composeNavigation
+import Libraries.koinCompose
+import Libraries.paging
+import Libraries.pagingCompose
+import Libraries.systemUiController
 
 plugins {
     id(BuildPlugins.androidApp)
@@ -10,6 +16,7 @@ plugins {
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
+val composeVersion = "1.2.0-beta01"
 
 android {
     compileSdk = Configurations.CompileSdk
@@ -50,7 +57,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = composeVersion
     }
     packagingOptions {
         resources {
@@ -60,15 +67,31 @@ android {
 }
 
 dependencies {
+
     implementation(Libraries.core)
     implementation(Libraries.composeUi)
-    implementation(Libraries.composeMaterial)
-    implementation(Libraries.preview)
+    implementation(Libraries.constraintLayout)
+    implementation(Libraries.preferenceDataStore)
     implementation(project(Modules.DOMAIN))
     implementation(project(Modules.NETWORK))
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.PRESENTATION))
-    implementation(Libraries.koinCore)
+
+    implementation(Libraries.liveData)
+    implementation(Libraries.viewModel)
+    Libraries.also {
+        implementation(koinCompose)
+        implementation(coil)
+        implementation(paging)
+        implementation(pagingCompose)
+        implementation(systemUiController)
+        implementation(composeNavigation)
+    }
+    implementation(Libraries.composeMaterial)
+    implementation(Libraries.preview)
+    implementation(Libraries.fresco)
+    implementation(Libraries.lifeCycle)
+    implementation(Libraries.activity)
     testImplementation(TestLibraries.jUnit)
     androidTestImplementation(TestLibraries.jUnitAndroid)
     androidTestImplementation(TestLibraries.androidEspresso)
