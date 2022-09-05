@@ -70,7 +70,9 @@ fun UserPhoto(
                 visible = false,
                 highlight = PlaceholderHighlight.shimmer(highlightColor = FotosGreyShadeOneLightTheme),
                 color = FotosGreyShadeThreeLightTheme
-            ).clickable { onClick() },
+            ).clickable {
+                onClick()
+            },
         shape = RoundedCornerShape(2),
         elevation = 0.dp
     ) {

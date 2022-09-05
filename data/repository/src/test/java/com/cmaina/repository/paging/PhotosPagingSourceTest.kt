@@ -14,31 +14,7 @@ class PhotosPagingSourceTest {
 
     // helpers
     private lateinit var mockPhotosRemoteSource: PhotosRemoteSource
-    private val photoListItem = PhotoListItem(
-        alt_description = "",
-        blur_hash = "",
-        categories = listOf(),
-        color = "",
-        created_at = null,
-        current_user_collections = null,
-        description = "cars on the street",
-        height = 100,
-        id = "qwerty",
-        liked_by_user = false,
-        likes = 123,
-        links = null,
-        promoted_at = null,
-        sponsorship = null,
-        updated_at = null,
-        urls = null,
-        user = null,
-        width = 100,
-        topic_submissions = null,
-        exif = null,
-        location = null,
-        views = null,
-        downloads = 12
-    )
+
     private val apiResponse = mockk<ApiResponse.Success<List<PhotoListItem>>>()
 
     @Before
