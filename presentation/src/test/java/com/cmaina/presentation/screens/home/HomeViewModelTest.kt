@@ -8,9 +8,7 @@ import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
-import org.junit.Test
 
 class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel
@@ -21,9 +19,9 @@ class HomeViewModelTest {
         homeViewModel = HomeViewModel(photosRepository)
     }
 
-    @Test
+    /*@Test
     fun `fetchPhoto collects images from repository`() = runBlocking {
-    }
+    }*/
 }
 
 class FakePhotosRepository : PhotosRepository {
@@ -31,7 +29,7 @@ class FakePhotosRepository : PhotosRepository {
         return flowOf()
     }
 
-    override suspend fun getRandomPhoto(): Flow<NetworkResult<DomainPhotoListItem>> {
+    override suspend fun getRandomPhoto(): NetworkResult<DomainPhotoListItem> {
         val fakeDomainPhotoListItem = DomainPhotoListItem(
             altDescription = "",
             blurHash = "",
@@ -50,11 +48,11 @@ class FakePhotosRepository : PhotosRepository {
             domainUrls = null,
             domainPhotoUser = null, width = 100
         )
-        return flowOf()
+        return NetworkResult.Error("")
     }
 
-    override suspend fun getSpecificPhoto(photoId: String): Flow<NetworkResult<SpecificPhotoDomainModel>> {
-        return flowOf()
+    override suspend fun getSpecificPhoto(photoId: String): NetworkResult<SpecificPhotoDomainModel> {
+        return NetworkResult.Error("")
     }
 
     override suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>> {
