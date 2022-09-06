@@ -47,11 +47,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -76,7 +76,6 @@ dependencies {
     implementation(project(Modules.NETWORK))
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.PRESENTATION))
-
     implementation(Libraries.liveData)
     implementation(Libraries.viewModel)
     Libraries.also {
@@ -89,6 +88,7 @@ dependencies {
     }
     implementation(Libraries.composeMaterial)
     implementation(Libraries.preview)
+    implementation(Libraries.fresco)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     testImplementation(TestLibraries.jUnit)

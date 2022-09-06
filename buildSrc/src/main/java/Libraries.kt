@@ -2,7 +2,8 @@ object Libraries {
     // Networking
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    const val okHttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpLoggingInterceptor}"
+    const val okHttpLoggingInterceptor =
+        "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpLoggingInterceptor}"
 
     // Storage
     const val room = "androidx.room:room-runtime:${Versions.room}"
@@ -18,7 +19,8 @@ object Libraries {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
 
     // Coroutines
-    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val coroutinesCore =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
 
     // Koin
     const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
@@ -39,19 +41,22 @@ object Libraries {
     const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
 
     // Accompanist
-    const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:${Versions.systemUIController}"
+    const val systemUiController =
+        "com.google.accompanist:accompanist-systemuicontroller:${Versions.systemUIController}"
     const val placeholder = "com.google.accompanist:accompanist-placeholder:${Versions.placeholder}"
     const val permissions = "com.google.accompanist:accompanist-permissions:${Versions.permission}"
 
     // Navigation
-    const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
+    const val composeNavigation =
+        "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
 
     // blurHash
     const val blurHash = "xyz.belvi.blurHash:blurHash:${Versions.blurHash}"
 
     // composeUi
     const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}"
+    const val constraintLayout =
+        "androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayout}"
     const val preview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
     const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
 
@@ -71,7 +76,14 @@ object Libraries {
     const val activity = "androidx.activity:activity-compose:${Versions.activity}"
 
     // Datastore
-    const val preferenceDataStore = "androidx.datastore:datastore-preferences:${Versions.preferenceDatastore}"
-    // Landscapist
-    const val landscapist = "com.github.skydoves:landscapist-glide:${Versions.landscapist}"
+    const val preferenceDataStore =
+        "androidx.datastore:datastore-preferences:${Versions.preferenceDatastore}"
+
+    const val fresco = "com.facebook.fresco:fresco:${Versions.fresco}"
+
+    const val landscapist = "com.github.skydoves:landscapist-fresco:1.6.1"
+
+    // Oauth
+    const val oauth = "com.auth0.android:jwtdecode:2.0.0"
+    const val openId = "net.openid:appauth:0.11.1"
 }

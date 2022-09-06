@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.cmaina.presentation.R
 import com.cmaina.presentation.activities.MainViewModel
+import com.cmaina.presentation.screens.auth.AuthenticationScreen
 import com.cmaina.presentation.screens.favourites.FavouritesScreen
 import com.cmaina.presentation.screens.home.HomeScreen
 import com.cmaina.presentation.screens.photodetails.PhotoDetailsScreen
@@ -25,7 +26,7 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Destination.HomeScreen.route,
+        startDestination = Destination.AuthenticationScreen.route,
         modifier = modifier
     ) {
         composable(route = Destination.HomeScreen.route) {
@@ -64,7 +65,10 @@ fun NavGraph(
             SearchScreen(navController = navController)
         }
         composable(route = Destination.SettingsScreen.route) {
-            SettingsScreen(mainViewModel= mainViewModel)
+            SettingsScreen(mainViewModel = mainViewModel)
+        }
+        composable(route = Destination.AuthenticationScreen.route) {
+            AuthenticationScreen(navController = navController)
         }
     }
 }
@@ -91,4 +95,6 @@ sealed class Destination(
 
     object SettingsScreen :
         Destination(route = "settings_screen", label = "Settings", icon = R.drawable.ic_settings)
+
+    object AuthenticationScreen : Destination(route = "auth screen", label = "Auth")
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.repository.PhotosRepository
 import kotlinx.coroutines.flow.Flow
@@ -18,10 +19,14 @@ class HomeViewModel(
     private val _pics = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>(flowOf())
     val pics: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _pics
 
+    init {
+        fetchPhotos()
+    }
+
     fun fetchPhotos() {
         viewModelScope.launch {
             photosRepository.fetchPhotos().let { pagingDataFlow ->
-                _pics.value = pagingDataFlow
+                _pics.value = pagingDataFlow.cachedIn(viewModelScope)
             }
         }
     }

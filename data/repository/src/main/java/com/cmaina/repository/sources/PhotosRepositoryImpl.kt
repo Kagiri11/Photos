@@ -13,6 +13,7 @@ import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
 import com.cmaina.repository.paging.SearchedPhotosPagingSource
 import com.cmaina.repository.utils.flowSafeApiCall
+import com.cmaina.repository.utils.safeApiCall
 import kotlinx.coroutines.flow.Flow
 
 class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) : PhotosRepository {
@@ -25,11 +26,11 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
         return photosPager
     }
 
-    override suspend fun getRandomPhoto(): Flow<NetworkResult<DomainPhotoListItem>> =
-        flowSafeApiCall { photosRemoteSource.fetchRandomPhoto().toDomain() }
+    override suspend fun getRandomPhoto(): NetworkResult<DomainPhotoListItem> =
+        safeApiCall { photosRemoteSource.fetchRandomPhoto().toDomain() }
 
-    override suspend fun getSpecificPhoto(photoId: String): Flow<NetworkResult<SpecificPhotoDomainModel>> =
-        flowSafeApiCall { photosRemoteSource.fetchPhoto(photoId).toDomain() }
+    override suspend fun getSpecificPhoto(photoId: String): NetworkResult<SpecificPhotoDomainModel> =
+        safeApiCall { photosRemoteSource.fetchPhoto(photoId).toDomain() }
 
     override suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>> =
         flowSafeApiCall { photosRemoteSource.fetchPhotoStatistics(photoId).toDomain() }

@@ -1,7 +1,6 @@
 package com.cmaina.presentation.screens.settings
 
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -35,7 +36,7 @@ fun SettingsScreen(
     val isThemeDialogOpen = settingsViewModel.isThemeDialogOpen.collectAsState().value
     val context = LocalContext.current
     val dataStore = context.dataStore
-    ConstraintLayout(Modifier.fillMaxSize()) {
+    ConstraintLayout(Modifier.fillMaxSize().semantics { contentDescription = "Settings screen" }) {
         val (titleRef, settingsOptionsColumnRef) = createRefs()
         Text(
             text = "Settings",
@@ -52,10 +53,8 @@ fun SettingsScreen(
                     top.linkTo(titleRef.bottom, margin = 10.dp)
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
-                }
-                .fillMaxWidth()
-                .clickable {
-                },
+                }.semantics { contentDescription = "setting column" }
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.Top,
 
         ) {
@@ -69,7 +68,7 @@ fun SettingsScreen(
             }
             SettingItemDialog(
                 openDialog = isThemeDialogOpen,
-                isAppInDarkMode =isAppDarkTheme,
+                isAppInDarkMode = isAppDarkTheme,
                 settingsViewModel = settingsViewModel,
                 {
                     mainViewModel.changeAppTheme(dataStore = dataStore, false)

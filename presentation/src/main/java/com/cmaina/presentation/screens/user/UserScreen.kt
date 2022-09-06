@@ -28,6 +28,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import coil.compose.rememberImagePainter
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.components.userscreencomponents.FollowAndMessageButtons
@@ -36,7 +37,6 @@ import com.cmaina.presentation.components.userscreencomponents.UserPhotos
 import com.cmaina.presentation.screens.myPlaceholder
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
-import com.skydoves.landscapist.glide.GlideImage
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -119,9 +119,11 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: Nav
                 },
             shape = CircleShape
         ) {
-            GlideImage(
-                imageModel = userImageUrl,
-                modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape),
+            val painter = rememberImagePainter(data = userImageUrl)
+            Image(
+                painter = painter,
+                contentDescription = "",
+                modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape)
             )
         }
 

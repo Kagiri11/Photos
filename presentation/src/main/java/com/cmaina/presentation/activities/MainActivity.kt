@@ -14,7 +14,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -26,23 +25,25 @@ import com.cmaina.presentation.navigation.bottomnav.TopLevelDestinations
 import com.cmaina.presentation.screens.settings.dataStore
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import org.koin.androidx.compose.getViewModel
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         installSplashScreen()
+        val mainViewModel: MainViewModel by inject()
+        val context = this.applicationContext
+        val preferences = context.dataStore.data
+        mainViewModel.fetchAppTheme(preferences)
         setContent {
-            val mainViewModel: MainViewModel = getViewModel()
-            val context = LocalContext.current
-            val preferences = context.dataStore.data
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
             val scaffoldState = rememberScaffoldState()
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }
             LaunchedEffect(key1 = true) {
-                mainViewModel.fetchAppTheme(preferences)
                 mainViewModel.changeSystemAppBarColors(systemUIController)
             }
 
