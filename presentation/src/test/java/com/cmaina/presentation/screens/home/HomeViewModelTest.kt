@@ -31,7 +31,7 @@ class FakePhotosRepository : PhotosRepository {
         return flowOf()
     }
 
-    override suspend fun getRandomPhoto(): Flow<NetworkResult<DomainPhotoListItem>> {
+    override suspend fun getRandomPhoto(): NetworkResult<DomainPhotoListItem> {
         val fakeDomainPhotoListItem = DomainPhotoListItem(
             altDescription = "",
             blurHash = "",
@@ -50,11 +50,11 @@ class FakePhotosRepository : PhotosRepository {
             domainUrls = null,
             domainPhotoUser = null, width = 100
         )
-        return flowOf()
+        return NetworkResult.Error("")
     }
 
-    override suspend fun getSpecificPhoto(photoId: String): Flow<NetworkResult<SpecificPhotoDomainModel>> {
-        return flowOf()
+    override suspend fun getSpecificPhoto(photoId: String): NetworkResult<SpecificPhotoDomainModel> {
+        return NetworkResult.Error("")
     }
 
     override suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>> {
