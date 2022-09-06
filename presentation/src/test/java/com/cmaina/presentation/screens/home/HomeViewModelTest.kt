@@ -8,9 +8,7 @@ import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
-import org.junit.Test
 
 class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel
@@ -21,9 +19,9 @@ class HomeViewModelTest {
         homeViewModel = HomeViewModel(photosRepository)
     }
 
-    @Test
+    /*@Test
     fun `fetchPhoto collects images from repository`() = runBlocking {
-    }
+    }*/
 }
 
 class FakePhotosRepository : PhotosRepository {
