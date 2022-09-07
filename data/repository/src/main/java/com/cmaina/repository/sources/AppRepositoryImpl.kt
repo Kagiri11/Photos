@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class AppRepositoryImpl(
-    private val preferences: DataStore<Preferences>,
+    private val preferences: DataStore<Preferences>
 ) : AppRepository {
     private val fotosAppTheme = booleanPreferencesKey("appTheme")
 
