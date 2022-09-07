@@ -41,12 +41,10 @@ android {
 dependencies {
     implementation(Libraries.koinCore)
     api(Libraries.preferenceDataStore)
-   /*
     implementation(Libraries.gson)
 
     TestLibraries.also {
         testImplementation(jUnit)
         androidTestImplementation(jUnitAndroid)
-        androidTestImplementation(androidEspresso)
-    }*/
+    }
 }
