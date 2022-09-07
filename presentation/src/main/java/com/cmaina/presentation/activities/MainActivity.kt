@@ -22,7 +22,6 @@ import com.cmaina.presentation.R
 import com.cmaina.presentation.navigation.NavGraph
 import com.cmaina.presentation.navigation.bottomnav.FotosBottomNav
 import com.cmaina.presentation.navigation.bottomnav.TopLevelDestinations
-import com.cmaina.presentation.screens.settings.dataStore
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.android.ext.android.inject
@@ -31,12 +30,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         installSplashScreen()
         val mainViewModel: MainViewModel by inject()
-        val context = this.applicationContext
-        val preferences = context.dataStore.data
-        mainViewModel.fetchAppTheme(preferences)
+        mainViewModel.fetchAppTheme()
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
@@ -47,7 +43,7 @@ class MainActivity : ComponentActivity() {
                 mainViewModel.changeSystemAppBarColors(systemUIController)
             }
 
-            val appTheme = mainViewModel.isAppInDarkTheme.collectAsState().value
+            val appTheme = mainViewModel.appTheme.collectAsState().value
 
             FotosTheme(darkTheme = appTheme) {
                 Scaffold(

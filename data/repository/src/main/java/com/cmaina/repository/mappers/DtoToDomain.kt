@@ -97,12 +97,14 @@ internal fun PhotoStatistics.toDomain() = DomainPhotoStatistics(
 )
 
 internal fun Likes.toDomain() = DomainPhotoStatLikes(
-    total = total,
+    total = total
 )
 
-internal fun Downloads.toDomain() = DomainPhotoStatDownloads(total = total)
+internal fun Downloads.toDomain() =
+    DomainPhotoStatDownloads(total = total)
 
-internal fun Views.toDomain() = DomainPhotoStatsViews(total = total)
+internal fun Views.toDomain() =
+    DomainPhotoStatsViews(total = total)
 
 internal fun User.toDomain() = DomainPhotoUser(
     acceptedTos = accepted_tos, bio = bio, firstName = first_name,

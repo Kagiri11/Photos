@@ -1,10 +1,4 @@
 import Configurations.CompileSdk
-import Libraries.appCompat
-import Libraries.core
-import Libraries.gson
-import Libraries.room
-import Libraries.roomCompiler
-import Libraries.roomCoroutines
 import TestLibraries.androidEspresso
 import TestLibraries.jUnit
 import TestLibraries.jUnitAndroid
@@ -45,18 +39,14 @@ android {
 }
 
 dependencies {
-    Libraries.also {
-        implementation(room)
-        implementation(roomCompiler)
-        implementation(roomCoroutines)
-        implementation(gson)
-        implementation(core)
-        implementation(appCompat)
-    }
+    implementation(Libraries.koinCore)
+    api(Libraries.preferenceDataStore)
+   /*
+    implementation(Libraries.gson)
 
     TestLibraries.also {
         testImplementation(jUnit)
         androidTestImplementation(jUnitAndroid)
         androidTestImplementation(androidEspresso)
-    }
+    }*/
 }
