@@ -32,16 +32,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         val mainViewModel: MainViewModel by inject()
-        mainViewModel.fetchAppTheme()
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
+            mainViewModel.fetchAppTheme(systemUiController = systemUIController)
             val scaffoldState = rememberScaffoldState()
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }
-            LaunchedEffect(key1 = true) {
-                mainViewModel.changeSystemAppBarColors(systemUIController)
-            }
 
             val appTheme = mainViewModel.appTheme.collectAsState().value
 

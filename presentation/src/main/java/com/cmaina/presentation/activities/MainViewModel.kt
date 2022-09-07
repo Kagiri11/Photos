@@ -15,9 +15,10 @@ class MainViewModel(private val appRepository: AppRepository) : ViewModel() {
     private val _appTheme = MutableStateFlow(false)
     val appTheme = _appTheme.asStateFlow()
 
-    fun fetchAppTheme() = viewModelScope.launch {
+    fun fetchAppTheme(systemUiController: SystemUiController) = viewModelScope.launch {
         appRepository.fetchAppTheme().collect {
             _appTheme.value = it
+            changeSystemAppBarColors(systemUiController, it)
         }
     }
 
@@ -27,14 +28,15 @@ class MainViewModel(private val appRepository: AppRepository) : ViewModel() {
         }
     }
 
-    fun changeSystemAppBarColors(systemUiController: SystemUiController) = viewModelScope.launch {
-        systemUiController.setStatusBarColor(
-            when (_appTheme.value) {
-                true -> FotosBlack
-                else -> FotosWhite
-            }
-        )
-    }
+    fun changeSystemAppBarColors(systemUiController: SystemUiController, theme: Boolean) =
+        viewModelScope.launch {
+            systemUiController.setStatusBarColor(
+                when (theme) {
+                    true -> FotosBlack
+                    else -> FotosWhite
+                }
+            )
+        }
 }
 
 private fun String?.isFotosInDarkTheme(): Boolean {
