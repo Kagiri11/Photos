@@ -76,12 +76,11 @@ class MainViewModel(
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
             is NetworkResult.Success -> {
-                Log.d("UserPref", "Userr --->This passed with code ${result.data.accessToken}")
                 // save token to persistence
                 authRepository.saveUserAuthentication()
             }
             is NetworkResult.Error -> {
-                Log.d("UserPref", "Userr --->This failed terribly")
+
             }
         }
     }

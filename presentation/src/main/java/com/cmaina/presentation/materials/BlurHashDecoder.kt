@@ -35,7 +35,7 @@ object BlurHashDecoder {
         blurHash: String?,
         width: Int,
         height: Int,
-        punch: Float = 1f,
+        punch: Float = 0.5f,
         useCache: Boolean = true
     ): Bitmap? {
         if (blurHash == null || blurHash.length < 6) {
