@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
@@ -19,6 +20,7 @@ fun ColumnScope.SpecificFotosCard(blurHash: String, imageUrl: String) {
     val res = LocalContext.current.resources
     Card(
         modifier = Modifier.weight(0.7f).fillMaxWidth(),
+        shape = RectangleShape
     ) {
         AsyncImageBlur(
             blurHash = blurHash,

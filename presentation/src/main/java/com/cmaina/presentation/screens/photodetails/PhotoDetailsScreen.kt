@@ -1,5 +1,8 @@
 package com.cmaina.presentation.screens.photodetails
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -15,10 +18,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,15 +36,19 @@ import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.cmaina.presentation.R
+import com.cmaina.presentation.activities.MainViewModel
+import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
 import com.cmaina.presentation.components.photoscards.SpecificFotosCard
 import com.cmaina.presentation.components.photostext.FotosText
+import com.cmaina.presentation.utils.findActivity
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun PhotoDetailsScreen(
     photoDetailsViewModel: PhotoDetailsViewModel = getViewModel(),
     photoId: String,
-    navController: NavController
+    navController: NavController,
+    mainViewModel: MainViewModel
 ) {
     SideEffect {
         photoDetailsViewModel.fetchPhoto(photoId)
@@ -51,13 +58,36 @@ fun PhotoDetailsScreen(
     val userName = photoDetailsViewModel.username.observeAsState().value ?: ""
     val userPhotoImageUrl = photoDetailsViewModel.userPhotoUrl.observeAsState().value ?: ""
     val numberOfLikes = photoDetailsViewModel.numberOfLikes.observeAsState().value ?: 0
+    val isThereMessageToTheUser = mainViewModel.messageToUser.collectAsState().value
+    val userIsAuthenticated = mainViewModel.userIsAuthenticated.collectAsState().value
+    val context = LocalContext.current
+    DisposableEffect(key1 = true) {
+        onResume(context, mainViewModel)
+        onDispose {
+            // do something
+        }
+    }
+
+    if (isThereMessageToTheUser) {
+        NotAuthenticatedDialog(
+            openDialog = true,
+            onDismissed = { mainViewModel.changeMessageStatus() },
+            onUserAcceptedAction = { context.startAuth() }
+        )
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         SpecificFotosCard(imageUrl = url, blurHash = blurHash)
         LikeAndDownloadSection(
             userName = userName,
             userPhotoUrl = userPhotoImageUrl,
             numberOfLikes = numberOfLikes,
-            navController = navController
+            navController = navController,
+            userIsAuthenticated = userIsAuthenticated,
+            onLikeClick = {
+                mainViewModel.likePhoto()
+            },
+            onDownloadClick = {}
         )
     }
 }
@@ -67,9 +97,13 @@ fun ColumnScope.LikeAndDownloadSection(
     userName: String,
     userPhotoUrl: String,
     numberOfLikes: Int,
-    navController: NavController
+    navController: NavController,
+    userIsAuthenticated: Boolean,
+    onLikeClick: () -> Unit,
+    onDownloadClick: () -> Unit
 ) {
-    val context = LocalContext.current
+    val iconPainter =
+        painterResource(id = if (userIsAuthenticated) R.drawable.ic_favourite else R.drawable.ic_favorite_outlined)
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -98,9 +132,12 @@ fun ColumnScope.LikeAndDownloadSection(
                         top.linkTo(userSection.top)
                         end.linkTo(likeButton.start, margin = 20.dp)
                     }
+                    .clickable {
+                        onDownloadClick()
+                    }
             )
             Icon(
-                imageVector = Icons.Filled.Favorite,
+                painter = iconPainter,
                 contentDescription = "like photo",
                 tint = MaterialTheme.colors.onPrimary,
                 modifier = Modifier
@@ -108,6 +145,9 @@ fun ColumnScope.LikeAndDownloadSection(
                     .constrainAs(likeButton) {
                         top.linkTo(userSection.top)
                         end.linkTo(parent.end, margin = 20.dp)
+                    }
+                    .clickable {
+                        onLikeClick()
                     }
             )
         }
@@ -120,7 +160,7 @@ fun ConstraintLayoutScope.UserSection(
     userImageUrl: String,
     numberOfLikes: Int,
     userName: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
 
     val painter = rememberImagePainter(data = userImageUrl)
@@ -152,6 +192,24 @@ fun ConstraintLayoutScope.UserSection(
         Spacer(modifier = Modifier.height(3.dp))
         FotosText(text = "$numberOfLikes likes", textColor = MaterialTheme.colors.onPrimary)
     }
+}
+
+fun onResume(context: Context, mainViewModel: MainViewModel) {
+    val uri = context.findActivity()?.intent?.data
+    val code = uri.toString().substringAfter("code=")
+    mainViewModel.authenticateUser(code)
+}
+
+fun Context.startAuth() {
+    val uri = Uri.parse("https://unsplash.com/oauth/authorize")
+        .buildUpon()
+        .appendQueryParameter("client_id", "pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")
+        .appendQueryParameter("redirect_uri", "fotos://callback")
+        .appendQueryParameter("response_type", "code")
+        .appendQueryParameter("scope", "public")
+        .build()
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+    this.startActivity(intent)
 }
 
 @Preview

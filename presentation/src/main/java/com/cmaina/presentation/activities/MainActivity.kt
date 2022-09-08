@@ -11,7 +11,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -19,10 +18,10 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cmaina.presentation.R
+import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
 import com.cmaina.presentation.navigation.NavGraph
 import com.cmaina.presentation.navigation.bottomnav.FotosBottomNav
 import com.cmaina.presentation.navigation.bottomnav.TopLevelDestinations
-import com.cmaina.presentation.screens.settings.dataStore
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.android.ext.android.inject
@@ -31,24 +30,18 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         installSplashScreen()
         val mainViewModel: MainViewModel by inject()
-        val context = this.applicationContext
-        val preferences = context.dataStore.data
-        mainViewModel.fetchAppTheme(preferences)
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
+            mainViewModel.fetchAppTheme(systemUiController = systemUIController)
             val scaffoldState = rememberScaffoldState()
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }
-            LaunchedEffect(key1 = true) {
-                mainViewModel.changeSystemAppBarColors(systemUIController)
-            }
 
-            val appTheme = mainViewModel.isAppInDarkTheme.collectAsState().value
-
+            val appTheme = mainViewModel.appTheme.collectAsState().value
+            val userIsAuthenticated = mainViewModel.userIsAuthenticated.collectAsState().value
             FotosTheme(darkTheme = appTheme) {
                 Scaffold(
                     bottomBar = {
@@ -59,7 +52,7 @@ class MainActivity : ComponentActivity() {
                     isFloatingActionButtonDocked = true,
                     floatingActionButtonPosition = FabPosition.Center,
                     floatingActionButton = {
-                        if (isTopLevelDestination) {
+                        if (isTopLevelDestination && userIsAuthenticated) {
                             FloatingActionButton(
                                 onClick = {
                                     Toast.makeText(this, "Camera is pressed", Toast.LENGTH_SHORT)

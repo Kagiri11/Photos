@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.models.specificphoto.PreviewPhotoDomainModel
+import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.NetworkResult
 import kotlinx.coroutines.launch
 
 class PhotoDetailsViewModel(
-    private val photosRepository: PhotosRepository
+    private val photosRepository: PhotosRepository,
+    private val authRepository: AuthRepository,
+
 ) : ViewModel() {
 
     private val _photoUrlLink = MutableLiveData<String>()
@@ -27,6 +30,9 @@ class PhotoDetailsViewModel(
 
     private val _numberOfLikes = MutableLiveData<Int>()
     val numberOfLikes: LiveData<Int> get() = _numberOfLikes
+
+    private val _isUserAuthenticated = MutableLiveData<Boolean>()
+    val isUserAuthenticated: LiveData<Boolean> get() = _isUserAuthenticated
 
     private val _relatedPhotos = MutableLiveData<List<PreviewPhotoDomainModel>>()
     val relatedPhotos: LiveData<List<PreviewPhotoDomainModel>> get() = _relatedPhotos
@@ -46,6 +52,18 @@ class PhotoDetailsViewModel(
                     }
                 }
                 is NetworkResult.Error -> {}
+            }
+        }
+    }
+
+    fun authenticateUser(authCode: String) = viewModelScope.launch {
+        when (val result = authRepository.authenticateUser(authCode = authCode)) {
+            is NetworkResult.Success -> {
+                _isUserAuthenticated.value = true
+                // save token to persistence
+            }
+            is NetworkResult.Error -> {
+                _isUserAuthenticated.value = false
             }
         }
     }
