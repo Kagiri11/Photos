@@ -71,6 +71,8 @@ dependencies {
     implementation(Libraries.core)
     implementation(Libraries.appCompat)
     implementation(Libraries.material)
+    implementation(Libraries.playUpdate)
+    implementation(Libraries.playUpdateKtx)
 
     testImplementation(TestLibraries.jUnit)
     androidTestImplementation(TestLibraries.jUnitAndroid)

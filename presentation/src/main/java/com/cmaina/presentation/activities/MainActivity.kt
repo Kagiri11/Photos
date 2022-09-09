@@ -18,20 +18,33 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cmaina.presentation.R
-import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
 import com.cmaina.presentation.navigation.NavGraph
 import com.cmaina.presentation.navigation.bottomnav.FotosBottomNav
 import com.cmaina.presentation.navigation.bottomnav.TopLevelDestinations
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
 
+    private val monitorAppUpdateRequest = 10
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         val mainViewModel: MainViewModel by inject()
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,this,monitorAppUpdateRequest)
+            }
+        }
+
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()

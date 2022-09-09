@@ -69,8 +69,6 @@ dependencies {
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.PRESENTATION))
     implementation(Libraries.liveData)
-    implementation(Libraries.playUpdate)
-    implementation(Libraries.playUpdateKtx)
     implementation(Libraries.viewModel)
     implementation(Libraries.koinCompose)
     implementation(Libraries.coil)
