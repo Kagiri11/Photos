@@ -83,7 +83,7 @@ object Libraries {
 
     const val landscapist = "com.github.skydoves:landscapist-fresco:1.6.1"
 
-    // Oauth
-    const val oauth = "com.auth0.android:jwtdecode:2.0.0"
-    const val openId = "net.openid:appauth:0.11.1"
+    // play update
+    const val playUpdate = "com.google.android.play:app-update:2.0.0"
+    const val playUpdateKtx = "com.google.android.play:app-update-ktx:2.0.0"
 }

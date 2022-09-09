@@ -3,9 +3,10 @@ package com.cmaina.presentation.components.photoscards
 import android.content.res.Resources
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
 import com.cmaina.presentation.materials.BlurHashDecoder
@@ -36,6 +37,7 @@ fun AsyncImageBlur(
         imageUrl = imageUrl,
         imageRequest = { imageRequest },
         contentScale = contentScale,
-        modifier = modifier
+        modifier = modifier,
+        placeHolder = imagePainter
     )
 }
