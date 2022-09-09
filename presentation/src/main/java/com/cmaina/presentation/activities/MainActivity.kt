@@ -117,7 +117,7 @@ class MainActivity : ComponentActivity() {
         appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
                 appUpdateManager.startUpdateFlowForResult(
-                    appUpdateInfo, AppUpdateType.FLEXIBLE, this, monitorAppUpdateRequest
+                    appUpdateInfo, AppUpdateType.IMMEDIATE, this, monitorAppUpdateRequest
                 )
             }
         }
