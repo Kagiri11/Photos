@@ -25,6 +25,7 @@ import com.cmaina.presentation.navigation.bottomnav.FotosBottomNav
 import com.cmaina.presentation.navigation.bottomnav.TopLevelDestinations
 import com.cmaina.presentation.ui.theme.FotosTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
@@ -32,14 +33,16 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
 
-    private val appUpdateManager = AppUpdateManagerFactory.create(this)
-    private val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+    private lateinit var appUpdateManager: AppUpdateManager
 
     private val monitorAppUpdateRequest = 10
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         installSplashScreen()
         val mainViewModel: MainViewModel by inject()
+
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
                 appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
