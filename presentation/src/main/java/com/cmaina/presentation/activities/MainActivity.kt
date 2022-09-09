@@ -1,6 +1,8 @@
 package com.cmaina.presentation.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,21 +32,26 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
 
+    private val appUpdateManager = AppUpdateManagerFactory.create(this)
+    private val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
     private val monitorAppUpdateRequest = 10
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         val mainViewModel: MainViewModel by inject()
-        val appUpdateManager = AppUpdateManagerFactory.create(this)
-        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
                 appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
             ) {
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,this,monitorAppUpdateRequest)
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    monitorAppUpdateRequest
+                )
             }
         }
-
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
@@ -92,6 +99,26 @@ class MainActivity : ComponentActivity() {
                         mainViewModel = mainViewModel
                     )
                 }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == monitorAppUpdateRequest) {
+            if (resultCode != RESULT_OK) {
+                Log.d("MY_APP", "Update flow failed! Result code: $resultCode")
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo, AppUpdateType.FLEXIBLE, this, monitorAppUpdateRequest
+                )
             }
         }
     }
