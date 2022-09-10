@@ -68,11 +68,13 @@ dependencies {
     implementation(Libraries.permissions)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
+    implementation(Libraries.composeUtil)
     implementation(Libraries.core)
     implementation(Libraries.appCompat)
     implementation(Libraries.material)
     implementation(Libraries.playUpdate)
     implementation(Libraries.playUpdateKtx)
+    implementation(Libraries.pager)
 
     testImplementation(TestLibraries.jUnit)
     androidTestImplementation(TestLibraries.jUnitAndroid)

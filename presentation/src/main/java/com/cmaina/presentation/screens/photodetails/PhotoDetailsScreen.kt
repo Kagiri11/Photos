@@ -38,7 +38,7 @@ import coil.compose.rememberImagePainter
 import com.cmaina.presentation.R
 import com.cmaina.presentation.activities.MainViewModel
 import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
-import com.cmaina.presentation.components.photoscards.SpecificFotosCard
+import com.cmaina.presentation.components.photoscards.PhotosPager
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.utils.findActivity
 import org.koin.androidx.compose.getViewModel
@@ -77,7 +77,8 @@ fun PhotoDetailsScreen(
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        SpecificFotosCard(imageUrl = url, blurHash = blurHash)
+//        SpecificFotosCard(imageUrl = url, blurHash = blurHash)
+        PhotosPager(imageUrl = url, blurHash = blurHash)
         LikeAndDownloadSection(
             userName = userName,
             userPhotoUrl = userPhotoImageUrl,
