@@ -20,7 +20,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -38,7 +38,7 @@ import coil.compose.rememberImagePainter
 import com.cmaina.presentation.R
 import com.cmaina.presentation.activities.MainViewModel
 import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
-import com.cmaina.presentation.components.photoscards.SpecificFotosCard
+import com.cmaina.presentation.components.photoscards.PhotosPager
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.utils.findActivity
 import org.koin.androidx.compose.getViewModel
@@ -50,14 +50,15 @@ fun PhotoDetailsScreen(
     navController: NavController,
     mainViewModel: MainViewModel
 ) {
-    SideEffect {
+    LaunchedEffect(key1 = true) {
         photoDetailsViewModel.fetchPhoto(photoId)
     }
-    val url = photoDetailsViewModel.photoUrlLink.observeAsState().value ?: ""
-    val blurHash = photoDetailsViewModel.blurHashCode.observeAsState().value ?: ""
-    val userName = photoDetailsViewModel.username.observeAsState().value ?: ""
-    val userPhotoImageUrl = photoDetailsViewModel.userPhotoUrl.observeAsState().value ?: ""
-    val numberOfLikes = photoDetailsViewModel.numberOfLikes.observeAsState().value ?: 0
+    val url = photoDetailsViewModel.photoUrlLink.observeAsState("").value
+    val blurHash = photoDetailsViewModel.blurHashCode.observeAsState("").value
+    val userName = photoDetailsViewModel.username.observeAsState("").value
+    val userPhotoImageUrl = photoDetailsViewModel.userPhotoUrl.observeAsState("").value
+    val numberOfLikes = photoDetailsViewModel.numberOfLikes.observeAsState(0).value
+    val relatedImages = photoDetailsViewModel.relatedPhotosStrings.observeAsState(listOf()).value
     val isThereMessageToTheUser = mainViewModel.messageToUser.collectAsState().value
     val userIsAuthenticated = mainViewModel.userIsAuthenticated.collectAsState().value
     val context = LocalContext.current
@@ -77,7 +78,8 @@ fun PhotoDetailsScreen(
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        SpecificFotosCard(imageUrl = url, blurHash = blurHash)
+//        SpecificFotosCard(imageUrl = url, blurHash = blurHash)
+        PhotosPager(blurHash = blurHash, images = relatedImages)
         LikeAndDownloadSection(
             userName = userName,
             userPhotoUrl = userPhotoImageUrl,

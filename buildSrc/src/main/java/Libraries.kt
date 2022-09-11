@@ -86,4 +86,9 @@ object Libraries {
     // play update
     const val playUpdate = "com.google.android.play:app-update:2.0.0"
     const val playUpdateKtx = "com.google.android.play:app-update-ktx:2.0.0"
+
+    // pager
+    const val pager = "com.google.accompanist:accompanist-pager:0.26.1-alpha"
+    // compose util
+    const val composeUtil = "androidx.compose.ui:ui-util:${Versions.compose}"
 }

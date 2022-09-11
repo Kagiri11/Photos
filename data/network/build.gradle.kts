@@ -43,7 +43,6 @@ dependencies {
     implementation(Libraries.gson)
     implementation(Libraries.core)
     implementation(Libraries.appCompat)
-    implementation(Libraries.sandwich)
     implementation(Libraries.koinCore)
     implementation(Libraries.okHttpLoggingInterceptor)
 
