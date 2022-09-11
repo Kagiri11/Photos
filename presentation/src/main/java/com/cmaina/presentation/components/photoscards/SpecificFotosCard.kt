@@ -18,16 +18,16 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ColumnScope.PhotosPager(count: Int = 5, blurHash: String, imageUrl: String) {
+fun ColumnScope.PhotosPager(blurHash: String, images: List<String>) {
     val res = LocalContext.current.resources
     HorizontalPager(
-        count = count,
+        count = images.size,
         modifier = Modifier.weight(0.7f).fillMaxWidth()
     ) { page ->
         Card(
             modifier = Modifier
                 .fillMaxHeight(0.95f)
-                .fillMaxWidth(0.9f)
+                .fillMaxWidth(0.95f)
                 .graphicsLayer {
                     val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
                     lerp(
@@ -48,7 +48,7 @@ fun ColumnScope.PhotosPager(count: Int = 5, blurHash: String, imageUrl: String) 
         ) {
             AsyncImageBlur(
                 blurHash = blurHash,
-                imageUrl = imageUrl,
+                imageUrl = images[page],
                 resources = res,
                 modifier = Modifier.fillMaxSize()
             )

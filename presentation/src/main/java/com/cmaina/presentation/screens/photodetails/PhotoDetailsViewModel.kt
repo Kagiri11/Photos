@@ -37,6 +37,9 @@ class PhotoDetailsViewModel(
     private val _relatedPhotos = MutableLiveData<List<PreviewPhotoDomainModel>>()
     val relatedPhotos: LiveData<List<PreviewPhotoDomainModel>> get() = _relatedPhotos
 
+    private val _relatedPhotosStrings = MutableLiveData<List<String>>()
+    val relatedPhotosStrings: LiveData<List<String>> get() = _relatedPhotosStrings
+
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
@@ -50,6 +53,15 @@ class PhotoDetailsViewModel(
                     result.data.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
                         _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
                     }
+
+                    val strings = relatedPhotos.value?.map { it.urls?.full }?.toMutableList()
+                    strings?.add(_photoUrlLink.value)
+                    val newStrings = strings?.sortedWith(
+                        compareBy {
+                            it == _photoUrlLink.value
+                        }
+                    )?.reversed()
+                    _relatedPhotosStrings.value = newStrings as List<String>?
                 }
                 is NetworkResult.Error -> {}
             }
