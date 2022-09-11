@@ -1,8 +1,6 @@
 package com.cmaina.repository.paging
 
 import com.cmaina.network.api.PhotosRemoteSource
-import com.cmaina.network.models.photos.PhotoListItem
-import com.skydoves.sandwich.ApiResponse
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -14,8 +12,6 @@ class PhotosPagingSourceTest {
 
     // helpers
     private lateinit var mockPhotosRemoteSource: PhotosRemoteSource
-
-    private val apiResponse = mockk<ApiResponse.Success<List<PhotoListItem>>>()
 
     @Before
     fun setup() = runBlocking {

@@ -1,6 +1,5 @@
 package com.cmaina.network.providers
 
-import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,7 +22,6 @@ fun provideRetrofit(): Retrofit {
     return Retrofit.Builder()
         .baseUrl("https://api.unsplash.com/")
         .client(okHttpClient)
-        .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }
