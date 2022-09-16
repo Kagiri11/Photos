@@ -1,6 +1,5 @@
 package com.cmaina.presentation.activities
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.repository.AppRepository
@@ -28,13 +27,13 @@ class MainViewModel(
     val messageToUser = _messageToUser.asStateFlow()
 
     init {
+        fetchAppTheme()
         checkIfUserIsAuthenticated()
     }
 
-    fun fetchAppTheme(systemUiController: SystemUiController) = viewModelScope.launch {
+    fun fetchAppTheme() = viewModelScope.launch {
         appRepository.fetchAppTheme().collect {
             _appTheme.value = it
-            changeSystemAppBarColors(systemUiController, it)
         }
     }
 
@@ -44,7 +43,7 @@ class MainViewModel(
         }
     }
 
-    private fun changeSystemAppBarColors(systemUiController: SystemUiController, theme: Boolean) =
+    fun changeSystemAppBarColors(systemUiController: SystemUiController, theme: Boolean) =
         viewModelScope.launch {
             systemUiController.setStatusBarColor(
                 when (theme) {
@@ -80,10 +79,7 @@ class MainViewModel(
                 authRepository.saveUserAuthentication()
             }
             is NetworkResult.Error -> {
-
             }
         }
     }
-
-
 }
