@@ -11,10 +11,18 @@
 
 A photo viewing application that consumes the unsplash API.
 
-# Application Structure
-## Data
-## Domain
-## Presentation
+## Application Structure
+<details>
+<summary>### Data</summary>
+</details>
+
+<details>
+<summary>### Domain</summary>
+</details>
+
+<details>
+<summary>### Presentation</summary>
+</details>
 
 ## Screenshot
 <p align="center">
