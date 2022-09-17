@@ -15,5 +15,9 @@ object TestLibraries {
     const val truth = "com.google.truth:truth:${TestVersions.truth}"
 
     // compose testing
-    const val jUnitCompose = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+    const val jUnitComposeTest = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+    const val composeUiTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
+
+    // mockWebServer
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:4.10.0"
 }

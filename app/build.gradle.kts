@@ -3,12 +3,6 @@ import Configurations.MinSdk
 import Configurations.TargetSdk
 import Configurations.VersionCode
 import Configurations.VersionName
-import Libraries.coil
-import Libraries.composeNavigation
-import Libraries.koinCompose
-import Libraries.paging
-import Libraries.pagingCompose
-import Libraries.systemUiController
 
 plugins {
     id(BuildPlugins.androidApp)
@@ -47,11 +41,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -71,24 +65,20 @@ dependencies {
     implementation(Libraries.core)
     implementation(Libraries.composeUi)
     implementation(Libraries.constraintLayout)
-    implementation(Libraries.preferenceDataStore)
     implementation(project(Modules.DOMAIN))
-    implementation(project(Modules.NETWORK))
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.PRESENTATION))
-
     implementation(Libraries.liveData)
     implementation(Libraries.viewModel)
-    Libraries.also {
-        implementation(koinCompose)
-        implementation(coil)
-        implementation(paging)
-        implementation(pagingCompose)
-        implementation(systemUiController)
-        implementation(composeNavigation)
-    }
+    implementation(Libraries.koinCompose)
+    implementation(Libraries.coil)
+    implementation(Libraries.paging)
+    implementation(Libraries.pagingCompose)
+    implementation(Libraries.systemUiController)
+    implementation(Libraries.composeNavigation)
     implementation(Libraries.composeMaterial)
     implementation(Libraries.preview)
+    implementation(Libraries.fresco)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     testImplementation(TestLibraries.jUnit)

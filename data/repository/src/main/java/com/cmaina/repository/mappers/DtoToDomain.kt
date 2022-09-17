@@ -1,5 +1,6 @@
 package com.cmaina.repository.mappers
 
+import com.cmaina.domain.models.auth.AuthDomainResponse
 import com.cmaina.domain.models.photos.DomainPhotoLinks
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photos.DomainPhotoUser
@@ -31,6 +32,7 @@ import com.cmaina.domain.models.users.ProfileImageDomainModel
 import com.cmaina.domain.models.users.TagsDomainModel
 import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.models.users.UserPhotoDomainModel
+import com.cmaina.network.models.auth.AuthRemoteResponse
 import com.cmaina.network.models.photos.PhotoLinks
 import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photos.ProfileImage
@@ -95,12 +97,14 @@ internal fun PhotoStatistics.toDomain() = DomainPhotoStatistics(
 )
 
 internal fun Likes.toDomain() = DomainPhotoStatLikes(
-    total = total,
+    total = total
 )
 
-internal fun Downloads.toDomain() = DomainPhotoStatDownloads(total = total)
+internal fun Downloads.toDomain() =
+    DomainPhotoStatDownloads(total = total)
 
-internal fun Views.toDomain() = DomainPhotoStatsViews(total = total)
+internal fun Views.toDomain() =
+    DomainPhotoStatsViews(total = total)
 
 internal fun User.toDomain() = DomainPhotoUser(
     acceptedTos = accepted_tos, bio = bio, firstName = first_name,
@@ -270,15 +274,15 @@ internal fun SpecificPhoto.toDomain() = SpecificPhotoDomainModel(
     id = id,
     likedByUser = liked_by_user,
     likes = likes,
-    links = links.toDomain(),
-    locationDomainModel = location.toDomain(),
-    metaDomainModel = meta.toDomain(),
-    relatedCollectionsDomainModel = related_collections.toDomain(),
+    links = links?.toDomain(),
+    locationDomainModel = location?.toDomain(),
+    metaDomainModel = meta?.toDomain(),
+    relatedCollectionsDomainModel = related_collections?.toDomain(),
     sponsorshipDomainModel = sponsorship?.toDomain(),
     tags = tags,
     topics = topics.map { it.toDomain() },
-    urls = urls.toDomain(),
-    user = user.toDomain(),
+    urls = urls?.toDomain(),
+    user = user?.toDomain(),
     views = views,
     width = width
 )
@@ -376,4 +380,12 @@ internal fun SearchedPhotoDto.toDomain() = DomainPhotoListItem(
     domainUrls = urls.toDomain(),
     domainPhotoUser = user.toDomain(),
     width = width
+)
+
+internal fun AuthRemoteResponse.toDomain() = AuthDomainResponse(
+    accessToken = accessToken,
+    createdAt = createdAt,
+    scope = scope,
+    tokenType = tokenType,
+    refreshToken = refreshToken
 )

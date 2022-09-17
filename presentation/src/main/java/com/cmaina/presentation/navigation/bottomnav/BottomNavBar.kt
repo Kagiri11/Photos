@@ -17,8 +17,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.cmaina.presentation.navigation.Destination
-import com.cmaina.presentation.ui.theme.FotosBlack
-import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
 
 val TopLevelDestinations = listOf(
     Destination.HomeScreen,
@@ -32,7 +30,10 @@ fun FotosBottomNav(navHostController: NavHostController) {
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentScreen = navBackStackEntry?.destination
 
-    BottomNavigation(modifier = Modifier.fillMaxWidth(), backgroundColor = MaterialTheme.colors.primary) {
+    BottomNavigation(
+        modifier = Modifier.fillMaxWidth(),
+        backgroundColor = MaterialTheme.colors.primary
+    ) {
         TopLevelDestinations.forEach { screen ->
             AddBottomNavItem(
                 screen = screen,

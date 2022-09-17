@@ -3,7 +3,9 @@ package com.cmaina.repository.paging
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.network.models.photos.PhotoListItem
 import io.mockk.mockk
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
+import org.junit.Test
 
 class SearchedPhotosPagingSourceTest {
 
@@ -41,5 +43,9 @@ class SearchedPhotosPagingSourceTest {
     fun setup() {
         val photosRemoteSource = mockk<PhotosRemoteSource>()
         searchedPhotosPagingSource = SearchedPhotosPagingSource(photosRemoteSource, "nikita")
+    }
+
+    @Test
+    fun dummyTest() = runBlocking {
     }
 }

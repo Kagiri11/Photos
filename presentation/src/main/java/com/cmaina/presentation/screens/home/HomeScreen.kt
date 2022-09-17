@@ -1,13 +1,16 @@
 package com.cmaina.presentation.screens.home
 
+import androidx.compose.foundation.gestures.FlingBehavior
+import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -18,7 +21,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.screens.items
-import com.cmaina.presentation.ui.theme.FotosBlack
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -26,9 +28,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = getViewModel(),
     navController: NavController
 ) {
-    LaunchedEffect(key1 = true) {
-        viewModel.fetchPhotos()
-    }
+    val scrollState = rememberLazyGridState()
     val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
     ConstraintLayout(
         modifier = Modifier
@@ -53,7 +53,8 @@ fun HomeScreen(
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
                 }
-                .fillMaxWidth()
+                .fillMaxWidth(),
+
         ) {
 
             items(myPictures!!) { pic ->

@@ -1,10 +1,4 @@
 import Configurations.CompileSdk
-import Libraries.appCompat
-import Libraries.core
-import Libraries.gson
-import Libraries.room
-import Libraries.roomCompiler
-import Libraries.roomCoroutines
 import TestLibraries.androidEspresso
 import TestLibraries.jUnit
 import TestLibraries.jUnitAndroid
@@ -36,27 +30,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
 dependencies {
-    Libraries.also {
-        implementation(room)
-        implementation(roomCompiler)
-        implementation(roomCoroutines)
-        implementation(gson)
-        implementation(core)
-        implementation(appCompat)
-    }
+    implementation(Libraries.koinCore)
+    api(Libraries.preferenceDataStore)
+    implementation(Libraries.gson)
 
     TestLibraries.also {
         testImplementation(jUnit)
         androidTestImplementation(jUnitAndroid)
-        androidTestImplementation(androidEspresso)
     }
 }

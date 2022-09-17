@@ -23,11 +23,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -36,10 +36,10 @@ dependencies {
     implementation(Libraries.koinCore)
     implementation(Libraries.core)
     implementation(Libraries.appCompat)
-    implementation(Libraries.sandwich)
     implementation(Libraries.paging)
-    implementation(project(mapOf("path" to ":data:network")))
-    implementation(project(mapOf("path" to ":domain")))
+    api(project(Modules.NETWORK))
+    api(project(Modules.LOCAL))
+    implementation(project(Modules.DOMAIN))
     testImplementation(TestLibraries.jUnit)
     testImplementation(TestLibraries.mockK)
     testImplementation(TestLibraries.truth)

@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.models.specificphoto.PreviewPhotoDomainModel
+import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.NetworkResult
 import kotlinx.coroutines.launch
 
 class PhotoDetailsViewModel(
-    private val photosRepository: PhotosRepository
+    private val photosRepository: PhotosRepository,
+    private val authRepository: AuthRepository,
+
 ) : ViewModel() {
 
     private val _photoUrlLink = MutableLiveData<String>()
@@ -28,26 +31,51 @@ class PhotoDetailsViewModel(
     private val _numberOfLikes = MutableLiveData<Int>()
     val numberOfLikes: LiveData<Int> get() = _numberOfLikes
 
+    private val _isUserAuthenticated = MutableLiveData<Boolean>()
+    val isUserAuthenticated: LiveData<Boolean> get() = _isUserAuthenticated
+
     private val _relatedPhotos = MutableLiveData<List<PreviewPhotoDomainModel>>()
     val relatedPhotos: LiveData<List<PreviewPhotoDomainModel>> get() = _relatedPhotos
 
+    private val _relatedPhotosStrings = MutableLiveData<List<String>>()
+    val relatedPhotosStrings: LiveData<List<String>> get() = _relatedPhotosStrings
+
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
-            photosRepository.getSpecificPhoto(photoId = photoId).collect { photo ->
-                when (photo) {
-                    is NetworkResult.Success -> {
-                        _photoUrlLink.value = photo.data.urls?.raw
-                        _username.value = photo.data.user?.username
-                        _numberOfLikes.value = photo.data.likes
-                        _userPhotoUrl.value = photo.data.user?.domainUserProfileImage?.large
-                        _blurHashCode.value = photo.data.blurHash
+            when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
+                is NetworkResult.Success -> {
+                    _photoUrlLink.value = result.data.urls?.raw
+                    _username.value = result.data.user?.username
+                    _numberOfLikes.value = result.data.likes
+                    _userPhotoUrl.value = result.data.user?.domainUserProfileImage?.large
+                    _blurHashCode.value = result.data.blurHash
 
-                        photo.data.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
-                            _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
-                        }
+                    result.data.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
+                        _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
                     }
-                    else -> {}
+
+                    val strings = relatedPhotos.value?.map { it.urls?.full }?.toMutableList()
+                    strings?.add(_photoUrlLink.value)
+                    val newStrings = strings?.sortedWith(
+                        compareBy {
+                            it == _photoUrlLink.value
+                        }
+                    )?.reversed()
+                    _relatedPhotosStrings.value = newStrings as List<String>?
                 }
+                is NetworkResult.Error -> {}
+            }
+        }
+    }
+
+    fun authenticateUser(authCode: String) = viewModelScope.launch {
+        when (val result = authRepository.authenticateUser(authCode = authCode)) {
+            is NetworkResult.Success -> {
+                _isUserAuthenticated.value = true
+                // save token to persistence
+            }
+            is NetworkResult.Error -> {
+                _isUserAuthenticated.value = false
             }
         }
     }

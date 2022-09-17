@@ -1,6 +1,5 @@
 package com.cmaina.network.providers
 
-import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,8 +13,6 @@ fun provideRetrofit(): Retrofit {
         .addInterceptor(loggingInterceptor)
         .addInterceptor { chain ->
             val request = chain.request()
-                /*.newBuilder()
-                .addHeader("Authorization", "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")*/
             val newRequest = request.newBuilder().apply {
                 addHeader("Authorization", "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")
             }.build()
@@ -25,7 +22,6 @@ fun provideRetrofit(): Retrofit {
     return Retrofit.Builder()
         .baseUrl("https://api.unsplash.com/")
         .client(okHttpClient)
-        .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }

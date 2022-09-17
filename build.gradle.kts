@@ -1,14 +1,13 @@
 plugins {
-    id("com.android.application") version "7.2.0" apply false
-    id("com.android.library") version "7.2.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.6.21" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.5.30" apply false
+    id(BuildPlugins.androidApp) version "7.2.0" apply false
+    id(BuildPlugins.androidLib) version "7.2.0" apply false
+    id(BuildPlugins.kotlinAndroid) version "1.6.21" apply false
+    id(BuildPlugins.kotlinJVM) version "1.5.30" apply false
+    id(BuildPlugins.kotlinKover) version "0.6.0"
 }
 
 val ktlint by configurations.creating
-
 val outputDir = "${project.buildDir}/reports/ktlint/"
-
 val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
 
 val ktlintCheck by tasks.creating(JavaExec::class) {

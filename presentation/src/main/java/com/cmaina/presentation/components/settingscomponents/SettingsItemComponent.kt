@@ -16,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cmaina.presentation.components.photostext.FotosText
@@ -23,6 +25,7 @@ import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 
 @Composable
 fun Setting(
+    modifier: Modifier = Modifier.semantics { contentDescription = "setting column" },
     settingName: String,
     settingAttribute: String,
     attributeValue: String,
@@ -36,6 +39,9 @@ fun Setting(
             .padding(vertical = 10.dp)
             .clickable {
                 onClick()
+            }
+            .semantics {
+                contentDescription = "setting column"
             }
     ) {
         FotosText(

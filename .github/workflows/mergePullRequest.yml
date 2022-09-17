@@ -20,7 +20,7 @@ on:
   check_suite:
     types:
       - completed
-  status: {}
+  status: { }
 
 jobs:
   add_labels:

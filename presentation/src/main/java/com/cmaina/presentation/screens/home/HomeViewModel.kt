@@ -18,7 +18,11 @@ class HomeViewModel(
     private val _pics = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>(flowOf())
     val pics: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _pics
 
-    fun fetchPhotos() {
+    init {
+        fetchPhotos()
+    }
+
+    private fun fetchPhotos() {
         viewModelScope.launch {
             photosRepository.fetchPhotos().let { pagingDataFlow ->
                 _pics.value = pagingDataFlow
