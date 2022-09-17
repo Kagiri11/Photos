@@ -14,6 +14,7 @@ A photo viewing application that consumes the unsplash API.
 ## Application Structure
 <details>
     <summary>Data</summary>
+
     ### Data
 </details>
 
