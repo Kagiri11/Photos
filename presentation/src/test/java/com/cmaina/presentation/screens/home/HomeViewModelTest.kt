@@ -62,4 +62,8 @@ class FakePhotosRepository : PhotosRepository {
     override suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>> {
         return flowOf()
     }
+
+    override suspend fun likePhoto(id: String): NetworkResult<DomainPhotoListItem> {
+        return NetworkResult.Error("")
+    }
 }
