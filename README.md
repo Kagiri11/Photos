@@ -16,7 +16,7 @@ A photo viewing application that consumes the unsplash API.
 - Domain
 - Presentation
 
-## Screenshot
+## Screenshots
 <p align="center">
          <tr>
             <img src="https://user-images.githubusercontent.com/59829833/183663790-9c56d6b0-8254-43d0-9a94-fc2bf9a3db56.jpg" alt="jetpack compose logo" width="250">
