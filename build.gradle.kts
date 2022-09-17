@@ -1,9 +1,10 @@
 plugins {
     id(BuildPlugins.androidApp) version "7.2.0" apply false
     id(BuildPlugins.androidLib) version "7.2.0" apply false
-    id(BuildPlugins.kotlinAndroid) version "1.6.21" apply false
+    id(BuildPlugins.kotlinAndroid) version "1.7.10" apply false
     id(BuildPlugins.kotlinJVM) version "1.5.30" apply false
     id(BuildPlugins.kotlinKover) version "0.6.0"
+    id("com.android.test") version "7.2.0" apply false
 }
 
 val ktlint by configurations.creating

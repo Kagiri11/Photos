@@ -1,5 +1,4 @@
 import Configurations.CompileSdk
-import TestLibraries.androidEspresso
 import TestLibraries.jUnit
 import TestLibraries.jUnitAndroid
 
