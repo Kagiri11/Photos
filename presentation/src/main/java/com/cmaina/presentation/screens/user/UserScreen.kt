@@ -16,12 +16,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -59,9 +61,9 @@ fun UserScreen(
 @Composable
 fun TopPart(navController: NavController) {
     Column(
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.15f)
+            .fillMaxHeight(0.15f).background(color = MaterialTheme.colors.primary),
     ) {
         Spacer(modifier = Modifier.height(40.dp))
         Row(
@@ -74,12 +76,14 @@ fun TopPart(navController: NavController) {
                 contentDescription = "back",
                 modifier = Modifier.size(30.dp).clickable {
                     navController.navigateUp()
-                }
+                },
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
                 painter = painterResource(id = R.drawable.ic_more_vert),
-                contentDescription = "more"
+                contentDescription = "more",
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
             )
             Spacer(modifier = Modifier.width(20.dp))
         }
@@ -163,7 +167,7 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: Nav
                 bottom.linkTo(parent.bottom)
                 height = Dimension.fillToConstraints
                 width = Dimension.fillToConstraints
-            }.fillMaxWidth().fillMaxHeight(0.5f),
+            }.fillMaxWidth().fillMaxHeight(0.5f).background(MaterialTheme.colors.primary),
             photos = userPhotos,
             navController = navController
         )

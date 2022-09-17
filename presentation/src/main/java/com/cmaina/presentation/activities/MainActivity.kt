@@ -40,9 +40,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-        installSplashScreen()
         val mainViewModel: MainViewModel by inject()
-
+        installSplashScreen()
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
                 appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
@@ -58,7 +57,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
-            mainViewModel.fetchAppTheme(systemUiController = systemUIController)
+            val theme = mainViewModel.appTheme.collectAsState().value
+            mainViewModel.changeSystemAppBarColors(systemUiController = systemUIController, theme)
             val scaffoldState = rememberScaffoldState()
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }

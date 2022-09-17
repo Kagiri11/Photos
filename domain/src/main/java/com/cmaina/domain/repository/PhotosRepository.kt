@@ -18,4 +18,6 @@ interface PhotosRepository {
     suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>>
 
     suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>>
+
+    suspend fun likePhoto(id: String): NetworkResult<DomainPhotoListItem>
 }
