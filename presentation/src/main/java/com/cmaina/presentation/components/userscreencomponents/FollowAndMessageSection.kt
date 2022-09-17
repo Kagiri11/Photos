@@ -40,12 +40,6 @@ fun FollowAndMessageButtons(modifier: Modifier = Modifier) {
             textColor = FotosWhite,
             modifier = Modifier.weight(1f)
         )
-        UserButton(
-            text = "Message",
-            buttonColor = FotosWhite,
-            textColor = FotosBlack,
-            modifier = Modifier.weight(1f)
-        )
     }
 }
 
@@ -88,7 +82,7 @@ fun DetailsColumn(text: String, number: Int) {
 fun UserButton(text: String, buttonColor: Color, textColor: Color, modifier: Modifier) {
     Button(
         onClick = {},
-        shape = RoundedCornerShape(15.dp),
+        shape = RoundedCornerShape(50),
         modifier = modifier
             .height(55.dp),
         border = BorderStroke(width = 1.dp, color = FotosBlack),
