@@ -1,12 +1,9 @@
 package com.cmaina.presentation.screens.home
 
-import androidx.compose.foundation.gestures.FlingBehavior
-import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.MaterialTheme
@@ -61,7 +58,7 @@ fun HomeScreen(
                 val photoUserName = pic?.id
                 PhotoCardItem(
                     blurHash = pic?.blurHash ?: "",
-                    imageUrl = pic?.domainUrls?.regular,
+                    imageUrl = pic?.domainUrls?.small,
                     navController = navController,
                     photoID = photoUserName ?: ""
                 )
