@@ -10,8 +10,6 @@ plugins {
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
-val composeVersion = "1.2.0-beta01"
-
 android {
     compileSdk = Configurations.CompileSdk
 
@@ -34,15 +32,16 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
         create("benchmark") {
+            initWith(getByName("release"))
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
-            isDebuggable = false
         }
     }
     compileOptions {
@@ -56,7 +55,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
+        kotlinCompilerExtensionVersion = Versions.compose
     }
     packagingOptions {
         resources {

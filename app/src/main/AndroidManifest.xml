@@ -16,9 +16,6 @@
         <profileable
             android:shell="true"
             tools:targetApi="q" />
-        <profileable
-            android:shell="true"
-            tools:targetApi="q" />
 
         <activity
             android:name="com.cmaina.presentation.activities.MainActivity"

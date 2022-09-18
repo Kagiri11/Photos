@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = Configurations.CompileSdk
 
     defaultConfig {
         Configurations.also {
