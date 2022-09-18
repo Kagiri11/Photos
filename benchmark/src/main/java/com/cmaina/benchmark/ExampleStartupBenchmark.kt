@@ -31,9 +31,11 @@ class ExampleStartupBenchmark {
         packageName = "com.cmaina.fotos",
         metrics = listOf(StartupTimingMetric()),
         iterations = 5,
-        startupMode = StartupMode.COLD
+        startupMode = StartupMode.WARM
     ) {
+        Thread.sleep(500)
         pressHome()
         startActivityAndWait()
+        Thread.sleep(500)
     }
 }

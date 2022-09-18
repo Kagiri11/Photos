@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         val mainViewModel: MainViewModel by inject()
         installSplashScreen()
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+        /*appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
                 appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
             ) {
@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     monitorAppUpdateRequest
                 )
             }
-        }
+        }*/
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()

@@ -1,9 +1,16 @@
 package com.cmaina.repository.paging
 
+import androidx.paging.PagingSource
+import androidx.paging.PagingSource.LoadParams.Refresh
 import com.cmaina.network.api.PhotosRemoteSource
+import com.cmaina.repository.utils.DomainPhotoListItem
+import com.cmaina.repository.utils.PhotoListItem
+import com.google.common.truth.Truth.assertThat
+import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
+import org.junit.Test
 
 class PhotosPagingSourceTest {
 
@@ -11,53 +18,41 @@ class PhotosPagingSourceTest {
     private lateinit var photosPagingSource: PhotosPagingSource
 
     // helpers
-    private lateinit var mockPhotosRemoteSource: PhotosRemoteSource
+    private lateinit var photosRemoteSource: PhotosRemoteSource
+    private val photoListItem = listOf(PhotoListItem)
 
     @Before
     fun setup() = runBlocking {
-        mockPhotosRemoteSource = mockk()
-
-        photosPagingSource = PhotosPagingSource(mockPhotosRemoteSource)
+        photosRemoteSource = mockk()
+        photosPagingSource = PhotosPagingSource(photosRemoteSource)
     }
 
-//    @Test
-//    fun loadReturnsPageWhenOnSuccessfulLoadOfItemKeyedData() = runBlocking {
-//        every { apiResponse.data } returns listOf(photoListItem)
-//        assertThat(
-//            photosPagingSource.load(
-//                Refresh(
-//                    key = 1,
-//                    loadSize = 2,
-//                    placeholdersEnabled = false
-//                )
-//            )
-//        ).isEqualTo(
-//            Page(
-//                data = listOf(photoListItem.toDomain()),
-//                prevKey = null,
-//                nextKey = 2
-//            )
-//        )
-//    }
+    @Test
+    fun `load returns a page on successful load of item keyed data`(): Unit = runBlocking {
+        coEvery { photosRemoteSource.fetchPhotos(1) } returns photoListItem
+        val loadParam = Refresh(key = 1, loadSize = 2, placeholdersEnabled = false)
+        val expectedPage =
+            PagingSource.LoadResult.Page(listOf(DomainPhotoListItem), prevKey = null, nextKey = 2)
+        assertThat(photosPagingSource.load(loadParam)).isEqualTo(expectedPage)
+    }
 
-//    @Test
-//    fun loadReturnsOnNextNullOnEmptyData() = runBlocking {
-//        every { apiResponse.data } returns emptyList()
-// //        coEvery { mockPhotosRemoteSource.fetchPhotos(1) } returns apiResponse
-//        assertThat(
-//            photosPagingSource.load(
-//                Refresh(
-//                    key = 1,
-//                    loadSize = 2,
-//                    placeholdersEnabled = false
-//                )
-//            )
-//        ).isEqualTo(
-//            Page(
-//                emptyList(),
-//                prevKey = null,
-//                nextKey = null
-//            )
-//        )
-//    }
+    @Test
+    fun `load returns on next null on empty data`(): Unit = runBlocking {
+        coEvery { photosRemoteSource.fetchPhotos(1) } returns emptyList()
+        assertThat(
+            photosPagingSource.load(
+                Refresh(
+                    key = 1,
+                    loadSize = 2,
+                    placeholdersEnabled = false
+                )
+            )
+        ).isEqualTo(
+            PagingSource.LoadResult.Page(
+                listOf(),
+                prevKey = null,
+                nextKey = null
+            )
+        )
+    }
 }
