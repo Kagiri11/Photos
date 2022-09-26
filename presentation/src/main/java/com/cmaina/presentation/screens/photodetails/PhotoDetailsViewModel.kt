@@ -12,8 +12,7 @@ import kotlinx.coroutines.launch
 
 class PhotoDetailsViewModel(
     private val photosRepository: PhotosRepository,
-    private val authRepository: AuthRepository,
-
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _photoUrlLink = MutableLiveData<String>()

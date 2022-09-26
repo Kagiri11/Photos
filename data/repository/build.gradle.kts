@@ -29,6 +29,16 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    testOptions{
+        unitTests.all {
+            if(it.name == "testDebugUnitTest"){
+                it.extensions.configure(kotlinx.kover.api.KoverTaskExtension::class){
+
+                }
+            }
+        }
+    }
 }
 
 dependencies {
