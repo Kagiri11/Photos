@@ -30,7 +30,7 @@ android {
         jvmTarget = "11"
     }
 
-    testOptions{
+    /*testOptions{
         unitTests.all {
             if(it.name == "testDebugUnitTest"){
                 it.extensions.configure(kotlinx.kover.api.KoverTaskExtension::class){
@@ -38,7 +38,7 @@ android {
                 }
             }
         }
-    }
+    }*/
 }
 
 dependencies {

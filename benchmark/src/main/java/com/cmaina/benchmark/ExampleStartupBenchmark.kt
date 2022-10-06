@@ -30,7 +30,7 @@ class ExampleStartupBenchmark {
         packageName = "com.cmaina.fotos",
         metrics = listOf(StartupTimingMetric()),
         iterations = 5,
-        startupMode = StartupMode.WARM
+        startupMode = StartupMode.COLD
     ) {
         Thread.sleep(500)
         pressHome()

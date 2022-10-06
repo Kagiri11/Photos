@@ -12,7 +12,6 @@ plugins {
 
 android {
     compileSdk = Configurations.CompileSdk
-
     defaultConfig {
         Configurations.also {
             applicationId = ApplicationId
@@ -66,8 +65,7 @@ android {
 }
 
 dependencies {
-
-    implementation ("androidx.profileinstaller:profileinstaller:1.2.0")
+    implementation("androidx.profileinstaller:profileinstaller:1.2.0")
     implementation(Libraries.core)
     implementation(Libraries.composeUi)
     implementation(Libraries.constraintLayout)
