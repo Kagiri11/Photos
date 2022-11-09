@@ -35,6 +35,12 @@ tasks.register(name = "type", type = Delete::class) {
     delete(rootProject.buildDir)
 }
 
+buildscript {
+    dependencies{
+        classpath("com.google.gms:google-services:4.3.14")
+    }
+}
+
 dependencies {
     ktlint("com.pinterest:ktlint:0.45.2") {
         attributes {

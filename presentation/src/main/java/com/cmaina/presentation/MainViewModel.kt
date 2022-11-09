@@ -1,4 +1,4 @@
-package com.cmaina.presentation.activities
+package com.cmaina.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -4,6 +4,7 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,21 +21,39 @@ import org.junit.runner.RunWith
  * Run this benchmark from Studio to see startup measurements, and captured system traces
  * for investigating your app's performance.
  */
+@LargeTest
 @RunWith(AndroidJUnit4::class)
 class ExampleStartupBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
+    /* @Test
+     fun fStartUp() {
+         Thread.sleep(500)
+         benchmarkRule.measureRepeated(
+             packageName = "com.cmaina.fotos",
+             metrics = listOf(StartupTimingMetric()),
+             startupMode = StartupMode.COLD,
+             iterations = 5
+         ) {
+             pressHome()
+             startActivityAndWait()
+         }
+         Thread.sleep(500)
+     }*/
+
     @Test
-    fun startup() = benchmarkRule.measureRepeated(
-        packageName = "com.cmaina.fotos",
-        metrics = listOf(StartupTimingMetric()),
-        iterations = 5,
-        startupMode = StartupMode.COLD
-    ) {
+    fun startup() {
         Thread.sleep(500)
-        pressHome()
-        startActivityAndWait()
+        benchmarkRule.measureRepeated(
+            packageName = "com.cmaina.fotos",
+            metrics = listOf(StartupTimingMetric()),
+            startupMode = StartupMode.COLD,
+            iterations = 5
+        ) {
+            pressHome()
+            startActivityAndWait()
+        }
         Thread.sleep(500)
     }
 }

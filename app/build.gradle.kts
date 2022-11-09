@@ -7,11 +7,20 @@ import Configurations.VersionName
 plugins {
     id(BuildPlugins.androidApp)
     id(BuildPlugins.kotlinAndroid)
+    id(BuildPlugins.googleServices)
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
 android {
     compileSdk = Configurations.CompileSdk
+    /*signingConfigs {
+        create("release") {
+            storeFile = file("C:\\Users\\Charles Maina\\Documents\\fotoskeystorepath.jks")
+            storePassword = "positive11"
+            keyPassword = "positive11"
+            keyAlias = "fotos"
+        }
+    }*/
     defaultConfig {
         Configurations.also {
             applicationId = ApplicationId
@@ -25,6 +34,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+//        signingConfig = signingConfigs.getByName("release")
         multiDexEnabled = true
     }
 
@@ -38,7 +48,7 @@ android {
             )
         }
         create("benchmark") {
-            isDebuggable = false
+            isDebuggable = true
             initWith(getByName("release"))
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
@@ -66,6 +76,8 @@ android {
 
 dependencies {
     implementation("androidx.profileinstaller:profileinstaller:1.2.0")
+    implementation(platform("com.google.firebase:firebase-bom:31.0.2"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
     implementation(Libraries.core)
     implementation(Libraries.composeUi)
     implementation(Libraries.constraintLayout)
@@ -81,11 +93,14 @@ dependencies {
     implementation(Libraries.systemUiController)
     implementation(Libraries.composeNavigation)
     implementation(Libraries.composeMaterial)
+    implementation(Libraries.splashScreen)
     implementation(Libraries.preview)
     implementation(Libraries.fresco)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
     testImplementation(TestLibraries.jUnit)
+    implementation(Libraries.playUpdate)
+    implementation(Libraries.playUpdateKtx)
     androidTestImplementation(TestLibraries.jUnitAndroid)
     androidTestImplementation(TestLibraries.androidEspresso)
 }

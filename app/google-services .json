@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "692804088256",
+    "project_id": "fotos-355919",
+    "storage_bucket": "fotos-355919.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692804088256:android:bd83b2917c38adda109825",
+        "android_client_info": {
+          "package_name": "com.cmaina.fotos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692804088256-bvcuhbprqd7lkagoc2l36g9l4ca04bpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyTrPdbqxY9bkye4kyZ59-BfnTyIOMwLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692804088256-bvcuhbprqd7lkagoc2l36g9l4ca04bpb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

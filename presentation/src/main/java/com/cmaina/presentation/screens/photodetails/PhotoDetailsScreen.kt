@@ -35,8 +35,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.cmaina.presentation.MainViewModel
 import com.cmaina.presentation.R
-import com.cmaina.presentation.activities.MainViewModel
 import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
 import com.cmaina.presentation.components.photoscards.PhotosPager
 import com.cmaina.presentation.components.photostext.FotosText

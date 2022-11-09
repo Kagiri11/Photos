@@ -1,4 +1,4 @@
-package com.cmaina.presentation.activities
+package com.cmaina.fotos.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.cmaina.presentation.MainViewModel
 import com.cmaina.presentation.R
 import com.cmaina.presentation.navigation.NavGraph
 import com.cmaina.presentation.navigation.bottomnav.FotosBottomNav
