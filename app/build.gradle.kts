@@ -13,14 +13,6 @@ plugins {
 
 android {
     compileSdk = Configurations.CompileSdk
-    /*signingConfigs {
-        create("release") {
-            storeFile = file("C:\\Users\\Charles Maina\\Documents\\fotoskeystorepath.jks")
-            storePassword = "positive11"
-            keyPassword = "positive11"
-            keyAlias = "fotos"
-        }
-    }*/
     defaultConfig {
         Configurations.also {
             applicationId = ApplicationId
@@ -34,7 +26,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-//        signingConfig = signingConfigs.getByName("release")
         multiDexEnabled = true
     }
 
