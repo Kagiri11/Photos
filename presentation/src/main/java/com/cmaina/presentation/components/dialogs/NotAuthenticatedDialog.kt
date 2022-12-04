@@ -1,11 +1,14 @@
 package com.cmaina.presentation.components.dialogs
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,9 +16,12 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.cmaina.presentation.components.photostext.FotosText
+import coil.compose.rememberImagePainter
+import com.cmaina.presentation.R
+import com.cmaina.presentation.components.photostext.FotosTitleText
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -36,12 +42,25 @@ fun NotAuthenticatedDialog(
                     .fillMaxWidth(0.8f)
                     .semantics { contentDescription = "Setting dialog" }
             ) {
-                Box(modifier = Modifier.fillMaxSize()) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Icon(
+                        painter = rememberImagePainter(data = R.drawable.ic_baseline_key_24),
+                        tint = MaterialTheme.colors.onPrimary,
+                        contentDescription = "alert icon"
+                    )
+                    FotosTitleText(
+                        text = "Please sign in to continue",
+                        textColor = MaterialTheme.colors.onPrimary
+                    )
                     Button(
                         onClick = { onUserAcceptedAction() },
-                        modifier = Modifier.align(Alignment.Center)
+                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.onPrimary)
                     ) {
-                        FotosText(text = "Perform action")
+                        FotosTitleText(text = "Sign In", textColor = MaterialTheme.colors.onPrimary)
                     }
                 }
             }

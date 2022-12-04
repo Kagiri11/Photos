@@ -7,7 +7,6 @@ import Configurations.VersionName
 plugins {
     id(BuildPlugins.androidApp)
     id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.googleServices)
     id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
 }
 
@@ -67,8 +66,6 @@ android {
 
 dependencies {
     implementation("androidx.profileinstaller:profileinstaller:1.2.0")
-    implementation(platform("com.google.firebase:firebase-bom:31.0.2"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
     implementation(Libraries.core)
     implementation(Libraries.composeUi)
     implementation(Libraries.constraintLayout)
