@@ -35,12 +35,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
-import com.cmaina.presentation.MainViewModel
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
 import com.cmaina.presentation.components.photoscards.PhotosPager
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.utils.findActivity
+import com.cmaina.presentation.viewmodels.MainViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -53,14 +53,13 @@ fun PhotoDetailsScreen(
     LaunchedEffect(key1 = true) {
         photoDetailsViewModel.fetchPhoto(photoId)
     }
-    val url = photoDetailsViewModel.photoUrlLink.observeAsState("").value
-    val blurHash = photoDetailsViewModel.blurHashCode.observeAsState("").value
     val userName = photoDetailsViewModel.username.observeAsState("").value
     val userPhotoImageUrl = photoDetailsViewModel.userPhotoUrl.observeAsState("").value
     val numberOfLikes = photoDetailsViewModel.numberOfLikes.observeAsState(0).value
     val relatedImages = photoDetailsViewModel.relatedPhotosStrings.observeAsState(listOf()).value
     val isThereMessageToTheUser = mainViewModel.messageToUser.collectAsState().value
     val userIsAuthenticated = mainViewModel.userIsAuthenticated.collectAsState().value
+    val userLikedThePhoto = photoDetailsViewModel.photoLikedByUser.observeAsState().value ?: false
     val context = LocalContext.current
     DisposableEffect(key1 = true) {
         onResume(context, mainViewModel)
@@ -78,16 +77,20 @@ fun PhotoDetailsScreen(
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-//        SpecificFotosCard(imageUrl = url, blurHash = blurHash)
-        PhotosPager(blurHash = blurHash, images = relatedImages)
+        var photoId = ""
+        PhotosPager(images = relatedImages) {
+            photoId = it
+            photoDetailsViewModel.checkIfPhotoIsLiked(it)
+        }
         LikeAndDownloadSection(
             userName = userName,
             userPhotoUrl = userPhotoImageUrl,
             numberOfLikes = numberOfLikes,
             navController = navController,
             userIsAuthenticated = userIsAuthenticated,
+            userHasLikedPhoto = userLikedThePhoto,
             onLikeClick = {
-                mainViewModel.likePhoto()
+                mainViewModel.likePhoto(photoId)
             },
             onDownloadClick = {}
         )
@@ -101,11 +104,12 @@ fun ColumnScope.LikeAndDownloadSection(
     numberOfLikes: Int,
     navController: NavController,
     userIsAuthenticated: Boolean,
+    userHasLikedPhoto: Boolean,
     onLikeClick: () -> Unit,
     onDownloadClick: () -> Unit
 ) {
     val iconPainter =
-        painterResource(id = if (userIsAuthenticated) R.drawable.ic_favourite else R.drawable.ic_favorite_outlined)
+        painterResource(id = if (userHasLikedPhoto) R.drawable.ic_favourite else R.drawable.ic_favorite_outlined)
     Card(
         modifier = Modifier
             .fillMaxWidth()

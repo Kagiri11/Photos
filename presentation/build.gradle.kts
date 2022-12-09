@@ -47,8 +47,11 @@ dependencies {
     implementation(Libraries.composeUi)
     implementation(Libraries.composeMaterial)
     implementation(Libraries.preview)
+
+    // Modules
     implementation(project(Modules.DOMAIN))
 
+    // Libs
     implementation(Libraries.constraintLayout)
     implementation(Libraries.liveData)
     implementation(Libraries.viewModel)

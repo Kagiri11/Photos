@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface AuthRepository {
     suspend fun authenticateUser(authCode: String): NetworkResult<AuthDomainResponse>
 
-    suspend fun saveUserAuthentication()
+    suspend fun saveUserAuthentication(accessToken: String)
 
     suspend fun clearStaleUserAuthentication()
 

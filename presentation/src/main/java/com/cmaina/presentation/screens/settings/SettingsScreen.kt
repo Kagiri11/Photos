@@ -15,14 +15,13 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.cmaina.presentation.R
-import com.cmaina.presentation.MainViewModel
 import com.cmaina.presentation.components.settingscomponents.Setting
 import com.cmaina.presentation.components.settingscomponents.SettingItemDialog
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SettingsScreen(
-    mainViewModel: MainViewModel,
+    mainViewModel: com.cmaina.presentation.viewmodels.MainViewModel,
     settingsViewModel: SettingsViewModel = getViewModel()
 ) {
     val isAppDarkTheme = mainViewModel.appTheme.collectAsState().value

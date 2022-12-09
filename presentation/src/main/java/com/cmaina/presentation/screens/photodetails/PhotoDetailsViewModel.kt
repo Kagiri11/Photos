@@ -36,8 +36,23 @@ class PhotoDetailsViewModel(
     private val _relatedPhotos = MutableLiveData<List<PreviewPhotoDomainModel>>()
     val relatedPhotos: LiveData<List<PreviewPhotoDomainModel>> get() = _relatedPhotos
 
-    private val _relatedPhotosStrings = MutableLiveData<List<String>>()
-    val relatedPhotosStrings: LiveData<List<String>> get() = _relatedPhotosStrings
+    private val _relatedPhotosStrings = MutableLiveData<List<PhotoLikedState>>()
+    val relatedPhotosStrings: LiveData<List<PhotoLikedState>> get() = _relatedPhotosStrings
+
+    private val _photoLikedByUser = MutableLiveData<Boolean>()
+    val photoLikedByUser: LiveData<Boolean> get() = _photoLikedByUser
+
+    fun checkIfPhotoIsLiked(photoId: String) {
+        viewModelScope.launch {
+            when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
+                is NetworkResult.Success -> {
+                    _photoLikedByUser.value = result.data.likedByUser
+                }
+                is NetworkResult.Error -> {
+                }
+            }
+        }
+    }
 
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
@@ -53,14 +68,23 @@ class PhotoDetailsViewModel(
                         _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
                     }
 
-                    val strings = relatedPhotos.value?.map { it.urls?.full }?.toMutableList()
-                    strings?.add(_photoUrlLink.value)
-                    val newStrings = strings?.sortedWith(
+                    val strings = relatedPhotos.value?.map {
+                        it.toPhotoLikedState()
+                    }?.toMutableList()
+                    strings?.add(
+                        PhotoLikedState(
+                            photoId = photoId,
+                            result.data.urls?.raw,
+                            blurHash = result.data.blurHash
+                        )
+
+                    )
+                    val newPhotos = strings?.sortedWith(
                         compareBy {
-                            it == _photoUrlLink.value
+                            it.photoUrl == _photoUrlLink.value
                         }
                     )?.reversed()
-                    _relatedPhotosStrings.value = newStrings as List<String>?
+                    _relatedPhotosStrings.value = newPhotos
                 }
                 is NetworkResult.Error -> {}
             }
@@ -79,3 +103,8 @@ class PhotoDetailsViewModel(
         }
     }
 }
+
+data class PhotoLikedState(val photoId: String?, val photoUrl: String?, val blurHash: String?)
+
+fun PreviewPhotoDomainModel.toPhotoLikedState() =
+    PhotoLikedState(photoId = this.id, photoUrl = this.urls?.full, blurHash = this.blur_hash)

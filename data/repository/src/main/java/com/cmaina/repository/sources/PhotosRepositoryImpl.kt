@@ -47,6 +47,6 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
     }
 
     override suspend fun likePhoto(id: String): NetworkResult<DomainPhotoListItem> {
-        return  safeApiCall { photosRemoteSource.likePhoto(id).toDomain() }
+        return safeApiCall { photosRemoteSource.likePhoto(id).toDomain() }
     }
 }

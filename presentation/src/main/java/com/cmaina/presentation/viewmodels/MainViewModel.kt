@@ -1,9 +1,11 @@
-package com.cmaina.presentation
+package com.cmaina.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.repository.AppRepository
 import com.cmaina.domain.repository.AuthRepository
+import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.NetworkResult
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosWhite
@@ -14,7 +16,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val appRepository: AppRepository,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val photosRepository: PhotosRepository
 ) : ViewModel() {
 
     private val _appTheme = MutableStateFlow(false)
@@ -31,7 +34,7 @@ class MainViewModel(
         checkIfUserIsAuthenticated()
     }
 
-    fun fetchAppTheme() = viewModelScope.launch {
+    private fun fetchAppTheme() = viewModelScope.launch {
         appRepository.fetchAppTheme().collect {
             _appTheme.value = it
         }
@@ -63,10 +66,10 @@ class MainViewModel(
         _messageToUser.value = !_messageToUser.value
     }
 
-    fun likePhoto() {
+    fun likePhoto(photoID: String) = viewModelScope.launch {
         checkIfUserIsAuthenticated()
         if (_userIsAuthenticated.value) {
-            // logic to like photo
+            photosRepository.likePhoto(photoID)
         } else {
             changeMessageStatus()
         }
@@ -76,7 +79,7 @@ class MainViewModel(
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
             is NetworkResult.Success -> {
                 // save token to persistence
-                authRepository.saveUserAuthentication()
+                authRepository.saveUserAuthentication(result.data.accessToken)
             }
             is NetworkResult.Error -> {
             }

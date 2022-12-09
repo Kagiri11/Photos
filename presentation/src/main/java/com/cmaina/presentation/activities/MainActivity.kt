@@ -1,4 +1,4 @@
-package com.cmaina.fotos.activities
+package com.cmaina.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.cmaina.presentation.MainViewModel
+import com.cmaina.presentation.viewmodels.MainViewModel
 import com.cmaina.presentation.R
 import com.cmaina.presentation.navigation.NavGraph
 import com.cmaina.presentation.navigation.bottomnav.FotosBottomNav
@@ -58,8 +58,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
-            val theme = mainViewModel.appTheme.collectAsState().value
-            mainViewModel.changeSystemAppBarColors(systemUiController = systemUIController, theme)
+//            val theme = mainViewModel.appTheme.collectAsState().value
+//            mainViewModel.changeSystemAppBarColors(systemUiController = systemUIController, theme)
             val scaffoldState = rememberScaffoldState()
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }

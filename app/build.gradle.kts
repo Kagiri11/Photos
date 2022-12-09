@@ -66,12 +66,19 @@ android {
 
 dependencies {
     implementation("androidx.profileinstaller:profileinstaller:1.2.0")
-    implementation(Libraries.core)
-    implementation(Libraries.composeUi)
-    implementation(Libraries.constraintLayout)
+
+    // Modules
     implementation(project(Modules.DOMAIN))
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.PRESENTATION))
+
+    // Libs
+    implementation(Libraries.core)
+    implementation(Libraries.composeUi)
+    implementation(Libraries.constraintLayout)
+    implementation(Libraries.composeMaterial)
+    implementation(Libraries.preview)
+    implementation(Libraries.koinCompose)
     implementation(Libraries.liveData)
     implementation(Libraries.viewModel)
     implementation(Libraries.koinCompose)

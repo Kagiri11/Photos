@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -16,12 +14,12 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import coil.compose.rememberImagePainter
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.components.userscreencomponents.UserButton
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -45,7 +43,7 @@ fun NotAuthenticatedDialog(
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                    verticalArrangement = Arrangement.SpaceAround
                 ) {
                     Icon(
                         painter = rememberImagePainter(data = R.drawable.ic_baseline_key_24),
@@ -56,12 +54,21 @@ fun NotAuthenticatedDialog(
                         text = "Please sign in to continue",
                         textColor = MaterialTheme.colors.onPrimary
                     )
-                    Button(
-                        onClick = { onUserAcceptedAction() },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.onPrimary)
-                    ) {
-                        FotosTitleText(text = "Sign In", textColor = MaterialTheme.colors.onPrimary)
+                    UserButton(
+                        text = "Sign In",
+                        buttonColor = MaterialTheme.colors.onPrimary,
+                        textColor = MaterialTheme.colors.primary,
+                        modifier = Modifier.fillMaxWidth(0.9f)
+                    ){
+                        onUserAcceptedAction()
                     }
+                    /*Button(
+                        onClick = { onUserAcceptedAction() },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.onPrimary),
+                        modifier = Modifier.fillMaxWidth(0.9f)
+                    ) {
+                        FotosTitleText(text = "Sign In", textColor = MaterialTheme.colors.primary)
+                    }*/
                 }
             }
         }

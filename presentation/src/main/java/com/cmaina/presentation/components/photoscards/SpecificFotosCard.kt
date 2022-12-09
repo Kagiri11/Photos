@@ -1,5 +1,6 @@
 package com.cmaina.presentation.components.photoscards
 
+import android.util.Log
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.util.lerp
+import com.cmaina.presentation.screens.photodetails.PhotoLikedState
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
@@ -18,12 +20,14 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ColumnScope.PhotosPager(blurHash: String, images: List<String>) {
+fun ColumnScope.PhotosPager(images: List<PhotoLikedState>, onPageSwapped: (String) -> Unit) {
     val res = LocalContext.current.resources
     HorizontalPager(
         count = images.size,
         modifier = Modifier.weight(0.7f).fillMaxWidth()
     ) { page ->
+        onPageSwapped(images[page].photoId ?: "")
+        Log.d("HelloThere", "This is the blurhash: ${images[page].blurHash}")
         Card(
             modifier = Modifier
                 .fillMaxHeight(0.95f)
@@ -47,8 +51,8 @@ fun ColumnScope.PhotosPager(blurHash: String, images: List<String>) {
             shape = RoundedCornerShape(2)
         ) {
             AsyncImageBlur(
-                blurHash = blurHash,
-                imageUrl = images[page],
+                blurHash = images[page].blurHash ?: "",
+                imageUrl = images[page].photoUrl ?: "",
                 resources = res,
                 modifier = Modifier.fillMaxSize()
             )

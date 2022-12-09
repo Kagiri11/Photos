@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.cmaina.domain.models.auth.AuthDomainResponse
 import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.utils.NetworkResult
@@ -20,14 +21,17 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
 
     private val userAuthenticatedPref = booleanPreferencesKey("userAuthenticated")
+    val userAccessToken = stringPreferencesKey("accessToken")
 
     override suspend fun authenticateUser(authCode: String): NetworkResult<AuthDomainResponse> {
         return safeApiCall { authRemoteSource.authorizeUser(code = authCode).toDomain() }
     }
 
-    override suspend fun saveUserAuthentication() {
-        preferences.edit {
-            it[userAuthenticatedPref] = true
+    override suspend fun saveUserAuthentication(accessToken: String) {
+        Log.d("UserAccessToken", "This is the token: $accessToken")
+        preferences.apply {
+            edit { it[userAuthenticatedPref] = true }
+            edit { it[userAccessToken] = accessToken }
         }
     }
 
