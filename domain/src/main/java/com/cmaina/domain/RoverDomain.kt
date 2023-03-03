@@ -1,9 +1,9 @@
 package com.cmaina.domain
 
-data class Rover(
+data class RoverDomain(
     val id: Int,
-    val landing_date: String,
-    val launch_date: String,
+    val landingDate: String,
+    val launchDate: String,
     val name: String,
     val status: String
 )
