@@ -38,6 +38,7 @@ dependencies {
     implementation(project(Modules.DOMAIN))
     implementation(project(Modules.LOCAL))
     implementation(project(Modules.NETWORK))
+    implementation(Libraries.koinCore)
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
