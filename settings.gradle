@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ThermondoAndroidCodingChallenge"
 include ':app'
+include ':domain'
+include ':data:local'
