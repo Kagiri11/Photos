@@ -1,6 +1,6 @@
-package com.cmaina.domain
+package com.cmaina.domain.models
 
-data class PhotoDomain(
+data class DomainPhoto(
     val id: Int,
     val cameraDomain: CameraDomain,
     val earthDate: String,

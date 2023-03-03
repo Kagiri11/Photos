@@ -10,8 +10,8 @@ interface NetworkService {
     // Remember to remove the static rover and use a dynamic one
     @GET("rovers/curiosity/photos")
     suspend fun fetchPhotos(
-        @Query("sol") sol: Int,
-        @Query("camera") camera: String,
-        @Query("api_key") apiKey: String
+        @Query("sol") sol: Int = 1000,
+        @Query("camera") camera: String = "fhaz",
+        @Query("api_key") apiKey: String = "DEMO_KEY"
     ): Response<List<NetworkPhoto>>
 }

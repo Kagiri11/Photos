@@ -1,4 +1,4 @@
-package com.cmaina.domain
+package com.cmaina.domain.models
 
 data class CameraDomain(
     val id: Int,
