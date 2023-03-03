@@ -16,3 +16,4 @@ rootProject.name = "ThermondoAndroidCodingChallenge"
 include ':app'
 include ':domain'
 include ':data:local'
+include ':data:network'
