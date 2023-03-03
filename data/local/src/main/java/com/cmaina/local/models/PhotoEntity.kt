@@ -1,10 +1,15 @@
 package com.cmaina.local.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "photoTable")
 data class PhotoEntity(
-    val id: Int,
-    val cameraEntity: CameraEntity,
-    val earthDate: String,
-    val imgSrc: String,
-    val roverEntity: RoverEntity,
-    val sol: Int
+    @PrimaryKey(autoGenerate = false) val id: Int,
+    @ColumnInfo(name = "camera") val cameraEntity: CameraEntity,
+    @ColumnInfo(name = "earth_date") val earthDate: String,
+    @ColumnInfo(name = "image_src") val imgSrc: String,
+    @ColumnInfo(name = "rover") val roverEntity: RoverEntity,
+    @ColumnInfo(name = "sol") val sol: Int
 )
