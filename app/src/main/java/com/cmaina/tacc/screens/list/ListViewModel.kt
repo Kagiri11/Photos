@@ -15,7 +15,11 @@ class ListViewModel(private val photosRepository: PhotosRepository) : ViewModel(
     private val _marsPhotos = MutableStateFlow<List<DomainPhoto>>(emptyList())
     val marsPhotos: StateFlow<List<DomainPhoto>> get() = _marsPhotos
 
-    fun fetchPhotos() {
+    init {
+        fetchPhotos()
+    }
+
+    private fun fetchPhotos() {
         viewModelScope.launch {
             photosRepository.fetchMarsPhotos().collect {
                 when (it) {

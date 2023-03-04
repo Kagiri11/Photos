@@ -13,7 +13,7 @@ class MarsPhotosApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MarsPhotosApp)
-            modules(listOf(RepositoryModule, NetworkModule, AppModule))
+            modules(listOf(AppModule, RepositoryModule, NetworkModule))
         }
     }
 }

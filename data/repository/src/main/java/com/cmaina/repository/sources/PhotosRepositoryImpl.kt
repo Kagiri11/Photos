@@ -12,9 +12,12 @@ class PhotosRepositoryImpl(private val networkService: NetworkService) : PhotosR
 
     override suspend fun fetchMarsPhotos(): Flow<NetworkResult<List<DomainPhoto>>> {
         val apiResponse = networkService.fetchPhotos()
+
         return try {
             if (apiResponse.isSuccessful) {
-                flowOf(NetworkResult.Success(apiResponse.body()!!.map { it.toDomain() }))
+                flowOf(
+                    NetworkResult.Success(apiResponse.body()!!.photos.map { it.toDomain() })
+                )
             } else {
                 flowOf(NetworkResult.Error(""))
             }
