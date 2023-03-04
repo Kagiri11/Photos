@@ -14,5 +14,5 @@ interface PhotoEntityDao {
     fun fetchPhotos(): Flow<List<PhotoEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addPhoto()
+    fun addPhoto(photoEntity: PhotoEntity)
 }

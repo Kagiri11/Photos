@@ -8,5 +8,5 @@ interface PhotosRepository {
 
     suspend fun getMarsPhotosFromNetwork(): Flow<NetworkResult<List<DomainPhoto>>>
 
-    fun fetchMarsPhotosFromLocalSource(): Flow<List<DomainPhoto>>
+    suspend fun fetchMarsPhotosFromLocalSource(): Flow<List<DomainPhoto>>
 }

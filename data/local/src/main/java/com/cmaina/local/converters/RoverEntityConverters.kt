@@ -5,18 +5,19 @@ import com.cmaina.local.models.RoverEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-object RoverEntityConverters {
+class RoverEntityConverters {
 
-    private val gson = Gson()
-    private val type = object : TypeToken<RoverEntity>() {}.type
+    val gson = Gson()
 
     @TypeConverter
     fun fromRoverEntityToString(roverEntity: RoverEntity): String {
+        val type = object : TypeToken<RoverEntity>() {}.type
         return gson.toJson(roverEntity, type)
     }
 
     @TypeConverter
     fun fromStringToRoverEntity(roverEntityString: String): RoverEntity {
+        val type = object : TypeToken<RoverEntity>() {}.type
         return gson.fromJson(roverEntityString, type)
     }
 }

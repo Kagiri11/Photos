@@ -1,7 +1,6 @@
 package com.cmaina.tacc.screens.list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +17,7 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ListScreen(listViewModel: ListViewModel = getViewModel()) {
-    val photos = listViewModel.photosOfMars.collectAsState(initial = emptyList()).value
+    val photos = listViewModel.photosOfMars.collectAsState().value
     Surface(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(photos) {
