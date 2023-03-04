@@ -4,6 +4,6 @@ import com.cmaina.domain.PhotosRepository
 import com.cmaina.repository.sources.PhotosRepositoryImpl
 import org.koin.dsl.module
 
-val RepositoryModule = module{
-    factory <PhotosRepository>{ PhotosRepositoryImpl(get()) }
+val RepositoryModule = module {
+    factory<PhotosRepository> { PhotosRepositoryImpl(get()) }
 }
