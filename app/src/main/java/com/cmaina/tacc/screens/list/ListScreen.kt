@@ -18,7 +18,7 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ListScreen(listViewModel: ListViewModel = getViewModel()) {
-    val photos = listViewModel.marsPhotos.collectAsState().value
+    val photos = listViewModel.photosOfMars.collectAsState(initial = emptyList()).value
     Surface(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(photos) {

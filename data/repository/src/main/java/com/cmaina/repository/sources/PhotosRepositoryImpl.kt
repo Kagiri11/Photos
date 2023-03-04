@@ -8,6 +8,7 @@ import com.cmaina.network.NetworkService
 import com.cmaina.repository.mappers.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 
 class PhotosRepositoryImpl(
     private val networkService: NetworkService,
@@ -30,7 +31,7 @@ class PhotosRepositoryImpl(
         }
     }
 
-    override suspend fun fetchMarsPhotosFromLocalSource(): Flow<List<DomainPhoto>> {
-        TODO("Not yet implemented")
+    override fun fetchMarsPhotosFromLocalSource(): Flow<List<DomainPhoto>> {
+        return photoEntityDao.fetchPhotos().map { it.map { it.toDomain() } }
     }
 }
