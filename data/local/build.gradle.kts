@@ -41,6 +41,7 @@ dependencies {
     implementation("com.google.android.material:material:1.8.0")
 
     implementation(Libraries.room)
+    implementation(Libraries.gson)
     kapt(Libraries.roomCompiler)
     implementation(Libraries.koinCore)
     testImplementation("junit:junit:4.13.2")
