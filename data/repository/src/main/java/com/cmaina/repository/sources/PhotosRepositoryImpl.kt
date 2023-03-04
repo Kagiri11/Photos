@@ -3,14 +3,18 @@ package com.cmaina.repository.sources
 import com.cmaina.domain.PhotosRepository
 import com.cmaina.domain.models.DomainPhoto
 import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.local.daos.PhotoEntityDao
 import com.cmaina.network.NetworkService
 import com.cmaina.repository.mappers.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class PhotosRepositoryImpl(private val networkService: NetworkService) : PhotosRepository {
+class PhotosRepositoryImpl(
+    private val networkService: NetworkService,
+    private val photoEntityDao: PhotoEntityDao
+) : PhotosRepository {
 
-    override suspend fun fetchMarsPhotos(): Flow<NetworkResult<List<DomainPhoto>>> {
+    override suspend fun getMarsPhotosFromNetwork(): Flow<NetworkResult<List<DomainPhoto>>> {
         val apiResponse = networkService.fetchPhotos()
 
         return try {
@@ -24,5 +28,9 @@ class PhotosRepositoryImpl(private val networkService: NetworkService) : PhotosR
         } catch (e: Exception) {
             flowOf(NetworkResult.Error("error here"))
         }
+    }
+
+    override suspend fun fetchMarsPhotosFromLocalSource(): Flow<List<DomainPhoto>> {
+        TODO("Not yet implemented")
     }
 }
