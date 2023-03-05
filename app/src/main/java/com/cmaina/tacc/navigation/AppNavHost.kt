@@ -11,7 +11,9 @@ import com.cmaina.tacc.screens.list.ListScreen
 fun AppNavHost(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.ListScreen.route) {
         composable(route = Screen.ListScreen.route) {
-            ListScreen()
+            ListScreen {
+                navController.navigate(Screen.DetailScreen.route)
+            }
         }
         composable(route = Screen.DetailScreen.route) {
             DetailsScreen()
@@ -19,7 +21,7 @@ fun AppNavHost(navController: NavHostController) {
     }
 }
 
-sealed class Screen(val route: String, val label: String) {
-    object ListScreen : Screen(route = "list", label = "List")
-    object DetailScreen : Screen(route = "detail", label = "Detail")
+sealed class Screen(val route: String) {
+    object ListScreen : Screen(route = "list")
+    object DetailScreen : Screen(route = "detail")
 }
