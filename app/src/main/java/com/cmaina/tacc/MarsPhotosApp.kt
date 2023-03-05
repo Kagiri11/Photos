@@ -1,6 +1,7 @@
 package com.cmaina.tacc
 
 import android.app.Application
+import com.cmaina.local.di.LocalModule
 import com.cmaina.network.di.NetworkModule
 import com.cmaina.repository.di.RepositoryModule
 import com.cmaina.tacc.di.AppModule
@@ -13,7 +14,7 @@ class MarsPhotosApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MarsPhotosApp)
-            modules(listOf(AppModule, RepositoryModule, NetworkModule))
+            modules(listOf(AppModule, RepositoryModule, NetworkModule, LocalModule))
         }
     }
 }

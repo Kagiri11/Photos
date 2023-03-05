@@ -6,5 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PhotosRepository {
 
-    suspend fun fetchMarsPhotos(): Flow<NetworkResult<List<DomainPhoto>>>
+    suspend fun getMarsPhotosFromNetwork(): Flow<NetworkResult<List<DomainPhoto>>>
+
+    fun fetchMarsPhotos(): Flow<List<DomainPhoto>>
 }

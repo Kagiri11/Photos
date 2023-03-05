@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.PhotosRepository
 import com.cmaina.domain.models.DomainPhoto
-import com.cmaina.domain.utils.NetworkResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -12,8 +11,11 @@ import kotlinx.coroutines.launch
 
 class ListViewModel(private val photosRepository: PhotosRepository) : ViewModel() {
 
-    private val _marsPhotos = MutableStateFlow<List<DomainPhoto>>(emptyList())
-    val marsPhotos: StateFlow<List<DomainPhoto>> get() = _marsPhotos
+    private val _photosOfMars = MutableStateFlow<List<DomainPhoto>>(emptyList())
+    val photosOfMars: StateFlow<List<DomainPhoto>> get() = _photosOfMars
+
+    private val _photoDetail = MutableStateFlow<DomainPhoto?>(null)
+    val photoDetail: StateFlow<DomainPhoto?> get() = _photoDetail
 
     init {
         fetchPhotos()
@@ -22,14 +24,12 @@ class ListViewModel(private val photosRepository: PhotosRepository) : ViewModel(
     private fun fetchPhotos() {
         viewModelScope.launch {
             photosRepository.fetchMarsPhotos().collect {
-                when (it) {
-                    is NetworkResult.Success -> {
-                        _marsPhotos.value = it.data
-                    }
-                    is NetworkResult.Error -> {
-                    }
-                }
+                _photosOfMars.value = it
             }
         }
+    }
+
+    fun setPhotoToBeViewed(domainPhoto: DomainPhoto) = viewModelScope.launch {
+        _photoDetail.value = domainPhoto
     }
 }
