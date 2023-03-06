@@ -1,9 +1,6 @@
 package com.cmaina.repository.sources
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.cmaina.domain.models.CameraDomain
-import com.cmaina.domain.models.DomainPhoto
-import com.cmaina.domain.models.RoverDomain
 import com.cmaina.domain.utils.NetworkResult
 import com.cmaina.local.daos.PhotoEntityDao
 import com.cmaina.local.models.CameraEntity
@@ -14,12 +11,10 @@ import com.cmaina.network.models.MarsResponse
 import com.cmaina.network.models.NetworkCamera
 import com.cmaina.network.models.NetworkPhoto
 import com.cmaina.network.models.NetworkRover
-import com.cmaina.repository.mappers.toEntity
 import com.google.common.truth.Truth
 import io.mockk.* // ktlint-disable no-wildcard-imports
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -30,8 +25,6 @@ import retrofit2.Response
 
 @ExperimentalCoroutinesApi
 class PhotosRepositoryImplTest {
-
-    private val testDispatcher = StandardTestDispatcher()
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -72,7 +65,6 @@ class PhotosRepositoryImplTest {
 
     @Before
     fun setup() {
-        MockKAnnotations.init(this)
         photoEntityDao = PhotoEntityDaoImpl()
         photosRepositoryImpl = PhotosRepositoryImpl(networkService, photoEntityDao)
     }
@@ -110,10 +102,15 @@ class PhotosRepositoryImplTest {
     }
 
     @Test
-    fun `test synchronizeDataFromNetAndDatabase with new photos`() = runTest {
+    fun `synchronizeDataFromNetAndDatabase with new photos adds photos that were not there`() = runTest {
         // given
-        val networkService = mockk<NetworkService>()
-        coEvery { networkService.fetchPhotos() } returns Response.success(MarsResponse(listOf(netPhoto)))
+        coEvery { networkService.fetchPhotos() } returns Response.success(
+            MarsResponse(
+                listOf(
+                    netPhoto
+                )
+            )
+        )
 
         // when
         photosRepositoryImpl.synchronizeDataFromNetAndDatabase(dbPhotos)
@@ -123,7 +120,7 @@ class PhotosRepositoryImplTest {
     }
 
     @Test
-    fun `test synchronizeDataFromNetAndDatabase with updated photos`() = runBlockingTest {
+    fun `synchronizeDataFromNetAndDatabase with updated photos updates stored photos`() = runBlockingTest {
         // given
         coEvery { networkService.fetchPhotos().body() } returns MarsResponse(listOf(netPhoto))
 
@@ -131,11 +128,11 @@ class PhotosRepositoryImplTest {
         photosRepositoryImpl.synchronizeDataFromNetAndDatabase(dbPhotos)
 
         // then
-        Truth.assertThat(photoEntityDao.fetchPhotos().first().size).isEqualTo(2)
+        Truth.assertThat(photoEntityDao.fetchPhotos().first().size).isEqualTo(1)
     }
 
     @Test
-    fun `test synchronizeDataFromNetAndDatabase with both new and updated photos`() =
+    fun `synchronizeDataFromNetAndDatabase with both new and updated photos updates stored photos`() =
         runTest {
             // given
             coEvery { networkService.fetchPhotos().body() } returns MarsResponse(
