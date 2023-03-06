@@ -25,7 +25,7 @@ class PhotoEntityDaoImpl : PhotoEntityDao {
     }
 
     override fun addPhotos(photoEntity: PhotoEntity) {
-        TODO("Not yet implemented")
+        photos.add(photoEntity)
     }
 }
 
