@@ -19,7 +19,7 @@ class MarsPhotoItemTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun marsPhotoItem_onClick() {
+    fun actionIsPerformedWhenMarsItemIsClicked() {
         var hasBeenClicked = false
         val imageAndUrl = ""
 
