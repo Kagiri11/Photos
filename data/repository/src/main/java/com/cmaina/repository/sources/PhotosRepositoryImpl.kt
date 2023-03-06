@@ -8,6 +8,7 @@ import com.cmaina.local.models.PhotoEntity
 import com.cmaina.network.NetworkService
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.mappers.toEntity
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -15,10 +16,13 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
 
 class PhotosRepositoryImpl(
     private val networkService: NetworkService,
-    private val photoEntityDao: PhotoEntityDao
+    private val photoEntityDao: PhotoEntityDao,
+    private val coroutineScope: CoroutineScope,
 ) : PhotosRepository {
 
     override suspend fun getMarsPhotosFromNetwork(): Flow<NetworkResult<List<DomainPhoto>>> {
@@ -50,11 +54,19 @@ class PhotosRepositoryImpl(
         }.map { it.toEntity() }
 
         if (newPhotos.isNotEmpty()) {
-            photoEntityDao.addPhotos(newPhotos)
+            coroutineScope.launch {
+                newPhotos.forEach {
+                    photoEntityDao.addPhotos(it)
+                }
+            }
         }
 
         if (updatedPhotos.isNotEmpty()) {
-            photoEntityDao.addPhotos(updatedPhotos)
+            coroutineScope.launch {
+                updatedPhotos.forEach {
+                    photoEntityDao.addPhotos(it)
+                }
+            }
         }
     }
 

@@ -10,5 +10,5 @@ import org.koin.dsl.module
 val RepositoryModule = module {
     factory { SupervisorJob() }
     factory { CoroutineScope(Dispatchers.IO) }
-    factory<PhotosRepository> { PhotosRepositoryImpl(get(), get()) }
+    factory<PhotosRepository> { PhotosRepositoryImpl(get(), get(), get()) }
 }

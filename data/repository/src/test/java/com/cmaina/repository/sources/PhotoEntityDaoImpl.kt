@@ -24,8 +24,8 @@ class PhotoEntityDaoImpl : PhotoEntityDao {
         return flowOf(photos)
     }
 
-    override fun addPhotos(photoEntity: List<PhotoEntity>) {
-        photos.addAll(photoEntity)
+    override fun addPhotos(photoEntity: PhotoEntity) {
+        TODO("Not yet implemented")
     }
 }
 

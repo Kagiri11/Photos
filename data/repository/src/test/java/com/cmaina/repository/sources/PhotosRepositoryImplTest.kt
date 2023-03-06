@@ -15,8 +15,13 @@ import com.google.common.truth.Truth
 import io.mockk.* // ktlint-disable no-wildcard-imports
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestCoroutineScope
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
+import okhttp3.MediaType
+import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -29,9 +34,13 @@ class PhotosRepositoryImplTest {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    private val testDispatcher = StandardTestDispatcher()
+
     private val networkService: NetworkService = mockk(relaxed = true)
 
     private lateinit var photoEntityDao: PhotoEntityDao
+
+    private val testCoroutineScope : TestCoroutineScope = mockk(relaxed = true)
 
     private lateinit var photosRepositoryImpl: PhotosRepositoryImpl
     private val netPhoto =
@@ -66,16 +75,15 @@ class PhotosRepositoryImplTest {
     @Before
     fun setup() {
         photoEntityDao = PhotoEntityDaoImpl()
-        photosRepositoryImpl = PhotosRepositoryImpl(networkService, photoEntityDao)
+        photosRepositoryImpl = PhotosRepositoryImpl(networkService, photoEntityDao, TestCoroutineScope())
     }
 
     @Test
     fun `getMarsPhotosFromNetwork returns error when API response is not successful`() =
         runTest {
             // Given
-            coEvery { networkService.fetchPhotos() } returns mockk {
-                every { isSuccessful } returns false
-            }
+            coEvery { networkService.fetchPhotos() } returns Response.error(400, ResponseBody.create(
+                MediaType.parse(""),""))
 
             // When
             val result = photosRepositoryImpl.getMarsPhotosFromNetwork()
