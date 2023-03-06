@@ -16,4 +16,9 @@ object Versions {
     const val compose = "1.2.0-beta01"
     const val constraintLayout = "1.0.0-rc02"
     const val systemUIController = "0.24.10-beta"
+    const val truth = "1.1.3"
+    const val mockK = "1.12.2"
+    const val androidXTest = "1.1.4-alpha04"
+    const val androidArchCoreTesting = "1.1.1"
+    const val test_coroutines_version = "1.6.4"
 }

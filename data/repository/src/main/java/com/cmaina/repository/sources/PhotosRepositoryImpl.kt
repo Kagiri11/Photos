@@ -18,8 +18,7 @@ import kotlinx.coroutines.launch
 
 class PhotosRepositoryImpl(
     private val networkService: NetworkService,
-    private val photoEntityDao: PhotoEntityDao,
-    private val coroutineScope: CoroutineScope
+    private val photoEntityDao: PhotoEntityDao
 ) : PhotosRepository {
 
     override suspend fun getMarsPhotosFromNetwork(): Flow<NetworkResult<List<DomainPhoto>>> {
@@ -38,7 +37,7 @@ class PhotosRepositoryImpl(
         }
     }
 
-    private suspend fun synchronizeDataFromNetAndDatabase(photosFromDb: List<PhotoEntity>) {
+    suspend fun synchronizeDataFromNetAndDatabase(photosFromDb: List<PhotoEntity>) {
         val remotePhotos = networkService.fetchPhotos().body()!!.photos
 
         val newPhotos = remotePhotos.filter { remotePhoto ->
@@ -51,20 +50,16 @@ class PhotosRepositoryImpl(
         }.map { it.toEntity() }
 
         if (newPhotos.isNotEmpty()) {
-            coroutineScope.launch {
-                photoEntityDao.addPhotos(newPhotos)
-            }
+            photoEntityDao.addPhotos(newPhotos)
         }
 
         if (updatedPhotos.isNotEmpty()) {
-            coroutineScope.launch {
-                photoEntityDao.addPhotos(updatedPhotos)
-            }
+            photoEntityDao.addPhotos(updatedPhotos)
         }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun fetchMarsPhotos(): Flow<List<DomainPhoto>> {
+    override suspend fun fetchMarsPhotos(): Flow<List<DomainPhoto>> {
         return photoEntityDao.fetchPhotos().flatMapLatest { photosFromDb ->
             synchronizeDataFromNetAndDatabase(photosFromDb)
             photoEntityDao.fetchPhotos().map {
