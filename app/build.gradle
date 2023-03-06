@@ -11,7 +11,7 @@ android {
         applicationId "com.cmaina.tacc"
         minSdk 24
         targetSdk 33
-        versionCode 5
+        versionCode 6
         versionName "0.1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
