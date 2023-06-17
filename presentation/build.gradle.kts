@@ -83,6 +83,7 @@ dependencies {
     androidTestImplementation(TestLibraries.jUnitAndroid)
     androidTestImplementation(TestLibraries.androidEspresso)
     androidTestImplementation(TestLibraries.jUnitComposeTest)
+    androidTestImplementation(Libraries.koinCompose)
     androidTestImplementation(TestLibraries.composeUiTestManifest)
     debugImplementation(Libraries.tooling)
 }

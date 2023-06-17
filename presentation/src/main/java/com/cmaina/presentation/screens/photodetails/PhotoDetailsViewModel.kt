@@ -8,6 +8,8 @@ import com.cmaina.domain.models.specificphoto.PreviewPhotoDomainModel
 import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.NetworkResult
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class PhotoDetailsViewModel(
@@ -30,8 +32,11 @@ class PhotoDetailsViewModel(
     private val _numberOfLikes = MutableLiveData<Int>()
     val numberOfLikes: LiveData<Int> get() = _numberOfLikes
 
-    private val _isUserAuthenticated = MutableLiveData<Boolean>()
-    val isUserAuthenticated: LiveData<Boolean> get() = _isUserAuthenticated
+    private val _userIsAuthenticated = MutableStateFlow(false)
+    val userIsAuthenticated = _userIsAuthenticated.asStateFlow()
+
+    private val _messageToUser = MutableStateFlow(false)
+    val messageToUser = _messageToUser.asStateFlow()
 
     private val _relatedPhotos = MutableLiveData<List<PreviewPhotoDomainModel>>()
     val relatedPhotos: LiveData<List<PreviewPhotoDomainModel>> get() = _relatedPhotos
@@ -52,6 +57,25 @@ class PhotoDetailsViewModel(
                 }
             }
         }
+    }
+
+    private fun checkIfUserIsAuthenticated() = viewModelScope.launch {
+        authRepository.checkIfUserHasBeenAuthenticated().collect {
+            _userIsAuthenticated.value = it
+        }
+    }
+
+    fun likePhoto(photoID: String) = viewModelScope.launch {
+        checkIfUserIsAuthenticated()
+        if (_userIsAuthenticated.value) {
+            photosRepository.likePhoto(photoID)
+        } else {
+            changeMessageStatus()
+        }
+    }
+
+    fun changeMessageStatus() {
+        _messageToUser.value = !_messageToUser.value
     }
 
     fun fetchPhoto(photoId: String) {
@@ -94,11 +118,11 @@ class PhotoDetailsViewModel(
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
             is NetworkResult.Success -> {
-                _isUserAuthenticated.value = true
+                _userIsAuthenticated.value = true
                 // save token to persistence
             }
             is NetworkResult.Error -> {
-                _isUserAuthenticated.value = false
+                _userIsAuthenticated.value = false
             }
         }
     }

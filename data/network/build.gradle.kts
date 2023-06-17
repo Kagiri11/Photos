@@ -44,6 +44,7 @@ dependencies {
     implementation(Libraries.core)
     implementation(Libraries.appCompat)
     implementation(Libraries.koinCore)
+    implementation(Libraries.preferenceDataStore)
     implementation(Libraries.okHttpLoggingInterceptor)
 
     TestLibraries.also {

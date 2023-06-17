@@ -1,4 +1,4 @@
-package com.cmaina.presentation.viewmodels
+package com.cmaina.fotos
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -66,22 +66,16 @@ class MainViewModel(
         _messageToUser.value = !_messageToUser.value
     }
 
-    fun likePhoto(photoID: String) = viewModelScope.launch {
-        checkIfUserIsAuthenticated()
-        if (_userIsAuthenticated.value) {
-            photosRepository.likePhoto(photoID)
-        } else {
-            changeMessageStatus()
-        }
-    }
-
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
             is NetworkResult.Success -> {
+                Log.d("OnResumeDetailer", "Calling authenticate user here on vm with success")
                 // save token to persistence
+//                Log.d("UserAccessToken", "Token from unsplash server: ${result.data.accessToken}")
                 authRepository.saveUserAuthentication(result.data.accessToken)
             }
             is NetworkResult.Error -> {
+                Log.d("OnResumeDetailer", "Calling authenticate user here on vm with failure")
             }
         }
     }

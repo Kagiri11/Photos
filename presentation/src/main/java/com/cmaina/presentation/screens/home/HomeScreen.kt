@@ -51,9 +51,8 @@ fun HomeScreen(
                     height = Dimension.fillToConstraints
                 }
                 .fillMaxWidth(),
-
+            state = scrollState
         ) {
-
             items(myPictures!!) { pic ->
                 val photoUserName = pic?.id
                 PhotoCardItem(

@@ -93,9 +93,10 @@ dependencies {
     implementation(Libraries.fresco)
     implementation(Libraries.lifeCycle)
     implementation(Libraries.activity)
-    testImplementation(TestLibraries.jUnit)
     implementation(Libraries.playUpdate)
     implementation(Libraries.playUpdateKtx)
+    implementation("com.launchdarkly:launchdarkly-android-client-sdk:4.2.0")
+    testImplementation(TestLibraries.jUnit)
     androidTestImplementation(TestLibraries.jUnitAndroid)
     androidTestImplementation(TestLibraries.androidEspresso)
 }

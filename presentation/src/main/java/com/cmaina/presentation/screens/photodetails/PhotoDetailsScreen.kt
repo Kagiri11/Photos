@@ -3,6 +3,7 @@ package com.cmaina.presentation.screens.photodetails
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -40,15 +41,13 @@ import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
 import com.cmaina.presentation.components.photoscards.PhotosPager
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.utils.findActivity
-import com.cmaina.presentation.viewmodels.MainViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun PhotoDetailsScreen(
     photoDetailsViewModel: PhotoDetailsViewModel = getViewModel(),
     photoId: String,
-    navController: NavController,
-    mainViewModel: MainViewModel
+    navController: NavController
 ) {
     LaunchedEffect(key1 = true) {
         photoDetailsViewModel.fetchPhoto(photoId)
@@ -57,12 +56,12 @@ fun PhotoDetailsScreen(
     val userPhotoImageUrl = photoDetailsViewModel.userPhotoUrl.observeAsState("").value
     val numberOfLikes = photoDetailsViewModel.numberOfLikes.observeAsState(0).value
     val relatedImages = photoDetailsViewModel.relatedPhotosStrings.observeAsState(listOf()).value
-    val isThereMessageToTheUser = mainViewModel.messageToUser.collectAsState().value
-    val userIsAuthenticated = mainViewModel.userIsAuthenticated.collectAsState().value
+    val isThereMessageToTheUser = photoDetailsViewModel.messageToUser.collectAsState().value
+    val userIsAuthenticated = photoDetailsViewModel.userIsAuthenticated.collectAsState().value
     val userLikedThePhoto = photoDetailsViewModel.photoLikedByUser.observeAsState().value ?: false
     val context = LocalContext.current
     DisposableEffect(key1 = true) {
-        onResume(context, mainViewModel)
+        onResume(context, photoDetailsViewModel)
         onDispose {
             // do something
         }
@@ -71,7 +70,7 @@ fun PhotoDetailsScreen(
     if (isThereMessageToTheUser) {
         NotAuthenticatedDialog(
             openDialog = true,
-            onDismissed = { mainViewModel.changeMessageStatus() },
+            onDismissed = { photoDetailsViewModel.changeMessageStatus() },
             onUserAcceptedAction = { context.startAuth() }
         )
     }
@@ -90,7 +89,7 @@ fun PhotoDetailsScreen(
             userIsAuthenticated = userIsAuthenticated,
             userHasLikedPhoto = userLikedThePhoto,
             onLikeClick = {
-                mainViewModel.likePhoto(photoId)
+                photoDetailsViewModel.likePhoto(photoId)
             },
             onDownloadClick = {}
         )
@@ -200,10 +199,11 @@ fun ConstraintLayoutScope.UserSection(
     }
 }
 
-fun onResume(context: Context, mainViewModel: MainViewModel) {
+fun onResume(context: Context, viewModel: PhotoDetailsViewModel) {
     val uri = context.findActivity()?.intent?.data
     val code = uri.toString().substringAfter("code=")
-    mainViewModel.authenticateUser(code)
+    Log.d("OnResumeDetailer", "OnResume() has been called here")
+    viewModel.authenticateUser(code)
 }
 
 fun Context.startAuth() {

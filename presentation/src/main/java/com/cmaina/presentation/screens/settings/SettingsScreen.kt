@@ -21,10 +21,9 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SettingsScreen(
-    mainViewModel: com.cmaina.presentation.viewmodels.MainViewModel,
     settingsViewModel: SettingsViewModel = getViewModel()
 ) {
-    val isAppDarkTheme = mainViewModel.appTheme.collectAsState().value
+    val isAppDarkTheme = settingsViewModel.appTheme.collectAsState().value
     val isThemeDialogOpen = settingsViewModel.isThemeDialogOpen.collectAsState().value
     ConstraintLayout(
         Modifier
@@ -66,10 +65,10 @@ fun SettingsScreen(
                 isAppInDarkMode = isAppDarkTheme,
                 settingsViewModel = settingsViewModel,
                 {
-                    mainViewModel.changeAppTheme(false)
+                    settingsViewModel.changeAppTheme(false)
                 },
                 {
-                    mainViewModel.changeAppTheme(true)
+                    settingsViewModel.changeAppTheme(true)
                 }
             )
         }

@@ -1,4 +1,4 @@
-package com.cmaina.presentation.activities
+package com.cmaina.fotos
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +19,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.cmaina.presentation.viewmodels.MainViewModel
 import com.cmaina.presentation.R
 import com.cmaina.presentation.navigation.NavGraph
 import com.cmaina.presentation.navigation.bottomnav.FotosBottomNav
@@ -30,7 +29,13 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.launchdarkly.sdk.LDContext
+import com.launchdarkly.sdk.LDUser
+import com.launchdarkly.sdk.android.LDClient
+import com.launchdarkly.sdk.android.LDConfig
 import org.koin.android.ext.android.inject
+import java.util.*
+import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
 
@@ -42,6 +47,20 @@ class MainActivity : ComponentActivity() {
         appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         val mainViewModel: MainViewModel by inject()
+
+        val ldConfig =
+            LDConfig.Builder().mobileKey("mob-a69193ee-38ae-46b8-8d81-cb9f84f2cbf5").build()
+
+        val user: LDUser = LDUser.Builder("BuildConfig.LD_CLIENT_KEY")
+            .email("charlesmaish423@gmail.com")
+            .build()
+
+        val client = LDClient.init(application, ldConfig, user, 5)
+        client.setOnline()
+        val variation = client.boolVariation("android-pics", false)
+        Log.d("Variation","The current variation: $variation")
+        client.flush()
+
         installSplashScreen()
         /*appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
@@ -58,8 +77,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
-//            val theme = mainViewModel.appTheme.collectAsState().value
-//            mainViewModel.changeSystemAppBarColors(systemUiController = systemUIController, theme)
+            val theme = mainViewModel.appTheme.collectAsState().value
+            mainViewModel.changeSystemAppBarColors(systemUiController = systemUIController, theme)
             val scaffoldState = rememberScaffoldState()
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }
@@ -100,7 +119,6 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(
                             paddingValues
                         ),
-                        mainViewModel = mainViewModel
                     )
                 }
             }
