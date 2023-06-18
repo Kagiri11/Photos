@@ -1,5 +1,5 @@
 plugins {
-    id(BuildPlugins.androidApp) version "7.2.0" apply false
+    alias(libs.plugins.androidApp) version libs.versions.androidApp apply false
     id(BuildPlugins.androidLib) version "7.2.0" apply false
     id(BuildPlugins.kotlinAndroid) version "1.7.10" apply false
     id(BuildPlugins.kotlinJVM) version "1.5.30" apply false
