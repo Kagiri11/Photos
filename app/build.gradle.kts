@@ -14,7 +14,7 @@ android {
     compileSdk = Configurations.CompileSdk
     defaultConfig {
         Configurations.also {
-            applicationId = ApplicationId
+            applicationId = libs.versions.applicationId.get()
             minSdk = MinSdk
             targetSdk = TargetSdk
             versionCode = VersionCode
@@ -55,7 +55,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = "1.4.2"
     }
     packagingOptions {
         resources {
@@ -68,9 +68,9 @@ dependencies {
     implementation("androidx.profileinstaller:profileinstaller:1.2.0")
 
     // Modules
-    implementation(project(Modules.DOMAIN))
-    implementation(project(Modules.REPOSITORY))
-    implementation(project(Modules.PRESENTATION))
+    implementation(project(libs.versions.domain.get()))
+    implementation(project(libs.versions.repository.get()))
+    implementation(project(libs.versions.presentation.get()))
 
     // Libs
     implementation(libs.core)
