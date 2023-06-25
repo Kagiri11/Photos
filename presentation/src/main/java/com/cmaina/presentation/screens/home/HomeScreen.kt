@@ -1,32 +1,45 @@
 package com.cmaina.presentation.screens.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.screens.items
+import com.cmaina.presentation.screens.lazyItems
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = getViewModel(),
     navController: NavController
 ) {
     val scrollState = rememberLazyGridState()
-    val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
+    val coroutineScope = rememberCoroutineScope()
+    var myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -41,8 +54,9 @@ fun HomeScreen(
                 start.linkTo(parent.start, margin = 15.dp)
             }
         )
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Fixed(2),
             contentPadding = PaddingValues(1.dp),
             modifier = Modifier
                 .constrainAs(fotosGrid) {
@@ -51,15 +65,13 @@ fun HomeScreen(
                     height = Dimension.fillToConstraints
                 }
                 .fillMaxWidth(),
-            state = scrollState
         ) {
-            items(myPictures!!) { pic ->
-                val photoUserName = pic?.id
+            lazyItems(myPictures!!) { pic ->
                 PhotoCardItem(
                     blurHash = pic?.blurHash ?: "",
                     imageUrl = pic?.domainUrls?.small,
                     navController = navController,
-                    photoID = photoUserName ?: ""
+                    photoID = pic?.id ?: ""
                 )
             }
         }
