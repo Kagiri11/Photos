@@ -73,6 +73,7 @@ dependencies {
     implementation(project(libs.versions.presentation.get()))
 
     // Libs
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.compose.material)
@@ -97,7 +98,7 @@ dependencies {
 
     implementation(libs.fresco)
 
-    implementation(libs.activity)
+
 
     implementation("com.launchdarkly:launchdarkly-android-client-sdk:4.2.0")
     testImplementation(libs.junit)
