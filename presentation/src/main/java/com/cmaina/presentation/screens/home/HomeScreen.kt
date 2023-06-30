@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,15 +37,14 @@ fun HomeScreen(
     viewModel: HomeViewModel = getViewModel(),
     navController: NavController
 ) {
-    val scrollState = rememberLazyGridState()
-    val coroutineScope = rememberCoroutineScope()
-    var myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
+    val lazyStaggeredGridState = rememberLazyStaggeredGridState()
+    val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
 
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        val (title, searchBar, fotosGrid) = createRefs()
+        val (title, photosGrid) = createRefs()
 
         FotosTitleText(
             text = "Explore",
@@ -56,15 +56,16 @@ fun HomeScreen(
         )
 
         LazyVerticalStaggeredGrid(
-            columns = StaggeredGridCells.Fixed(2),
-            contentPadding = PaddingValues(1.dp),
             modifier = Modifier
-                .constrainAs(fotosGrid) {
+                .constrainAs(photosGrid) {
                     top.linkTo(title.bottom, margin = 10.dp)
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
                 }
                 .fillMaxWidth(),
+            columns = StaggeredGridCells.Fixed(2),
+            contentPadding = PaddingValues(1.dp),
+            state = lazyStaggeredGridState
         ) {
             lazyItems(myPictures!!) { pic ->
                 PhotoCardItem(
