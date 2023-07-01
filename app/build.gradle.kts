@@ -65,7 +65,6 @@ android {
 }
 
 dependencies {
-    implementation("androidx.profileinstaller:profileinstaller:1.2.0")
 
     // Modules
     implementation(project(libs.versions.domain.get()))
@@ -79,13 +78,19 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.profileinstaller)
+
+    implementation(libs.coil.compose)
+
+    implementation(libs.facebook.fresco)
 
     implementation(libs.google.accompanist.systemuicontroller)
     implementation(libs.google.android.play.app.update)
@@ -93,15 +98,7 @@ dependencies {
 
     implementation(libs.koin.androidx.compose)
 
-    implementation(libs.viewModel)
-    implementation(libs.coil)
-
-    implementation(libs.fresco)
-
-
-
-    implementation("com.launchdarkly:launchdarkly-android-client-sdk:4.2.0")
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.jUnitAndroid)
-    androidTestImplementation(libs.androidEspresso)
+    testImplementation(libs.junit1)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso)
 }
