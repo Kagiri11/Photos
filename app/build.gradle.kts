@@ -70,8 +70,7 @@ dependencies {
     implementation(project(libs.versions.domain.get()))
     implementation(project(libs.versions.repository.get()))
     implementation(project(libs.versions.presentation.get()))
-
-    // Libs
+    
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -87,18 +86,15 @@ dependencies {
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.profileinstaller)
-
     implementation(libs.coil.compose)
-
     implementation(libs.facebook.fresco)
-
     implementation(libs.google.accompanist.systemuicontroller)
     implementation(libs.google.android.play.app.update)
     implementation(libs.google.android.play.app.update.ktx)
-
     implementation(libs.koin.androidx.compose)
 
     testImplementation(libs.junit1)
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso)
 }

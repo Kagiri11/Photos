@@ -37,7 +37,9 @@ android {
 }
 
 dependencies {
-    implementation(coroutinesCore)
-    implementation(koinCore)
-    implementation(paging)
+
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.koin.core1)
+    implementation(libs.kotlin.coroutines.core)
+
 }

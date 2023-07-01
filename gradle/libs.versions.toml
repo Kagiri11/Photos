@@ -6,6 +6,8 @@ core = "1.7.0"
 appCompat = "1.4.1"
 coroutines = "1.6.0"
 koin = "3.2.0-beta-1"
+benchmark = "1.1.0"
+uiautomator = "2.2.0"
 sandwich = "1.2.4"
 reflection = "1.6.21"
 okHttpLoggingInterceptor = "4.10.0"
@@ -115,6 +117,7 @@ mockWebServer = { module ="com.squareup.okhttp3:mockwebserver", version.ref ="mo
 composeUiTestManifest = { module ="androidx.compose.ui:ui-test-manifest", version.ref ="compose"}
 
 androidx-activity-compose = { group="androidx.activity", name = "activity-compose", version.ref = "activity" }
+androidx-benchmark = { group="androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmark" }
 androidx-appcompat = { group="androidx.appcompat", name="appcompat", version.ref="appCompat"}
 androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose"}
 androidx-compose-runtime = { group ="androidx.compose.runtime", name="runtime", version.ref = "compose" }
@@ -140,6 +143,7 @@ androidx-room-ktx = { group ="androidx.room", name="room-ktx", version.ref = "ro
 androidx-room-runtime = { group ="androidx.room", name="room-runtime", version.ref = "room"}
 androidx-room-testing = { group ="androidx.room", name="room-testing", version.ref = "room"}
 androidx-test-espresso = { group="androidx.test.espresso", name ="espresso-core", version.ref ="espressoAndroid"}
+androidx-test-uiautomator = { group="androidx.test.uiautomator", name ="uiautomator", version.ref ="uiautomator"}
 androidx-test-ext-junit = { group="androidx.test.ext",name ="junit", version.ref ="jUnitAndroid"}
 coil-compose = {group="io.coil-kt", name ="coil-compose", version.ref ="coil"}
 facebook-fresco = { group = "com.facebook.fresco",name = "fresco", version.ref = "fresco" }
