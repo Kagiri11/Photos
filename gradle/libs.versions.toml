@@ -63,59 +63,6 @@ applicationVersionCode = "25"
 applicationId = "com.cmaina.fotos"
 
 [libraries]
-
-# To be removed
-core = { module = "androidx.core:core-ktx", version.ref = "core" }
-lifeCycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifeCycle" }
-composeMaterial = { module = "androidx.compose.material:material", version.ref = "compose" }
-material = { module = "com.google.android.material:material", version.ref = "material" }
-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "systemUIController" }
-placeholder = { module = "com.google.accompanist:accompanist-placeholder", version.ref = "placeholder" }
-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "permission" }
-composeNavigation = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
-blurHash = { module = "xyz.belvi.blurHash:blurHash", version.ref = "blurHash" }
-composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-constraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintLayout" }
-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-paging = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
-pagingCompose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
-playUpdate = { module = "com.google.android.play:app-update", version.ref = "playUpdate" }
-playUpdateKtx = { module = "com.google.android.play:app-update-ktx", version.ref = "playUpdate" }
-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "pager" }
-composeUtil = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
-composeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
-splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
-liveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
-koinCore = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koinAndroid = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koinCompose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
-truth = { module ="com.google.truth:truth", version.ref ="truth"}
-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
-viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewModel" }
-roomTesting = { module ="androidx.room:room-testing", version.ref ="room"}
-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-jUnitComposeTest = { module ="androidx.compose.ui:ui-test-junit4", version.ref ="compose"}
-room = { module = "androidx.room:room-runtime", version.ref = "room" }
-roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-roomCoroutines = { module = "androidx.room:room-ktx", version.ref = "room" }
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-okHttpLoggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttpLoggingInterceptor" }
-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-reflection = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "reflection" }
-sandwich = { module = "com.github.skydoves:sandwich", version.ref = "sandwich" }
-landscapist = { module = "com.github.skydoves:landscapist-fresco", version.ref = "landscapist" }
-preferenceDataStore = { module = "androidx.datastore:datastore-preferences", version.ref = "preferenceDatastore" }
-junit = { module ="junit:junit", version.ref ="jUnit"}
-jUnitAndroid = { module ="androidx.test.ext:junit", version.ref ="jUnitAndroid"}
-androidEspresso = { module ="androidx.test.espresso:espresso-core", version.ref ="espressoAndroid"}
-mockK = { module ="io.mockk:mockk", version.ref ="mockK"}
-fresco = { module = "com.facebook.fresco:fresco", version.ref = "fresco" }
-mockWebServer = { module ="com.squareup.okhttp3:mockwebserver", version.ref ="mockwebserver"}
-composeUiTestManifest = { module ="androidx.compose.ui:ui-test-manifest", version.ref ="compose"}
-
 androidx-activity-compose = { group="androidx.activity", name = "activity-compose", version.ref = "activity" }
 androidx-benchmark = { group="androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmark" }
 androidx-appcompat = { group="androidx.appcompat", name="appcompat", version.ref="appCompat"}

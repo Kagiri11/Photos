@@ -70,7 +70,7 @@ dependencies {
     implementation(project(libs.versions.domain.get()))
     implementation(project(libs.versions.repository.get()))
     implementation(project(libs.versions.presentation.get()))
-    
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
