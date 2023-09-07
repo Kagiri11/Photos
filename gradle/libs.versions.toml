@@ -6,6 +6,7 @@ core = "1.7.0"
 appCompat = "1.4.1"
 coroutines = "1.6.0"
 koin = "3.2.0-beta-1"
+kotlin = "1.8.22"
 benchmark = "1.1.0"
 uiautomator = "2.2.0"
 sandwich = "1.2.4"
@@ -124,8 +125,12 @@ square-retrofit2-converter-gson = { group="com.squareup.retrofit2", name ="conve
 
 [plugins]
 googleSecrets = { id = "com.google.secrets_gradle_plugin", version.ref = "googleGradleSecrets" }
+google-secret = { id = "com.google.secrets_gradle_plugin", version.ref = "googleGradleSecrets" }
 androidApp = { id = "com.android.application", version.ref = "androidApp" }
+android-application = { id = "com.android.application", version.ref = "androidApp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroid" }
+kotlin-androids = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLib = { id = "com.android.library", version.ref = "androidLib" }
+android-libary = { id = "com.android.library", version.ref = "androidLib" }
 kotlinJVM = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJVM" }
 kotlinKover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kotlinKover" }
