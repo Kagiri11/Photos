@@ -42,13 +42,12 @@ android {
 }
 
 dependencies {
-    implementation(Libraries.composeUi)
-    implementation(Libraries.composeUtil)
-    implementation(Libraries.composeRuntime)
-    implementation("androidx.test.ext:junit:1.1.3")
-    implementation("androidx.test.espresso:espresso-core:3.4.0")
-    implementation("androidx.test.uiautomator:uiautomator:2.2.0")
-    implementation("androidx.benchmark:benchmark-macro-junit4:1.1.0")
+    implementation(libs.androidx.benchmark)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.ui.util)
+    implementation(libs.androidx.test.espresso)
+    implementation(libs.androidx.test.ext.junit)
+    implementation(libs.androidx.test.uiautomator)
 }
 
 androidComponents {

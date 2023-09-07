@@ -14,7 +14,7 @@ android {
     compileSdk = Configurations.CompileSdk
     defaultConfig {
         Configurations.also {
-            applicationId = ApplicationId
+            applicationId = libs.versions.applicationId.get()
             minSdk = MinSdk
             targetSdk = TargetSdk
             versionCode = VersionCode
@@ -55,7 +55,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = "1.4.8"
     }
     packagingOptions {
         resources {
@@ -65,38 +65,39 @@ android {
 }
 
 dependencies {
-    implementation("androidx.profileinstaller:profileinstaller:1.2.0")
+
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
 
     // Modules
-    implementation(project(Modules.DOMAIN))
-    implementation(project(Modules.REPOSITORY))
-    implementation(project(Modules.PRESENTATION))
+    implementation(project(libs.versions.domain.get()))
+    implementation(project(libs.versions.repository.get()))
+    implementation(project(libs.versions.presentation.get()))
 
-    // Libs
-    implementation(libs.core)
-    implementation(libs.composeUi)
-    implementation(libs.constraintLayout)
-    implementation(libs.composeMaterial)
-    implementation(libs.preview)
-    implementation(libs.koinCompose)
-    implementation(libs.liveData)
-    implementation(libs.viewModel)
-    implementation(libs.koinCompose)
-    implementation(libs.coil)
-    implementation(libs.paging)
-    implementation(libs.pagingCompose)
-    implementation(libs.systemUiController)
-    implementation(libs.composeNavigation)
-    implementation(libs.composeMaterial)
-    implementation(libs.splashScreen)
-    implementation(libs.preview)
-    implementation(libs.fresco)
-    implementation(libs.lifeCycle)
-    implementation(libs.activity)
-    implementation(libs.playUpdate)
-    implementation(libs.playUpdateKtx)
-    implementation("com.launchdarkly:launchdarkly-android-client-sdk:4.2.0")
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.jUnitAndroid)
-    androidTestImplementation(libs.androidEspresso)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.profileinstaller)
+    implementation(libs.coil.compose)
+    implementation(libs.facebook.fresco)
+    implementation(libs.google.accompanist.systemuicontroller)
+    implementation(libs.google.android.play.app.update)
+    implementation(libs.google.android.play.app.update.ktx)
+    implementation(libs.koin.androidx.compose)
+
+    testImplementation(libs.junit1)
+
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso)
+    androidTestImplementation(composeBom)
 }

@@ -23,7 +23,7 @@ fun PhotoCardItem(
 
     Card(
         modifier = Modifier
-            .height(250.dp)
+            .height((130..250).random().dp)
             .fillMaxWidth()
             .padding(1.dp).clickable {
                 navController.navigate("photo_detail_screen/$photoID")
