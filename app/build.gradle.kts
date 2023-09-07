@@ -55,7 +55,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.2"
+        kotlinCompilerExtensionVersion = "1.4.8"
     }
     packagingOptions {
         resources {
@@ -65,6 +65,9 @@ android {
 }
 
 dependencies {
+
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
 
     // Modules
     implementation(project(libs.versions.domain.get()))
@@ -76,7 +79,6 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.runtime.livedata)
-    implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.constraintlayout.compose)
@@ -97,4 +99,5 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso)
+    androidTestImplementation(composeBom)
 }

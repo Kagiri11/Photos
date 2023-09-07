@@ -31,7 +31,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.2"
+        kotlinCompilerExtensionVersion = "1.4.8"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -44,6 +44,9 @@ android {
 
 dependencies {
 
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+
     // Modules
     implementation(project(Modules.DOMAIN))
 
@@ -51,7 +54,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.runtime.livedata)
-    implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)
     implementation(libs.androidx.constraintlayout.compose)
@@ -86,5 +88,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.koin.androidx.compose)
+    androidTestImplementation(composeBom)
 
 }

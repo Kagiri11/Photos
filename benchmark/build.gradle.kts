@@ -44,7 +44,6 @@ android {
 dependencies {
     implementation(libs.androidx.benchmark)
     implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.util)
     implementation(libs.androidx.test.espresso)
     implementation(libs.androidx.test.ext.junit)
