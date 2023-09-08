@@ -57,13 +57,15 @@ fun HomeScreen(
             contentPadding = PaddingValues(1.dp),
             state = lazyStaggeredGridState
         ) {
-            lazyItems(myPictures!!) { pic ->
-                PhotoCardItem(
-                    blurHash = pic?.blurHash ?: "",
-                    imageUrl = pic?.domainUrls?.small,
-                    navController = navController,
-                    photoID = pic?.id ?: ""
-                )
+            if (myPictures != null){
+                lazyItems(myPictures) { pic ->
+                    PhotoCardItem(
+                        blurHash = pic?.blurHash ?: "",
+                        imageUrl = pic?.domainUrls?.small,
+                        navController = navController,
+                        photoID = pic?.id ?: ""
+                    )
+                }
             }
         }
     }
