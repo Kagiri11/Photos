@@ -11,11 +11,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.cmaina.presentation.R
 import com.cmaina.presentation.components.photoscards.PhotoCardItem
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.screens.lazyItems
@@ -37,7 +39,7 @@ fun HomeScreen(
         val (title, photosGrid) = createRefs()
 
         FotosTitleText(
-            text = "Explore",
+            text = stringResource(R.string.home_title_text),
             textColor = MaterialTheme.colors.onPrimary,
             modifier = Modifier.constrainAs(title) {
                 top.linkTo(parent.top, margin = 20.dp)
@@ -57,13 +59,15 @@ fun HomeScreen(
             contentPadding = PaddingValues(1.dp),
             state = lazyStaggeredGridState
         ) {
-            lazyItems(myPictures!!) { pic ->
-                PhotoCardItem(
-                    blurHash = pic?.blurHash ?: "",
-                    imageUrl = pic?.domainUrls?.small,
-                    navController = navController,
-                    photoID = pic?.id ?: ""
-                )
+            if (myPictures != null){
+                lazyItems(myPictures) { pic ->
+                    PhotoCardItem(
+                        blurHash = pic?.blurHash ?: "",
+                        imageUrl = pic?.domainUrls?.small,
+                        navController = navController,
+                        photoID = pic?.id ?: ""
+                    )
+                }
             }
         }
     }
