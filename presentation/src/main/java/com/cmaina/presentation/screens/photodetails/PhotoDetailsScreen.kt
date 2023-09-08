@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
@@ -129,7 +130,7 @@ fun ColumnScope.LikeAndDownloadSection(
             }
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_download),
-                contentDescription = "Download photo",
+                contentDescription = stringResource(R.string.download_photo_description),
                 tint = MaterialTheme.colors.onPrimary,
                 modifier = Modifier
                     .size(35.dp)
@@ -143,7 +144,7 @@ fun ColumnScope.LikeAndDownloadSection(
             )
             Icon(
                 painter = iconPainter,
-                contentDescription = "like photo",
+                contentDescription = stringResource(R.string.like_photo_description),
                 tint = MaterialTheme.colors.onPrimary,
                 modifier = Modifier
                     .size(35.dp)
@@ -184,7 +185,7 @@ fun ConstraintLayoutScope.UserSection(
         ) {
             Image(
                 painter = painter,
-                contentDescription = "user image",
+                contentDescription = stringResource(R.string.user_image_description),
                 modifier = Modifier
                     .size(35.dp)
                     .clip(
@@ -202,7 +203,6 @@ fun ConstraintLayoutScope.UserSection(
 fun onResume(context: Context, viewModel: PhotoDetailsViewModel) {
     val uri = context.findActivity()?.intent?.data
     val code = uri.toString().substringAfter("code=")
-    Log.d("OnResumeDetailer", "OnResume() has been called here")
     viewModel.authenticateUser(code)
 }
 
