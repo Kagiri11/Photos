@@ -1,6 +1,5 @@
 package com.cmaina.fotos
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.repository.AppRepository
@@ -69,13 +68,11 @@ class MainViewModel(
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
             is NetworkResult.Success -> {
-                Log.d("OnResumeDetailer", "Calling authenticate user here on vm with success")
                 // save token to persistence
-//                Log.d("UserAccessToken", "Token from unsplash server: ${result.data.accessToken}")
                 authRepository.saveUserAuthentication(result.data.accessToken)
             }
+
             is NetworkResult.Error -> {
-                Log.d("OnResumeDetailer", "Calling authenticate user here on vm with failure")
             }
         }
     }

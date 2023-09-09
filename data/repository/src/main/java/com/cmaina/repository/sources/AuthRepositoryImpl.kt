@@ -1,6 +1,5 @@
 package com.cmaina.repository.sources
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -27,7 +26,6 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun saveUserAuthentication(accessToken: String) {
-        Log.d("UserAccessToken", "This is the token: $accessToken")
         preferences.apply {
             edit { it[userAuthenticatedPref] = true }
             edit { it[UserAccessToken] = accessToken }
@@ -42,9 +40,7 @@ class AuthRepositoryImpl(
 
     override suspend fun checkIfUserHasBeenAuthenticated(): Flow<Boolean> {
         return preferences.data.map {
-            val itali = it[userAuthenticatedPref] ?: false
-            Log.d("UserPref", "Userr ---> $itali")
-            itali
+            it[userAuthenticatedPref] ?: false
         }
     }
 }

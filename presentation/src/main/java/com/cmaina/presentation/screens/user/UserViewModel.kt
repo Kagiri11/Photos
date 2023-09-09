@@ -55,7 +55,6 @@ class UserViewModel(
     }
 
     fun fetchUserPhotos(username: String) = viewModelScope.launch {
-        Log.d("UserDomainPhotos", "This has been called")
         usersRepository.fetchUserPhotos(username = username).let {
             delay(200)
             _userPhotos.value = it

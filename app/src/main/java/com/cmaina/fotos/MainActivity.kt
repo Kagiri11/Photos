@@ -2,7 +2,6 @@ package com.cmaina.fotos
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -111,7 +110,6 @@ class MainActivity : ComponentActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == monitorAppUpdateRequest) {
             if (resultCode != RESULT_OK) {
-                Log.d("MY_APP", "Update flow failed! Result code: $resultCode")
             }
         }
     }
