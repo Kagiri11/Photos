@@ -79,7 +79,6 @@ fun UserPhoto(
         AsyncImageBlur(
             blurHash = imageBlurHash,
             imageUrl = userImageUrl,
-            resources = resources,
             modifier = Modifier.fillMaxSize()
         )
     }

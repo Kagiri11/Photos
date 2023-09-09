@@ -53,7 +53,6 @@ fun ColumnScope.PhotosPager(images: List<PhotoLikedState>, onPageSwapped: (Strin
             AsyncImageBlur(
                 blurHash = images[page].blurHash ?: "",
                 imageUrl = images[page].photoUrl ?: "",
-                resources = res,
                 modifier = Modifier.fillMaxSize()
             )
         }

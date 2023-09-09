@@ -55,11 +55,11 @@ fun SearchScreen(searchViewModel: SearchViewModel = getViewModel(), navControlle
                     val photoUserName = pic?.id
                     if (pic != null) {
                         PhotoCardItem(
-                            imageUrl = pic.domainUrls?.regular,
-                            navController = navController,
-                            photoID = photoUserName ?: "",
+                            imageUrl = pic.domainUrls?.regular ?: "",
                             blurHash = pic.blurHash ?: ""
-                        )
+                        ) {
+
+                        }
                     }
                 }
             }
