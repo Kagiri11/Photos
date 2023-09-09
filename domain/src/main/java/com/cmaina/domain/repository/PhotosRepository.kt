@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PhotosRepository {
 
-    suspend fun fetchPhotos(): Flow<PagingData<DomainPhotoListItem>>
+    suspend fun fetchPhotos(): NetworkResult<Flow<PagingData<DomainPhotoListItem>>>
 
     suspend fun getRandomPhoto(): NetworkResult<DomainPhotoListItem>
 

@@ -1,22 +1,20 @@
 package com.cmaina.presentation.screens.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.repository.PhotosRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import com.cmaina.domain.utils.NetworkResult
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val photosRepository: PhotosRepository
 ) : ViewModel() {
 
-    private val _pics = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>(flowOf())
-    val pics: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _pics
+    private val _homeUiState = MutableStateFlow(HomeUiState(isLoading = true))
+    val homeUiState: StateFlow<HomeUiState> get() = _homeUiState
 
     init {
         fetchPhotos()
@@ -24,8 +22,15 @@ class HomeViewModel(
 
     private fun fetchPhotos() {
         viewModelScope.launch {
-            photosRepository.fetchPhotos().let { pagingDataFlow ->
-                _pics.value = pagingDataFlow
+            when (val result = photosRepository.fetchPhotos()) {
+                is NetworkResult.Success -> _homeUiState.value = HomeUiState(
+                    pagedPhotos = result.data,
+                    isLoading = false
+                )
+
+
+                is NetworkResult.Error -> _homeUiState.value =
+                    HomeUiState(errorMessage = result.errorDetails, isLoading = false)
             }
         }
     }
