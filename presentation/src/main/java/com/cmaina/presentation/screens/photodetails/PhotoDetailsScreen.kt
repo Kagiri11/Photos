@@ -82,10 +82,8 @@ fun PhotoDetailsScreen(
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        var photoId = ""
-        PhotosPager(images = relatedImages) {
-            photoId = it
-            photoDetailsViewModel.checkIfPhotoIsLiked(it)
+        PhotosPager(images = relatedImages) { currentVisibleImage ->
+            photoDetailsViewModel.checkIfPhotoIsLiked(currentVisibleImage)
         }
         Spacer(modifier = Modifier.height(5.dp))
 
