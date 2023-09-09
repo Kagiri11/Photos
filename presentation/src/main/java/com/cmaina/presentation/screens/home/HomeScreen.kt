@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.cmaina.presentation.R
@@ -30,8 +31,7 @@ fun HomeScreen(
     navController: NavController
 ) {
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
-    val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
-    val myPictsures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
+    val uiState = viewModel.homeUiState.collectAsStateWithLifecycle().value
 
     ConstraintLayout(
         modifier = Modifier
@@ -48,26 +48,31 @@ fun HomeScreen(
             }
         )
 
-        LazyVerticalStaggeredGrid(
-            modifier = Modifier
-                .constrainAs(photosGrid) {
-                    top.linkTo(title.bottom, margin = 10.dp)
-                    bottom.linkTo(parent.bottom)
-                    height = Dimension.fillToConstraints
-                }
-                .fillMaxWidth(),
-            columns = StaggeredGridCells.Fixed(2),
-            contentPadding = PaddingValues(1.dp),
-            state = lazyStaggeredGridState
-        ) {
-            if (myPictures != null){
-                lazyItems(myPictures) { pic ->
-                    PhotoCardItem(
-                        blurHash = pic?.blurHash ?: "",
-                        imageUrl = pic?.domainUrls?.small,
-                        navController = navController,
-                        photoID = pic?.id ?: ""
-                    )
+        when {
+            uiState.isLoading -> {}
+            uiState.errorMessage != null -> {}
+            uiState.pagedPhotos != null -> {
+                val photos = uiState.pagedPhotos.collectAsLazyPagingItems()
+                LazyVerticalStaggeredGrid(
+                    modifier = Modifier
+                        .constrainAs(photosGrid) {
+                            top.linkTo(title.bottom, margin = 10.dp)
+                            bottom.linkTo(parent.bottom)
+                            height = Dimension.fillToConstraints
+                        }
+                        .fillMaxWidth(),
+                    columns = StaggeredGridCells.Fixed(2),
+                    contentPadding = PaddingValues(1.dp),
+                    state = lazyStaggeredGridState
+                ) {
+                    lazyItems(photos) { pic ->
+                        PhotoCardItem(
+                            blurHash = pic?.blurHash ?: "",
+                            imageUrl = pic?.domainUrls?.small,
+                            navController = navController,
+                            photoID = pic?.id ?: ""
+                        )
+                    }
                 }
             }
         }
