@@ -68,10 +68,10 @@ fun HomeScreen(
                     lazyItems(photos) { pic ->
                         PhotoCardItem(
                             blurHash = pic?.blurHash ?: "",
-                            imageUrl = pic?.domainUrls?.small,
-                            navController = navController,
-                            photoID = pic?.id ?: ""
-                        )
+                            imageUrl = pic?.domainUrls?.small ?: ""
+                        ) {
+                            navController.navigate("photo_detail_screen/${pic?.id ?: ""}")
+                        }
                     }
                 }
             }

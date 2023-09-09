@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
@@ -15,25 +16,21 @@ import androidx.navigation.NavController
 @Composable
 fun PhotoCardItem(
     blurHash: String,
-    imageUrl: String?,
-    photoID: String,
-    navController: NavController
+    imageUrl: String,
+    onPhotoClicked: () -> Unit
 ) {
-    val res = LocalContext.current.resources
 
     Card(
         modifier = Modifier
-            .height((130..250).random().dp)
+            .height((180..250).random().dp)
             .fillMaxWidth()
-            .padding(1.dp).clickable {
-                navController.navigate("photo_detail_screen/$photoID")
-            },
+            .padding(1.dp)
+            .clickable(onClick = onPhotoClicked),
         shape = RoundedCornerShape(2),
     ) {
         AsyncImageBlur(
             blurHash = blurHash,
-            imageUrl = imageUrl!!,
-            resources = res
+            imageUrl = imageUrl
         )
     }
 }
