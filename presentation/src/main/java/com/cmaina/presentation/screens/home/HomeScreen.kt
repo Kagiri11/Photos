@@ -31,6 +31,7 @@ fun HomeScreen(
 ) {
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
     val myPictures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
+    val myPictsures = viewModel.pics.observeAsState().value?.collectAsLazyPagingItems()
 
     ConstraintLayout(
         modifier = Modifier
