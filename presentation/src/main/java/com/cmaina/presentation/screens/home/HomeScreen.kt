@@ -49,7 +49,8 @@ fun HomeScreen(
         )
 
         when {
-            uiState.isLoading -> {}
+            uiState.isLoading -> {
+            }
             uiState.errorMessage != null -> {}
             uiState.pagedPhotos != null -> {
                 val photos = uiState.pagedPhotos.collectAsLazyPagingItems()

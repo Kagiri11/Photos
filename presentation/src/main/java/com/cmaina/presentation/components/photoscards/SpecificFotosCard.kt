@@ -33,23 +33,23 @@ fun ColumnScope.PhotosPager(images: List<PhotoLikedState>, onPageSwapped: (Strin
         Card(
             modifier = Modifier
                 .fillMaxHeight(0.95f)
-                .fillMaxWidth(0.95f),
-                /*.graphicsLayer {
-                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                    lerp(
-                        start = 0.85f,
+                .fillMaxWidth(0.95f)
+                .graphicsLayer {
+                    val pageOffset = (
+                            (pagerState.currentPage - page) + pagerState
+                                .currentPageOffsetFraction
+                            ).absoluteValue
+
+                    // We animate the alpha, between 50% and 100%
+                    alpha = lerp(
+                        start = 0.5f,
                         stop = 1f,
                         fraction = 1f - pageOffset.coerceIn(0f, 1f)
                     ).also { scale ->
                         scaleX = scale
                         scaleY = scale
                     }
-                    alpha = lerp(
-                        start = 0.5f,
-                        stop = 1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    )
-                },*/
+                },
             shape = RoundedCornerShape(2)
         ) {
             AsyncImageBlur(
