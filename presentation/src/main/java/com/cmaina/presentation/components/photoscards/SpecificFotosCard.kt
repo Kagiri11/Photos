@@ -20,7 +20,11 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ColumnScope.PhotosPager(images: List<PhotoLikedState>, onPageSwapped: (String) -> Unit) {
+fun ColumnScope.PhotosPager(
+    images: List<PhotoLikedState>,
+    pageInIteration: (Int) -> Unit,
+    onPageSwapped: (String) -> Unit
+) {
     val pagerState = rememberPagerState()
     HorizontalPager(
         pageCount = images.size,
@@ -29,27 +33,28 @@ fun ColumnScope.PhotosPager(images: List<PhotoLikedState>, onPageSwapped: (Strin
             .fillMaxWidth(),
         state = pagerState
     ) { page ->
+        pageInIteration(pagerState.currentPage)
         onPageSwapped(images[page].photoId ?: "")
         Card(
             modifier = Modifier
                 .fillMaxHeight(0.95f)
-                .fillMaxWidth(0.95f),
-                /*.graphicsLayer {
-                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                    lerp(
-                        start = 0.85f,
+                .fillMaxWidth(0.95f)
+                .graphicsLayer {
+                    val pageOffset = (
+                            (pagerState.currentPage - page) + pagerState
+                                .currentPageOffsetFraction
+                            ).absoluteValue
+
+                    // We animate the alpha, between 50% and 100%
+                    alpha = lerp(
+                        start = 0.5f,
                         stop = 1f,
                         fraction = 1f - pageOffset.coerceIn(0f, 1f)
                     ).also { scale ->
                         scaleX = scale
                         scaleY = scale
                     }
-                    alpha = lerp(
-                        start = 0.5f,
-                        stop = 1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    )
-                },*/
+                },
             shape = RoundedCornerShape(2)
         ) {
             AsyncImageBlur(

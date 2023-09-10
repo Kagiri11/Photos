@@ -16,7 +16,7 @@ data class SpecificPhotoDomainModel(
     val downloads: Int?,
     val height: Int?,
     val id: String?,
-    val likedByUser: Boolean?,
+    val likedByUser: Boolean,
     val likes: Int?,
     val links: DomainPhotoLinks?,
     val locationDomainModel: LocationDomainModel?,
