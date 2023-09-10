@@ -1,7 +1,5 @@
 package com.cmaina.presentation.screens.photodetails
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.models.specificphoto.PreviewPhotoDomainModel
@@ -9,6 +7,7 @@ import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.NetworkResult
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -17,20 +16,9 @@ class PhotoDetailsViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val _photoUrlLink = MutableLiveData<String>()
-    val photoUrlLink: LiveData<String> get() = _photoUrlLink
+    private val _detailsUiState = MutableStateFlow(PhotoDetailsUiState(isLoading = true))
+    val detailsUiState: StateFlow<PhotoDetailsUiState> get() = _detailsUiState
 
-    private val _blurHashCode = MutableLiveData<String>()
-    val blurHashCode: LiveData<String> get() = _blurHashCode
-
-    private val _username = MutableLiveData<String>()
-    val username: LiveData<String> get() = _username
-
-    private val _userPhotoUrl = MutableLiveData<String>()
-    val userPhotoUrl: LiveData<String> get() = _userPhotoUrl
-
-    private val _numberOfLikes = MutableLiveData<Int>()
-    val numberOfLikes: LiveData<Int> get() = _numberOfLikes
 
     private val _userIsAuthenticated = MutableStateFlow(false)
     val userIsAuthenticated = _userIsAuthenticated.asStateFlow()
@@ -38,21 +26,15 @@ class PhotoDetailsViewModel(
     private val _messageToUser = MutableStateFlow(false)
     val messageToUser = _messageToUser.asStateFlow()
 
-    private val _relatedPhotos = MutableLiveData<List<PreviewPhotoDomainModel>>()
-    val relatedPhotos: LiveData<List<PreviewPhotoDomainModel>> get() = _relatedPhotos
-
-    private val _relatedPhotosStrings = MutableLiveData<List<PhotoLikedState>>()
-    val relatedPhotosStrings: LiveData<List<PhotoLikedState>> get() = _relatedPhotosStrings
-
-    private val _photoLikedByUser = MutableLiveData<Boolean>()
-    val photoLikedByUser: LiveData<Boolean> get() = _photoLikedByUser
-
     fun checkIfPhotoIsLiked(photoId: String) {
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
                 is NetworkResult.Success -> {
-                    _photoLikedByUser.value = result.data.likedByUser
+                    val details =
+                        _detailsUiState.value.details?.copy(photoIsLikedByUser = result.data.likedByUser)
+                    _detailsUiState.value = _detailsUiState.value.copy(details = details)
                 }
+
                 is NetworkResult.Error -> {
                 }
             }
@@ -82,35 +64,38 @@ class PhotoDetailsViewModel(
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
                 is NetworkResult.Success -> {
-                    _photoUrlLink.value = result.data.urls?.raw
-                    _username.value = result.data.user?.username
-                    _numberOfLikes.value = result.data.likes
-                    _userPhotoUrl.value = result.data.user?.domainUserProfileImage?.large
-                    _blurHashCode.value = result.data.blurHash
 
-                    result.data.relatedCollectionsDomainModel?.collectionDomainModels?.map { collectionDomainModel ->
-                        _relatedPhotos.value = collectionDomainModel.previewPhotoDomainModels
-                    }
+                    with(result.data) {
+                        val strings =
+                            relatedCollectionsDomainModel?.collectionDomainModels?.first()?.previewPhotoDomainModels?.map {
+                                it.toPhotoLikedState()
+                            }?.toMutableList()
 
-                    val strings = relatedPhotos.value?.map {
-                        it.toPhotoLikedState()
-                    }?.toMutableList()
-                    strings?.add(
-                        PhotoLikedState(
-                            photoId = photoId,
-                            result.data.urls?.raw,
-                            blurHash = result.data.blurHash
+                        strings?.add(
+                            PhotoLikedState(
+                                photoId = photoId,
+                                photoUrl = urls?.raw,
+                                blurHash = blurHash
+                            )
+
                         )
-
-                    )
-                    val newPhotos = strings?.sortedWith(
-                        compareBy {
-                            it.photoUrl == _photoUrlLink.value
-                        }
-                    )?.reversed()
-                    _relatedPhotosStrings.value = newPhotos
+                        val details = Details(
+                            userName = user?.username ?: "",
+                            userPhotoImageUrl = user?.domainUserProfileImage?.large
+                                ?: "",
+                            numberOfLikes = likes ?: 0,
+                            relatedImages = strings ?: listOf(),
+                            photoIsLikedByUser = false
+                        )
+                        _detailsUiState.value =
+                            PhotoDetailsUiState(details = details, isLoading = false)
+                    }
                 }
-                is NetworkResult.Error -> {}
+
+                is NetworkResult.Error -> {
+                    _detailsUiState.value =
+                        PhotoDetailsUiState(errorMessage = result.errorDetails, isLoading = false)
+                }
             }
         }
     }
@@ -121,6 +106,7 @@ class PhotoDetailsViewModel(
                 _userIsAuthenticated.value = true
                 // save token to persistence
             }
+
             is NetworkResult.Error -> {
                 _userIsAuthenticated.value = false
             }

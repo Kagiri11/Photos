@@ -20,7 +20,11 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ColumnScope.PhotosPager(images: List<PhotoLikedState>, onPageSwapped: (String) -> Unit) {
+fun ColumnScope.PhotosPager(
+    images: List<PhotoLikedState>,
+    pageInIteration: (Int) -> Unit,
+    onPageSwapped: (String) -> Unit
+) {
     val pagerState = rememberPagerState()
     HorizontalPager(
         pageCount = images.size,
@@ -29,6 +33,7 @@ fun ColumnScope.PhotosPager(images: List<PhotoLikedState>, onPageSwapped: (Strin
             .fillMaxWidth(),
         state = pagerState
     ) { page ->
+        pageInIteration(pagerState.currentPage)
         onPageSwapped(images[page].photoId ?: "")
         Card(
             modifier = Modifier

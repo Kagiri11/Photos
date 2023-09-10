@@ -3,7 +3,7 @@ package com.cmaina.presentation.screens.photodetails
 data class PhotoDetailsUiState(
     val details: Details? = null,
     val isLoading: Boolean,
-    val errorMessage: String
+    val errorMessage: String = ""
 )
 
 data class Details(

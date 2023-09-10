@@ -1,9 +1,5 @@
 package com.cmaina.presentation.screens.photodetails
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,7 +23,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,13 +40,15 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
 import com.cmaina.presentation.components.photoscards.PhotosPager
 import com.cmaina.presentation.components.photostext.FotosText
-import com.cmaina.presentation.utils.findActivity
+import com.cmaina.presentation.utils.onResume
+import com.cmaina.presentation.utils.startAuth
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -58,13 +60,8 @@ fun PhotoDetailsScreen(
     LaunchedEffect(key1 = true) {
         photoDetailsViewModel.fetchPhoto(photoId)
     }
-    val userName = photoDetailsViewModel.username.observeAsState("").value
-    val userPhotoImageUrl = photoDetailsViewModel.userPhotoUrl.observeAsState("").value
-    val numberOfLikes = photoDetailsViewModel.numberOfLikes.observeAsState(0).value
-    val relatedImages = photoDetailsViewModel.relatedPhotosStrings.observeAsState(listOf()).value
+    val uiState = photoDetailsViewModel.detailsUiState.collectAsStateWithLifecycle().value
     val isThereMessageToTheUser = photoDetailsViewModel.messageToUser.collectAsState().value
-    val userIsAuthenticated = photoDetailsViewModel.userIsAuthenticated.collectAsState().value
-    val userLikedThePhoto = photoDetailsViewModel.photoLikedByUser.observeAsState().value ?: false
     val context = LocalContext.current
     DisposableEffect(key1 = true) {
         onResume(context, photoDetailsViewModel)
@@ -81,43 +78,60 @@ fun PhotoDetailsScreen(
         )
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        PhotosPager(images = relatedImages) { currentVisibleImage ->
-            photoDetailsViewModel.checkIfPhotoIsLiked(currentVisibleImage)
-        }
-        Spacer(modifier = Modifier.height(5.dp))
+    when {
+        uiState.isLoading -> {}
+        uiState.errorMessage.isNotEmpty() -> {}
+        uiState.details != null -> {
 
-        Row(
-            Modifier
-                .height(50.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            repeat(relatedImages.size) {
-                Box(
-                    modifier = Modifier
-                        .padding(2.dp)
-                        .clip(CircleShape)
-                        .background(Color.Black)
-                        .size(20.dp)
+            with(uiState.details) {
 
-                )
+
+                var page by remember { mutableStateOf(0) }
+                Column(modifier = Modifier.fillMaxSize()) {
+                    PhotosPager(
+                        images = relatedImages,
+                        onPageSwapped = { photoDetailsViewModel.checkIfPhotoIsLiked(it) },
+                        pageInIteration = { page = it }
+                    )
+
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Row(
+                        Modifier
+                            .height(50.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        repeat(relatedImages.size) { iteration ->
+                            val color = if (iteration == page) Color.Gray else Color.Black
+                            Box(
+                                modifier = Modifier
+                                    .padding(2.dp)
+                                    .clip(CircleShape)
+                                    .background(color)
+                                    .size(15.dp)
+
+                            )
+                        }
+
+                    }
+
+                    LikeAndDownloadSection(
+                        userName = userName,
+                        userPhotoUrl = userPhotoImageUrl,
+                        numberOfLikes = numberOfLikes,
+                        userHasLikedPhoto = photoIsLikedByUser,
+                        onLikeClick = {
+                            photoDetailsViewModel.likePhoto(photoId)
+                        },
+                        onDownloadClick = {},
+                        onUserSectionClicked = {
+                            navController.navigate("user_screen/$userName")
+                        }
+                    )
+                }
             }
-
         }
-
-        LikeAndDownloadSection(
-            userName = userName,
-            userPhotoUrl = userPhotoImageUrl,
-            numberOfLikes = numberOfLikes,
-            navController = navController,
-            userIsAuthenticated = userIsAuthenticated,
-            userHasLikedPhoto = userLikedThePhoto,
-            onLikeClick = {
-                photoDetailsViewModel.likePhoto(photoId)
-            },
-            onDownloadClick = {}
-        )
     }
 }
 
@@ -126,11 +140,10 @@ fun ColumnScope.LikeAndDownloadSection(
     userName: String,
     userPhotoUrl: String,
     numberOfLikes: Int,
-    navController: NavController,
-    userIsAuthenticated: Boolean,
     userHasLikedPhoto: Boolean,
     onLikeClick: () -> Unit,
-    onDownloadClick: () -> Unit
+    onDownloadClick: () -> Unit,
+    onUserSectionClicked: () -> Unit
 ) {
     val iconPainter =
         painterResource(id = if (userHasLikedPhoto) R.drawable.ic_favourite else R.drawable.ic_favorite_outlined)
@@ -148,10 +161,9 @@ fun ColumnScope.LikeAndDownloadSection(
                 ref = userSection,
                 numberOfLikes = numberOfLikes,
                 userName = userName,
-                userImageUrl = userPhotoUrl
-            ) {
-                navController.navigate("user_screen/$userName")
-            }
+                userImageUrl = userPhotoUrl,
+                onClick = onUserSectionClicked
+            )
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_download),
                 contentDescription = stringResource(R.string.download_photo_description),
@@ -162,9 +174,7 @@ fun ColumnScope.LikeAndDownloadSection(
                         top.linkTo(userSection.top)
                         end.linkTo(likeButton.start, margin = 20.dp)
                     }
-                    .clickable {
-                        onDownloadClick()
-                    }
+                    .clickable(onClick = onDownloadClick)
             )
             Icon(
                 painter = iconPainter,
@@ -176,9 +186,7 @@ fun ColumnScope.LikeAndDownloadSection(
                         top.linkTo(userSection.top)
                         end.linkTo(parent.end, margin = 20.dp)
                     }
-                    .clickable {
-                        onLikeClick()
-                    }
+                    .clickable(onClick = onLikeClick)
             )
         }
     }
@@ -220,27 +228,13 @@ fun ConstraintLayoutScope.UserSection(
             FotosText(text = userName, textColor = MaterialTheme.colors.onPrimary)
         }
         Spacer(modifier = Modifier.height(3.dp))
-        FotosText(text = "$numberOfLikes likes", textColor = MaterialTheme.colors.onPrimary)
+        FotosText(
+            text = stringResource(R.string.number_of_likes, numberOfLikes),
+            textColor = MaterialTheme.colors.onPrimary
+        )
     }
 }
 
-fun onResume(context: Context, viewModel: PhotoDetailsViewModel) {
-    val uri = context.findActivity()?.intent?.data
-    val code = uri.toString().substringAfter("code=")
-    viewModel.authenticateUser(code)
-}
-
-fun Context.startAuth() {
-    val uri = Uri.parse("https://unsplash.com/oauth/authorize")
-        .buildUpon()
-        .appendQueryParameter("client_id", "pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk")
-        .appendQueryParameter("redirect_uri", "fotos://callback")
-        .appendQueryParameter("response_type", "code")
-        .appendQueryParameter("scope", "public")
-        .build()
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-    this.startActivity(intent)
-}
 
 @Preview
 @Composable
