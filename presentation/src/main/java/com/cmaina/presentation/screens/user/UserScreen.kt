@@ -19,8 +19,6 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -49,9 +47,9 @@ fun UserScreen(
     navController: NavController
 ) {
     val uiState = userViewModel.uiState.collectAsStateWithLifecycle().value
+
     LaunchedEffect(key1 = true) {
         userViewModel.fetchUser(username)
-        userViewModel.fetchUserPhotos(username)
     }
     when {
         uiState.isLoading -> {}
@@ -61,7 +59,11 @@ fun UserScreen(
                 TopPart(onBackPressed = { navController.navigateUp() })
                 BottomPart(
                     userDetails = uiState.uiDetails,
-                    onUserPhotoClicked = { navController.navigate("photo_detail_screen/${it}") })
+                    onUserPhotoClicked = {
+                        if (it != null) {
+                            navController.navigate("photo_detail_screen/${it}")
+                        }
+                    })
             }
         }
     }

@@ -13,48 +13,39 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 class UserViewModel(
     private val usersRepository: UsersRepository
 ) : ViewModel() {
 
-    private val _user = MutableLiveData<UserDomainModel>()
-    val user: LiveData<UserDomainModel> get() = _user
-
-    private val _userPhotos = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>()
-    val userPhotos: LiveData<Flow<PagingData<DomainPhotoListItem>>> get() = _userPhotos
-
-    private val _userImageUrl = MutableStateFlow("")
-    val userImageUrl = _userImageUrl.asStateFlow()
-
-    private val _usersPhotoCount = MutableStateFlow(0)
-    val usersPhotoCount = _usersPhotoCount.asStateFlow()
-
-    private val _usersFollowersCount = MutableStateFlow(0)
-    val usersFollowersCount = _usersFollowersCount.asStateFlow()
-
-    private val _usersFollowingCount = MutableStateFlow(0)
-    val usersFollowingCount = _usersFollowingCount.asStateFlow()
-
     private val _uiState = MutableStateFlow(UserUiState(isLoading = true))
     val uiState: StateFlow<UserUiState> get() = _uiState
 
     fun fetchUser(username: String) = viewModelScope.launch {
-        usersRepository.fetchUser(username = username).collect { user ->
-            when (user) {
+        usersRepository.fetchUser(username = username).collect { networkResult ->
+            when (networkResult) {
                 is NetworkResult.Success -> {
-                    val details = _uiState.value.uiDetails?.copy(
-                        numberOfPhotosByUser = user.data.total_photos ?: 0,
-                        userImageUrl = user.data.profile_image?.large ?: "",
-                        followersCount = user.data.followers_count ?: 0,
-                        followingCount = user.data.following_count ?: 0,
-                        user = user.data
-                    )
-                    _uiState.value = _uiState.value.copy(uiDetails = details)
+                    with(networkResult.data) {
+                        val details = UserUiDetails(
+                            numberOfPhotosByUser = total_photos ?: 0,
+                            userImageUrl = profile_image?.large ?: "",
+                            followersCount = followers_count ?: 0,
+                            followingCount = following_count ?: 0,
+                            userPhotos = usersRepository.fetchUserPhotos(username),
+                            user = this
+                        )
+                        _uiState.value = UserUiState(uiDetails = details, isLoading = false)
+                    }
                 }
 
                 is NetworkResult.Error -> {
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        errorMessage = networkResult.errorDetails
+                    )
                 }
             }
         }
