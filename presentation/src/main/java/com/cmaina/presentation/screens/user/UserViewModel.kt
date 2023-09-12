@@ -1,6 +1,5 @@
 package com.cmaina.presentation.screens.user
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +9,9 @@ import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.repository.UsersRepository
 import com.cmaina.domain.utils.NetworkResult
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -38,16 +37,23 @@ class UserViewModel(
     private val _usersFollowingCount = MutableStateFlow(0)
     val usersFollowingCount = _usersFollowingCount.asStateFlow()
 
+    private val _uiState = MutableStateFlow(UserUiState(isLoading = true))
+    val uiState: StateFlow<UserUiState> get() = _uiState
+
     fun fetchUser(username: String) = viewModelScope.launch {
         usersRepository.fetchUser(username = username).collect { user ->
             when (user) {
                 is NetworkResult.Success -> {
-                    _user.value = user.data
-                    _usersPhotoCount.value = user.data.total_photos ?: 0
-                    _usersFollowersCount.value = user.data.followers_count ?: 0
-                    _usersFollowingCount.value = user.data.followers_count ?: 0
-                    _userImageUrl.value = user.data.profile_image?.large ?: ""
+                    val details = _uiState.value.uiDetails?.copy(
+                        numberOfPhotosByUser = user.data.total_photos ?: 0,
+                        userImageUrl = user.data.profile_image?.large ?: "",
+                        followersCount = user.data.followers_count ?: 0,
+                        followingCount = user.data.following_count ?: 0,
+                        user = user.data
+                    )
+                    _uiState.value = _uiState.value.copy(uiDetails = details)
                 }
+
                 is NetworkResult.Error -> {
                 }
             }
@@ -56,8 +62,8 @@ class UserViewModel(
 
     fun fetchUserPhotos(username: String) = viewModelScope.launch {
         usersRepository.fetchUserPhotos(username = username).let {
-            delay(200)
-            _userPhotos.value = it
+            val details = _uiState.value.uiDetails?.copy(userPhotos = it)
+            _uiState.value = _uiState.value.copy(uiDetails = details)
         }
     }
 }
