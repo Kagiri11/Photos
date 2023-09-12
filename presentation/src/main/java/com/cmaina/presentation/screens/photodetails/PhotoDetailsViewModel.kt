@@ -19,7 +19,6 @@ class PhotoDetailsViewModel(
     private val _detailsUiState = MutableStateFlow(PhotoDetailsUiState(isLoading = true))
     val detailsUiState: StateFlow<PhotoDetailsUiState> get() = _detailsUiState
 
-
     private val _userIsAuthenticated = MutableStateFlow(false)
     val userIsAuthenticated = _userIsAuthenticated.asStateFlow()
 
@@ -67,8 +66,8 @@ class PhotoDetailsViewModel(
 
                     with(result.data) {
                         val strings =
-                            relatedCollectionsDomainModel?.collectionDomainModels?.first()?.previewPhotoDomainModels?.map {
-                                it.toPhotoLikedState()
+                            relatedCollectionsDomainModel?.collectionDomainModels?.
+                            first()?.previewPhotoDomainModels?.map { it.toPhotoLikedState()
                             }?.toMutableList()
 
                         strings?.add(
