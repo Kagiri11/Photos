@@ -1,4 +1,8 @@
 # Fotos :camera:
+
+Fotos displays a list of photos fetched from the Unsplash api. It also shows related images of a
+particular photo from a particular user.
+
 <p align="center">
 <table align="center">
          <tr>
@@ -9,9 +13,15 @@
 </table>
 </p>
 
-A photo viewing application that consumes the unsplash API.
-
 [Get it on playstore](https://play.google.com/store/apps/details?id=com.cmaina.fotos)
+
+## Libraries
+
+- [Datastore](https://developer.android.com/topic/libraries/architecture/datastore)
+- [Paging](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
+- [Koin](https://insert-koin.io/)
+- [MockK](https://mockk.io/)
+
 ## Screenshots
 
 <p align="center">
