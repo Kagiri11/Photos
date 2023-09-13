@@ -19,6 +19,7 @@ particular photo from a particular user.
 - [Paging](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 - [Koin](https://insert-koin.io/)
 - [MockK](https://mockk.io/)
+- [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 
 ## Screenshots
 
