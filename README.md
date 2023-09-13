@@ -1,8 +1,3 @@
-# Fotos :camera:
-
-Fotos displays a list of photos fetched from the Unsplash api. It also shows related images of a
-particular photo from a particular user.
-
 <p align="center">
 <table align="center">
          <tr>
@@ -13,7 +8,10 @@ particular photo from a particular user.
 </table>
 </p>
 
-[Get it on playstore](https://play.google.com/store/apps/details?id=com.cmaina.fotos)
+# Fotos :camera:
+
+Fotos displays a list of photos fetched from the Unsplash api. It also shows related images of a
+particular photo from a particular user.
 
 ## Libraries
 
