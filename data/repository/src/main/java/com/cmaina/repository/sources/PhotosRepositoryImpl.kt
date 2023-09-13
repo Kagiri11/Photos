@@ -18,12 +18,12 @@ import kotlinx.coroutines.flow.Flow
 
 class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) : PhotosRepository {
 
-    override suspend fun fetchPhotos(): Flow<PagingData<DomainPhotoListItem>> {
+    override suspend fun fetchPhotos(): NetworkResult<Flow<PagingData<DomainPhotoListItem>>> {
         val pagingConfig = PagingConfig(pageSize = 30)
         val photosPager = Pager(pagingConfig) {
             PhotosPagingSource(photosRemoteSource = photosRemoteSource)
         }.flow
-        return photosPager
+        return NetworkResult.Success(photosPager)
     }
 
     override suspend fun getRandomPhoto(): NetworkResult<DomainPhotoListItem> =
@@ -44,5 +44,9 @@ class PhotosRepositoryImpl(private val photosRemoteSource: PhotosRemoteSource) :
             )
         }.flow
         return searchedPhotosPager
+    }
+
+    override suspend fun likePhoto(id: String): NetworkResult<DomainPhotoListItem> {
+        return safeApiCall { photosRemoteSource.likePhoto(id).toDomain() }
     }
 }

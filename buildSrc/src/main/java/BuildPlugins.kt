@@ -5,4 +5,5 @@ object BuildPlugins {
     const val androidLib = "com.android.library"
     const val kotlinJVM = "org.jetbrains.kotlin.jvm"
     const val kotlinKover = "org.jetbrains.kotlinx.kover"
+    const val googleServices = "com.google.gms.google-services"
 }

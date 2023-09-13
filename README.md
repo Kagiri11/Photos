@@ -11,19 +11,8 @@
 
 A photo viewing application that consumes the unsplash API.
 
-## Application Structure
-- Data
-- Domain
-- Presentation
-
+[Get it on playstore](https://play.google.com/store/apps/details?id=com.cmaina.fotos)
 ## Screenshots
-<p align="center">
-         <tr>
-            <img src="https://user-images.githubusercontent.com/59829833/183663790-9c56d6b0-8254-43d0-9a94-fc2bf9a3db56.jpg" alt="jetpack compose logo" width="250">
-            <img src="https://user-images.githubusercontent.com/59829833/183663602-8a50f70e-1a0b-4146-9677-63d0af415b2c.jpg" alt="unsplash logo" width="250">
-            <img src="https://user-images.githubusercontent.com/59829833/183664003-3dc34e44-1e92-41ee-9076-0c664c0bf2ce.jpg" alt="CI CD logo" width="250">  
-         </tr>
-</p>
 
 <p align="center">
          <tr>
@@ -32,3 +21,16 @@ A photo viewing application that consumes the unsplash API.
           <img src="https://user-images.githubusercontent.com/59829833/183674545-a0d17a94-5c46-4b64-b8bb-dfc27a2fa489.jpg" alt="CI CD logo" width="250">
          </tr>
 </p>
+
+<p align="center">
+         <tr>
+         <img src="https://user-images.githubusercontent.com/59829833/190867012-9f3f4a34-11df-492c-8201-ad53e2d28bfd.jpg" alt="CI CD logo" width="250">
+         <img src="https://user-images.githubusercontent.com/59829833/190866994-b8a81410-b8e7-4365-b819-886fd4ba4208.jpg" alt="CI CD logo" width="250">
+          <img src="https://user-images.githubusercontent.com/59829833/190866966-e814d917-dbb5-4c13-9198-16f3f1f5bd39.jpg" alt="CI CD logo" width="250">
+         </tr>
+</p>
+
+
+
+
+

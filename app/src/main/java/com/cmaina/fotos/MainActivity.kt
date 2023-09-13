@@ -1,8 +1,7 @@
-package com.cmaina.presentation.activities
+package com.cmaina.fotos
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,6 +29,7 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import org.koin.android.ext.android.inject
+import java.util.*
 
 class MainActivity : ComponentActivity() {
 
@@ -40,10 +40,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-        installSplashScreen()
         val mainViewModel: MainViewModel by inject()
 
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+        installSplashScreen()
+        /*appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
                 appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
             ) {
@@ -54,11 +54,12 @@ class MainActivity : ComponentActivity() {
                     monitorAppUpdateRequest
                 )
             }
-        }
+        }*/
         setContent {
             val navController = rememberNavController()
             val systemUIController = rememberSystemUiController()
-            mainViewModel.fetchAppTheme(systemUiController = systemUIController)
+            val theme = mainViewModel.appTheme.collectAsState().value
+            mainViewModel.changeSystemAppBarColors(systemUiController = systemUIController, theme)
             val scaffoldState = rememberScaffoldState()
             val isTopLevelDestination =
                 navController.currentBackStackEntryAsState().value?.destination?.route in TopLevelDestinations.map { it.route }
@@ -99,7 +100,6 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(
                             paddingValues
                         ),
-                        mainViewModel = mainViewModel
                     )
                 }
             }
@@ -110,7 +110,6 @@ class MainActivity : ComponentActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == monitorAppUpdateRequest) {
             if (resultCode != RESULT_OK) {
-                Log.d("MY_APP", "Update flow failed! Result code: $resultCode")
             }
         }
     }

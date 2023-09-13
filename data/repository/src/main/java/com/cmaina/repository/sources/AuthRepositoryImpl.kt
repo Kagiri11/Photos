@@ -1,6 +1,5 @@
 package com.cmaina.repository.sources
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -9,6 +8,7 @@ import com.cmaina.domain.models.auth.AuthDomainResponse
 import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.utils.NetworkResult
 import com.cmaina.network.api.AuthRemoteSource
+import com.cmaina.network.providers.UserAccessToken
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.utils.safeApiCall
 import kotlinx.coroutines.flow.Flow
@@ -25,9 +25,10 @@ class AuthRepositoryImpl(
         return safeApiCall { authRemoteSource.authorizeUser(code = authCode).toDomain() }
     }
 
-    override suspend fun saveUserAuthentication() {
-        preferences.edit {
-            it[userAuthenticatedPref] = true
+    override suspend fun saveUserAuthentication(accessToken: String) {
+        preferences.apply {
+            edit { it[userAuthenticatedPref] = true }
+            edit { it[UserAccessToken] = accessToken }
         }
     }
 
@@ -39,9 +40,7 @@ class AuthRepositoryImpl(
 
     override suspend fun checkIfUserHasBeenAuthenticated(): Flow<Boolean> {
         return preferences.data.map {
-            val itali = it[userAuthenticatedPref] ?: false
-            Log.d("UserPref", "Userr ---> $itali")
-            itali
+            it[userAuthenticatedPref] ?: false
         }
     }
 }

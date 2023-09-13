@@ -5,19 +5,16 @@ import Configurations.VersionCode
 import Configurations.VersionName
 
 plugins {
-    id(BuildPlugins.androidApp)
-    id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.googleSecrets) version Versions.googleGradleSecrets
+    id(libs.plugins.androidApp.get().pluginId)
+    id(libs.plugins.kotlinAndroid.get().pluginId)
+    alias(libs.plugins.googleSecrets)
 }
-
-val composeVersion = "1.2.0-beta01"
 
 android {
     compileSdk = Configurations.CompileSdk
-
     defaultConfig {
         Configurations.also {
-            applicationId = ApplicationId
+            applicationId = libs.versions.applicationId.get()
             minSdk = MinSdk
             targetSdk = TargetSdk
             versionCode = VersionCode
@@ -33,11 +30,18 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        create("benchmark") {
+            isDebuggable = true
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
         }
     }
     compileOptions {
@@ -51,7 +55,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
+        kotlinCompilerExtensionVersion = "1.4.8"
     }
     packagingOptions {
         resources {
@@ -62,26 +66,38 @@ android {
 
 dependencies {
 
-    implementation(Libraries.core)
-    implementation(Libraries.composeUi)
-    implementation(Libraries.constraintLayout)
-    implementation(project(Modules.DOMAIN))
-    implementation(project(Modules.REPOSITORY))
-    implementation(project(Modules.PRESENTATION))
-    implementation(Libraries.liveData)
-    implementation(Libraries.viewModel)
-    implementation(Libraries.koinCompose)
-    implementation(Libraries.coil)
-    implementation(Libraries.paging)
-    implementation(Libraries.pagingCompose)
-    implementation(Libraries.systemUiController)
-    implementation(Libraries.composeNavigation)
-    implementation(Libraries.composeMaterial)
-    implementation(Libraries.preview)
-    implementation(Libraries.fresco)
-    implementation(Libraries.lifeCycle)
-    implementation(Libraries.activity)
-    testImplementation(TestLibraries.jUnit)
-    androidTestImplementation(TestLibraries.jUnitAndroid)
-    androidTestImplementation(TestLibraries.androidEspresso)
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+
+    // Modules
+    implementation(project(libs.versions.domain.get()))
+    implementation(project(libs.versions.repository.get()))
+    implementation(project(libs.versions.presentation.get()))
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.profileinstaller)
+    implementation(libs.coil.compose)
+    implementation(libs.facebook.fresco)
+    implementation(libs.google.accompanist.systemuicontroller)
+    implementation(libs.google.android.play.app.update)
+    implementation(libs.google.android.play.app.update.ktx)
+    implementation(libs.koin.androidx.compose)
+
+    testImplementation(libs.junit1)
+
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso)
+    androidTestImplementation(composeBom)
 }

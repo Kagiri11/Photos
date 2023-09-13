@@ -11,7 +11,7 @@ android {
     compileSdk = 32
 
     defaultConfig {
-        minSdk = 21
+        minSdk = Configurations.MinSdk
         targetSdk = 32
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -37,7 +37,9 @@ android {
 }
 
 dependencies {
-    implementation(coroutinesCore)
-    implementation(koinCore)
-    implementation(paging)
+
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.koin.core1)
+    implementation(libs.kotlin.coroutines.core)
+
 }

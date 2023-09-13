@@ -20,7 +20,6 @@ import com.cmaina.presentation.navigation.Destination
 
 val TopLevelDestinations = listOf(
     Destination.HomeScreen,
-    Destination.SearchScreen,
     Destination.FavouritesScreen,
     Destination.SettingsScreen
 )

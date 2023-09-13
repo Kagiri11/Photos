@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import coil.compose.rememberImagePainter
 import com.cmaina.presentation.materials.BlurHashDecoder
 import com.facebook.imagepipeline.request.ImageRequestBuilder
@@ -19,10 +20,10 @@ fun AsyncImageBlur(
     blurHash: String,
     imageUrl: String,
     crossFadeAnimDuration: Int = 400,
-    resources: Resources,
     contentDescription: String? = null,
     contentScale: ContentScale = ContentScale.Crop
 ) {
+    val resources = LocalContext.current.resources
     val bitmap = BlurHashDecoder.decode(blurHash, 4, 3)
     val bitmapDrawable = BitmapDrawable(resources, bitmap)
     val imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(imageUrl))

@@ -5,10 +5,4 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_whiteicon</item>
         <item name="postSplashScreenTheme">@style/Theme.Fotos</item>
     </style>
-
-    <style name="Theme.SplashScreen.Starting.Dark" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#181E29</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_whiteicon</item>
-        <item name="postSplashScreenTheme">@style/Theme.Fotos</item>
-    </style>
 </resources>

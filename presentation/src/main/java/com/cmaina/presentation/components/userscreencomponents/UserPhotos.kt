@@ -30,7 +30,7 @@ import com.google.accompanist.placeholder.shimmer
 fun UserPhotos(
     modifier: Modifier = Modifier,
     photos: LazyPagingItems<DomainPhotoListItem>?,
-    navController: NavController
+    onUserPhotoClicked: (String?) -> Unit
 ) {
     val res = LocalContext.current.resources
     LazyVerticalGrid(
@@ -44,10 +44,9 @@ fun UserPhotos(
                     imageBlurHash = pic?.blurHash ?: "",
                     userImageUrl = pic?.domainUrls?.small ?: "",
                     description = pic?.description ?: "",
-                    resources = res
-                ) {
-                    navController.navigate("photo_detail_screen/${pic?.id}")
-                }
+                    resources = res,
+                    onClick = { onUserPhotoClicked(pic?.id) }
+                )
             }
         }
     }
@@ -70,16 +69,14 @@ fun UserPhoto(
                 visible = false,
                 highlight = PlaceholderHighlight.shimmer(highlightColor = FotosGreyShadeOneLightTheme),
                 color = FotosGreyShadeThreeLightTheme
-            ).clickable {
-                onClick()
-            },
+            )
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(2),
         elevation = 0.dp
     ) {
         AsyncImageBlur(
             blurHash = imageBlurHash,
             imageUrl = userImageUrl,
-            resources = resources,
             modifier = Modifier.fillMaxSize()
         )
     }

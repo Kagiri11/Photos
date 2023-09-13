@@ -15,17 +15,15 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.cmaina.presentation.R
-import com.cmaina.presentation.activities.MainViewModel
 import com.cmaina.presentation.components.settingscomponents.Setting
 import com.cmaina.presentation.components.settingscomponents.SettingItemDialog
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SettingsScreen(
-    mainViewModel: MainViewModel,
     settingsViewModel: SettingsViewModel = getViewModel()
 ) {
-    val isAppDarkTheme = mainViewModel.appTheme.collectAsState().value
+    val isAppDarkTheme = settingsViewModel.appTheme.collectAsState().value
     val isThemeDialogOpen = settingsViewModel.isThemeDialogOpen.collectAsState().value
     ConstraintLayout(
         Modifier
@@ -67,10 +65,10 @@ fun SettingsScreen(
                 isAppInDarkMode = isAppDarkTheme,
                 settingsViewModel = settingsViewModel,
                 {
-                    mainViewModel.changeAppTheme(false)
+                    settingsViewModel.changeAppTheme(false)
                 },
                 {
-                    mainViewModel.changeAppTheme(true)
+                    settingsViewModel.changeAppTheme(true)
                 }
             )
         }

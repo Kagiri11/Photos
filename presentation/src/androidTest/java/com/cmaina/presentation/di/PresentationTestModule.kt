@@ -1,9 +1,44 @@
 package com.cmaina.presentation.di
 
-import com.cmaina.presentation.activities.MainViewModel
-import org.koin.androidx.viewmodel.dsl.viewModelOf
+import androidx.paging.PagingData
+import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.models.photostats.DomainPhotoStatistics
+import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
+import com.cmaina.domain.repository.PhotosRepository
+import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.presentation.screens.home.HomeViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val presentationTestModule = module {
-    viewModelOf(::MainViewModel)
+val presentationModule = module {
+    viewModel { HomeViewModel(get()) }
+    single<PhotosRepository> { FakePhotosRepository() }
+}
+
+class FakePhotosRepository : PhotosRepository {
+    override suspend fun fetchPhotos(): Flow<PagingData<DomainPhotoListItem>> {
+        return flowOf()
+    }
+
+    override suspend fun getRandomPhoto(): NetworkResult<DomainPhotoListItem> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getSpecificPhoto(photoId: String): NetworkResult<SpecificPhotoDomainModel> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun likePhoto(id: String): NetworkResult<DomainPhotoListItem> {
+        TODO("Not yet implemented")
+    }
 }

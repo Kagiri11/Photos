@@ -1,9 +1,21 @@
+buildscript {
+    configurations.all {
+        resolutionStrategy {
+            force("com.google.guava:guava:30.1.1-jre")
+        }
+    }
+
+    dependencies {
+        classpath("com.google.gms:google-services:4.3.14")
+    }
+}
+
 plugins {
-    id(BuildPlugins.androidApp) version "7.2.0" apply false
-    id(BuildPlugins.androidLib) version "7.2.0" apply false
-    id(BuildPlugins.kotlinAndroid) version "1.6.21" apply false
-    id(BuildPlugins.kotlinJVM) version "1.5.30" apply false
-    id(BuildPlugins.kotlinKover) version "0.6.0"
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.libary) apply false
+    alias(libs.plugins.kotlin.androids) apply false
+    alias(libs.plugins.kover)
+    id("com.android.test") version "7.2.0" apply false
 }
 
 val ktlint by configurations.creating

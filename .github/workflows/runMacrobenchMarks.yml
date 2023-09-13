@@ -1,0 +1,49 @@
+name: Build and Run Fotos Macrobenchmarks
+on:
+  schedule:
+    - cron: '10 * 1 * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+#      - name: Setup JDK
+#        id: setup-java
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: "11"
+#
+#      - name: Build MacrobenchMark Sample
+#        uses: eskatos/gradle-command-action@v1
+#        env:
+#          JAVA_HOME: ${{ steps.setup-java.outputs.path }}
+#        with:
+#          arguments: build
+#          build-root-directory: ${{ github.workspace }}/...
+#          gradle-executable: ${{ github.workspace }}/.../gradlew
+#          wrapper-directory: ${{ github.workspace }}/.../gradle/wrapper
+#
+#      - name: Set up Cloud SDK
+#        uses: google-github-actions/setup-gcloud@v1
+#        with:
+#          project_id: ${{ secrets.GCP_PROJECT_ID }}
+#          service_account_key: ${{ secrets.GCP_SA_KEY }}
+#          export_default_credentials: true
+#
+#      - name: Run Macrobenchmarks
+#        run: |
+#          gcloud firebase test android run \
+#            --type instrumentation \
+#            --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/benchmark/app-benchmark.apk \
+#            --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/benchmark/macrobenchmark-benchmark.apk \
+#            --device model=redfin,version=30,locale=en,orientation=portrait \
+#            --directories-to-pull /sdcard/Download \
+#            --results-bucket gs://macrobenchmark-results \
+#            --environment-variables additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \
+#            --timeout 20m
+

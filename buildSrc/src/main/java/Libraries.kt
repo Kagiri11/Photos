@@ -91,4 +91,5 @@ object Libraries {
     const val pager = "com.google.accompanist:accompanist-pager:0.26.1-alpha"
     // compose util
     const val composeUtil = "androidx.compose.ui:ui-util:${Versions.compose}"
+    const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
 }

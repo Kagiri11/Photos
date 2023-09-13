@@ -6,7 +6,7 @@ plugins {
 android {
     compileSdk = 32
     defaultConfig {
-        minSdk = 21
+        minSdk = Configurations.MinSdk
         targetSdk = 32
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -29,18 +29,32 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    /*testOptions{
+        unitTests.all {
+            if(it.name == "testDebugUnitTest"){
+                it.extensions.configure(kotlinx.kover.api.KoverTaskExtension::class){
+
+                }
+            }
+        }
+    }*/
 }
 
 dependencies {
-    implementation(Libraries.coroutinesCore)
-    implementation(Libraries.koinCore)
-    implementation(Libraries.core)
-    implementation(Libraries.appCompat)
-    implementation(Libraries.paging)
+
     api(project(Modules.NETWORK))
     api(project(Modules.LOCAL))
     implementation(project(Modules.DOMAIN))
-    testImplementation(TestLibraries.jUnit)
-    testImplementation(TestLibraries.mockK)
-    testImplementation(TestLibraries.truth)
+
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.koin.core1)
+    implementation(libs.kotlin.coroutines.core)
+
+    testImplementation(libs.google.truth)
+    testImplementation(libs.junit1)
+    testImplementation(libs.mockk)
+
 }

@@ -39,13 +39,7 @@ fun FollowAndMessageButtons(modifier: Modifier = Modifier) {
             buttonColor = FotosBlack,
             textColor = FotosWhite,
             modifier = Modifier.weight(1f)
-        )
-        UserButton(
-            text = "Message",
-            buttonColor = FotosWhite,
-            textColor = FotosBlack,
-            modifier = Modifier.weight(1f)
-        )
+        ){}
     }
 }
 
@@ -85,16 +79,15 @@ fun DetailsColumn(text: String, number: Int) {
 }
 
 @Composable
-fun UserButton(text: String, buttonColor: Color, textColor: Color, modifier: Modifier) {
+fun UserButton(text: String, buttonColor: Color, textColor: Color, modifier: Modifier, onClick: () -> Unit) {
     Button(
-        onClick = {},
-        shape = RoundedCornerShape(15.dp),
+        onClick = {onClick()},
+        shape = RoundedCornerShape(50),
         modifier = modifier
             .height(55.dp),
         border = BorderStroke(width = 1.dp, color = FotosBlack),
         colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
         elevation = ButtonDefaults.elevation(0.dp)
-
     ) {
         FotosText(text = text, textColor = textColor)
     }

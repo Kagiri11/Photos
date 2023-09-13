@@ -38,16 +38,17 @@ android {
 }
 
 dependencies {
-    implementation(Libraries.coroutinesCore)
-    implementation(Libraries.retrofit)
-    implementation(Libraries.gson)
-    implementation(Libraries.core)
-    implementation(Libraries.appCompat)
-    implementation(Libraries.koinCore)
-    implementation(Libraries.okHttpLoggingInterceptor)
 
-    TestLibraries.also {
-        testImplementation(jUnit)
-        androidTestImplementation(jUnitAndroid)
-    }
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.datastore)
+    implementation(libs.koin.core1)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.square.retrofit2.retrofit)
+    implementation(libs.square.retrofit2.converter.gson)
+    implementation(libs.square.retrofit2.okhttp3.logging.interceptor)
+
+    testImplementation(libs.junit1)
+
+    androidTestImplementation(libs.androidx.test.ext.junit)
 }

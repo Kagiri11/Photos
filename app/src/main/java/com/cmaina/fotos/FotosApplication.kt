@@ -1,6 +1,7 @@
 package com.cmaina.fotos
 
 import android.app.Application
+import com.cmaina.fotos.di.appModule
 import com.cmaina.local.di.dataModule
 import com.cmaina.network.di.networkModule
 import com.cmaina.presentation.di.presentationModule
@@ -20,10 +21,11 @@ class FotosApplication : Application() {
             .build()
 
         Fresco.initialize(this, pipelineConfig)
-        val allModules = listOf(presentationModule, networkModule, repositoryModule, dataModule)
+        val fotosModules =
+            listOf(appModule, presentationModule, networkModule, repositoryModule, dataModule)
         startKoin {
             androidContext(this@FotosApplication)
-            modules(allModules)
+            modules(fotosModules)
         }
     }
 }

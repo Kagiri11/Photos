@@ -5,6 +5,7 @@ import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.specificphoto.SpecificPhoto
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -22,7 +23,7 @@ interface PhotosRemoteSource {
     @GET("photos/random")
     suspend fun fetchRandomPhoto(): PhotoListItem
 
-    @GET("photos/{id}/like")
+    @POST("photos/{id}/like")
     suspend fun likePhoto(
         @Path("id") id: String,
     ): PhotoListItem

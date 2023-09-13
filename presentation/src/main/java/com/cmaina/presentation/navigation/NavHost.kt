@@ -9,19 +9,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.cmaina.presentation.R
-import com.cmaina.presentation.activities.MainViewModel
 import com.cmaina.presentation.screens.favourites.FavouritesScreen
 import com.cmaina.presentation.screens.home.HomeScreen
 import com.cmaina.presentation.screens.photodetails.PhotoDetailsScreen
 import com.cmaina.presentation.screens.search.SearchScreen
 import com.cmaina.presentation.screens.settings.SettingsScreen
 import com.cmaina.presentation.screens.user.UserScreen
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun NavGraph(
     navController: NavHostController,
     modifier: Modifier,
-    mainViewModel: MainViewModel
 ) {
     NavHost(
         navController = navController,
@@ -43,8 +42,7 @@ fun NavGraph(
             photoId?.let { id ->
                 PhotoDetailsScreen(
                     photoId = id,
-                    navController = navController,
-                    mainViewModel = mainViewModel
+                    navController = navController
                 )
             }
         }
@@ -68,7 +66,7 @@ fun NavGraph(
             SearchScreen(navController = navController)
         }
         composable(route = Destination.SettingsScreen.route) {
-            SettingsScreen(mainViewModel = mainViewModel)
+            SettingsScreen()
         }
     }
 }

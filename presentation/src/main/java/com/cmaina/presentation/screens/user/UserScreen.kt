@@ -16,16 +16,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberImagePainter
@@ -45,23 +46,38 @@ fun UserScreen(
     userViewModel: UserViewModel = getViewModel(),
     navController: NavController
 ) {
+    val uiState = userViewModel.uiState.collectAsStateWithLifecycle().value
+
     LaunchedEffect(key1 = true) {
         userViewModel.fetchUser(username)
-        userViewModel.fetchUserPhotos(username)
     }
-    Column(Modifier.fillMaxSize()) {
-        TopPart(navController = navController)
-        BottomPart(navController = navController)
+    when {
+        uiState.isLoading -> {}
+        uiState.errorMessage.isNotEmpty() -> {}
+        uiState.uiDetails != null -> {
+            Column(Modifier.fillMaxSize()) {
+                TopPart(onBackPressed = { navController.navigateUp() })
+                BottomPart(
+                    userDetails = uiState.uiDetails,
+                    onUserPhotoClicked = {
+                        if (it != null) {
+                            navController.navigate("photo_detail_screen/${it}")
+                        }
+                    })
+            }
+        }
     }
+
 }
 
 // region TopPart
 @Composable
-fun TopPart(navController: NavController) {
+fun TopPart(onBackPressed: () -> Unit) {
     Column(
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(0.15f)
+            .background(color = MaterialTheme.colors.primary),
     ) {
         Spacer(modifier = Modifier.height(40.dp))
         Row(
@@ -72,14 +88,16 @@ fun TopPart(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.ic_baseline_chevron_left_24),
                 contentDescription = "back",
-                modifier = Modifier.size(30.dp).clickable {
-                    navController.navigateUp()
-                }
+                modifier = Modifier
+                    .size(30.dp)
+                    .clickable(onClick = onBackPressed),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
                 painter = painterResource(id = R.drawable.ic_more_vert),
-                contentDescription = "more"
+                contentDescription = "more",
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
             )
             Spacer(modifier = Modifier.width(20.dp))
         }
@@ -89,13 +107,10 @@ fun TopPart(navController: NavController) {
 
 // region BottomPart
 @Composable
-fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: NavController) {
-    val user = userViewModel.user.observeAsState().value
-    val photos = userViewModel.usersPhotoCount.collectAsState().value
-    val userImageUrl = userViewModel.userImageUrl.collectAsState().value
-    val followers = userViewModel.usersFollowersCount.collectAsState().value
-    val following = userViewModel.usersFollowingCount.collectAsState().value
-    val userPhotos = userViewModel.userPhotos.observeAsState().value?.collectAsLazyPagingItems()
+fun BottomPart(
+    userDetails: UserUiDetails,
+    onUserPhotoClicked: (String?) -> Unit
+) {
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -119,16 +134,18 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: Nav
                 },
             shape = CircleShape
         ) {
-            val painter = rememberImagePainter(data = userImageUrl)
+            val painter = rememberImagePainter(data = userDetails.userImageUrl)
             Image(
                 painter = painter,
                 contentDescription = "",
-                modifier = Modifier.fillMaxSize().myPlaceholder(shape = CircleShape)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .myPlaceholder(shape = CircleShape)
             )
         }
 
         FotosTitleText(
-            text = user?.name ?: "unknown user",
+            text = userDetails.user.name ?: "",
             textColor = FotosBlack,
             modifier = Modifier.constrainAs(username) {
                 start.linkTo(parent.start)
@@ -138,34 +155,44 @@ fun BottomPart(userViewModel: UserViewModel = getViewModel(), navController: Nav
         )
 
         FollowingSection(
-            modifier = Modifier.constrainAs(followingSection) {
-                top.linkTo(username.bottom, margin = 15.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }.fillMaxWidth().wrapContentHeight(),
-            photos = photos,
-            followers = followers,
-            following = following
+            modifier = Modifier
+                .constrainAs(followingSection) {
+                    top.linkTo(username.bottom, margin = 15.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            photos = userDetails.numberOfPhotosByUser,
+            followers = userDetails.followersCount,
+            following = userDetails.followingCount
         )
 
         FollowAndMessageButtons(
-            modifier = Modifier.constrainAs(followButtons) {
-                top.linkTo(followingSection.bottom, margin = 10.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }.wrapContentHeight()
+            modifier = Modifier
+                .constrainAs(followButtons) {
+                    top.linkTo(followingSection.bottom, margin = 10.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .wrapContentHeight()
         )
+        val flowOfPhotos = userDetails.userPhotos.collectAsLazyPagingItems()
         UserPhotos(
-            modifier = Modifier.constrainAs(userPhotosRef) {
-                top.linkTo(followButtons.bottom, margin = 20.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-                height = Dimension.fillToConstraints
-                width = Dimension.fillToConstraints
-            }.fillMaxWidth().fillMaxHeight(0.5f),
-            photos = userPhotos,
-            navController = navController
+            modifier = Modifier
+                .constrainAs(userPhotosRef) {
+                    top.linkTo(followButtons.bottom, margin = 20.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                    height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
+                }
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
+                .background(MaterialTheme.colors.primary),
+            photos = flowOfPhotos,
+            onUserPhotoClicked = onUserPhotoClicked
         )
     }
 }

@@ -1,5 +1,4 @@
 import Configurations.CompileSdk
-import TestLibraries.androidEspresso
 import TestLibraries.jUnit
 import TestLibraries.jUnitAndroid
 
@@ -39,12 +38,12 @@ android {
 }
 
 dependencies {
-    implementation(Libraries.koinCore)
-    api(Libraries.preferenceDataStore)
-    implementation(Libraries.gson)
 
-    TestLibraries.also {
-        testImplementation(jUnit)
-        androidTestImplementation(jUnitAndroid)
-    }
+    api(libs.androidx.datastore)
+    implementation(libs.koin.core1)
+    implementation(libs.square.retrofit2.converter.gson)
+
+    testImplementation(libs.junit1)
+
+    androidTestImplementation(libs.androidx.test.ext.junit)
 }

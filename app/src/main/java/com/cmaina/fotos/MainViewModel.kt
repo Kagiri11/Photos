@@ -1,10 +1,10 @@
-package com.cmaina.presentation.activities
+package com.cmaina.fotos
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.repository.AppRepository
 import com.cmaina.domain.repository.AuthRepository
+import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.NetworkResult
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosWhite
@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val appRepository: AppRepository,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val photosRepository: PhotosRepository
 ) : ViewModel() {
 
     private val _appTheme = MutableStateFlow(false)
@@ -28,13 +29,13 @@ class MainViewModel(
     val messageToUser = _messageToUser.asStateFlow()
 
     init {
+        fetchAppTheme()
         checkIfUserIsAuthenticated()
     }
 
-    fun fetchAppTheme(systemUiController: SystemUiController) = viewModelScope.launch {
+    private fun fetchAppTheme() = viewModelScope.launch {
         appRepository.fetchAppTheme().collect {
             _appTheme.value = it
-            changeSystemAppBarColors(systemUiController, it)
         }
     }
 
@@ -44,7 +45,7 @@ class MainViewModel(
         }
     }
 
-    private fun changeSystemAppBarColors(systemUiController: SystemUiController, theme: Boolean) =
+    fun changeSystemAppBarColors(systemUiController: SystemUiController, theme: Boolean) =
         viewModelScope.launch {
             systemUiController.setStatusBarColor(
                 when (theme) {
@@ -64,26 +65,15 @@ class MainViewModel(
         _messageToUser.value = !_messageToUser.value
     }
 
-    fun likePhoto() {
-        checkIfUserIsAuthenticated()
-        if (_userIsAuthenticated.value) {
-            // logic to like photo
-        } else {
-            changeMessageStatus()
-        }
-    }
-
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
             is NetworkResult.Success -> {
                 // save token to persistence
-                authRepository.saveUserAuthentication()
+                authRepository.saveUserAuthentication(result.data.accessToken)
             }
-            is NetworkResult.Error -> {
 
+            is NetworkResult.Error -> {
             }
         }
     }
-
-
 }
