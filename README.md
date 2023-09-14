@@ -13,6 +13,10 @@
 Fotos displays a list of photos fetched from the Unsplash api. It also shows related images of a
 particular photo from a particular user.
 
+## Features
+
+## Architecture
+
 ## Libraries
 
 - [Datastore](https://developer.android.com/topic/libraries/architecture/datastore)
@@ -38,6 +42,8 @@ particular photo from a particular user.
           <img src="https://user-images.githubusercontent.com/59829833/190866966-e814d917-dbb5-4c13-9198-16f3f1f5bd39.jpg" alt="CI CD logo" width="250">
          </tr>
 </p>
+
+## License
 
 
 
