@@ -4,38 +4,35 @@ import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.specificphoto.SpecificPhoto
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
 
-interface PhotosRemoteSource {
-    @GET("photos")
-    suspend fun fetchPhotos(
-        @Query("page") page: Int
-    ): List<PhotoListItem>
+class PhotosRemoteSource(private val client: HttpClient) {
 
-    @GET("photos/{id}")
-    suspend fun fetchPhoto(
-        @Path("id") id: String,
-    ): SpecificPhoto
+    suspend fun fetchPhotos(page: String = ""): List<PhotoListItem> = client.get("photos") {
+        url {
+            parameters.append("page", page)
+        }
+    }.body()
 
-    @GET("photos/random")
-    suspend fun fetchRandomPhoto(): PhotoListItem
+    suspend fun fetchPhoto(id: String): SpecificPhoto = client.get("photos/$id").body()
 
-    @POST("photos/{id}/like")
-    suspend fun likePhoto(
-        @Path("id") id: String,
-    ): PhotoListItem
+    suspend fun fetchRandomPhoto(): PhotoListItem = client.get("photos/random").body()
 
-    @GET("photos/{id}/statistics")
-    suspend fun fetchPhotoStatistics(
-        @Path("id") id: String,
-    ): PhotoStatistics
+    suspend fun likePhoto(id: String): PhotoListItem = client.get("photos/$id/like").body()
 
-    @GET("search/photos")
+    suspend fun fetchPhotoStatistics(id: String): PhotoStatistics =
+        client.get("photos/$id/statistics").body()
+
     suspend fun searchPhotos(
-        @Query("query") searchQuery: String,
-        @Query("page") page: Int
-    ): PhotoSearchResultDto
+        searchQuery: String,
+        page: Int
+    ): PhotoSearchResultDto = client.get("search/photos") {
+        url {
+            parameters.append("query", searchQuery)
+            parameters.append("page", page.toString())
+        }
+    }.body()
+
 }

@@ -7,6 +7,7 @@ appCompat = "1.4.1"
 coroutines = "1.6.0"
 koin = "3.2.0-beta-1"
 kotlin = "1.8.22"
+ktorVersion= "2.3.4"
 benchmark = "1.1.0"
 uiautomator = "2.2.0"
 sandwich = "1.2.4"
@@ -111,6 +112,13 @@ koin-core1 = { group = "io.insert-koin", name ="koin-core", version.ref ="koin"}
 koin-android1 = { group = "io.insert-koin", name ="koin-android", version.ref ="koin"}
 koin-androidx-compose = { group = "io.insert-koin", name ="koin-androidx-compose", version.ref ="koin"}
 kotlin-coroutines-core = { group="org.jetbrains.kotlinx", name="kotlinx-coroutines-core", version.ref ="coroutines"}
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorVersion" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktorVersion" }
+ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktorVersion" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktorVersion" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktorVersion" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktorVersion" }
+ktor-serialization = { group = "io.ktor", name = "ktor-serialization-gson", version.ref = "ktorVersion" }
 kotlin-reflection = { group="org.jetbrains.kotlin", name="kotlin-reflect", version.ref ="reflection"}
 mockk = { group="io.mockk",name ="mockk", version.ref ="mockK"}
 skydoves-sandwich = { group = "com.github.skydoves", name="sandwich", version.ref="sandwich"}

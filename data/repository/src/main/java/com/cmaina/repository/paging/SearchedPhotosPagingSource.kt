@@ -4,19 +4,19 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.utils.NetworkResult
-import com.cmaina.network.api.PhotosRemoteSource
+import com.cmaina.network.api.PhotosNetworkSource
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.utils.safeApiCall
 
 class SearchedPhotosPagingSource(
-    private val photosRemoteSource: PhotosRemoteSource,
+    private val photosNetworkSource: PhotosNetworkSource,
     private val searchString: String
 ) : PagingSource<Int, DomainPhotoListItem>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainPhotoListItem> {
         val nextPageNumber = params.key ?: 1
         val sourceResponse = safeApiCall {
-            photosRemoteSource.searchPhotos(
+            photosNetworkSource.searchPhotos(
                 searchQuery = searchString,
                 page = nextPageNumber
             )

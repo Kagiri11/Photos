@@ -2,7 +2,7 @@ package com.cmaina.repository.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadParams.Refresh
-import com.cmaina.network.api.PhotosRemoteSource
+import com.cmaina.network.api.PhotosNetworkSource
 import com.cmaina.repository.utils.DomainPhotoListItem
 import com.cmaina.repository.utils.PhotoListItem
 import com.google.common.truth.Truth.assertThat
@@ -18,18 +18,18 @@ class PhotosPagingSourceTest {
     private lateinit var photosPagingSource: PhotosPagingSource
 
     // helpers
-    private lateinit var photosRemoteSource: PhotosRemoteSource
+    private lateinit var photosNetworkSource: PhotosNetworkSource
     private val photoListItem = listOf(PhotoListItem)
 
     @Before
     fun setup() = runBlocking {
-        photosRemoteSource = mockk()
-        photosPagingSource = PhotosPagingSource(photosRemoteSource)
+        photosNetworkSource = mockk()
+        photosPagingSource = PhotosPagingSource(photosNetworkSource)
     }
 
     @Test
     fun `load returns a page on successful load of item keyed data`(): Unit = runBlocking {
-        coEvery { photosRemoteSource.fetchPhotos(1) } returns photoListItem
+        coEvery { photosNetworkSource.fetchPhotos(1) } returns photoListItem
         val loadParam = Refresh(key = 1, loadSize = 2, placeholdersEnabled = false)
         val expectedPage =
             PagingSource.LoadResult.Page(listOf(DomainPhotoListItem), prevKey = null, nextKey = 2)
@@ -38,7 +38,7 @@ class PhotosPagingSourceTest {
 
     @Test
     fun `load returns on next null on empty data`(): Unit = runBlocking {
-        coEvery { photosRemoteSource.fetchPhotos(1) } returns emptyList()
+        coEvery { photosNetworkSource.fetchPhotos(1) } returns emptyList()
         assertThat(
             photosPagingSource.load(
                 Refresh(

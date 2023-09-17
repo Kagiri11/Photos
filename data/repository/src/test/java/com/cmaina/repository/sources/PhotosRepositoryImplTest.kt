@@ -1,7 +1,7 @@
 package com.cmaina.repository.sources
 
 import com.cmaina.domain.utils.NetworkResult
-import com.cmaina.network.api.PhotosRemoteSource
+import com.cmaina.network.api.PhotosNetworkSource
 import com.cmaina.repository.utils.DomainPhotoListItem
 import com.cmaina.repository.utils.PhotoListItem
 import com.cmaina.repository.utils.SpecificDomainPhoto
@@ -16,16 +16,16 @@ import org.junit.Test
 class PhotosRepositoryImplTest {
 
     // utilities
-    private val photosRemoteSource = mockk<PhotosRemoteSource>()
+    private val photosNetworkSource = mockk<PhotosNetworkSource>()
 
     // SUT
     private lateinit var photosRepositoryImpl: PhotosRepositoryImpl
 
     @Before
     fun setup() {
-        coEvery { photosRemoteSource.fetchRandomPhoto() } returns PhotoListItem
-        coEvery { photosRemoteSource.fetchPhoto("") } returns SpecificPhoto
-        photosRepositoryImpl = PhotosRepositoryImpl(photosRemoteSource)
+        coEvery { photosNetworkSource.fetchRandomPhoto() } returns PhotoListItem
+        coEvery { photosNetworkSource.fetchPhoto("") } returns SpecificPhoto
+        photosRepositoryImpl = PhotosRepositoryImpl(photosNetworkSource)
     }
 
     @Test
