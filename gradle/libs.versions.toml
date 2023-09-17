@@ -114,6 +114,8 @@ koin-androidx-compose = { group = "io.insert-koin", name ="koin-androidx-compose
 kotlin-coroutines-core = { group="org.jetbrains.kotlinx", name="kotlinx-coroutines-core", version.ref ="coroutines"}
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorVersion" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktorVersion" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktorVersion" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktorVersion" }
 kotlin-reflection = { group="org.jetbrains.kotlin", name="kotlin-reflect", version.ref ="reflection"}
 mockk = { group="io.mockk",name ="mockk", version.ref ="mockK"}
 skydoves-sandwich = { group = "com.github.skydoves", name="sandwich", version.ref="sandwich"}

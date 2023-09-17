@@ -4,6 +4,7 @@ import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.specificphoto.SpecificPhoto
+import io.ktor.client.request.get
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -14,6 +15,8 @@ interface PhotosRemoteSource {
     suspend fun fetchPhotos(
         @Query("page") page: Int
     ): List<PhotoListItem>
+
+    suspend fun fetchPhotos() = NetworkClient.get()
 
     @GET("photos/{id}")
     suspend fun fetchPhoto(
