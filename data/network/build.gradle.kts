@@ -47,6 +47,8 @@ dependencies {
     implementation(libs.square.retrofit2.retrofit)
     implementation(libs.square.retrofit2.converter.gson)
     implementation(libs.square.retrofit2.okhttp3.logging.interceptor)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
 
     testImplementation(libs.junit1)
 
