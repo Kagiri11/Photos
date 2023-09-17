@@ -10,13 +10,11 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface PhotosRemoteSource {
+interface PhotosNetworkSource {
     @GET("photos")
     suspend fun fetchPhotos(
         @Query("page") page: Int
     ): List<PhotoListItem>
-
-    suspend fun fetchPhotos() = NetworkClient.get("")
 
     @GET("photos/{id}")
     suspend fun fetchPhoto(
