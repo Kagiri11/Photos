@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.square.retrofit2.okhttp3.logging.interceptor)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.logging)
 
     testImplementation(libs.junit1)
 
