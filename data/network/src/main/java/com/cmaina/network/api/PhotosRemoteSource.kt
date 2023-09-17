@@ -16,7 +16,7 @@ interface PhotosRemoteSource {
         @Query("page") page: Int
     ): List<PhotoListItem>
 
-    suspend fun fetchPhotos() = NetworkClient.get()
+    suspend fun fetchPhotos() = NetworkClient.get("")
 
     @GET("photos/{id}")
     suspend fun fetchPhoto(

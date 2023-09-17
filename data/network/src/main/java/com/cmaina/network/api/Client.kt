@@ -1,16 +1,33 @@
 package com.cmaina.network.api
 
 import android.util.Log
+import com.cmaina.network.utils.TokenStorage
 import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerTokens
+import io.ktor.client.plugins.auth.providers.bearer
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.observer.ResponseObserver
-import java.util.logging.Level
+import io.ktor.serialization.gson.gson
 
-val NetworkClient = HttpClient(CIO) {
+internal val NetworkClient = HttpClient(CIO) {
+
+    install(ContentNegotiation) {
+        gson()
+    }
+
+    install(Auth) {
+        bearer {
+            loadTokens {
+                TokenStorage.first()
+            }
+        }
+    }
 
     install(Logging) {
         logger = object : Logger {
