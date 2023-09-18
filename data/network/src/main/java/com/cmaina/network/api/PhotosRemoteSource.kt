@@ -16,7 +16,7 @@ class PhotosRemoteSource(private val client: HttpClient) {
         }
     }.body()
 
-    suspend fun fetchPhoto(id: String): SpecificPhoto = client.get("photos/$id").body()
+    suspend fun fetchPhoto(id: String) = client.get("photos/$id")
 
     suspend fun fetchRandomPhoto(): PhotoListItem = client.get("photos/random").body()
 
