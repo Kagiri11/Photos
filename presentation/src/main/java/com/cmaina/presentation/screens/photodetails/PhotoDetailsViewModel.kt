@@ -28,13 +28,13 @@ class PhotoDetailsViewModel(
     fun checkIfPhotoIsLiked(photoId: String) {
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
-                is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
+                is Result.Success -> {
                     val details =
                         _detailsUiState.value.details?.copy(photoIsLikedByUser = result.data.likedByUser)
                     _detailsUiState.value = _detailsUiState.value.copy(details = details)
                 }
 
-                is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
+                is Result.Error -> {
                 }
             }
         }
@@ -62,12 +62,12 @@ class PhotoDetailsViewModel(
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
-                is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
+                is Result.Success -> {
 
                     with(result.data) {
                         val strings =
-                            relatedCollectionsDomainModel?.collectionDomainModels?.
-                            first()?.previewPhotoDomainModels?.map { it.toPhotoLikedState()
+                            relatedCollectionsDomainModel?.collectionDomainModels?.first()?.previewPhotoDomainModels?.map {
+                                it.toPhotoLikedState()
                             }?.toMutableList()
 
                         strings?.add(
@@ -91,7 +91,7 @@ class PhotoDetailsViewModel(
                     }
                 }
 
-                is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
+                is Result.Error -> {
                     _detailsUiState.value =
                         PhotoDetailsUiState(errorMessage = result.errorDetails, isLoading = false)
                 }
@@ -101,12 +101,12 @@ class PhotoDetailsViewModel(
 
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
-            is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
+            is Result.Success -> {
                 _userIsAuthenticated.value = true
                 // save token to persistence
             }
 
-            is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
+            is Result.Error -> {
                 _userIsAuthenticated.value = false
             }
         }

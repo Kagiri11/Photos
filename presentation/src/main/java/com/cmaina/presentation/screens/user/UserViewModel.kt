@@ -18,7 +18,7 @@ class UserViewModel(
     fun fetchUser(username: String) = viewModelScope.launch {
         usersRepository.fetchUser(username = username).collect { networkResult ->
             when (networkResult) {
-                is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
+                is Result.Success -> {
                     with(networkResult.data) {
                         val details = UserUiDetails(
                             numberOfPhotosByUser = total_photos ?: 0,
@@ -32,7 +32,7 @@ class UserViewModel(
                     }
                 }
 
-                is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
+                is Result.Error -> {
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         errorMessage = networkResult.errorDetails

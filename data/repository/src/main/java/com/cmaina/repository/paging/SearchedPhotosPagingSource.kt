@@ -25,7 +25,7 @@ class SearchedPhotosPagingSource(
         return when (
             sourceResponse
         ) {
-            is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
+            is Result.Success -> {
                 val dataResponse = sourceResponse.data.results.map { it.toDomain() }
                 LoadResult.Page(
                     data = dataResponse,
@@ -33,7 +33,8 @@ class SearchedPhotosPagingSource(
                     nextKey = nextPageNumber + (params.loadSize / 10)
                 )
             }
-            is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
+
+            is Result.Error -> {
                 LoadResult.Error(throwable = Throwable(sourceResponse.errorDetails))
             }
         }

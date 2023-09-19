@@ -67,12 +67,12 @@ class MainViewModel(
 
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
-            is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
+            is Result.Success -> {
                 // save token to persistence
                 authRepository.saveUserAuthentication(result.data.accessToken)
             }
 
-            is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
+            is Result.Error -> {
             }
         }
     }

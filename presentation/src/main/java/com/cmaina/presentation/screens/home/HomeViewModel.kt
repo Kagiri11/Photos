@@ -22,13 +22,13 @@ class HomeViewModel(
     private fun fetchPhotos() {
         viewModelScope.launch {
             when (val result = photosRepository.fetchPhotos()) {
-                is com.cmaina.domain.utils.NetworkResult.Result.Success -> _homeUiState.value = HomeUiState(
+                is Result.Success -> _homeUiState.value = HomeUiState(
                     pagedPhotos = result.data,
                     isLoading = false
                 )
 
 
-                is com.cmaina.domain.utils.NetworkResult.Result.Error -> _homeUiState.value =
+                is Result.Error -> _homeUiState.value =
                     HomeUiState(errorMessage = result.errorDetails, isLoading = false)
             }
         }

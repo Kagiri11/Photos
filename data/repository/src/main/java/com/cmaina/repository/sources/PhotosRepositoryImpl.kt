@@ -31,7 +31,7 @@ class PhotosRepositoryImpl(
     override suspend fun fetchPhotos(): Result<Flow<PagingData<DomainPhotoListItem>>> {
         val pagingConfig = PagingConfig(pageSize = 30)
         val photosPager = Pager(pagingConfig) {
-            PhotosPagingSource(photosNetworkSource = photosRemoteSource)
+            PhotosPagingSource(photosRemoteSource = photosRemoteSource)
         }.flow
         return Result.Success(photosPager)
     }

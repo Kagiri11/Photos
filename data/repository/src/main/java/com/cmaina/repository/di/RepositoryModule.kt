@@ -11,7 +11,7 @@ import com.cmaina.repository.sources.UsersRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<PhotosRepository> { PhotosRepositoryImpl(get()) }
+    single<PhotosRepository> { PhotosRepositoryImpl(photosNetworkSource = get(), photosRemoteSource = get()) }
     factory<UsersRepository> { UsersRepositoryImpl(get()) }
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     factory<AppRepository> { AppRepositoryImpl(get()) }
