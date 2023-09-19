@@ -5,7 +5,7 @@ import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import com.cmaina.presentation.screens.home.HomeViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -22,15 +22,15 @@ class FakePhotosRepository : PhotosRepository {
         return flowOf()
     }
 
-    override suspend fun getRandomPhoto(): NetworkResult<DomainPhotoListItem> {
+    override suspend fun getRandomPhoto(): Result<DomainPhotoListItem> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSpecificPhoto(photoId: String): NetworkResult<SpecificPhotoDomainModel> {
+    override suspend fun getSpecificPhoto(photoId: String): Result<SpecificPhotoDomainModel> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPhotoStatistics(photoId: String): Flow<NetworkResult<DomainPhotoStatistics>> {
+    override suspend fun getPhotoStatistics(photoId: String): Flow<Result<DomainPhotoStatistics>> {
         TODO("Not yet implemented")
     }
 
@@ -38,7 +38,7 @@ class FakePhotosRepository : PhotosRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun likePhoto(id: String): NetworkResult<DomainPhotoListItem> {
+    override suspend fun likePhoto(id: String): Result<DomainPhotoListItem> {
         TODO("Not yet implemented")
     }
 }

@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import com.cmaina.domain.models.auth.AuthDomainResponse
 import com.cmaina.domain.repository.AuthRepository
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import com.cmaina.network.api.AuthRemoteSource
 import com.cmaina.network.providers.UserAccessToken
 import com.cmaina.repository.mappers.toDomain
@@ -21,7 +21,7 @@ class AuthRepositoryImpl(
 
     private val userAuthenticatedPref = booleanPreferencesKey("userAuthenticated")
 
-    override suspend fun authenticateUser(authCode: String): NetworkResult<AuthDomainResponse> {
+    override suspend fun authenticateUser(authCode: String): Result<AuthDomainResponse> {
         return safeApiCall { authRemoteSource.authorizeUser(code = authCode).toDomain() }
     }
 

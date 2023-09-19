@@ -4,38 +4,36 @@ import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.specificphoto.SpecificPhoto
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
 
-interface PhotosRemoteSource {
-    @GET("photos")
-    suspend fun fetchPhotos(
-        @Query("page") page: Int
-    ): List<PhotoListItem>
+val BASEURL = "https://api.unsplash.com/"
+class PhotosRemoteSource(private val client: HttpClient) {
 
-    @GET("photos/{id}")
-    suspend fun fetchPhoto(
-        @Path("id") id: String,
-    ): SpecificPhoto
+    suspend fun fetchPhotos(page: Int ) = client.get(urlString = "${BASEURL}photos") {
+        url {
+            parameters.append("page", "$page")
+        }
+    }
 
-    @GET("photos/random")
-    suspend fun fetchRandomPhoto(): PhotoListItem
+    suspend fun fetchPhoto(id: String) = client.get("${BASEURL}photos/$id")
 
-    @POST("photos/{id}/like")
-    suspend fun likePhoto(
-        @Path("id") id: String,
-    ): PhotoListItem
+    suspend fun fetchRandomPhoto() = client.get("${BASEURL}photos/random")
 
-    @GET("photos/{id}/statistics")
-    suspend fun fetchPhotoStatistics(
-        @Path("id") id: String,
-    ): PhotoStatistics
+    suspend fun likePhoto(id: String) = client.get("photos/$id/like")
 
-    @GET("search/photos")
+    suspend fun fetchPhotoStatistics(id: String) =
+        client.get("${BASEURL}photos/$id/statistics")
+
     suspend fun searchPhotos(
-        @Query("query") searchQuery: String,
-        @Query("page") page: Int
-    ): PhotoSearchResultDto
+        searchQuery: String,
+        page: Int
+    ) = client.get("${BASEURL}search/photos") {
+        url {
+            parameters.append("query", searchQuery)
+            parameters.append("page", page.toString())
+        }
+    }
+
 }

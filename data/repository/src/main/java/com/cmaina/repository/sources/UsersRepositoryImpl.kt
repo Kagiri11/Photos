@@ -8,7 +8,7 @@ import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.models.users.portfolio.UserPortFolioDomainModel
 import com.cmaina.domain.models.users.statistics.UserStatistics
 import com.cmaina.domain.repository.UsersRepository
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import com.cmaina.network.api.UsersRemoteSource
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.UserPhotosPagingSource
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.flowOf
 
 class UsersRepositoryImpl(private val usersRemoteSource: UsersRemoteSource) : UsersRepository {
 
-    override suspend fun fetchUser(username: String): Flow<NetworkResult<UserDomainModel>> =
+    override suspend fun fetchUser(username: String): Flow<Result<UserDomainModel>> =
         flowSafeApiCall { usersRemoteSource.getUser(username = username).toDomain() }
 
     override suspend fun fetchUserProfile(): Flow<UserDomainModel> {

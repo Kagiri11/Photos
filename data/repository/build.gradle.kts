@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.androidx.paging.runtime)
     implementation(libs.koin.core1)
     implementation(libs.kotlin.coroutines.core)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
 
     testImplementation(libs.google.truth)
     testImplementation(libs.junit1)

@@ -1,7 +1,7 @@
 package com.cmaina.repository.sources
 
-import com.cmaina.domain.utils.NetworkResult
-import com.cmaina.network.api.PhotosRemoteSource
+import com.cmaina.domain.utils.Result
+import com.cmaina.network.api.PhotosNetworkSource
 import com.cmaina.repository.utils.DomainPhotoListItem
 import com.cmaina.repository.utils.PhotoListItem
 import com.cmaina.repository.utils.SpecificDomainPhoto
@@ -16,25 +16,25 @@ import org.junit.Test
 class PhotosRepositoryImplTest {
 
     // utilities
-    private val photosRemoteSource = mockk<PhotosRemoteSource>()
+    private val photosNetworkSource = mockk<PhotosNetworkSource>()
 
     // SUT
     private lateinit var photosRepositoryImpl: PhotosRepositoryImpl
 
     @Before
     fun setup() {
-        coEvery { photosRemoteSource.fetchRandomPhoto() } returns PhotoListItem
-        coEvery { photosRemoteSource.fetchPhoto("") } returns SpecificPhoto
-        photosRepositoryImpl = PhotosRepositoryImpl(photosRemoteSource)
+        coEvery { photosNetworkSource.fetchRandomPhoto() } returns PhotoListItem
+        coEvery { photosNetworkSource.fetchPhoto("") } returns SpecificPhoto
+        photosRepositoryImpl = PhotosRepositoryImpl(photosNetworkSource)
     }
 
     @Test
     fun checkThatGetRandomPhotoReturnsARandomDomainPhoto() = runBlocking {
-        assertThat(photosRepositoryImpl.getRandomPhoto()).isEqualTo(NetworkResult.Success(data = DomainPhotoListItem))
+        assertThat(photosRepositoryImpl.getRandomPhoto()).isEqualTo(Result.Success(data = DomainPhotoListItem))
     }
 
     @Test
     fun checkThatGetSpecificPhotoReturnsASpecificDomainPhoto() = runBlocking {
-        assertThat(photosRepositoryImpl.getSpecificPhoto("")).isEqualTo(NetworkResult.Success(data = SpecificDomainPhoto))
+        assertThat(photosRepositoryImpl.getSpecificPhoto("")).isEqualTo(Result.Success(data = SpecificDomainPhoto))
     }
 }
