@@ -1,34 +1,19 @@
 package com.cmaina.network.api
 
-import com.cmaina.network.models.photos.PhotoListItem
-import com.cmaina.network.models.users.UserDto
-import com.cmaina.network.models.users.portfolio.UserPortFolioDto
-import com.cmaina.network.models.users.statistics.UserStatistics
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.cmaina.network.utils.Constants.BASEURL
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
 
-interface UsersRemoteSource {
-    @GET("users/{username}")
-    suspend fun getUser(
-        @Path("username") username: String,
-    ): UserDto
+class UsersRemoteSource(private val client: HttpClient) {
 
-    @GET("users/{username}/portfolio")
-    suspend fun getUserPortFolio(
-        @Path("username") username: String,
-    ): UserPortFolioDto
+    suspend fun getUser(username: String) = client.get("${BASEURL}users/$username")
 
-    @GET("users/{username}/photos")
     suspend fun getUserPhotos(
-        @Path("username") username: String,
-        @Query("page") page: Int
-    ): List<PhotoListItem>
-
-    @GET("users/{username}/statistics")
-    suspend fun getUserStatistics(
-        @Path("username") username: String,
-        @Header("Authorization") authorization: String = "Client-ID pbq2xfRl6EbYjlRQeGfkp5dBfdzSuETZQiBPrbSSswk"
-    ): UserStatistics
+        username: String,
+        page: Int
+    ) = client.get("${BASEURL}users/$username/photos"){
+        url{
+            parameters.append("page", "$page")
+        }
+    }
 }

@@ -4,11 +4,12 @@ import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.specificphoto.SpecificPhoto
+import com.cmaina.network.utils.Constants.BASEURL
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 
-val BASEURL = "https://api.unsplash.com/"
+
 class PhotosRemoteSource(private val client: HttpClient) {
 
     suspend fun fetchPhotos(page: Int ) = client.get(urlString = "${BASEURL}photos") {
