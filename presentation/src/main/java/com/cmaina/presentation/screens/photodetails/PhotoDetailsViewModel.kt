@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.models.specificphoto.PreviewPhotoDomainModel
 import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.repository.PhotosRepository
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,13 +28,13 @@ class PhotoDetailsViewModel(
     fun checkIfPhotoIsLiked(photoId: String) {
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
-                is NetworkResult.Success -> {
+                is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
                     val details =
                         _detailsUiState.value.details?.copy(photoIsLikedByUser = result.data.likedByUser)
                     _detailsUiState.value = _detailsUiState.value.copy(details = details)
                 }
 
-                is NetworkResult.Error -> {
+                is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
                 }
             }
         }
@@ -62,7 +62,7 @@ class PhotoDetailsViewModel(
     fun fetchPhoto(photoId: String) {
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
-                is NetworkResult.Success -> {
+                is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
 
                     with(result.data) {
                         val strings =
@@ -91,7 +91,7 @@ class PhotoDetailsViewModel(
                     }
                 }
 
-                is NetworkResult.Error -> {
+                is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
                     _detailsUiState.value =
                         PhotoDetailsUiState(errorMessage = result.errorDetails, isLoading = false)
                 }
@@ -101,12 +101,12 @@ class PhotoDetailsViewModel(
 
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
-            is NetworkResult.Success -> {
+            is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
                 _userIsAuthenticated.value = true
                 // save token to persistence
             }
 
-            is NetworkResult.Error -> {
+            is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
                 _userIsAuthenticated.value = false
             }
         }

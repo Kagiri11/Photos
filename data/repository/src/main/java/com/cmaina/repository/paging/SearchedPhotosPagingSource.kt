@@ -3,7 +3,7 @@ package com.cmaina.repository.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.cmaina.domain.models.photos.DomainPhotoListItem
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import com.cmaina.network.api.PhotosNetworkSource
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.utils.safeApiCall
@@ -25,7 +25,7 @@ class SearchedPhotosPagingSource(
         return when (
             sourceResponse
         ) {
-            is NetworkResult.Success -> {
+            is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
                 val dataResponse = sourceResponse.data.results.map { it.toDomain() }
                 LoadResult.Page(
                     data = dataResponse,
@@ -33,7 +33,7 @@ class SearchedPhotosPagingSource(
                     nextKey = nextPageNumber + (params.loadSize / 10)
                 )
             }
-            is NetworkResult.Error -> {
+            is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
                 LoadResult.Error(throwable = Throwable(sourceResponse.errorDetails))
             }
         }

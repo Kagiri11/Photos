@@ -10,20 +10,20 @@ import io.ktor.client.request.get
 
 class PhotosRemoteSource(private val client: HttpClient) {
 
-    suspend fun fetchPhotos(page: String = ""): List<PhotoListItem> = client.get("photos") {
+    suspend fun fetchPhotos(page: Int ) = client.get("photos") {
         url {
-            parameters.append("page", page)
+            parameters.append("page", "$page")
         }
-    }.body()
+    }
 
     suspend fun fetchPhoto(id: String) = client.get("photos/$id")
 
-    suspend fun fetchRandomPhoto(): PhotoListItem = client.get("photos/random").body()
+    suspend fun fetchRandomPhoto() = client.get("photos/random")
 
     suspend fun likePhoto(id: String): PhotoListItem = client.get("photos/$id/like").body()
 
-    suspend fun fetchPhotoStatistics(id: String): PhotoStatistics =
-        client.get("photos/$id/statistics").body()
+    suspend fun fetchPhotoStatistics(id: String) =
+        client.get("photos/$id/statistics")
 
     suspend fun searchPhotos(
         searchQuery: String,

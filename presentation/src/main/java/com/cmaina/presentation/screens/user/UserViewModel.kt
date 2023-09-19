@@ -1,20 +1,11 @@
 package com.cmaina.presentation.screens.user
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import com.cmaina.domain.models.photos.DomainPhotoListItem
-import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.repository.UsersRepository
-import com.cmaina.domain.utils.NetworkResult
-import kotlinx.coroutines.flow.Flow
+import com.cmaina.domain.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 class UserViewModel(
@@ -27,7 +18,7 @@ class UserViewModel(
     fun fetchUser(username: String) = viewModelScope.launch {
         usersRepository.fetchUser(username = username).collect { networkResult ->
             when (networkResult) {
-                is NetworkResult.Success -> {
+                is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
                     with(networkResult.data) {
                         val details = UserUiDetails(
                             numberOfPhotosByUser = total_photos ?: 0,
@@ -41,7 +32,7 @@ class UserViewModel(
                     }
                 }
 
-                is NetworkResult.Error -> {
+                is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         errorMessage = networkResult.errorDetails

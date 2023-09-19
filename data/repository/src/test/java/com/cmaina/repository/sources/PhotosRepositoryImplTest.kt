@@ -1,6 +1,6 @@
 package com.cmaina.repository.sources
 
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import com.cmaina.network.api.PhotosNetworkSource
 import com.cmaina.repository.utils.DomainPhotoListItem
 import com.cmaina.repository.utils.PhotoListItem
@@ -30,11 +30,11 @@ class PhotosRepositoryImplTest {
 
     @Test
     fun checkThatGetRandomPhotoReturnsARandomDomainPhoto() = runBlocking {
-        assertThat(photosRepositoryImpl.getRandomPhoto()).isEqualTo(NetworkResult.Success(data = DomainPhotoListItem))
+        assertThat(photosRepositoryImpl.getRandomPhoto()).isEqualTo(Result.Success(data = DomainPhotoListItem))
     }
 
     @Test
     fun checkThatGetSpecificPhotoReturnsASpecificDomainPhoto() = runBlocking {
-        assertThat(photosRepositoryImpl.getSpecificPhoto("")).isEqualTo(NetworkResult.Success(data = SpecificDomainPhoto))
+        assertThat(photosRepositoryImpl.getSpecificPhoto("")).isEqualTo(Result.Success(data = SpecificDomainPhoto))
     }
 }

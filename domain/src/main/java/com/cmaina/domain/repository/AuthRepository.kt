@@ -1,11 +1,11 @@
 package com.cmaina.domain.repository
 
 import com.cmaina.domain.models.auth.AuthDomainResponse
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
-    suspend fun authenticateUser(authCode: String): NetworkResult<AuthDomainResponse>
+    suspend fun authenticateUser(authCode: String): Result<AuthDomainResponse>
 
     suspend fun saveUserAuthentication(accessToken: String)
 

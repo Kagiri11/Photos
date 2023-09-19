@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.repository.AppRepository
 import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.repository.PhotosRepository
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import com.cmaina.presentation.ui.theme.FotosBlack
 import com.cmaina.presentation.ui.theme.FotosWhite
 import com.google.accompanist.systemuicontroller.SystemUiController
@@ -67,12 +67,12 @@ class MainViewModel(
 
     fun authenticateUser(authCode: String) = viewModelScope.launch {
         when (val result = authRepository.authenticateUser(authCode = authCode)) {
-            is NetworkResult.Success -> {
+            is com.cmaina.domain.utils.NetworkResult.Result.Success -> {
                 // save token to persistence
                 authRepository.saveUserAuthentication(result.data.accessToken)
             }
 
-            is NetworkResult.Error -> {
+            is com.cmaina.domain.utils.NetworkResult.Result.Error -> {
             }
         }
     }

@@ -3,10 +3,9 @@ package com.cmaina.presentation.screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.repository.PhotosRepository
-import com.cmaina.domain.utils.NetworkResult
+import com.cmaina.domain.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -23,13 +22,13 @@ class HomeViewModel(
     private fun fetchPhotos() {
         viewModelScope.launch {
             when (val result = photosRepository.fetchPhotos()) {
-                is NetworkResult.Success -> _homeUiState.value = HomeUiState(
+                is com.cmaina.domain.utils.NetworkResult.Result.Success -> _homeUiState.value = HomeUiState(
                     pagedPhotos = result.data,
                     isLoading = false
                 )
 
 
-                is NetworkResult.Error -> _homeUiState.value =
+                is com.cmaina.domain.utils.NetworkResult.Result.Error -> _homeUiState.value =
                     HomeUiState(errorMessage = result.errorDetails, isLoading = false)
             }
         }
