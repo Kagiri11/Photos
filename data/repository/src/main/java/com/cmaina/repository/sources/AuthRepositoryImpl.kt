@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.edit
 import com.cmaina.domain.models.auth.AuthDomainResponse
 import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.utils.Result
-import com.cmaina.network.api.AuthRemoteSource
+import com.cmaina.network.api.AuthNetworkSource
 import com.cmaina.network.providers.UserAccessToken
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.utils.safeApiCall
@@ -15,14 +15,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class AuthRepositoryImpl(
-    private val authRemoteSource: AuthRemoteSource,
+    private val authNetworkSource: AuthNetworkSource,
     private val preferences: DataStore<Preferences>
 ) : AuthRepository {
 
     private val userAuthenticatedPref = booleanPreferencesKey("userAuthenticated")
 
     override suspend fun authenticateUser(authCode: String): Result<AuthDomainResponse> {
-        return safeApiCall { authRemoteSource.authorizeUser(code = authCode).toDomain() }
+        return safeApiCall { authNetworkSource.authorizeUser(code = authCode).toDomain() }
     }
 
     override suspend fun saveUserAuthentication(accessToken: String) {
