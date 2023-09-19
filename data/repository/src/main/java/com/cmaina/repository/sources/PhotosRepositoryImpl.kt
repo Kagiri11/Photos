@@ -24,7 +24,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class PhotosRepositoryImpl(
-    private val photosNetworkSource: PhotosNetworkSource,
     private val photosRemoteSource: PhotosRemoteSource
 ) : PhotosRepository {
 
@@ -42,7 +41,7 @@ class PhotosRepositoryImpl(
             call.body()
         ).apiCall(
             response = call,
-            mapper = { it.toDomain()}
+            mapper = { it.toDomain() }
         )
     }
 
@@ -63,7 +62,7 @@ class PhotosRepositoryImpl(
             InOut<PhotoStatistics, DomainPhotoStatistics>(call.body())
                 .apiCall(
                     response = call,
-                ){
+                ) {
                     it.toDomain()
                 }
         )
@@ -73,7 +72,7 @@ class PhotosRepositoryImpl(
         val pagingConfig = PagingConfig(pageSize = 30)
         val searchedPhotosPager = Pager(pagingConfig) {
             SearchedPhotosPagingSource(
-                photosNetworkSource = photosNetworkSource,
+                photosRemoteSource = photosRemoteSource,
                 searchString = searchString
             )
         }.flow
@@ -81,6 +80,12 @@ class PhotosRepositoryImpl(
     }
 
     override suspend fun likePhoto(id: String): Result<DomainPhotoListItem> {
-        return safeApiCall { photosNetworkSource.likePhoto(id).toDomain() }
+        val call = photosRemoteSource.likePhoto(id = id)
+        return InOut<PhotoListItem, DomainPhotoListItem>(call.body())
+            .apiCall(
+                response = call,
+            ) {
+                it.toDomain()
+            }
     }
 }

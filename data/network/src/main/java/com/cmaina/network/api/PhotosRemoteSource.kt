@@ -21,7 +21,7 @@ class PhotosRemoteSource(private val client: HttpClient) {
 
     suspend fun fetchRandomPhoto() = client.get("${BASEURL}photos/random")
 
-    suspend fun likePhoto(id: String): PhotoListItem = client.get("photos/$id/like").body()
+    suspend fun likePhoto(id: String) = client.get("photos/$id/like")
 
     suspend fun fetchPhotoStatistics(id: String) =
         client.get("${BASEURL}photos/$id/statistics")
@@ -29,11 +29,11 @@ class PhotosRemoteSource(private val client: HttpClient) {
     suspend fun searchPhotos(
         searchQuery: String,
         page: Int
-    ): PhotoSearchResultDto = client.get("${BASEURL}search/photos") {
+    ) = client.get("${BASEURL}search/photos") {
         url {
             parameters.append("query", searchQuery)
             parameters.append("page", page.toString())
         }
-    }.body()
+    }
 
 }
