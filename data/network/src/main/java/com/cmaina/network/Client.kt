@@ -1,4 +1,4 @@
-package com.cmaina.network.api
+package com.cmaina.network
 
 import android.util.Log
 import com.cmaina.network.utils.TokenStorage
@@ -6,7 +6,6 @@ import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel

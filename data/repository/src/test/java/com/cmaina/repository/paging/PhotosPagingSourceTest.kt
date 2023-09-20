@@ -2,7 +2,7 @@ package com.cmaina.repository.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadParams.Refresh
-import com.cmaina.network.api.PhotosNetworkSource
+import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.repository.utils.DomainPhotoListItem
 import com.cmaina.repository.utils.PhotoListItem
 import com.google.common.truth.Truth.assertThat
@@ -18,7 +18,7 @@ class PhotosPagingSourceTest {
     private lateinit var photosPagingSource: PhotosPagingSource
 
     // helpers
-    private lateinit var photosNetworkSource: PhotosNetworkSource
+    private lateinit var photosNetworkSource: PhotosRemoteSource
     private val photoListItem = listOf(PhotoListItem)
 
     @Before

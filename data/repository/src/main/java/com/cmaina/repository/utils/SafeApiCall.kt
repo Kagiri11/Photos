@@ -5,17 +5,7 @@ import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-suspend fun <T : Any> flowSafeApiCall(
-    apiCall: suspend () -> T
-): Flow<Result<T>> = flow {
-    try {
-        emit(Result.Success(data = apiCall.invoke()))
-    } catch (e: Exception) {
-        emit(Result.Error(errorDetails = e.message.toString()))
-    }
-}
-
-suspend fun <T : Any> safeApiCall(
+suspend inline fun <T : Any, reified R : Any>safeApiCall(
     apiCall: suspend () -> T
 ) =
     try {
