@@ -1,7 +1,7 @@
 package com.cmaina.network.providers
 
 import com.cmaina.network.api.AuthRemoteSource
-import com.cmaina.network.api.NetworkClient
+import com.cmaina.network.NetworkClient
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.network.api.UsersRemoteSource
 
