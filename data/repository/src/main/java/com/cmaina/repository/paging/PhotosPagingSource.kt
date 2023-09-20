@@ -4,12 +4,10 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.utils.Result
-import com.cmaina.network.api.PhotosNetworkSource
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.utils.InOut
-import com.cmaina.repository.utils.safeApiCall
 import io.ktor.client.call.body
 
 class PhotosPagingSource(private val photosRemoteSource: PhotosRemoteSource) :

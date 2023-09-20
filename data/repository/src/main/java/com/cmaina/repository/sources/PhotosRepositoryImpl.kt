@@ -8,7 +8,6 @@ import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.Result
-import com.cmaina.network.api.PhotosNetworkSource
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photostats.PhotoStatistics
@@ -17,8 +16,6 @@ import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
 import com.cmaina.repository.paging.SearchedPhotosPagingSource
 import com.cmaina.repository.utils.InOut
-import com.cmaina.repository.utils.flowSafeApiCall
-import com.cmaina.repository.utils.safeApiCall
 import io.ktor.client.call.body
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
