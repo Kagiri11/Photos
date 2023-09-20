@@ -7,13 +7,11 @@ import androidx.datastore.preferences.core.edit
 import com.cmaina.domain.models.auth.AuthDomainResponse
 import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.utils.Result
-import com.cmaina.network.api.AuthNetworkSource
 import com.cmaina.network.api.AuthRemoteSource
 import com.cmaina.network.models.auth.AuthRemoteResponse
-import com.cmaina.network.providers.UserAccessToken
+import com.cmaina.network.utils.Constants.UserAccessToken
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.utils.InOut
-import com.cmaina.repository.utils.safeApiCall
 import io.ktor.client.call.body
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

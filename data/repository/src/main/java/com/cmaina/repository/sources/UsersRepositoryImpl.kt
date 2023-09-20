@@ -9,13 +9,11 @@ import com.cmaina.domain.models.users.portfolio.UserPortFolioDomainModel
 import com.cmaina.domain.models.users.statistics.UserStatistics
 import com.cmaina.domain.repository.UsersRepository
 import com.cmaina.domain.utils.Result
-import com.cmaina.network.api.UsersNetworkSource
 import com.cmaina.network.api.UsersRemoteSource
 import com.cmaina.network.models.users.UserDto
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.UserPhotosPagingSource
 import com.cmaina.repository.utils.InOut
-import com.cmaina.repository.utils.flowSafeApiCall
 import io.ktor.client.call.body
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
