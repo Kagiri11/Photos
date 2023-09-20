@@ -5,34 +5,37 @@ import androidx.paging.PagingState
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.utils.Result
 import com.cmaina.network.api.UsersNetworkSource
+import com.cmaina.network.api.UsersRemoteSource
+import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.repository.mappers.toDomain
+import com.cmaina.repository.utils.InOut
 import com.cmaina.repository.utils.safeApiCall
+import io.ktor.client.call.body
 
 class UserPhotosPagingSource(
-    private val usersNetworkSource: UsersNetworkSource,
+    private val usersRemoteSource: UsersRemoteSource,
     val username: String
 ) :
     PagingSource<Int, DomainPhotoListItem>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainPhotoListItem> {
         val nextPageNumber = params.key ?: 1
-        val sourceResponse = safeApiCall {
-            usersNetworkSource.getUserPhotos(
-                username = username,
-                page = nextPageNumber
-            )
-        }
+
+        val response = usersRemoteSource.getUserPhotos(username = username, page = nextPageNumber)
+        val result = InOut<List<PhotoListItem>, List<DomainPhotoListItem>>(response.body())
+            .apiCall(response){it.map { it.toDomain() }}
         return when (
-            sourceResponse
+            result
         ) {
             is Result.Success -> {
-                val dataResponse = sourceResponse.data.map { it.toDomain() }
+                val dataResponse = result.data
                 LoadResult.Page(
                     data = dataResponse,
                     prevKey = if (nextPageNumber == 1) null else nextPageNumber - 1,
                     nextKey = if (dataResponse.isEmpty()) null else nextPageNumber + 1
                 )
             }
+
             is Result.Error -> {
                 LoadResult.Error(throwable = Throwable())
             }

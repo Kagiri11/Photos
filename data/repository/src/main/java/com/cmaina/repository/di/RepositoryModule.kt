@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     single<PhotosRepository> { PhotosRepositoryImpl(photosRemoteSource = get()) }
-    factory<UsersRepository> { UsersRepositoryImpl(usersNetworkSource = get()) }
+    factory<UsersRepository> { UsersRepositoryImpl(usersRemoteSource = get()) }
     single<AuthRepository> { AuthRepositoryImpl(authRemoteSource = get(), preferences = get()) }
     factory<AppRepository> { AppRepositoryImpl(preferences = get()) }
 }
