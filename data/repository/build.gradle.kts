@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
 
+    testImplementation(libs.ktor.client.mock)
     testImplementation(libs.google.truth)
     testImplementation(libs.junit1)
     testImplementation(libs.mockk)

@@ -118,6 +118,7 @@ ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref =
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktorVersion" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktorVersion" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktorVersion" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktorVersion" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-gson", version.ref = "ktorVersion" }
 kotlin-reflection = { group="org.jetbrains.kotlin", name="kotlin-reflect", version.ref ="reflection"}
 mockk = { group="io.mockk",name ="mockk", version.ref ="mockK"}

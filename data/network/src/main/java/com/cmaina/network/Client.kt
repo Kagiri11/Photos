@@ -33,11 +33,11 @@ class Network(engine: HttpClientEngine) {
         install(Logging) {
             logger = object : Logger {
                 override fun log(message: String) {
-                    Log.v("Ktor Log ==> ", message)
+                    Log.d("Ktor Log ==> ", message)
                 }
             }
 
-            level = LogLevel.ALL
+            level = LogLevel.BODY
         }
 
         install(ResponseObserver) {
