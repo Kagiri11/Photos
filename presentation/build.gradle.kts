@@ -4,6 +4,7 @@ import Configurations.TargetSdk
 plugins {
     id(BuildPlugins.androidLib)
     id(BuildPlugins.kotlinAndroid)
+    id("com.google.devtools.ksp") version "1.9.0-1.0.12"
 }
 
 android {

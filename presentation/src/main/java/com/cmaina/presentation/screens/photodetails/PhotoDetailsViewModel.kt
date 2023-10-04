@@ -16,8 +16,8 @@ class PhotoDetailsViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val _detailsUiState = MutableStateFlow(PhotoDetailsUiState(isLoading = true))
-    val detailsUiState: StateFlow<PhotoDetailsUiState> get() = _detailsUiState
+    private val _detailsUiState = MutableStateFlow(DetailsUiState(isLoading = true))
+    val detailsUiState: StateFlow<DetailsUiState> get() = _detailsUiState
 
     private val _userIsAuthenticated = MutableStateFlow(false)
     val userIsAuthenticated = _userIsAuthenticated.asStateFlow()
@@ -87,13 +87,13 @@ class PhotoDetailsViewModel(
                             photoIsLikedByUser = false
                         )
                         _detailsUiState.value =
-                            PhotoDetailsUiState(details = details, isLoading = false)
+                            DetailsUiState(details = details, isLoading = false)
                     }
                 }
 
                 is Result.Error -> {
                     _detailsUiState.value =
-                        PhotoDetailsUiState(errorMessage = result.errorDetails, isLoading = false)
+                        DetailsUiState(errorMessage = result.errorDetails, isLoading = false)
                 }
             }
         }
