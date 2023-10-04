@@ -4,8 +4,13 @@ import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import kotlinx.coroutines.flow.Flow
 
-data class HomeUiState(
-    val pagedPhotos: Flow<PagingData<DomainPhotoListItem>>? = null,
-    val isLoading: Boolean,
-    val errorMessage: String? = null
-)
+
+sealed interface HomeUiState{
+
+    data class Success(val pagedPhotos: Flow<PagingData<DomainPhotoListItem>>): HomeUiState
+
+    object Loading: HomeUiState
+
+    data class Error(val errorMessage: String): HomeUiState
+}
+

@@ -66,8 +66,6 @@ import com.cmaina.network.models.users.Photo
 import com.cmaina.network.models.users.Tags
 import com.cmaina.network.models.users.UserDto
 
-internal fun List<PhotoListItem>.toDomain() = this.map { it.toDomain() }
-
 internal fun PhotoListItem.toDomain() = DomainPhotoListItem(
     altDescription = alt_description,
     blurHash = blur_hash,

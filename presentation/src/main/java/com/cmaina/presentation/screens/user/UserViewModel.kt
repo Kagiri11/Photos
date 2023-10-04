@@ -12,7 +12,7 @@ class UserViewModel(
     private val usersRepository: UsersRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(UserUiState(isLoading = true))
+    private val _uiState = MutableStateFlow<UserUiState>(UserUiState.Loading)
     val uiState: StateFlow<UserUiState> get() = _uiState
 
     fun fetchUser(username: String) = viewModelScope.launch {
@@ -28,24 +28,14 @@ class UserViewModel(
                             userPhotos = usersRepository.fetchUserPhotos(username),
                             user = this
                         )
-                        _uiState.value = UserUiState(uiDetails = details, isLoading = false)
+                        _uiState.value = UserUiState.Success(uiDetails = details)
                     }
                 }
 
                 is Result.Error -> {
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        errorMessage = networkResult.errorDetails
-                    )
+                    _uiState.value = UserUiState.Error(errorMessage = networkResult.errorDetails)
                 }
             }
-        }
-    }
-
-    fun fetchUserPhotos(username: String) = viewModelScope.launch {
-        usersRepository.fetchUserPhotos(username = username).let {
-            val details = _uiState.value.uiDetails?.copy(userPhotos = it)
-            _uiState.value = _uiState.value.copy(uiDetails = details)
         }
     }
 }

@@ -51,12 +51,14 @@ fun UserScreen(
     LaunchedEffect(key1 = true) {
         userViewModel.fetchUser(username)
     }
-    when {
-        uiState.isLoading -> {}
-        uiState.errorMessage.isNotEmpty() -> {}
-        uiState.uiDetails != null -> {
-            Column(Modifier.fillMaxSize()) {
+    when (uiState) {
+        is UserUiState.Loading -> {}
+        is UserUiState.Error -> {}
+        is UserUiState.Success -> {
+            Column(modifier = Modifier.fillMaxSize()) {
+
                 TopPart(onBackPressed = { navController.navigateUp() })
+
                 BottomPart(
                     userDetails = uiState.uiDetails,
                     onUserPhotoClicked = {
@@ -109,7 +111,7 @@ fun TopPart(onBackPressed: () -> Unit) {
 @Composable
 fun BottomPart(
     userDetails: UserUiDetails,
-    onUserPhotoClicked: (String?) -> Unit
+    onUserPhotoClicked: (String) -> Unit
 ) {
     ConstraintLayout(
         Modifier

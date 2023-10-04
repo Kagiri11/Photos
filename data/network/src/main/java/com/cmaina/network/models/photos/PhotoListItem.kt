@@ -23,7 +23,7 @@ data class PhotoListItem(
     @SerializedName("height")
     val height: Int?,
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("liked_by_user")
     val liked_by_user: Boolean?,
     @SerializedName("likes")

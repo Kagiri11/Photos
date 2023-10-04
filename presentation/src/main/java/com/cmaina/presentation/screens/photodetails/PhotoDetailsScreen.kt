@@ -78,10 +78,10 @@ fun PhotoDetailsScreen(
         )
     }
 
-    when {
-        uiState.isLoading -> {}
-        uiState.errorMessage.isNotEmpty() -> {}
-        uiState.details != null -> {
+    when (uiState) {
+        is PhotoDetailsUiState.Loading -> {}
+        is PhotoDetailsUiState.Error -> {}
+        is PhotoDetailsUiState.Success -> {
 
             with(uiState.details) {
 
