@@ -1,11 +1,5 @@
 package com.cmaina.presentation.screens.photodetails
 
-data class DetailsUiState(
-    val details: Details? = null,
-    val isLoading: Boolean,
-    val errorMessage: String = ""
-)
-
 sealed interface PhotoDetailsUiState{
 
     data class Success(val details: Details): PhotoDetailsUiState

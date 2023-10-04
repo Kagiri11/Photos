@@ -16,8 +16,8 @@ class PhotoDetailsViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val _detailsUiState = MutableStateFlow(DetailsUiState(isLoading = true))
-    val detailsUiState: StateFlow<DetailsUiState> get() = _detailsUiState
+    private val _detailsUiState = MutableStateFlow<PhotoDetailsUiState>(PhotoDetailsUiState.Loading)
+    val detailsUiState: StateFlow<PhotoDetailsUiState> get() = _detailsUiState
 
     private val _userIsAuthenticated = MutableStateFlow(false)
     val userIsAuthenticated = _userIsAuthenticated.asStateFlow()
@@ -29,12 +29,13 @@ class PhotoDetailsViewModel(
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
                 is Result.Success -> {
-                    val details =
-                        _detailsUiState.value.details?.copy(photoIsLikedByUser = result.data.likedByUser)
-                    _detailsUiState.value = _detailsUiState.value.copy(details = details)
+                    val details = (_detailsUiState.value as PhotoDetailsUiState.Success)
+                        .details.copy(photoIsLikedByUser = result.data.likedByUser)
+                    _detailsUiState.value = PhotoDetailsUiState.Success(details)
                 }
 
                 is Result.Error -> {
+                    _detailsUiState.value = PhotoDetailsUiState.Error(result.errorDetails)
                 }
             }
         }
@@ -87,13 +88,13 @@ class PhotoDetailsViewModel(
                             photoIsLikedByUser = false
                         )
                         _detailsUiState.value =
-                            DetailsUiState(details = details, isLoading = false)
+                            PhotoDetailsUiState.Success(details = details)
                     }
                 }
 
                 is Result.Error -> {
                     _detailsUiState.value =
-                        DetailsUiState(errorMessage = result.errorDetails, isLoading = false)
+                        PhotoDetailsUiState.Error(errorMessage = result.errorDetails)
                 }
             }
         }
