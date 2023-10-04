@@ -17,12 +17,12 @@ import com.google.accompanist.placeholder.placeholder
 
 inline fun <T : Any> LazyGridScope.items(
     items: LazyPagingItems<T>,
-    crossinline itemContent: @Composable LazyGridItemScope.(value: T?) -> Unit
+    crossinline itemContent: @Composable LazyGridItemScope.(value: T) -> Unit
 ) {
     items(
         count = items.itemCount
     ) { index ->
-        itemContent(items[index])
+        items[index]?.let { itemContent(it) }
     }
 }
 

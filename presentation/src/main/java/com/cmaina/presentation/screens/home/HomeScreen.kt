@@ -68,6 +68,7 @@ fun HomeScreen(
                         PhotoCardItem(
                             blurHash = pic?.blurHash ?: "",
                             imageUrl = pic?.domainUrls?.small ?: "",
+                            contentDescription = pic?.description ?: "",
                             onPhotoClicked = {
                                 navController.navigate("photo_detail_screen/${pic?.id ?: ""}")
                             }

@@ -60,7 +60,8 @@ fun ColumnScope.PhotosPager(
             AsyncImageBlur(
                 blurHash = images[page].blurHash ?: "",
                 imageUrl = images[page].photoUrl ?: "",
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                contentDescription = ""
             )
         }
     }

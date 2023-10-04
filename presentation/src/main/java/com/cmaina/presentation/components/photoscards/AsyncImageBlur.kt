@@ -20,7 +20,7 @@ fun AsyncImageBlur(
     blurHash: String,
     imageUrl: String,
     crossFadeAnimDuration: Int = 400,
-    contentDescription: String? = null,
+    contentDescription: String,
     contentScale: ContentScale = ContentScale.Crop
 ) {
     val resources = LocalContext.current.resources
@@ -39,6 +39,7 @@ fun AsyncImageBlur(
         imageRequest = { imageRequest },
         contentScale = contentScale,
         modifier = modifier,
-        placeHolder = imagePainter
+        placeHolder = imagePainter,
+        contentDescription = contentDescription
     )
 }

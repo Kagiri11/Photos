@@ -1,6 +1,5 @@
 package com.cmaina.presentation.components.userscreencomponents
 
-import android.content.res.Resources
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,9 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.presentation.components.photoscards.AsyncImageBlur
@@ -32,7 +29,7 @@ fun UserPhotos(
     photos: LazyPagingItems<DomainPhotoListItem>,
     onUserPhotoClicked: (String) -> Unit
 ) {
-    val res = LocalContext.current.resources
+
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Fixed(3),
@@ -43,8 +40,7 @@ fun UserPhotos(
                 UserPhoto(
                     imageBlurHash = pic.blurHash ?: "",
                     userImageUrl = pic.domainUrls?.small ?: "",
-                    description = pic.description ?: "",
-                    resources = res,
+                    contentDescription = pic.description ?: "",
                     onClick = { onUserPhotoClicked(pic.id) }
                 )
             }
@@ -54,10 +50,9 @@ fun UserPhotos(
 
 @Composable
 fun UserPhoto(
+    contentDescription: String,
     imageBlurHash: String,
     userImageUrl: String,
-    description: String,
-    resources: Resources,
     onClick: () -> Unit
 ) {
     Card(
@@ -77,7 +72,8 @@ fun UserPhoto(
         AsyncImageBlur(
             blurHash = imageBlurHash,
             imageUrl = userImageUrl,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            contentDescription = contentDescription
         )
     }
 }

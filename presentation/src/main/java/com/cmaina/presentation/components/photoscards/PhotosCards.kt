@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 fun PhotoCardItem(
     blurHash: String,
     imageUrl: String,
+    contentDescription: String,
     onPhotoClicked: () -> Unit
 ) {
 
@@ -30,7 +31,8 @@ fun PhotoCardItem(
     ) {
         AsyncImageBlur(
             blurHash = blurHash,
-            imageUrl = imageUrl
+            imageUrl = imageUrl,
+            contentDescription = contentDescription
         )
     }
 }
