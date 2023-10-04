@@ -12,8 +12,8 @@ class HomeViewModel(
     private val photosRepository: PhotosRepository
 ) : ViewModel() {
 
-    private val _homeUiState = MutableStateFlow(HomeUiState(isLoading = true))
-    val homeUiState: StateFlow<HomeUiState> get() = _homeUiState
+    private val _homeState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
+    val homeState: StateFlow<HomeUiState> get() = _homeState
 
     init {
         fetchPhotos()
@@ -22,14 +22,13 @@ class HomeViewModel(
     private fun fetchPhotos() {
         viewModelScope.launch {
             when (val result = photosRepository.fetchPhotos()) {
-                is Result.Success -> _homeUiState.value = HomeUiState(
-                    pagedPhotos = result.data,
-                    isLoading = false
-                )
+                is Result.Success ->{
+                    _homeState.value = HomeUiState.Success(pagedPhotos = result.data)
+                }
 
-
-                is Result.Error -> _homeUiState.value =
-                    HomeUiState(errorMessage = result.errorDetails, isLoading = false)
+                is Result.Error -> {
+                    _homeState.value = HomeUiState.Error(errorMessage = result.errorDetails)
+                }
             }
         }
     }

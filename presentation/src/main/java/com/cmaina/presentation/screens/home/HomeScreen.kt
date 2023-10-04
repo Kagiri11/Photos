@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -31,7 +30,7 @@ fun HomeScreen(
     navController: NavController
 ) {
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
-    val uiState = viewModel.homeUiState.collectAsStateWithLifecycle().value
+    val uiState = viewModel.homeState.collectAsStateWithLifecycle().value
 
     ConstraintLayout(
         modifier = Modifier
@@ -48,11 +47,10 @@ fun HomeScreen(
             }
         )
 
-        when {
-            uiState.isLoading -> {
-            }
-            uiState.errorMessage != null -> {}
-            uiState.pagedPhotos != null -> {
+        when (uiState) {
+            is HomeUiState.Loading -> {}
+            is HomeUiState.Error -> {}
+            is HomeUiState.Success -> {
                 val photos = uiState.pagedPhotos.collectAsLazyPagingItems()
                 LazyVerticalStaggeredGrid(
                     modifier = Modifier
@@ -69,10 +67,11 @@ fun HomeScreen(
                     lazyItems(photos) { pic ->
                         PhotoCardItem(
                             blurHash = pic?.blurHash ?: "",
-                            imageUrl = pic?.domainUrls?.small ?: ""
-                        ) {
-                            navController.navigate("photo_detail_screen/${pic?.id ?: ""}")
-                        }
+                            imageUrl = pic?.domainUrls?.small ?: "",
+                            onPhotoClicked = {
+                                navController.navigate("photo_detail_screen/${pic?.id ?: ""}")
+                            }
+                        )
                     }
                 }
             }
