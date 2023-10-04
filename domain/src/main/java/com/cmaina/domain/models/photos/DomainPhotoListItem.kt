@@ -9,7 +9,7 @@ data class DomainPhotoListItem(
     val currentUserCollections: List<Any>?,
     val description: String?,
     val height: Int?,
-    val id: String?,
+    val id: String,
     val likedByUser: Boolean?,
     val likes: Int?,
     val linksDomain: DomainPhotoLinks?,

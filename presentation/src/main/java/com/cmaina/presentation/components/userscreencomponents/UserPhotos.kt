@@ -29,8 +29,8 @@ import com.google.accompanist.placeholder.shimmer
 @Composable
 fun UserPhotos(
     modifier: Modifier = Modifier,
-    photos: LazyPagingItems<DomainPhotoListItem>?,
-    onUserPhotoClicked: (String?) -> Unit
+    photos: LazyPagingItems<DomainPhotoListItem>,
+    onUserPhotoClicked: (String) -> Unit
 ) {
     val res = LocalContext.current.resources
     LazyVerticalGrid(
@@ -38,14 +38,14 @@ fun UserPhotos(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(1.dp)
     ) {
-        photos?.let {
-            items(it) { pic ->
+        items(photos) { pic ->
+            pic?.let {
                 UserPhoto(
-                    imageBlurHash = pic?.blurHash ?: "",
-                    userImageUrl = pic?.domainUrls?.small ?: "",
-                    description = pic?.description ?: "",
+                    imageBlurHash = pic.blurHash ?: "",
+                    userImageUrl = pic.domainUrls?.small ?: "",
+                    description = pic.description ?: "",
                     resources = res,
-                    onClick = { onUserPhotoClicked(pic?.id) }
+                    onClick = { onUserPhotoClicked(pic.id) }
                 )
             }
         }
