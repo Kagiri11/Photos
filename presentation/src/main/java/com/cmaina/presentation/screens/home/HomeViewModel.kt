@@ -21,14 +21,9 @@ class HomeViewModel(
 
     private fun fetchPhotos() {
         viewModelScope.launch {
-            when (val result = photosRepository.fetchPhotos()) {
-                is Result.Success ->{
-                    _homeState.value = HomeUiState.Success(pagedPhotos = result.data)
-                }
-
-                is Result.Error -> {
-                    _homeState.value = HomeUiState.Error(errorMessage = result.errorDetails)
-                }
+            _homeState.value = when (val result = photosRepository.fetchPhotos()) {
+                is Result.Success -> HomeUiState.Success(pagedPhotos = result.data)
+                is Result.Error -> HomeUiState.Error(errorMessage = result.errorDetails)
             }
         }
     }

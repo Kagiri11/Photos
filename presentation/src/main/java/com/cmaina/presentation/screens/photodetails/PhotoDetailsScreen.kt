@@ -85,7 +85,6 @@ fun PhotoDetailsScreen(
 
             with(uiState.details) {
 
-
                 var page by remember { mutableStateOf(0) }
                 Column(modifier = Modifier.fillMaxSize()) {
                     PhotosPager(
@@ -145,8 +144,10 @@ fun ColumnScope.LikeAndDownloadSection(
     onDownloadClick: () -> Unit,
     onUserSectionClicked: () -> Unit
 ) {
-    val iconPainter =
-        painterResource(id = if (userHasLikedPhoto) R.drawable.ic_favourite else R.drawable.ic_favorite_outlined)
+    val iconPainter = painterResource(
+        id = if (userHasLikedPhoto) R.drawable.ic_favourite else R.drawable.ic_favorite_outlined
+    )
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -156,7 +157,7 @@ fun ColumnScope.LikeAndDownloadSection(
         ConstraintLayout(
             modifier = Modifier.fillMaxSize(),
         ) {
-            val (userSection, likesSection, likeButton, downloadButton) = createRefs()
+            val (userSection, likeButton, downloadButton) = createRefs()
             UserSection(
                 ref = userSection,
                 numberOfLikes = numberOfLikes,
@@ -202,6 +203,7 @@ fun ConstraintLayoutScope.UserSection(
 ) {
 
     val painter = rememberImagePainter(data = userImageUrl)
+
     Column(
         modifier = Modifier.constrainAs(ref) {
             top.linkTo(parent.top)
@@ -220,9 +222,7 @@ fun ConstraintLayoutScope.UserSection(
                 contentDescription = stringResource(R.string.user_image_description),
                 modifier = Modifier
                     .size(35.dp)
-                    .clip(
-                        CircleShape
-                    )
+                    .clip(CircleShape)
             )
             Spacer(modifier = Modifier.width(5.dp))
             FotosText(text = userName, textColor = MaterialTheme.colors.onPrimary)
