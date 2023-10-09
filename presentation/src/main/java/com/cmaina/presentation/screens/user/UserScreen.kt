@@ -46,26 +46,20 @@ fun UserScreen(
     userViewModel: UserViewModel = getViewModel(),
     navController: NavController
 ) {
-    val uiState = userViewModel.uiState.collectAsStateWithLifecycle().value
 
-    LaunchedEffect(key1 = true) {
-        userViewModel.fetchUser(username)
-    }
-    when (uiState) {
+    LaunchedEffect(key1 = true) { userViewModel.fetchUser(username) }
+
+    when (val uiState = userViewModel.uiState.collectAsStateWithLifecycle().value) {
         is UserUiState.Loading -> {}
         is UserUiState.Error -> {}
         is UserUiState.Success -> {
             Column(modifier = Modifier.fillMaxSize()) {
 
                 TopPart(onBackPressed = { navController.navigateUp() })
-
                 BottomPart(
                     userDetails = uiState.uiDetails,
-                    onUserPhotoClicked = {
-                        if (it != null) {
-                            navController.navigate("photo_detail_screen/${it}")
-                        }
-                    })
+                    onUserPhotoClicked = { navController.navigate("photo_detail_screen/${it}") }
+                )
             }
         }
     }

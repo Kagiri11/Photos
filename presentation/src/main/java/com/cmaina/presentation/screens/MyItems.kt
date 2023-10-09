@@ -18,13 +18,7 @@ import com.google.accompanist.placeholder.placeholder
 inline fun <T : Any> LazyGridScope.items(
     items: LazyPagingItems<T>,
     crossinline itemContent: @Composable LazyGridItemScope.(value: T) -> Unit
-) {
-    items(
-        count = items.itemCount
-    ) { index ->
-        items[index]?.let { itemContent(it) }
-    }
-}
+) { items(count = items.itemCount) { index -> items[index]?.let { itemContent(it) } } }
 
 @OptIn(ExperimentalFoundationApi::class)
 inline fun <T : Any> LazyStaggeredGridScope.lazyItems(
