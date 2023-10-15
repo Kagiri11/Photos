@@ -2,7 +2,7 @@ package com.cmaina.presentation.screens.photodetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cmaina.domain.models.specificphoto.PreviewPhotoDomainModel
+import com.cmaina.domain.models.specificphoto.PreviewPhoto
 import com.cmaina.domain.repository.AuthRepository
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.Result
@@ -116,5 +116,5 @@ class PhotoDetailsViewModel(
 
 data class PhotoLikedState(val photoId: String?, val photoUrl: String?, val blurHash: String?)
 
-fun PreviewPhotoDomainModel.toPhotoLikedState() =
+fun PreviewPhoto.toPhotoLikedState() =
     PhotoLikedState(photoId = this.id, photoUrl = this.urls?.full, blurHash = this.blur_hash)

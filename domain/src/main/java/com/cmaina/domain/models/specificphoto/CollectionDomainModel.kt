@@ -1,13 +1,12 @@
 package com.cmaina.domain.models.specificphoto
 
-import com.cmaina.domain.models.photos.DomainPhotoUser
+import com.cmaina.domain.models.users.User
 
 data class CollectionDomainModel(
-    val description: String?,
-    val id: String?,
-    val resultLinksDomainModel: ResultLinksDomainModel?,
-    val previewPhotoDomainModels: List<PreviewPhotoDomainModel>?,
+    val description: String,
+    val id: String,
+    val previewPhotos: List<PreviewPhoto>,
     val title: String?,
     val totalPhotos: Int?,
-    val user: DomainPhotoUser?
+    val user: User
 )
