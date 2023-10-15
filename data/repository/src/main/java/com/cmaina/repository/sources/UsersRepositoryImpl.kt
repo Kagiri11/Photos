@@ -3,7 +3,7 @@ package com.cmaina.repository.sources
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.models.users.UserDomainModel
 import com.cmaina.domain.models.users.portfolio.UserPortFolioDomainModel
 import com.cmaina.domain.models.users.statistics.UserStatistics
@@ -35,7 +35,7 @@ class UsersRepositoryImpl(
         return flowOf()
     }
 
-    override suspend fun fetchUserPhotos(username: String): Flow<PagingData<DomainPhotoListItem>> {
+    override suspend fun fetchUserPhotos(username: String): Flow<PagingData<Photo>> {
         val pagingConfig = PagingConfig(pageSize = 30)
         val userPhotosPager = Pager(pagingConfig) {
             UserPhotosPagingSource(usersRemoteSource = usersRemoteSource, username = username)

@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.models.photos.Photo
 import com.cmaina.presentation.components.photoscards.AsyncImageBlur
 import com.cmaina.presentation.screens.items
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
@@ -26,7 +26,7 @@ import com.google.accompanist.placeholder.shimmer
 @Composable
 fun UserPhotos(
     modifier: Modifier = Modifier,
-    photos: LazyPagingItems<DomainPhotoListItem>,
+    photos: LazyPagingItems<Photo>,
     onUserPhotoClicked: (String) -> Unit
 ) {
 

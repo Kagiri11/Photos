@@ -1,5 +1,6 @@
 package com.cmaina.network.models.users
 
+import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photos.Social
 import com.cmaina.network.models.photos.SponsorLinks
 import com.cmaina.network.models.specificphoto.Meta
@@ -43,7 +44,7 @@ data class UserDto(
     @SerializedName("numeric_id")
     val numeric_id: Int,
     @SerializedName("photos")
-    val photos: List<Photo>,
+    val photos: List<PhotoListItem>,
     @SerializedName("portfolio_url")
     val portfolio_url: String,
     @SerializedName("profile_image")

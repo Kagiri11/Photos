@@ -2,7 +2,7 @@ package com.cmaina.repository.mappers
 
 import com.cmaina.domain.models.auth.AuthDomainResponse
 import com.cmaina.domain.models.photos.DomainPhotoLinks
-import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.models.photos.DomainPhotoUser
 import com.cmaina.domain.models.photos.DomainProfileImage
 import com.cmaina.domain.models.photos.DomainSponsor
@@ -62,29 +62,16 @@ import com.cmaina.network.models.specificphoto.Source
 import com.cmaina.network.models.specificphoto.SpecificPhoto
 import com.cmaina.network.models.specificphoto.Tag
 import com.cmaina.network.models.specificphoto.Topic
-import com.cmaina.network.models.users.Photo
 import com.cmaina.network.models.users.Tags
 import com.cmaina.network.models.users.UserDto
 
-internal fun PhotoListItem.toDomain() = DomainPhotoListItem(
-    altDescription = alt_description,
-    blurHash = blur_hash,
-    categories = categories,
-    color = color,
-    created_at = created_at,
-    currentUserCollections = current_user_collections,
-    description = description,
-    height = height,
+internal fun PhotoListItem.toDomain() = Photo(
+    blurHash = blur_hash ?: "",
+    description = description ?: "",
     id = id,
-    likedByUser = liked_by_user,
-    likes = likes,
-    linksDomain = links?.toDomain(),
-    promotedAt = promoted_at,
-    sponsorshipDomainModel = sponsorship?.toDomain(),
-    updatedAt = updated_at,
-    domainUrls = urls?.toDomain(),
-    domainPhotoUser = user?.toDomain(),
-    width = width
+    likedByUser = liked_by_user ?: false,
+    likes = likes ?: 0,
+    domainUrls = urls!!.toDomain()
 )
 
 internal fun PhotoStatistics.toDomain() = DomainPhotoStatistics(
@@ -251,14 +238,6 @@ internal fun com.cmaina.network.models.users.ProfileImage.toDomain() =
 
 internal fun Meta.toDomain() = MetaDomainModel(index = index)
 
-internal fun Photo.toDomain() = UserPhotoDomainModel(
-    blur_hash = blur_hash,
-    id = id,
-    created_at = created_at,
-    updated_at = updated_at,
-    urls = urls.toDomain()
-)
-
 internal fun SpecificPhoto.toDomain() = SpecificPhotoDomainModel(
     altDescription = alt_description,
     blurHash = blur_hash,
@@ -359,25 +338,13 @@ internal fun PhotoSearchResultDto.toDomain() = PhotoSearchResultDomainModel(
     totalPages = total_pages
 )
 
-internal fun SearchedPhotoDto.toDomain() = DomainPhotoListItem(
-    altDescription = alt_description,
+internal fun SearchedPhotoDto.toDomain() = Photo(
     blurHash = blur_hash,
-    categories = categories,
-    color = color,
-    created_at = created_at,
-    currentUserCollections = current_user_collections,
     description = description,
-    height = height,
     id = id,
     likedByUser = liked_by_user,
     likes = likes,
-    linksDomain = links.toDomain(),
-    promotedAt = promoted_at,
-    sponsorshipDomainModel = sponsorship?.toDomain(),
-    updatedAt = updated_at,
-    domainUrls = urls.toDomain(),
-    domainPhotoUser = user.toDomain(),
-    width = width
+    domainUrls = urls.toDomain()
 )
 
 internal fun AuthRemoteResponse.toDomain() = AuthDomainResponse(

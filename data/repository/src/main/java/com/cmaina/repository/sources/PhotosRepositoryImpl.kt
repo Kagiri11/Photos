@@ -3,7 +3,7 @@ package com.cmaina.repository.sources
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
@@ -24,7 +24,7 @@ class PhotosRepositoryImpl(
     private val photosRemoteSource: PhotosRemoteSource
 ) : PhotosRepository {
 
-    override suspend fun fetchPhotos(): Result<Flow<PagingData<DomainPhotoListItem>>> {
+    override suspend fun fetchPhotos(): Result<Flow<PagingData<Photo>>> {
         val pagingConfig = PagingConfig(pageSize = 30)
         val photosPager = Pager(pagingConfig) {
             PhotosPagingSource(photosRemoteSource = photosRemoteSource)
@@ -32,9 +32,9 @@ class PhotosRepositoryImpl(
         return Result.Success(photosPager)
     }
 
-    override suspend fun getRandomPhoto(): Result<DomainPhotoListItem> {
+    override suspend fun getRandomPhoto(): Result<Photo> {
         val call = photosRemoteSource.fetchRandomPhoto()
-        return InOut<PhotoListItem, DomainPhotoListItem>(
+        return InOut<PhotoListItem, Photo>(
             call.body()
         ).apiCall(
             response = call,
@@ -65,7 +65,7 @@ class PhotosRepositoryImpl(
         )
     }
 
-    override suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>> {
+    override suspend fun searchPhoto(searchString: String): Flow<PagingData<Photo>> {
         val pagingConfig = PagingConfig(pageSize = 30)
         val searchedPhotosPager = Pager(pagingConfig) {
             SearchedPhotosPagingSource(
@@ -76,9 +76,9 @@ class PhotosRepositoryImpl(
         return searchedPhotosPager
     }
 
-    override suspend fun likePhoto(id: String): Result<DomainPhotoListItem> {
+    override suspend fun likePhoto(id: String): Result<Photo> {
         val call = photosRemoteSource.likePhoto(id = id)
-        return InOut<PhotoListItem, DomainPhotoListItem>(call.body())
+        return InOut<PhotoListItem, Photo>(call.body())
             .apiCall(
                 response = call,
             ) {

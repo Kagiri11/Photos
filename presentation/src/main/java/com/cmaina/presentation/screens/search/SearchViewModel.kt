@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.repository.PhotosRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
@@ -20,8 +20,8 @@ class SearchViewModel(
 ) : ViewModel() {
 
     val searchString = MutableStateFlow("")
-    private val _searchedPhotos = MutableLiveData<Flow<PagingData<DomainPhotoListItem>>>(null)
-    val searchedPhotos: LiveData<Flow<PagingData<DomainPhotoListItem>>> = _searchedPhotos
+    private val _searchedPhotos = MutableLiveData<Flow<PagingData<Photo>>>(null)
+    val searchedPhotos: LiveData<Flow<PagingData<Photo>>> = _searchedPhotos
 
     init {
         searchPhotos()

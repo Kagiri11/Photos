@@ -1,24 +1,17 @@
 package com.cmaina.repository.sources
 
-import com.cmaina.domain.models.photos.DomainPhotoListItem
 import com.cmaina.domain.utils.Result
 import com.cmaina.network.Network
 import com.cmaina.network.api.PhotosRemoteSource
-import com.cmaina.network.models.photos.PhotoListItem
-import com.cmaina.network.providers.NetworkClient
 import com.cmaina.repository.utils.DomainPhotoListItem
-import com.cmaina.repository.utils.PhotoListItem
 import com.cmaina.repository.utils.SpecificDomainPhoto
 import com.google.common.truth.Truth.assertThat
-import io.ktor.client.call.body
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.utils.io.ByteReadChannel
-import io.mockk.coEvery
-import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test

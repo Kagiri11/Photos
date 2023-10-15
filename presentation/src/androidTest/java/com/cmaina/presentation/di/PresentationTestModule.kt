@@ -1,7 +1,7 @@
 package com.cmaina.presentation.di
 
 import androidx.paging.PagingData
-import com.cmaina.domain.models.photos.DomainPhotoListItem
+import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
@@ -18,11 +18,11 @@ val presentationModule = module {
 }
 
 class FakePhotosRepository : PhotosRepository {
-    override suspend fun fetchPhotos(): Flow<PagingData<DomainPhotoListItem>> {
+    override suspend fun fetchPhotos(): Flow<PagingData<Photo>> {
         return flowOf()
     }
 
-    override suspend fun getRandomPhoto(): Result<DomainPhotoListItem> {
+    override suspend fun getRandomPhoto(): Result<Photo> {
         TODO("Not yet implemented")
     }
 
@@ -34,11 +34,11 @@ class FakePhotosRepository : PhotosRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun searchPhoto(searchString: String): Flow<PagingData<DomainPhotoListItem>> {
+    override suspend fun searchPhoto(searchString: String): Flow<PagingData<Photo>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun likePhoto(id: String): Result<DomainPhotoListItem> {
+    override suspend fun likePhoto(id: String): Result<Photo> {
         TODO("Not yet implemented")
     }
 }
