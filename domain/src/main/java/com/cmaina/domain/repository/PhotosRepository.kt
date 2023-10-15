@@ -3,7 +3,6 @@ package com.cmaina.domain.repository
 import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
-import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +12,7 @@ interface PhotosRepository {
 
     suspend fun getRandomPhoto(): Result<Photo>
 
-    suspend fun getSpecificPhoto(photoId: String): Result<SpecificPhotoDomainModel>
+    suspend fun getSpecificPhoto(photoId: String): Result<Photo>
 
     suspend fun getPhotoStatistics(photoId: String): Flow<Result<DomainPhotoStatistics>>
 

@@ -1,7 +1,7 @@
 package com.cmaina.repository.mappers
 
 import com.cmaina.domain.models.photos.DomainProfileImage
-import com.cmaina.domain.models.photos.DomainUrls
+import com.cmaina.domain.models.photos.PhotoUrls
 import com.cmaina.domain.models.photos.DomainUserProfileImage
 import com.cmaina.domain.models.photostats.DomainPhotoStatDownloads
 import com.cmaina.domain.models.photostats.DomainPhotoStatLikes
@@ -66,7 +66,7 @@ class DtoToDomainTest {
             small_s3 = "small",
             thumb = null
         )
-        val domainUrls = DomainUrls(
+        val photoUrls = PhotoUrls(
             full = "full",
             raw = "raw",
             regular = "regular",
@@ -74,7 +74,7 @@ class DtoToDomainTest {
             thumb = null,
             smallS3 = "small"
         )
-        assertThat(urls.toDomain()).isEqualTo(domainUrls)
+        assertThat(urls.toDomain()).isEqualTo(photoUrls)
     }
 
     @Test

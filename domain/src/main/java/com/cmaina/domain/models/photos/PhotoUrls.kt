@@ -1,6 +1,6 @@
 package com.cmaina.domain.models.photos
 
-data class DomainUrls(
+data class PhotoUrls(
     val full: String?,
     val raw: String?,
     val regular: String?,

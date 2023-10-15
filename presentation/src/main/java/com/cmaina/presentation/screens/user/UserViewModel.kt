@@ -21,12 +21,12 @@ class UserViewModel(
                 is Result.Success -> {
                     with(networkResult.data) {
                         val details = UserUiDetails(
-                            numberOfPhotosByUser = total_photos ?: 0,
-                            userImageUrl = profile_image?.large ?: "",
-                            followersCount = followers_count ?: 0,
-                            followingCount = following_count ?: 0,
+                            numberOfPhotosByUser = totalPhotos ?: 0,
+                            userImageUrl = profileImage?.large ?: "",
+                            followersCount = followersCount ?: 0,
+                            followingCount = followingCount ?: 0,
                             userPhotos = usersRepository.fetchUserPhotos(username),
-                            user = this
+                            userName = this.name
                         )
                         _uiState.value = UserUiState.Success(uiDetails = details)
                     }

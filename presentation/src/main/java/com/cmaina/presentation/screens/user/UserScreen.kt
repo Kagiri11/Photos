@@ -141,7 +141,7 @@ fun BottomPart(
         }
 
         FotosTitleText(
-            text = userDetails.user.name ?: "",
+            text = userDetails.userName,
             textColor = FotosBlack,
             modifier = Modifier.constrainAs(username) {
                 start.linkTo(parent.start)

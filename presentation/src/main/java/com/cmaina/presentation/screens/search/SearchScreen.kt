@@ -54,7 +54,7 @@ fun SearchScreen(searchViewModel: SearchViewModel = getViewModel(), navControlle
                 items(it) { pic ->
                     PhotoCardItem(
                         contentDescription = pic.description ?: "",
-                        imageUrl = pic.domainUrls?.regular ?: "",
+                        imageUrl = pic.photoUrls?.regular ?: "",
                         blurHash = pic.blurHash ?: "",
                         onPhotoClicked = {}
                     )

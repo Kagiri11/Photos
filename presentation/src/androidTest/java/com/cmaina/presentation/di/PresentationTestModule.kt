@@ -3,7 +3,6 @@ package com.cmaina.presentation.di
 import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
-import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.Result
 import com.cmaina.presentation.screens.home.HomeViewModel

@@ -3,7 +3,6 @@ package com.cmaina.presentation.utils
 import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
-import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +29,7 @@ class FakePhotosRepository : PhotosRepository {
             linksDomain = null, promotedAt = null,
             sponsorshipDomainModel = null,
             updatedAt = null,
-            domainUrls = null,
+            photoUrls = null,
             domainPhotoUser = null, width = 100
         )
         return Result.Success(fakePhoto)

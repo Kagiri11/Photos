@@ -2,7 +2,7 @@ package com.cmaina.presentation.screens.user
 
 import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.Photo
-import com.cmaina.domain.models.users.UserDomainModel
+import com.cmaina.domain.models.users.User
 import kotlinx.coroutines.flow.Flow
 
 sealed interface UserUiState {
@@ -20,6 +20,6 @@ data class UserUiDetails(
     val numberOfPhotosByUser: Int,
     val followersCount: Int,
     val followingCount: Int,
-    val user: UserDomainModel
+    val userName: String
 )
 

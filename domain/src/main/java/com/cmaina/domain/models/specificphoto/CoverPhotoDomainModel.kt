@@ -2,8 +2,7 @@ package com.cmaina.domain.models.specificphoto
 
 import com.cmaina.domain.models.photos.DomainPhotoLinks
 import com.cmaina.domain.models.photos.DomainPhotoUser
-import com.cmaina.domain.models.photos.DomainUrls
-import com.cmaina.domain.models.search.TopicSubmissionsDomainModel
+import com.cmaina.domain.models.photos.PhotoUrls
 
 data class CoverPhotoDomainModel(
     val alt_description: String?,
@@ -17,7 +16,7 @@ data class CoverPhotoDomainModel(
     val liked_by_user: Boolean?,
     val likes: Int?,
     val links: DomainPhotoLinks?,
-    val urls: DomainUrls?,
+    val urls: PhotoUrls?,
     val user: DomainPhotoUser?,
     val width: Int?
 )

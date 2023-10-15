@@ -39,7 +39,7 @@ fun UserPhotos(
             pic?.let {
                 UserPhoto(
                     imageBlurHash = pic.blurHash ?: "",
-                    userImageUrl = pic.domainUrls?.small ?: "",
+                    userImageUrl = pic.photoUrls?.small ?: "",
                     contentDescription = pic.description ?: "",
                     onClick = { onUserPhotoClicked(pic.id) }
                 )

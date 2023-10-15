@@ -5,13 +5,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.Photo
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
-import com.cmaina.domain.models.specificphoto.SpecificPhotoDomainModel
 import com.cmaina.domain.repository.PhotosRepository
 import com.cmaina.domain.utils.Result
 import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photostats.PhotoStatistics
-import com.cmaina.network.models.specificphoto.SpecificPhoto
 import com.cmaina.repository.mappers.toDomain
 import com.cmaina.repository.paging.PhotosPagingSource
 import com.cmaina.repository.paging.SearchedPhotosPagingSource
@@ -43,9 +41,9 @@ class PhotosRepositoryImpl(
     }
 
 
-    override suspend fun getSpecificPhoto(photoId: String): Result<SpecificPhotoDomainModel> {
+    override suspend fun getSpecificPhoto(photoId: String): Result<Photo> {
         val call = photosRemoteSource.fetchPhoto(photoId)
-        return InOut<SpecificPhoto, SpecificPhotoDomainModel>(
+        return InOut<PhotoListItem, Photo>(
             call.body()
         ).apiCall(
             response = call,

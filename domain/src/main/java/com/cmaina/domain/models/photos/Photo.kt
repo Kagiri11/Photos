@@ -4,7 +4,7 @@ data class Photo(
     val id: String,
     val blurHash: String,
     val description: String,
-    val domainUrls: DomainUrls,
+    val photoUrls: PhotoUrls,
     val likedByUser: Boolean,
     val likes: Int
 )

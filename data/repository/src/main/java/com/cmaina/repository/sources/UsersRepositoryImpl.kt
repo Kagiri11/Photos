@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.cmaina.domain.models.photos.Photo
-import com.cmaina.domain.models.users.UserDomainModel
+import com.cmaina.domain.models.users.User
 import com.cmaina.domain.models.users.portfolio.UserPortFolioDomainModel
 import com.cmaina.domain.models.users.statistics.UserStatistics
 import com.cmaina.domain.repository.UsersRepository
@@ -22,16 +22,16 @@ class UsersRepositoryImpl(
     private val usersRemoteSource: UsersRemoteSource
 ) : UsersRepository {
 
-    override suspend fun fetchUser(username: String): Flow<Result<UserDomainModel>> {
+    override suspend fun fetchUser(username: String): Flow<Result<User>> {
         val response = usersRemoteSource.getUser(username = username)
 
         return flowOf(
-            InOut<UserDto, UserDomainModel>(response.body())
+            InOut<UserDto, User>(response.body())
                 .apiCall(response) { it.toDomain() }
         )
     }
 
-    override suspend fun fetchUserProfile(): Flow<UserDomainModel> {
+    override suspend fun fetchUserProfile(): Flow<User> {
         return flowOf()
     }
 
