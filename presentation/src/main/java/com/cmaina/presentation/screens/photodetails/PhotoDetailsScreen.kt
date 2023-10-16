@@ -1,5 +1,6 @@
 package com.cmaina.presentation.screens.photodetails
 
+import android.telephony.mbms.StreamingServiceInfo
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,7 +25,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,8 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.cmaina.presentation.R
 import com.cmaina.presentation.components.dialogs.NotAuthenticatedDialog
@@ -53,27 +51,32 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun PhotoDetailsScreen(
-    photoDetailsViewModel: PhotoDetailsViewModel = getViewModel(),
-    photoId: String,
-    navController: NavController
+    onInitialLoadEvent: () -> Unit,
+    onUserSectionClickedEvent: (String) -> Unit,
+    onImageLikedEvent: () -> Unit,
+    onDialogDismissedEvent: () -> Unit,
+    onPageSwappedEvent: (String) -> Unit,
+    messageIsPresent: Boolean,
+    onUserRequestsAuthenticationEvent: (String) -> Unit,
+    uiState: PhotoDetailsUiState
 ) {
     LaunchedEffect(key1 = true) {
-        photoDetailsViewModel.fetchPhoto(photoId)
+        onInitialLoadEvent()
     }
-    val uiState = photoDetailsViewModel.detailsUiState.collectAsStateWithLifecycle().value
-    val isThereMessageToTheUser = photoDetailsViewModel.messageToUser.collectAsState().value
     val context = LocalContext.current
     DisposableEffect(key1 = true) {
-        onResume(context, photoDetailsViewModel)
+        onResume(context, onUserRequestsAuthenticationEvent)
         onDispose {
             // do something
         }
     }
 
-    if (isThereMessageToTheUser) {
+    if (messageIsPresent) {
         NotAuthenticatedDialog(
             openDialog = true,
-            onDismissed = { photoDetailsViewModel.changeMessageStatus() },
+            onDismissed = {
+                onDialogDismissedEvent()
+            },
             onUserAcceptedAction = { context.startAuth() }
         )
     }
@@ -84,12 +87,14 @@ fun PhotoDetailsScreen(
         is PhotoDetailsUiState.Success -> {
 
             with(uiState.details) {
-
                 var page by remember { mutableStateOf(0) }
+
                 Column(modifier = Modifier.fillMaxSize()) {
                     PhotosPager(
                         images = relatedImages,
-                        onPageSwapped = { photoDetailsViewModel.checkIfPhotoIsLiked(it) },
+                        onPageSwapped = {
+                            onPageSwappedEvent(it)
+                        },
                         pageInIteration = { page = it }
                     )
 
@@ -121,12 +126,11 @@ fun PhotoDetailsScreen(
                         numberOfLikes = numberOfLikes,
                         userHasLikedPhoto = photoIsLikedByUser,
                         onLikeClick = {
-                            photoDetailsViewModel.likePhoto(photoId)
+
+                            onImageLikedEvent()
                         },
                         onDownloadClick = {},
-                        onUserSectionClicked = {
-                            navController.navigate("user_screen/$userName")
-                        }
+                        onUserSectionClicked = { onUserSectionClickedEvent(userName) }
                     )
                 }
             }

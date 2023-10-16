@@ -26,11 +26,10 @@ import org.koin.androidx.compose.getViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = getViewModel(),
-    navController: NavController
+    uiState: HomeUiState,
+    onPhotoClicked: (String) -> Unit
 ) {
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
-    val uiState = viewModel.homeState.collectAsStateWithLifecycle().value
 
     ConstraintLayout(
         modifier = Modifier
@@ -70,7 +69,7 @@ fun HomeScreen(
                             imageUrl = pic?.photoUrls?.small ?: "",
                             contentDescription = pic?.description ?: "",
                             onPhotoClicked = {
-                                navController.navigate("photo_detail_screen/${pic?.id ?: ""}")
+                                onPhotoClicked(pic?.id!!)
                             }
                         )
                     }

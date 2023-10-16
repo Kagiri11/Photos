@@ -117,4 +117,4 @@ class PhotoDetailsViewModel(
 data class PhotoLikedState(val photoId: String?, val photoUrl: String?, val blurHash: String?)
 
 fun PreviewPhoto.toPhotoLikedState() =
-    PhotoLikedState(photoId = this.id, photoUrl = this.urls?.full, blurHash = this.blur_hash)
+    PhotoLikedState(photoId = this.id, photoUrl = this.urls?.full, blurHash = this.blurHash)

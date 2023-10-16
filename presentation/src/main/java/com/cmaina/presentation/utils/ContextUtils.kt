@@ -13,10 +13,14 @@ fun Context.findActivity(): Activity? = when (this) {
     else -> null
 }
 
-fun onResume(context: Context, viewModel: PhotoDetailsViewModel) {
+fun onResume(
+    context: Context,
+    authenticateUser: (String) -> Unit
+) {
+
     val uri = context.findActivity()?.intent?.data
     val code = uri.toString().substringAfter("code=")
-    viewModel.authenticateUser(code)
+    authenticateUser(code)
 }
 
 fun Context.startAuth() {

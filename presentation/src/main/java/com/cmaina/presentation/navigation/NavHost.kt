@@ -2,7 +2,9 @@ package com.cmaina.presentation.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,25 +13,39 @@ import androidx.navigation.navArgument
 import com.cmaina.presentation.R
 import com.cmaina.presentation.screens.favourites.FavouritesScreen
 import com.cmaina.presentation.screens.home.HomeScreen
+import com.cmaina.presentation.screens.home.HomeViewModel
 import com.cmaina.presentation.screens.photodetails.PhotoDetailsScreen
+import com.cmaina.presentation.screens.photodetails.PhotoDetailsViewModel
 import com.cmaina.presentation.screens.search.SearchScreen
 import com.cmaina.presentation.screens.settings.SettingsScreen
 import com.cmaina.presentation.screens.user.UserScreen
-import org.koin.androidx.compose.getViewModel
+import com.cmaina.presentation.screens.user.UserViewModel
+import org.koin.androidx.compose.inject
 
 @Composable
 fun NavGraph(
     navController: NavHostController,
     modifier: Modifier,
 ) {
+    val homeViewModel by inject<HomeViewModel>()
+    val detailsViewModel by inject<PhotoDetailsViewModel>()
+    val userViewModel by inject<UserViewModel>()
+
     NavHost(
         navController = navController,
         startDestination = Destination.HomeScreen.route,
         modifier = modifier
     ) {
+
         composable(route = Destination.HomeScreen.route) {
-            HomeScreen(navController = navController)
+            val uiState by homeViewModel.homeState.collectAsStateWithLifecycle()
+            HomeScreen(
+                uiState = uiState,
+                onPhotoClicked = { photoId ->
+                    navController.navigate("photo_detail_screen/$photoId") }
+            )
         }
+
         composable(
             Destination.PhotoDetailScreen.route,
             arguments = listOf(
@@ -39,13 +55,25 @@ fun NavGraph(
             )
         ) {
             val photoId = it.arguments?.getString("photoID")
-            photoId?.let { id ->
+            val uiState by detailsViewModel.detailsUiState.collectAsStateWithLifecycle()
+            val messageIsPresent by detailsViewModel.messageToUser.collectAsStateWithLifecycle()
+
+            photoId?.let {
                 PhotoDetailsScreen(
-                    photoId = id,
-                    navController = navController
+                    messageIsPresent = messageIsPresent,
+                    uiState = uiState,
+                    onInitialLoadEvent = { detailsViewModel.fetchPhoto(photoId) },
+                    onUserSectionClickedEvent = { name -> navController.navigate("user_screen/$name") },
+                    onImageLikedEvent = { detailsViewModel.likePhoto(photoId) },
+                    onDialogDismissedEvent = { detailsViewModel.changeMessageStatus() },
+                    onPageSwappedEvent = { detailsViewModel.checkIfPhotoIsLiked(it) },
+                    onUserRequestsAuthenticationEvent = { authCode ->
+                        detailsViewModel.authenticateUser(authCode)
+                    }
                 )
             }
         }
+
         composable(
             route = Destination.UserScreen.route,
             arguments = listOf(
@@ -54,9 +82,16 @@ fun NavGraph(
                 }
             )
         ) {
+            val userScreenUiState by userViewModel.uiState.collectAsStateWithLifecycle()
             val username = it.arguments?.getString("username")
+
             username?.let { name ->
-                UserScreen(username = name, navController = navController)
+                UserScreen(
+                    uiState = userScreenUiState,
+                    onScreenLoad = { userViewModel.fetchUser(name) },
+                    onBackPressed = { navController.navigateUp() },
+                    onUserPhotoClicked = { navController.navigate("photo_detail_screen/${it}") }
+                )
             }
         }
         composable(route = Destination.FavouritesScreen.route) {

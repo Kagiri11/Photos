@@ -42,23 +42,28 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun UserScreen(
-    username: String,
-    userViewModel: UserViewModel = getViewModel(),
-    navController: NavController
+    onScreenLoad: () -> Unit,
+    onBackPressed: () -> Unit,
+    onUserPhotoClicked: (String) -> Unit,
+    uiState: UserUiState
 ) {
 
-    LaunchedEffect(key1 = true) { userViewModel.fetchUser(username) }
+    LaunchedEffect(key1 = true) {
+        onScreenLoad()
+    }
 
-    when (val uiState = userViewModel.uiState.collectAsStateWithLifecycle().value) {
+    when (uiState) {
         is UserUiState.Loading -> {}
         is UserUiState.Error -> {}
         is UserUiState.Success -> {
             Column(modifier = Modifier.fillMaxSize()) {
 
-                TopPart(onBackPressed = { navController.navigateUp() })
+                TopPart(onBackPressed = { onBackPressed() })
                 BottomPart(
                     userDetails = uiState.uiDetails,
-                    onUserPhotoClicked = { navController.navigate("photo_detail_screen/${it}") }
+                    onUserPhotoClicked = {
+                        onUserPhotoClicked(it)
+                    }
                 )
             }
         }
