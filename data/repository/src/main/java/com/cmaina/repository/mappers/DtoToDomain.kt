@@ -11,8 +11,6 @@ import com.cmaina.domain.models.photostats.DomainPhotoStatLikes
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.photostats.DomainPhotoStatsViews
 import com.cmaina.domain.models.search.PhotoSearchResultDomainModel
-import com.cmaina.domain.models.specificphoto.LocationDomainModel
-import com.cmaina.domain.models.specificphoto.PositionDomainModel
 import com.cmaina.domain.models.users.ProfileImageDomainModel
 import com.cmaina.network.models.auth.AuthRemoteResponse
 import com.cmaina.network.models.photos.PhotoListItem
@@ -75,7 +73,6 @@ internal fun Urls.toDomain() = PhotoUrls(
     smallS3 = small_s3,
     thumb = thumb
 )
-
 
 internal fun ProfileImage.toDomain() = DomainProfileImage(
     large = large,

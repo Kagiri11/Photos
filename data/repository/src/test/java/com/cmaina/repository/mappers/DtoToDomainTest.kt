@@ -7,7 +7,6 @@ import com.cmaina.domain.models.photostats.DomainPhotoStatDownloads
 import com.cmaina.domain.models.photostats.DomainPhotoStatLikes
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.photostats.DomainPhotoStatsViews
-import com.cmaina.domain.models.specificphoto.LocationDomainModel
 import com.cmaina.network.models.photos.ProfileImage
 import com.cmaina.network.models.photos.Urls
 import com.cmaina.network.models.photos.UserProfileImage
