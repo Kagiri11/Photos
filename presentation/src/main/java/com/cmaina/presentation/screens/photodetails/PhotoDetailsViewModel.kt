@@ -66,25 +66,22 @@ class PhotoDetailsViewModel(
                 is Result.Success -> {
 
                     with(result.data) {
-                        val strings =
-                            relatedCollectionsDomainModel?.collectionDomainModels?.first()?.previewPhotoDomainModels?.map {
-                                it.toPhotoLikedState()
-                            }?.toMutableList()
 
-                        strings?.add(
+                        // To fetch from a related collection  of images
+                        /*strings?.add(
                             PhotoLikedState(
                                 photoId = photoId,
                                 photoUrl = urls?.raw,
                                 blurHash = blurHash
                             )
 
-                        )
+                        )*/
                         val details = Details(
-                            userName = user?.username ?: "",
-                            userPhotoImageUrl = user?.domainUserProfileImage?.large
+                            userName = user.userName,
+                            userPhotoImageUrl = user.userPhotoImageUrl
                                 ?: "",
-                            numberOfLikes = likes ?: 0,
-                            relatedImages = strings ?: listOf(),
+                            numberOfLikes = likes,
+                            relatedImages = listOf(),
                             photoIsLikedByUser = false
                         )
                         _detailsUiState.value =

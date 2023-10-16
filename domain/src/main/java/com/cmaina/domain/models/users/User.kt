@@ -20,5 +20,5 @@ data class User(
     val social: DomainUserSocial,
     val totalLikes: Int,
     val totalPhotos: Int,
-    val username: String?
+    val username: String
 )

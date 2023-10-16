@@ -6,12 +6,14 @@ import com.cmaina.domain.models.photos.DomainProfileImage
 import com.cmaina.domain.models.photos.PhotoUrls
 import com.cmaina.domain.models.photos.DomainUserProfileImage
 import com.cmaina.domain.models.photos.DomainUserSocial
+import com.cmaina.domain.models.photos.PhotoUser
 import com.cmaina.domain.models.photostats.DomainPhotoStatDownloads
 import com.cmaina.domain.models.photostats.DomainPhotoStatLikes
 import com.cmaina.domain.models.photostats.DomainPhotoStatistics
 import com.cmaina.domain.models.photostats.DomainPhotoStatsViews
 import com.cmaina.domain.models.search.PhotoSearchResultDomainModel
 import com.cmaina.domain.models.users.ProfileImageDomainModel
+import com.cmaina.domain.models.users.User
 import com.cmaina.network.models.auth.AuthRemoteResponse
 import com.cmaina.network.models.photos.PhotoListItem
 import com.cmaina.network.models.photos.ProfileImage
@@ -34,8 +36,15 @@ internal fun PhotoListItem.toDomain() = Photo(
     id = id,
     likedByUser = liked_by_user ?: false,
     likes = likes ?: 0,
-    photoUrls = urls!!.toDomain()
+    photoUrls = urls!!.toDomain(),
+    user = user?.toDomain()!!
 )
+
+internal fun com.cmaina.network.models.photos.User.toDomain() = PhotoUser(
+    userName = username ?: "",
+    userPhotoImageUrl = this.userProfileImage.medium
+
+    )
 
 internal fun PhotoStatistics.toDomain() = DomainPhotoStatistics(
     id = id,
@@ -81,7 +90,7 @@ internal fun ProfileImage.toDomain() = DomainProfileImage(
 )
 
 // user section
-internal fun UserDto.toDomain() = com.cmaina.domain.models.users.User(
+internal fun UserDto.toDomain() = User(
     bio = bio,
     downloads = downloads,
     firstName = first_name,
@@ -103,15 +112,7 @@ internal fun UserDto.toDomain() = com.cmaina.domain.models.users.User(
 
 internal fun com.cmaina.network.models.users.ProfileImage.toDomain() =
     ProfileImageDomainModel(large, medium, small)
-internal fun Location.toDomain() = LocationDomainModel(
-    city = city,
-    country = country,
-    name = name,
-    positionDomainModel = position?.toDomain(),
-    title = title
-)
 
-internal fun Position.toDomain() = PositionDomainModel(latitude, longitude)
 internal fun PhotoSearchResultDto.toDomain() = PhotoSearchResultDomainModel(
     searchedPhotoDomainModels = results.map { it.toDomain() },
     total = total,
@@ -124,7 +125,8 @@ internal fun SearchedPhotoDto.toDomain() = Photo(
     id = id,
     likedByUser = liked_by_user,
     likes = likes,
-    photoUrls = urls.toDomain()
+    photoUrls = urls.toDomain(),
+    user = this.user.toDomain()
 )
 
 internal fun AuthRemoteResponse.toDomain() = AuthDomainResponse(
