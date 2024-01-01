@@ -64,24 +64,14 @@ class PhotoDetailsViewModel(
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
                 is Result.Success -> {
-
                     with(result.data) {
 
-                        // To fetch from a related collection  of images
-                        /*strings?.add(
-                            PhotoLikedState(
-                                photoId = photoId,
-                                photoUrl = urls?.raw,
-                                blurHash = blurHash
-                            )
-
-                        )*/
+                        
                         val details = Details(
                             userName = user.userName,
-                            userPhotoImageUrl = user.userPhotoImageUrl
-                                ?: "",
+                            userPhotoImageUrl = user.userPhotoImageUrl,
                             numberOfLikes = likes,
-                            relatedImages = listOf(),
+                            relatedImages = relatedPhotos,
                             photoIsLikedByUser = false
                         )
                         _detailsUiState.value =

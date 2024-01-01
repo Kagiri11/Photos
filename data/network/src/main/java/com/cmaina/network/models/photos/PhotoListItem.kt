@@ -52,5 +52,7 @@ data class PhotoListItem(
     @SerializedName("views")
     val views: Int?,
     @SerializedName("downloads")
-    val downloads: Int?
+    val downloads: Int?,
+    @SerializedName("related_collections")
+    val collections: Collections
 )

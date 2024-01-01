@@ -21,7 +21,7 @@ import kotlin.math.absoluteValue
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ColumnScope.PhotosPager(
-    images: List<PhotoLikedState>,
+    images: List<Pair<String, String>>,
     pageInIteration: (Int) -> Unit,
     onPageSwapped: (String) -> Unit
 ) {
@@ -34,7 +34,7 @@ fun ColumnScope.PhotosPager(
         state = pagerState
     ) { page ->
         pageInIteration(pagerState.currentPage)
-        onPageSwapped(images[page].photoId ?: "")
+        onPageSwapped(images[page].first)
         Card(
             modifier = Modifier
                 .fillMaxHeight(0.95f)
@@ -58,8 +58,8 @@ fun ColumnScope.PhotosPager(
             shape = RoundedCornerShape(2)
         ) {
             AsyncImageBlur(
-                blurHash = images[page].blurHash ?: "",
-                imageUrl = images[page].photoUrl ?: "",
+                blurHash = "",
+                imageUrl = images[page].second ?: "",
                 modifier = Modifier.fillMaxSize(),
                 contentDescription = ""
             )

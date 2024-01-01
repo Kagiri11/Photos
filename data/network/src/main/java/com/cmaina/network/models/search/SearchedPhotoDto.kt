@@ -1,5 +1,6 @@
 package com.cmaina.network.models.search
 
+import com.cmaina.network.models.photos.Collections
 import com.cmaina.network.models.photos.PhotoLinks
 import com.cmaina.network.models.photos.Sponsorship
 import com.cmaina.network.models.photos.Urls
@@ -24,5 +25,6 @@ data class SearchedPhotoDto(
     val updated_at: String,
     val urls: Urls,
     val user: User,
-    val width: Int
+    val width: Int,
+    val collections: Collections
 )

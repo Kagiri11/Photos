@@ -1,10 +1,10 @@
 [versions]
 retrofit = "2.9.0"
-room = "2.4.2"
+room = "2.6.1"
 material = "1.5.0"
 core = "1.7.0"
 appCompat = "1.4.1"
-coroutines = "1.6.0"
+coroutines = "1.7.1"
 koin = "3.2.0-beta-1"
 kotlin = "1.8.22"
 ktorVersion= "2.3.4"
@@ -35,9 +35,9 @@ landscapist = "1.6.1"
 playUpdate = "2.1.0"
 pager = "0.26.1-alpha"
 googleGradleSecrets = "0.4"
-kotlinJVM = "1.5.30"
+kotlinJVM = "1.9.20"
 kotlinKover = "0.6.0"
-kotlinAndroid = "1.8.22"
+kotlinAndroid = "1.9.22"
 androidApp = "7.2.0"
 androidLib = "7.2.0"
 profileinstaller = "1.2.0"
@@ -129,11 +129,6 @@ square-retrofit2-okhttp3-mockwebserver = { group="com.squareup.okhttp3", name ="
 square-retrofit2-retrofit = { group="com.squareup.retrofit2", name ="retrofit", version.ref="retrofit"}
 square-retrofit2-converter-gson = { group="com.squareup.retrofit2", name ="converter-gson", version.ref="retrofit"}
 
-#region Test libs
-
-
-
-#endregion
 
 [plugins]
 googleSecrets = { id = "com.google.secrets_gradle_plugin", version.ref = "googleGradleSecrets" }
@@ -144,5 +139,4 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndr
 kotlin-androids = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLib = { id = "com.android.library", version.ref = "androidLib" }
 android-libary = { id = "com.android.library", version.ref = "androidLib" }
-kotlinJVM = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJVM" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kotlinKover" }

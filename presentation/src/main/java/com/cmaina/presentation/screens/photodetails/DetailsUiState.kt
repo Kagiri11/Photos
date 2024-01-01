@@ -13,6 +13,6 @@ data class Details(
     val userName: String,
     val userPhotoImageUrl: String,
     val numberOfLikes: Int,
-    val relatedImages: List<PhotoLikedState>,
+    val relatedImages: List<Pair<String, String>>,
     val photoIsLikedByUser: Boolean
 )

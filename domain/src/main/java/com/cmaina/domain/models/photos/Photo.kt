@@ -8,7 +8,8 @@ data class Photo(
     val photoUrls: PhotoUrls,
     val likedByUser: Boolean,
     val likes: Int,
-    val user: PhotoUser
+    val user: PhotoUser,
+    val relatedPhotos: List<Map<String, String>>
 )
 
 data class PhotoUser(
