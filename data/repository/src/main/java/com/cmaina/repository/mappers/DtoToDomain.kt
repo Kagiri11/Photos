@@ -26,8 +26,6 @@ import com.cmaina.network.models.photostats.PhotoStatistics
 import com.cmaina.network.models.photostats.Views
 import com.cmaina.network.models.search.PhotoSearchResultDto
 import com.cmaina.network.models.search.SearchedPhotoDto
-import com.cmaina.network.models.specificphoto.Location
-import com.cmaina.network.models.specificphoto.Position
 import com.cmaina.network.models.users.UserDto
 
 internal fun PhotoListItem.toDomain() = Photo(
@@ -39,7 +37,7 @@ internal fun PhotoListItem.toDomain() = Photo(
     photoUrls = urls!!.toDomain(),
     user = user?.toDomain()!!,
     relatedPhotos = this.collections.results.map {
-        mapOf(it.id to it.cover_photo.urls.full)
+        mapOf(it.id to it.coverPhoto.urls.full)
     }
 )
 
@@ -131,7 +129,7 @@ internal fun SearchedPhotoDto.toDomain() = Photo(
     photoUrls = urls.toDomain(),
     user = this.user.toDomain(),
     relatedPhotos = this.collections.results.map {
-        mapOf(it.id to it.cover_photo.urls.full)
+        mapOf(it.id to it.coverPhoto.urls.full)
     }
 )
 
