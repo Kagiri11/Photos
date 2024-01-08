@@ -7,17 +7,17 @@ import com.google.gson.annotations.SerializedName
 
 data class PhotoListItem(
     @SerializedName("alt_description")
-    val alt_description: String?,
+    val altDescription: String?,
     @SerializedName("blur_hash")
-    val blur_hash: String?,
+    val blurHash: String?,
     @SerializedName("categories")
     val categories: List<Any>?,
     @SerializedName("color")
     val color: String?,
     @SerializedName("created_at")
-    val created_at: String?,
+    val createdAt: String?,
     @SerializedName("current_user_collections")
-    val current_user_collections: List<Any>?,
+    val currentUserCollections: List<Any>?,
     @SerializedName("description")
     val description: String?,
     @SerializedName("height")
@@ -25,19 +25,19 @@ data class PhotoListItem(
     @SerializedName("id")
     val id: String,
     @SerializedName("liked_by_user")
-    val liked_by_user: Boolean?,
+    val likedByUser: Boolean?,
     @SerializedName("likes")
     val likes: Int?,
     @SerializedName("links")
     val links: PhotoLinks?,
     @SerializedName("promoted_at")
-    val promoted_at: String?,
+    val promotedAt: String?,
     @SerializedName("sponsorship")
     val sponsorship: Sponsorship?,
     @SerializedName("topic_submissions")
-    val topic_submissions: TopicSubmissions?,
+    val topicSubmissions: TopicSubmissions?,
     @SerializedName("updated_at")
-    val updated_at: String?,
+    val updatedAt: String?,
     @SerializedName("urls")
     val urls: Urls?,
     @SerializedName("user")

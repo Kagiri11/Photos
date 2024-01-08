@@ -1,23 +1,33 @@
 package com.cmaina.network.models.photos
 
+import com.google.gson.annotations.SerializedName
+
 data class CoverPhoto(
-    val alt_description: String,
-    val blur_hash: String,
+    @SerializedName("alt_description")
+    val altDescription: String,
+    @SerializedName("blur_hash")
+    val blurHash: String,
     val breadcrumbs: List<Any>,
     val color: String,
-    val created_at: String,
-    val current_user_collections: List<Any>,
+    @SerializedName("created_at")
+    val createdAt: String,
+    @SerializedName("current_user_collections")
+    val currentUserCollections: List<Any>,
     val description: String,
     val height: Int,
     val id: String,
-    val liked_by_user: Boolean,
+    @SerializedName("liked_by_user")
+    val likedByUser: Boolean,
     val likes: Int,
     val links: Links,
-    val promoted_at: String,
+    @SerializedName("promoted_at")
+    val promotedAt: String,
     val slug: String,
     val sponsorship: Any,
-    val topic_submissions: TopicSubmissions,
-    val updated_at: String,
+    @SerializedName("topic_submissions")
+    val topicSubmissions: TopicSubmissions,
+    @SerializedName("updated_at")
+    val updatedAt: String,
     val urls: UrlsX,
     val user: UserX,
     val width: Int

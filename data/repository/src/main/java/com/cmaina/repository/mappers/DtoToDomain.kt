@@ -29,10 +29,10 @@ import com.cmaina.network.models.search.SearchedPhotoDto
 import com.cmaina.network.models.users.UserDto
 
 internal fun PhotoListItem.toDomain() = Photo(
-    blurHash = blur_hash ?: "",
+    blurHash = blurHash ?: "",
     description = description ?: "",
     id = id,
-    likedByUser = liked_by_user ?: false,
+    likedByUser = likedByUser ?: false,
     likes = likes ?: 0,
     photoUrls = urls!!.toDomain(),
     user = user?.toDomain()!!,
