@@ -19,16 +19,13 @@ data class CoverPhoto(
     @SerializedName("liked_by_user")
     val likedByUser: Boolean,
     val likes: Int,
-    val links: Links,
     @SerializedName("promoted_at")
     val promotedAt: String,
     val slug: String,
     val sponsorship: Any,
-    @SerializedName("topic_submissions")
-    val topicSubmissions: TopicSubmissions,
     @SerializedName("updated_at")
     val updatedAt: String,
-    val urls: UrlsX,
-    val user: UserX,
+    val urls: Urls,
+    val user: User,
     val width: Int
 )
