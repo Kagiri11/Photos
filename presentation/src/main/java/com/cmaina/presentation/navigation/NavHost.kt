@@ -42,7 +42,8 @@ fun NavGraph(
             HomeScreen(
                 uiState = uiState,
                 onPhotoClicked = { photoId ->
-                    navController.navigate("photo_detail_screen/$photoId") }
+                    navController.navigate("photo_detail_screen/$photoId")
+                }
             )
         }
 
@@ -57,6 +58,7 @@ fun NavGraph(
             val photoId = it.arguments?.getString("photoID")
             val uiState by detailsViewModel.detailsUiState.collectAsStateWithLifecycle()
             val messageIsPresent by detailsViewModel.messageToUser.collectAsStateWithLifecycle()
+            val userHasBeenAuthenticated by detailsViewModel.userIsAuthenticated.collectAsStateWithLifecycle()
 
             photoId?.let {
                 PhotoDetailsScreen(
@@ -64,9 +66,14 @@ fun NavGraph(
                     uiState = uiState,
                     onInitialLoadEvent = { detailsViewModel.fetchPhoto(photoId) },
                     onUserSectionClickedEvent = { name -> navController.navigate("user_screen/$name") },
-                    onImageLikedEvent = { detailsViewModel.likePhoto(photoId) },
+                    onImageLikedEvent = {
+                        if (!userHasBeenAuthenticated) {
+                            detailsViewModel.changeMessageStatus()
+                        }
+                        detailsViewModel.likePhoto(photoId)
+                    },
                     onDialogDismissedEvent = { detailsViewModel.changeMessageStatus() },
-                    onPageSwappedEvent = { detailsViewModel.checkIfPhotoIsLiked(it) },
+                    onPageSwappedEvent = { detailsViewModel.checkIfPhotoHasBeenLiked(it) },
                     onUserRequestsAuthenticationEvent = { authCode ->
                         detailsViewModel.authenticateUser(authCode)
                     }

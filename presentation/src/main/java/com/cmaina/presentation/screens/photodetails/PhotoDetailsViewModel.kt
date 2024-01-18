@@ -25,7 +25,7 @@ class PhotoDetailsViewModel(
     private val _messageToUser = MutableStateFlow(false)
     val messageToUser = _messageToUser.asStateFlow()
 
-    fun checkIfPhotoIsLiked(photoId: String) {
+    fun checkIfPhotoHasBeenLiked(photoId: String) {
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
                 is Result.Success -> {
@@ -41,19 +41,14 @@ class PhotoDetailsViewModel(
         }
     }
 
-    private fun checkIfUserIsAuthenticated() = viewModelScope.launch {
+    private fun checkIfUserHasBeenAuthenticated() = viewModelScope.launch {
         authRepository.checkIfUserHasBeenAuthenticated().collect {
             _userIsAuthenticated.value = it
         }
     }
 
     fun likePhoto(photoID: String) = viewModelScope.launch {
-        checkIfUserIsAuthenticated()
-        if (_userIsAuthenticated.value) {
-            photosRepository.likePhoto(photoID)
-        } else {
-            changeMessageStatus()
-        }
+        photosRepository.likePhoto(photoID)
     }
 
     fun changeMessageStatus() {
@@ -66,7 +61,7 @@ class PhotoDetailsViewModel(
                 is Result.Success -> {
                     with(result.data) {
 
-                        
+
                         val details = Details(
                             userName = user.userName,
                             userPhotoImageUrl = user.userPhotoImageUrl,

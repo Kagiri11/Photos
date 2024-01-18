@@ -9,7 +9,7 @@ data class Photo(
     val likedByUser: Boolean,
     val likes: Int,
     val user: PhotoUser,
-    val relatedPhotos: List<Map<String, String>>
+    val relatedPhotos: List<Pair<String, String>>
 )
 
 data class PhotoUser(

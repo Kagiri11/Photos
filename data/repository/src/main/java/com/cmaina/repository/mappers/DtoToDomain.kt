@@ -36,9 +36,7 @@ internal fun PhotoListItem.toDomain() = Photo(
     likes = likes ?: 0,
     photoUrls = urls!!.toDomain(),
     user = user?.toDomain()!!,
-    relatedPhotos = this.collections.results.map {
-        mapOf(it.id to it.coverPhoto.urls.full)
-    }
+    relatedPhotos = this.collections.results.map { it.id to (it.coverPhoto.urls.full ?: "") }
 )
 
 internal fun com.cmaina.network.models.photos.User.toDomain() = PhotoUser(
@@ -129,7 +127,7 @@ internal fun SearchedPhotoDto.toDomain() = Photo(
     photoUrls = urls.toDomain(),
     user = this.user.toDomain(),
     relatedPhotos = this.collections.results.map {
-        mapOf(it.id to it.coverPhoto.urls.full)
+        it.id to (it.coverPhoto.urls.full ?: "")
     }
 )
 
