@@ -1,5 +1,7 @@
 package com.cmaina.presentation.screens.photodetails
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmaina.domain.models.specificphoto.PreviewPhoto
@@ -9,6 +11,7 @@ import com.cmaina.domain.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class PhotoDetailsViewModel(
@@ -18,12 +21,15 @@ class PhotoDetailsViewModel(
 
     private val _detailsUiState = MutableStateFlow<PhotoDetailsUiState>(PhotoDetailsUiState.Loading)
     val detailsUiState: StateFlow<PhotoDetailsUiState> get() = _detailsUiState
-
-    private val _userIsAuthenticated = MutableStateFlow(false)
-    val userIsAuthenticated = _userIsAuthenticated.asStateFlow()
+    private val _userIsAuthenticated = MutableStateFlow<Boolean>(false)
+    val userIsAuthenticated : StateFlow<Boolean> get() = _userIsAuthenticated
 
     private val _messageToUser = MutableStateFlow(false)
     val messageToUser = _messageToUser.asStateFlow()
+
+    init {
+        checkIfUserHasBeenAuthenticated()
+    }
 
     fun checkIfPhotoHasBeenLiked(photoId: String) {
         viewModelScope.launch {
@@ -38,12 +44,6 @@ class PhotoDetailsViewModel(
                     _detailsUiState.value = PhotoDetailsUiState.Error(result.errorDetails)
                 }
             }
-        }
-    }
-
-    private fun checkIfUserHasBeenAuthenticated() = viewModelScope.launch {
-        authRepository.checkIfUserHasBeenAuthenticated().collect {
-            _userIsAuthenticated.value = it
         }
     }
 
@@ -82,16 +82,16 @@ class PhotoDetailsViewModel(
         }
     }
 
-    fun authenticateUser(authCode: String) = viewModelScope.launch {
-        when (val result = authRepository.authenticateUser(authCode = authCode)) {
-            is Result.Success -> {
-                _userIsAuthenticated.value = true
-                // save token to persistence
-            }
+    private fun checkIfUserHasBeenAuthenticated() = viewModelScope.launch {
+        authRepository.checkIfUserHasBeenAuthenticated().collect{
+            _userIsAuthenticated.value = it
+        }
+    }
 
-            is Result.Error -> {
-                _userIsAuthenticated.value = false
-            }
+    fun authenticateUser(authCode: String) = viewModelScope.launch {
+        when(authRepository.authenticateUser(authCode = authCode)){
+            is Result.Error -> {}
+            is Result.Success -> {}
         }
     }
 }
