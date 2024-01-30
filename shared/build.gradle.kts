@@ -12,22 +12,6 @@ kotlin {
         }
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-            isStatic = true
-        }
-    }
-
-    sourceSets{
-       // val desktopMain by getting
-        commonMain.dependencies {  }
-        commonTest.dependencies {  }
-    }
 }
 
 android {
