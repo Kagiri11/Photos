@@ -11,7 +11,7 @@ buildscript {
 }
 
 plugins {
-    id("org.jetbrains.kotlin.multiplatform") version "1.9.20"
+    id("org.jetbrains.kotlin.multiplatform") version "1.9.20" apply false
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.libary) apply false
     alias(libs.plugins.kotlin.androids) apply false
