@@ -4,6 +4,16 @@ plugins {
 }
 
 kotlin {
+    sourceSets{
+        commonMain.dependencies {
+            implementation("androidx.datastore:datastore-preferences-core:1.1.0-alpha07")
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.logging)
+        }
+    }
     androidTarget {
         compilations.all {
             kotlinOptions {
