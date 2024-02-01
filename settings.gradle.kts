@@ -12,7 +12,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Fotos"
-include(":app")
+include(":androidApp")
 include(":data:network")
 include(":data:local")
 include(":data:repository")
@@ -21,3 +21,4 @@ include(":presentation")
 include(":benchmark")
 enableFeaturePreview("VERSION_CATALOGS")
 include(":shared")
+include("desktop")
