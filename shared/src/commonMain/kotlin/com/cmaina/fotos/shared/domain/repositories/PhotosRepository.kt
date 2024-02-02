@@ -7,17 +7,17 @@ import kotlinx.coroutines.flow.Flow
 
 interface PhotosRepository {
 
-    suspend fun fetchPhotos(): Result<Flow<PagingData<com.cmaina.fotos.shared.domain.models.photos.Photo>>>
+    suspend fun fetchPhotos(): com.cmaina.fotos.shared.domain.utils.Result<Flow<PagingData<Photo>>>
 
-    suspend fun getRandomPhoto(): Result<com.cmaina.fotos.shared.domain.models.photos.Photo>
+    suspend fun getRandomPhoto(): com.cmaina.fotos.shared.domain.utils.Result<Photo>
 
-    suspend fun getSpecificPhoto(photoId: String): Result<com.cmaina.fotos.shared.domain.models.photos.Photo>
+    suspend fun getSpecificPhoto(photoId: String): com.cmaina.fotos.shared.domain.utils.Result<Photo>
 
-    suspend fun fetchUserPhotos(username: String): Flow<androidx.paging.PagingData<com.cmaina.fotos.shared.domain.models.photos.Photo>>
+    suspend fun fetchUserPhotos(username: String): Flow<androidx.paging.PagingData<Photo>>
 
-    suspend fun getPhotoStatistics(photoId: String): Flow<Result<com.cmaina.fotos.shared.domain.models.photostats.DomainPhotoStatistics>>
+    suspend fun getPhotoStatistics(photoId: String): Flow<com.cmaina.fotos.shared.domain.utils.Result<com.cmaina.fotos.shared.domain.models.photostats.DomainPhotoStatistics>>
 
-    suspend fun searchPhoto(searchString: String): Flow<PagingData<com.cmaina.fotos.shared.domain.models.photos.Photo>>
+    suspend fun searchPhoto(searchString: String): Flow<PagingData<Photo>>
 
-    suspend fun likePhoto(id: String): Result<com.cmaina.fotos.shared.domain.models.photos.Photo>
+    suspend fun likePhoto(id: String): com.cmaina.fotos.shared.domain.utils.Result<Photo>
 }

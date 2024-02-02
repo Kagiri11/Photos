@@ -3,16 +3,18 @@ package com.cmaina.fotos.shared.data.repositories
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.cmaina.domain.models.photos.Photo
-import com.cmaina.domain.models.photostats.DomainPhotoStatistics
-import com.cmaina.domain.repository.PhotosRepository
-import com.cmaina.network.api.PhotosRemoteSource
 import com.cmaina.fotos.shared.data.network.models.photos.PhotoListItem
 import com.cmaina.fotos.shared.data.network.models.photostats.PhotoStatistics
 import com.cmaina.fotos.shared.data.mappers.toDomain
-import com.cmaina.repository.paging.PhotosPagingSource
-import com.cmaina.repository.paging.SearchedPhotosPagingSource
-import com.cmaina.repository.utils.InOut
+import com.cmaina.fotos.shared.data.network.InOut
+import com.cmaina.fotos.shared.data.network.PhotosRemoteSource
+import com.cmaina.fotos.shared.data.network.sources.usersRemoteSource
+import com.cmaina.fotos.shared.data.repositories.paging.PhotosPagingSource
+import com.cmaina.fotos.shared.data.repositories.paging.SearchedPhotosPagingSource
+import com.cmaina.fotos.shared.data.repositories.paging.UserPhotosPagingSource
+import com.cmaina.fotos.shared.domain.models.photos.Photo
+import com.cmaina.fotos.shared.domain.models.photostats.DomainPhotoStatistics
+import com.cmaina.fotos.shared.domain.repositories.PhotosRepository
 import io.ktor.client.call.body
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -21,15 +23,15 @@ class PhotosRepositoryImpl(
     private val photosRemoteSource: PhotosRemoteSource
 ) : PhotosRepository {
 
-    override suspend fun fetchPhotos(): Result<Flow<PagingData<Photo>>> {
+    override suspend fun fetchPhotos(): com.cmaina.fotos.shared.domain.utils.Result<Flow<PagingData<Photo>>> {
         val pagingConfig = PagingConfig(pageSize = 30)
         val photosPager = Pager(pagingConfig) {
             PhotosPagingSource(photosRemoteSource = photosRemoteSource)
         }.flow
-        return Result.Success(photosPager)
+        return com.cmaina.fotos.shared.domain.utils.Result.Success(photosPager)
     }
 
-    override suspend fun getRandomPhoto(): Result<Photo> {
+    override suspend fun getRandomPhoto(): com.cmaina.fotos.shared.domain.utils.Result<Photo> {
         val call = photosRemoteSource.fetchRandomPhoto()
         return InOut<PhotoListItem, Photo>(
             call.body()
@@ -40,7 +42,7 @@ class PhotosRepositoryImpl(
     }
 
 
-    override suspend fun getSpecificPhoto(photoId: String): Result<Photo> {
+    override suspend fun getSpecificPhoto(photoId: String): com.cmaina.fotos.shared.domain.utils.Result<Photo> {
         val call = photosRemoteSource.fetchPhoto(photoId)
         return InOut<PhotoListItem, Photo>(
             call.body()
@@ -50,7 +52,15 @@ class PhotosRepositoryImpl(
         )
     }
 
-    override suspend fun getPhotoStatistics(photoId: String): Flow<Result<DomainPhotoStatistics>> {
+    override suspend fun fetchUserPhotos(username: String): Flow<PagingData<Photo>> {
+        val pagingConfig = PagingConfig(pageSize = 30)
+        val userPhotosPager = Pager(pagingConfig) {
+            UserPhotosPagingSource(usersRemoteSource = usersRemoteSource, username = username)
+        }.flow
+        return userPhotosPager
+    }
+
+    override suspend fun getPhotoStatistics(photoId: String): Flow<com.cmaina.fotos.shared.domain.utils.Result<DomainPhotoStatistics>> {
         val call = photosRemoteSource.fetchPhotoStatistics(photoId)
         return flowOf(
             InOut<PhotoStatistics, DomainPhotoStatistics>(call.body())
@@ -73,7 +83,7 @@ class PhotosRepositoryImpl(
         return searchedPhotosPager
     }
 
-    override suspend fun likePhoto(id: String): Result<Photo> {
+    override suspend fun likePhoto(id: String): com.cmaina.fotos.shared.domain.utils.Result<Photo> {
         val call = photosRemoteSource.likePhoto(id = id)
         return InOut<PhotoListItem, Photo>(call.body())
             .apiCall(

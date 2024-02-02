@@ -1,8 +1,8 @@
 package com.cmaina.fotos.shared.domain.models.photostats
 
 data class DomainPhotoStatistics(
-    val domainPhotoStatDownloads: com.cmaina.fotos.shared.domain.models.photostats.DomainPhotoStatDownloads?,
+    val domainPhotoStatDownloads: DomainPhotoStatDownloads?,
     val id: String?,
-    val domainPhotoStatLikes: com.cmaina.fotos.shared.domain.models.photostats.DomainPhotoStatLikes?,
-    val domainPhotoStatsViews: com.cmaina.fotos.shared.domain.models.photostats.DomainPhotoStatsViews?
+    val domainPhotoStatLikes: DomainPhotoStatLikes?,
+    val domainPhotoStatsViews: DomainPhotoStatsViews?
 )
