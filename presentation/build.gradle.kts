@@ -78,7 +78,7 @@ dependencies {
     implementation(libs.google.accompanist.pager)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.android1)
-    implementation(libs.koin.core1)
+    implementation(libs.koin.core)
     implementation(libs.skydoves.landscapist.fresco)
 
     debugImplementation(libs.androidx.compose.ui.tooling)

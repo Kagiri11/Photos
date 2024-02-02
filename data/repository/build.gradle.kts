@@ -50,7 +50,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.paging.runtime)
-    implementation(libs.koin.core1)
+    implementation(libs.koin.core)
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)

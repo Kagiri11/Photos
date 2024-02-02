@@ -3,7 +3,7 @@ package com.cmaina.fotos.shared.data
 import androidx.datastore.preferences.core.stringPreferencesKey
 
 object Constants {
-    val BASEURL = "https://api.unsplash.com/"
+    const val BASEURL = "https://api.unsplash.com/"
 
     val UserAccessToken = stringPreferencesKey("accessToken")
 }

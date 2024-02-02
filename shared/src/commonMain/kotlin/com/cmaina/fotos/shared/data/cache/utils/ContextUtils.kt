@@ -1,4 +1,4 @@
-package com.cmaina.local.utils
+package com.cmaina.fotos.shared.data.cache.utils
 
 import android.content.Context
 import androidx.datastore.core.DataStore

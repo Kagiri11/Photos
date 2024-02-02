@@ -40,7 +40,7 @@ android {
 dependencies {
 
     api(libs.androidx.datastore)
-    implementation(libs.koin.core1)
+    implementation(libs.koin.core)
     implementation(libs.square.retrofit2.converter.gson)
 
     testImplementation(libs.junit1)

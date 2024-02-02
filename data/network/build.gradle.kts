@@ -42,7 +42,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.datastore)
-    implementation(libs.koin.core1)
+    implementation(libs.koin.core)
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.square.retrofit2.retrofit)
     implementation(libs.square.retrofit2.converter.gson)

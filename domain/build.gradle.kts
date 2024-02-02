@@ -39,7 +39,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.paging.runtime)
-    implementation(libs.koin.core1)
+    implementation(libs.koin.core)
     implementation(libs.kotlin.coroutines.core)
 
 }

@@ -108,7 +108,7 @@ google-android-play-app-update-ktx = { group="com.google.android.play", name="ap
 google-material = { group="com.google.android.material", name="material", version.ref="material"}
 google-truth = { group="com.google.truth", name="truth", version.ref="truth"}
 junit1 = { group="junit", name ="junit", version.ref ="jUnit"}
-koin-core1 = { group = "io.insert-koin", name ="koin-core", version.ref ="koin"}
+koin-core = { group = "io.insert-koin", name ="koin-core", version.ref ="koin"}
 koin-android1 = { group = "io.insert-koin", name ="koin-android", version.ref ="koin"}
 koin-androidx-compose = { group = "io.insert-koin", name ="koin-androidx-compose", version.ref ="koin"}
 kotlin-coroutines-core = { group="org.jetbrains.kotlinx", name="kotlinx-coroutines-core", version.ref ="coroutines"}
