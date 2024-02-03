@@ -4,7 +4,17 @@ plugins {
 }
 
 kotlin {
+    jvm()
+    androidTarget()
+
     sourceSets{
+        jvmMain.dependencies {
+
+        }
+
+        androidMain.dependencies {
+            api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+        }
         commonMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.kotlin.coroutines.core)

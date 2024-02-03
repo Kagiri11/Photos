@@ -4,6 +4,7 @@ import com.cmaina.domain.models.specificphoto.PreviewPhoto
 import com.cmaina.fotos.shared.domain.repositories.AuthRepository
 import com.cmaina.fotos.shared.domain.repositories.PhotosRepository
 import com.cmaina.fotos.shared.domain.utils.Result.*
+import com.cmaina.fotos.shared.presentation.utils.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,7 @@ class PhotoDetailsViewModel(
     private val photosRepository: PhotosRepository,
     private val authRepository: AuthRepository,
     private val viewModelScope: CoroutineScope
-) : KoinComponent {
+) : ViewModel() {
 
     private val _detailsUiState = MutableStateFlow<PhotoDetailsUiState>(PhotoDetailsUiState.Loading)
     val detailsUiState: StateFlow<PhotoDetailsUiState> get() = _detailsUiState
