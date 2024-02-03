@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    alias(libs.plugins.compose.multiplatform)
 }
 
 kotlin {
@@ -8,14 +9,12 @@ kotlin {
     androidTarget()
 
     sourceSets{
-        jvmMain.dependencies {
-
-        }
 
         androidMain.dependencies {
             api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
         }
         commonMain.dependencies {
+            implementation(compose.material)
             implementation(libs.koin.core)
             implementation(libs.kotlin.coroutines.core)
             implementation("app.cash.paging:paging-common:3.3.0-alpha02-0.4.0")

@@ -4,5 +4,5 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 actual open class ViewModel actual constructor() {
-    actual val coroutineScope = CoroutineScope(Dispatchers.IO)
+    actual val viewModelScope = CoroutineScope(Dispatchers.IO)
 }

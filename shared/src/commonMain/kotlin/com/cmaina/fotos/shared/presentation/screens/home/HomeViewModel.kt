@@ -5,13 +5,13 @@ import com.cmaina.fotos.shared.domain.repositories.PhotosRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import com.cmaina.fotos.shared.presentation.utils.ViewModel
 import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
 
 class HomeViewModel(
     private val photosRepository: PhotosRepository,
     private val viewModelScope: CoroutineScope
-) : KoinComponent {
+) : ViewModel() {
 
     private val _homeState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val homeState: StateFlow<HomeUiState> get() = _homeState

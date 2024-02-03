@@ -16,7 +16,7 @@ okHttpLoggingInterceptor = "4.10.0"
 coil = "1.4.0"
 paging = "3.1.1"
 pagingCompose = "1.0.0-alpha14"
-compose = "1.3.0-beta01"
+compose = "1.5.12"
 composeBom = "2023.06.01"
 constraintLayout = "1.0.0-rc02"
 systemUIController = "0.24.10-beta"
@@ -131,6 +131,7 @@ square-retrofit2-converter-gson = { group="com.squareup.retrofit2", name ="conve
 
 
 [plugins]
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
 googleSecrets = { id = "com.google.secrets_gradle_plugin", version.ref = "googleGradleSecrets" }
 google-secret = { id = "com.google.secrets_gradle_plugin", version.ref = "googleGradleSecrets" }
 androidApp = { id = "com.android.application", version.ref = "androidApp" }

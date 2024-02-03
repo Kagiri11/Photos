@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
 actual open class ViewModel: ViewModel() {
-    actual val coroutineScope = viewModelScope
+    actual val viewModelScope = this.viewModelScope
 }
