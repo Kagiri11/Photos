@@ -1,7 +1,6 @@
 package com.cmaina.presentation.components.photoscards
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.util.lerp
-import com.cmaina.presentation.screens.photodetails.PhotoLikedState
+import com.cmaina.fotos.shared.presentation.components.photoscards.AsyncImageBlur
 import kotlin.math.absoluteValue
 
 

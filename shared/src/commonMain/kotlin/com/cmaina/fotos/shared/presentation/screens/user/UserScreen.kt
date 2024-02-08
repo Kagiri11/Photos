@@ -25,12 +25,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import app.cash.paging.compose.collectAsLazyPagingItems
 import com.cmaina.fotos.shared.presentation.components.userscreencomponents.UserPhotos
 import com.cmaina.fotos.shared.presentation.ui.theme.FotosBlack
 import com.cmaina.fotos.shared.presentation.utils.PainterResource
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.presentation.components.userscreencomponents.FollowAndMessageButtons
 import com.cmaina.presentation.components.userscreencomponents.FollowingSection
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
 
 @Composable
 fun UserScreen(
@@ -50,9 +53,9 @@ fun UserScreen(
         is UserUiState.Success -> {
             Column(modifier = Modifier.fillMaxSize()) {
                 UserDetailsScreen(
-                    onBackPressed = {},
-                    userUiDetails = UserUiDetails(),
-                    onUserPhotoClicked = {}
+                    onBackPressed = onBackPressed,
+                    userUiDetails = uiState.uiDetails,
+                    onUserPhotoClicked = onUserPhotoClicked
                 )
 
             }
@@ -106,9 +109,9 @@ fun UserDetailsScreen(
                     .size(80.dp),
                 shape = CircleShape
             ) {
-                val painter = rememberImagePainter(data = userUiDetails.userImageUrl)
-                Image(
-                    painter = painter,
+                val painter = asyncPainterResource(data = userUiDetails.userImageUrl)
+                KamelImage(
+                    resource = painter,
                     contentDescription = "",
                     modifier = Modifier
                         .fillMaxSize()
@@ -116,7 +119,7 @@ fun UserDetailsScreen(
             }
 
             FotosTitleText(
-                text = userDetails.userName,
+                text = userUiDetails.userName,
                 textColor = FotosBlack,
                 modifier = Modifier
             )
@@ -125,16 +128,16 @@ fun UserDetailsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
-                photos = userDetails.numberOfPhotosByUser,
-                followers = userDetails.followersCount,
-                following = userDetails.followingCount
+                photos = userUiDetails.numberOfPhotosByUser,
+                followers = userUiDetails.followersCount,
+                following = userUiDetails.followingCount
             )
 
             FollowAndMessageButtons(
                 modifier = Modifier.wrapContentHeight()
             )
 
-            val flowOfPhotos = userDetails.userPhotos.collectAsLazyPagingItems()
+            val flowOfPhotos = userUiDetails.userPhotos.collectAsLazyPagingItems()
             UserPhotos(
                 modifier = Modifier
                     .fillMaxWidth()

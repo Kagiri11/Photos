@@ -1,18 +1,10 @@
-package com.cmaina.presentation.components.photoscards
+package com.cmaina.fotos.shared.presentation.components.photoscards
 
-import android.content.res.Resources
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
-import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import coil.compose.rememberImagePainter
-import com.cmaina.presentation.materials.BlurHashDecoder
-import com.facebook.imagepipeline.request.ImageRequestBuilder
-import com.skydoves.landscapist.fresco.FrescoImage
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
 
 @Composable
 fun AsyncImageBlur(
@@ -23,23 +15,10 @@ fun AsyncImageBlur(
     contentDescription: String,
     contentScale: ContentScale = ContentScale.Crop
 ) {
-    val resources = LocalContext.current.resources
-    val bitmap = BlurHashDecoder.decode(blurHash, 4, 3)
-    val bitmapDrawable = BitmapDrawable(resources, bitmap)
-    val imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(imageUrl))
-        .setLocalThumbnailPreviewsEnabled(true)
-        .setProgressiveRenderingEnabled(true)
-        .build()
-    val imagePainter = rememberImagePainter(data = imageUrl) {
-        crossfade(crossFadeAnimDuration)
-        placeholder(bitmapDrawable)
-    }
-    FrescoImage(
-        imageUrl = imageUrl,
-        imageRequest = { imageRequest },
+    KamelImage(
+        resource = asyncPainterResource(imageUrl),
+        contentDescription = contentDescription,
         contentScale = contentScale,
         modifier = modifier,
-        placeHolder = imagePainter,
-        contentDescription = contentDescription
     )
 }

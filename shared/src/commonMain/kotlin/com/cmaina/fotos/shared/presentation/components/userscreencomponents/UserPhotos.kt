@@ -14,13 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import com.cmaina.domain.models.photos.Photo
-import com.cmaina.presentation.components.photoscards.AsyncImageBlur
-import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
-import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
+import com.cmaina.fotos.shared.domain.models.photos.Photo
+import com.cmaina.fotos.shared.presentation.components.photoscards.AsyncImageBlur
+import com.cmaina.fotos.shared.presentation.utils.myItems
 
 @Composable
 fun UserPhotos(
@@ -34,7 +30,7 @@ fun UserPhotos(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(1.dp)
     ) {
-        items(photos) { pic ->
+        myItems(photos){pic ->
             pic?.let {
                 UserPhoto(
                     imageBlurHash = pic.blurHash ?: "",
@@ -59,11 +55,6 @@ fun UserPhoto(
             .fillMaxWidth()
             .size(100.dp)
             .padding(0.5.dp)
-            .placeholder(
-                visible = false,
-                highlight = PlaceholderHighlight.shimmer(highlightColor = FotosGreyShadeOneLightTheme),
-                color = FotosGreyShadeThreeLightTheme
-            )
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(2),
         elevation = 0.dp
