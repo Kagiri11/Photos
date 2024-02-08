@@ -1,4 +1,4 @@
-package com.cmaina.presentation.components.userscreencomponents
+package com.cmaina.fotos.shared.presentation.components.userscreencomponents
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.cmaina.domain.models.photos.Photo
 import com.cmaina.presentation.components.photoscards.AsyncImageBlur
-import com.cmaina.presentation.screens.items
 import com.cmaina.presentation.ui.theme.FotosGreyShadeOneLightTheme
 import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
 import com.google.accompanist.placeholder.PlaceholderHighlight

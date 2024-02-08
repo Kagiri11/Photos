@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.cmaina.fotos.shared.presentation.components.userscreencomponents.UserPhotos
+import com.cmaina.fotos.shared.presentation.ui.theme.FotosBlack
 import com.cmaina.fotos.shared.presentation.utils.PainterResource
+import com.cmaina.presentation.components.photostext.FotosTitleText
+import com.cmaina.presentation.components.userscreencomponents.FollowAndMessageButtons
+import com.cmaina.presentation.components.userscreencomponents.FollowingSection
 
 @Composable
 fun UserScreen(
@@ -43,145 +49,104 @@ fun UserScreen(
         is UserUiState.Error -> {}
         is UserUiState.Success -> {
             Column(modifier = Modifier.fillMaxSize()) {
-
-                TopPart(onBackPressed = { onBackPressed() })
-                BottomPart(
-                    userDetails = uiState.uiDetails,
-                    onUserPhotoClicked = {
-                        onUserPhotoClicked(it)
-                    }
+                UserDetailsScreen(
+                    onBackPressed = {},
+                    userUiDetails = UserUiDetails(),
+                    onUserPhotoClicked = {}
                 )
+
             }
         }
     }
 
 }
 
-// region TopPart
 @Composable
-fun TopPart(onBackPressed: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.15f)
-            .background(color = MaterialTheme.colors.primary),
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Row(
-            verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Spacer(modifier = Modifier.width(20.dp))
-            Image(
-//                painter = painterResource(id = R.drawable.ic_baseline_chevron_left_24),
-                painter = PainterResource.DownloadArrow() ,
-                contentDescription = "back",
-                modifier = Modifier
-                    .size(30.dp)
-                    .clickable(onClick = onBackPressed),
-                colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Image(
-                painter = PainterResource.MoreVert(),
-                contentDescription = "more",
-                colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
-            )
-            Spacer(modifier = Modifier.width(20.dp))
-        }
-    }
-}
-// endregion
-
-// region BottomPart
-@Composable
-fun BottomPart(
-    userDetails: UserUiDetails,
+fun UserDetailsScreen(
+    onBackPressed: () -> Unit,
+    userUiDetails: UserUiDetails,
     onUserPhotoClicked: (String) -> Unit
 ) {
-    ConstraintLayout(
-        Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(1f)
-            .background(FotosGreyShadeOneLightTheme)
-    ) {
-        val (
-            userImage, username,
-            followingSection,
-            followButtons,
-            userPhotosRef
-        ) = createRefs()
-
-        Card(
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Top Part
+        Column(
             modifier = Modifier
-                .size(80.dp)
-                .constrainAs(userImage) {
-                    top.linkTo(parent.top, (-40).dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                },
-            shape = CircleShape
+                .fillMaxWidth()
+                .fillMaxHeight(0.15f)
+                .background(color = MaterialTheme.colors.primary),
         ) {
-            val painter = rememberImagePainter(data = userDetails.userImageUrl)
-            Image(
-                painter = painter,
-                contentDescription = "",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .myPlaceholder(shape = CircleShape)
-            )
+            Spacer(modifier = Modifier.height(40.dp))
+            Row(
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+//                painter = painterResource(id = R.drawable.ic_baseline_chevron_left_24),
+                    painter = PainterResource.DownloadArrow(),
+                    contentDescription = "back",
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clickable(onClick = onBackPressed),
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Image(
+                    painter = PainterResource.MoreVert(),
+                    contentDescription = "more",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+            }
         }
 
-        FotosTitleText(
-            text = userDetails.userName,
-            textColor = FotosBlack,
-            modifier = Modifier.constrainAs(username) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                top.linkTo(userImage.bottom, margin = 10.dp)
+        Column {
+            Card(
+                modifier = Modifier
+                    .size(80.dp),
+                shape = CircleShape
+            ) {
+                val painter = rememberImagePainter(data = userUiDetails.userImageUrl)
+                Image(
+                    painter = painter,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
             }
-        )
 
-        FollowingSection(
-            modifier = Modifier
-                .constrainAs(followingSection) {
-                    top.linkTo(username.bottom, margin = 15.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            photos = userDetails.numberOfPhotosByUser,
-            followers = userDetails.followersCount,
-            following = userDetails.followingCount
-        )
+            FotosTitleText(
+                text = userDetails.userName,
+                textColor = FotosBlack,
+                modifier = Modifier
+            )
 
-        FollowAndMessageButtons(
-            modifier = Modifier
-                .constrainAs(followButtons) {
-                    top.linkTo(followingSection.bottom, margin = 10.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-                .wrapContentHeight()
-        )
-        val flowOfPhotos = userDetails.userPhotos.collectAsLazyPagingItems()
-        UserPhotos(
-            modifier = Modifier
-                .constrainAs(userPhotosRef) {
-                    top.linkTo(followButtons.bottom, margin = 20.dp)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                    height = Dimension.fillToConstraints
-                    width = Dimension.fillToConstraints
-                }
-                .fillMaxWidth()
-                .fillMaxHeight(0.5f)
-                .background(MaterialTheme.colors.primary),
-            photos = flowOfPhotos,
-            onUserPhotoClicked = onUserPhotoClicked
-        )
+            FollowingSection(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                photos = userDetails.numberOfPhotosByUser,
+                followers = userDetails.followersCount,
+                following = userDetails.followingCount
+            )
+
+            FollowAndMessageButtons(
+                modifier = Modifier.wrapContentHeight()
+            )
+
+            val flowOfPhotos = userDetails.userPhotos.collectAsLazyPagingItems()
+            UserPhotos(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.5f)
+                    .background(MaterialTheme.colors.primary),
+                photos = flowOfPhotos,
+                onUserPhotoClicked = onUserPhotoClicked
+            )
+
+        }
+
+        // Bottom Part
     }
 }
 
