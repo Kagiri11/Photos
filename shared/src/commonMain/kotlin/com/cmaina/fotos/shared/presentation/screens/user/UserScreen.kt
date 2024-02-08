@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.cmaina.fotos.shared.presentation.utils.PainterResource
 
 @Composable
 fun UserScreen(
@@ -72,7 +73,8 @@ fun TopPart(onBackPressed: () -> Unit) {
         ) {
             Spacer(modifier = Modifier.width(20.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_baseline_chevron_left_24),
+//                painter = painterResource(id = R.drawable.ic_baseline_chevron_left_24),
+                painter = PainterResource.DownloadArrow() ,
                 contentDescription = "back",
                 modifier = Modifier
                     .size(30.dp)
@@ -81,7 +83,7 @@ fun TopPart(onBackPressed: () -> Unit) {
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
-                painter = painterResource(id = R.drawable.ic_more_vert),
+                painter = PainterResource.MoreVert(),
                 contentDescription = "more",
                 colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary)
             )

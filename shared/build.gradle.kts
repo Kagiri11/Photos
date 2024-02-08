@@ -13,6 +13,11 @@ kotlin {
         androidMain.dependencies {
             api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
         }
+
+        jvmMain.dependencies {
+
+        }
+
         commonMain.dependencies {
             implementation(compose.material)
             implementation(libs.koin.core)
