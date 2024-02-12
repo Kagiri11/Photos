@@ -12,6 +12,10 @@ import com.cmaina.fotos.shared.domain.repositories.AppRepository
 import com.cmaina.fotos.shared.domain.repositories.AuthRepository
 import com.cmaina.fotos.shared.domain.repositories.PhotosRepository
 import com.cmaina.fotos.shared.domain.repositories.UsersRepository
+import com.cmaina.fotos.shared.presentation.screens.home.HomeViewModel
+import com.cmaina.fotos.shared.presentation.screens.photodetails.PhotoDetailsViewModel
+import com.cmaina.fotos.shared.presentation.screens.settings.SettingsViewModel
+import com.cmaina.fotos.shared.presentation.screens.user.UserViewModel
 import org.koin.dsl.module
 
 val networkModule = module {
@@ -29,4 +33,11 @@ val repositoryModule = module {
     factory<UsersRepository> { UsersRepositoryImpl(usersRemoteSource = get()) }
     single<AuthRepository> { AuthRepositoryImpl(authRemoteSource = get(), preferences = get()) }
     factory<AppRepository> { AppRepositoryImpl(preferences = get()) }
+}
+
+val presentationModule = module {
+    single { HomeViewModel(photosRepository = get()) }
+    single { PhotoDetailsViewModel(photosRepository = get(), authRepository = get()) }
+    single { SettingsViewModel(appRepository = get()) }
+    single { UserViewModel(usersRepository = get(), photosRepository = get()) }
 }
