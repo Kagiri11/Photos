@@ -2,7 +2,6 @@ package com.cmaina.fotos.shared.presentation.screens.settings
 
 import com.cmaina.fotos.shared.domain.repositories.AppRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import com.cmaina.fotos.shared.presentation.utils.ViewModelSelfDefined
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 

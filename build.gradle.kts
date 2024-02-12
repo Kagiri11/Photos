@@ -16,6 +16,7 @@ plugins {
     alias(libs.plugins.android.libary) apply false
     alias(libs.plugins.kotlin.androids) apply false
     alias(libs.plugins.kover)
+    id("org.jetbrains.compose") version "1.6.0-alpha01" apply false
     id("com.android.test") version "7.2.0" apply false
 }
 
