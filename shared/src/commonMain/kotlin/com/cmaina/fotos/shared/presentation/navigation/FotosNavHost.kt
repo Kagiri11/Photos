@@ -3,13 +3,10 @@ package com.cmaina.fotos.shared.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import com.cmaina.fotos.shared.presentation.screens.home.HomeScreen
-import com.cmaina.fotos.shared.presentation.screens.home.HomeUiState
 import com.cmaina.fotos.shared.presentation.screens.home.HomeViewModel
 import com.cmaina.fotos.shared.presentation.screens.photodetails.PhotoDetailsScreen
-import com.cmaina.fotos.shared.presentation.screens.photodetails.PhotoDetailsUiState
 import com.cmaina.fotos.shared.presentation.screens.photodetails.PhotoDetailsViewModel
 import com.cmaina.fotos.shared.presentation.screens.user.UserScreen
-import com.cmaina.fotos.shared.presentation.screens.user.UserUiState
 import com.cmaina.fotos.shared.presentation.screens.user.UserViewModel
 import com.cmaina.fotos.shared.presentation.utils.AppContext
 import moe.tlaster.precompose.koin.koinViewModel
@@ -27,8 +24,8 @@ fun FotosNavHost() {
     val photoDetailsViewModel = koinViewModel(PhotoDetailsViewModel::class)
 
     // ui states
-    val photoDetailsScreenUiState = photoDetailsViewModel.detailsUiState.collectAsState().value
-    val homeScreenUiState = homeViewModel.homeState.collectAsState().value
+    val photoDetailsScreenUiState = photoDetailsViewModel.uiState.collectAsState().value
+    val homeScreenUiState = homeViewModel.uiState.collectAsState().value
     val userDetailsScreenUiState = userViewModel.uiState.collectAsState().value
 
     NavHost(

@@ -16,8 +16,8 @@ class PhotoDetailsViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val _detailsUiState = MutableStateFlow<PhotoDetailsUiState>(PhotoDetailsUiState.Loading)
-    val detailsUiState: StateFlow<PhotoDetailsUiState> get() = _detailsUiState
+    private val _uiState = MutableStateFlow<PhotoDetailsUiState>(PhotoDetailsUiState.Loading)
+    val uiState: StateFlow<PhotoDetailsUiState> get() = _uiState
     private val _userIsAuthenticated = MutableStateFlow<Boolean>(false)
     val userIsAuthenticated : StateFlow<Boolean> get() = _userIsAuthenticated
 
@@ -32,13 +32,13 @@ class PhotoDetailsViewModel(
         viewModelScope.launch {
             when (val result = photosRepository.getSpecificPhoto(photoId = photoId)) {
                 is Success -> {
-                    val details = (_detailsUiState.value as PhotoDetailsUiState.Success)
+                    val details = (_uiState.value as PhotoDetailsUiState.Success)
                         .details.copy(photoIsLikedByUser = result.data.likedByUser)
-                    _detailsUiState.value = PhotoDetailsUiState.Success(details)
+                    _uiState.value = PhotoDetailsUiState.Success(details)
                 }
 
                 is Error -> {
-                    _detailsUiState.value = PhotoDetailsUiState.Error(result.errorDetails)
+                    _uiState.value = PhotoDetailsUiState.Error(result.errorDetails)
                 }
             }
         }
@@ -66,13 +66,13 @@ class PhotoDetailsViewModel(
                             relatedImages = relatedPhotos,
                             photoIsLikedByUser = false
                         )
-                        _detailsUiState.value =
+                        _uiState.value =
                             PhotoDetailsUiState.Success(details = details)
                     }
                 }
 
                 is Error -> {
-                    _detailsUiState.value =
+                    _uiState.value =
                         PhotoDetailsUiState.Error(errorMessage = result.errorDetails)
                 }
             }

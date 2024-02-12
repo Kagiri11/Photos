@@ -36,8 +36,8 @@ val repositoryModule = module {
 }
 
 val presentationModule = module {
-    single { HomeViewModel(photosRepository = get()) }
-    single { PhotoDetailsViewModel(photosRepository = get(), authRepository = get()) }
-    single { SettingsViewModel(appRepository = get()) }
-    single { UserViewModel(usersRepository = get(), photosRepository = get()) }
+    factory { HomeViewModel(photosRepository = get()) }
+    factory { PhotoDetailsViewModel(photosRepository = get(), authRepository = get()) }
+    factory { SettingsViewModel(appRepository = get()) }
+    factory { UserViewModel(usersRepository = get(), photosRepository = get()) }
 }
