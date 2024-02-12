@@ -1,4 +1,4 @@
-package com.cmaina.presentation.components.userscreencomponents
+package com.cmaina.fotos.shared.presentation.components.userscreencomponents
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -21,10 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
-import com.cmaina.presentation.ui.theme.FotosBlack
-import com.cmaina.presentation.ui.theme.FotosGreyShadeThreeLightTheme
-import com.cmaina.presentation.ui.theme.FotosGreyShadeTwoLightTheme
-import com.cmaina.presentation.ui.theme.FotosWhite
+import com.cmaina.fotos.shared.presentation.ui.theme.FotosBlack
+import com.cmaina.fotos.shared.presentation.ui.theme.FotosGreyShadeThreeLightTheme
+import com.cmaina.fotos.shared.presentation.ui.theme.FotosGreyShadeTwoLightTheme
+import com.cmaina.fotos.shared.presentation.ui.theme.FotosWhite
 
 @Composable
 fun FollowAndMessageButtons(modifier: Modifier = Modifier) {
@@ -39,7 +39,7 @@ fun FollowAndMessageButtons(modifier: Modifier = Modifier) {
             buttonColor = FotosBlack,
             textColor = FotosWhite,
             modifier = Modifier.weight(1f)
-        ){}
+        ) {}
     }
 }
 
@@ -79,9 +79,15 @@ fun DetailsColumn(text: String, number: Int) {
 }
 
 @Composable
-fun UserButton(text: String, buttonColor: Color, textColor: Color, modifier: Modifier, onClick: () -> Unit) {
+fun UserButton(
+    text: String,
+    buttonColor: Color,
+    textColor: Color,
+    modifier: Modifier,
+    onClick: () -> Unit
+) {
     Button(
-        onClick = {onClick()},
+        onClick = { onClick() },
         shape = RoundedCornerShape(50),
         modifier = modifier
             .height(55.dp),

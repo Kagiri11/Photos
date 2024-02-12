@@ -27,6 +27,7 @@ inline fun <T : Any> LazyGridScope.myItems(
     crossinline itemContent: @Composable LazyGridItemScope.(value: T) -> Unit
 ) { items(count = items.itemCount) { index -> items[index]?.let { itemContent(it) } } }
 
+/*
 fun onResume(
     context: Context,
     authenticateUser: (String) -> Unit
@@ -35,4 +36,4 @@ fun onResume(
     val uri = context.findActivity()?.intent?.data
     val code = uri.toString().substringAfter("code=")
     authenticateUser(code)
-}
+}*/

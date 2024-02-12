@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import com.cmaina.fotos.shared.presentation.components.dialogs.NotAuthenticatedDialog
 import com.cmaina.fotos.shared.presentation.components.photoscards.AsyncImageBlur
 import com.cmaina.fotos.shared.presentation.utils.AppContext
-import com.cmaina.fotos.shared.presentation.utils.onResume
 import com.cmaina.presentation.components.photoscards.PhotosPager
 import com.cmaina.presentation.components.photostext.FotosText
 import com.cmaina.presentation.components.photostext.FotosTitleText
@@ -50,7 +49,7 @@ fun PhotoDetailsScreen(
         onInitialLoadEvent()
     }
     DisposableEffect(key1 = true) {
-        onResume(context, onUserRequestsAuthenticationEvent)
+//        onResume(context, onUserRequestsAuthenticationEvent)
         onDispose {
             // do something
         }

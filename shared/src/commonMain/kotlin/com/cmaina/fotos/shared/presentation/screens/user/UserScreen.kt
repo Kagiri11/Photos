@@ -23,15 +23,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import app.cash.paging.compose.collectAsLazyPagingItems
 import com.cmaina.fotos.shared.presentation.components.userscreencomponents.UserPhotos
 import com.cmaina.fotos.shared.presentation.ui.theme.FotosBlack
 import com.cmaina.fotos.shared.presentation.utils.PainterResource
 import com.cmaina.presentation.components.photostext.FotosTitleText
-import com.cmaina.presentation.components.userscreencomponents.FollowAndMessageButtons
-import com.cmaina.presentation.components.userscreencomponents.FollowingSection
+import com.cmaina.fotos.shared.presentation.components.userscreencomponents.FollowAndMessageButtons
+import com.cmaina.fotos.shared.presentation.components.userscreencomponents.FollowingSection
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 

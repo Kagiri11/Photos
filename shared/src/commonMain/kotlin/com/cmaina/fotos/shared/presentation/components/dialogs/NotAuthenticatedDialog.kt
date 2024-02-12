@@ -17,7 +17,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.cmaina.presentation.components.photostext.FotosTitleText
-import com.cmaina.presentation.components.userscreencomponents.UserButton
+import com.cmaina.fotos.shared.presentation.components.userscreencomponents.UserButton
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
