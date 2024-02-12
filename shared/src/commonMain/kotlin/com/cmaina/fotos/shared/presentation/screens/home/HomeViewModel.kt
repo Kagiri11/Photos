@@ -2,11 +2,11 @@ package com.cmaina.fotos.shared.presentation.screens.home
 
 
 import com.cmaina.fotos.shared.domain.repositories.PhotosRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import com.cmaina.fotos.shared.presentation.utils.ViewModel
 import kotlinx.coroutines.launch
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 
 class HomeViewModel(
     private val photosRepository: PhotosRepository

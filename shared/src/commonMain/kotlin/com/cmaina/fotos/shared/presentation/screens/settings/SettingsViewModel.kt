@@ -2,11 +2,11 @@ package com.cmaina.fotos.shared.presentation.screens.settings
 
 import com.cmaina.fotos.shared.domain.repositories.AppRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import com.cmaina.fotos.shared.presentation.utils.ViewModel
+import com.cmaina.fotos.shared.presentation.utils.ViewModelSelfDefined
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SettingsViewModel(private val appRepository: AppRepository) : ViewModel() {
+class SettingsViewModel(private val appRepository: AppRepository) : ViewModelSelfDefined() {
 
     private val _appTheme = MutableStateFlow(false)
     val appTheme = _appTheme.asStateFlow()

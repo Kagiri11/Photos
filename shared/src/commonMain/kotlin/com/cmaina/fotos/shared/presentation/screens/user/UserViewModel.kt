@@ -6,8 +6,9 @@ import com.cmaina.fotos.shared.domain.repositories.UsersRepository
 import com.cmaina.fotos.shared.domain.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import com.cmaina.fotos.shared.presentation.utils.ViewModel
 import kotlinx.coroutines.launch
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 
 class UserViewModel(
     private val usersRepository: UsersRepository,
