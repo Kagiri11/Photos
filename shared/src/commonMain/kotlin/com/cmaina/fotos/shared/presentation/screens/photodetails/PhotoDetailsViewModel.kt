@@ -13,8 +13,7 @@ import kotlinx.coroutines.launch
 
 class PhotoDetailsViewModel(
     private val photosRepository: PhotosRepository,
-    private val authRepository: AuthRepository,
-    private val viewModelScope: CoroutineScope
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _detailsUiState = MutableStateFlow<PhotoDetailsUiState>(PhotoDetailsUiState.Loading)

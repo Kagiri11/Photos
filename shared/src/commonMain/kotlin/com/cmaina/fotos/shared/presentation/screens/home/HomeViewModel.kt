@@ -9,8 +9,7 @@ import com.cmaina.fotos.shared.presentation.utils.ViewModel
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val photosRepository: PhotosRepository,
-    private val viewModelScope: CoroutineScope
+    private val photosRepository: PhotosRepository
 ) : ViewModel() {
 
     private val _homeState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
