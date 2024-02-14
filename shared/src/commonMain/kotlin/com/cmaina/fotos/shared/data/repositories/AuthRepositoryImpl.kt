@@ -12,13 +12,14 @@ import com.cmaina.fotos.shared.domain.models.auth.AuthDomainResponse
 import com.cmaina.fotos.shared.domain.repositories.AuthRepository
 import com.cmaina.fotos.shared.data.network.models.auth.AuthRemoteResponse
 import com.cmaina.fotos.shared.domain.utils.Result
+import com.cmaina.fotos.shared.utils.AppSettings
 import io.ktor.client.call.body
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class AuthRepositoryImpl(
     private val authRemoteSource: AuthRemoteSource,
-    private val preferences: DataStore<Preferences>
+    private val preferences: DataStore<Preferences>,
 ) : AuthRepository {
 
     private val userAuthenticatedPref = booleanPreferencesKey("userAuthenticated")
@@ -30,10 +31,8 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun saveUserAuthentication(accessToken: String) {
-        preferences.apply {
-            edit { it[userAuthenticatedPref] = true }
-            edit { it[UserAccessToken] = accessToken }
-        }
+        AppSettings.putString(key = "access_token", accessToken)
+        AppSettings.putBoolean(key = "isUserAuthenticated", true)
     }
 
     override suspend fun clearStaleUserAuthentication() {

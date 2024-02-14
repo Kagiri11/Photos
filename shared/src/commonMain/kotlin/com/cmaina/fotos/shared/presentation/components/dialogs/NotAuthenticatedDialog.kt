@@ -18,8 +18,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.cmaina.presentation.components.photostext.FotosTitleText
 import com.cmaina.fotos.shared.presentation.components.userscreencomponents.UserButton
+import com.cmaina.fotos.shared.presentation.utils.PainterResource
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NotAuthenticatedDialog(
     openDialog: Boolean,
@@ -43,8 +43,9 @@ fun NotAuthenticatedDialog(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
+                    val painter =
                     Icon(
-                        painter = rememberImagePainter(data = R.drawable.ic_baseline_key_24),
+                        painter = PainterResource.BaselineKey(),
                         tint = MaterialTheme.colors.onPrimary,
                         contentDescription = "alert icon"
                     )

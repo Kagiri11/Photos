@@ -3,7 +3,6 @@ package com.cmaina.fotos.shared.di
 import com.cmaina.fotos.shared.data.network.sources.authRemoteSource
 import com.cmaina.fotos.shared.data.network.sources.photosRemoteSource
 import com.cmaina.fotos.shared.data.network.sources.usersRemoteSource
-import com.cmaina.fotos.shared.data.cache.utils.provideDataStore
 import com.cmaina.fotos.shared.data.repositories.AppRepositoryImpl
 import com.cmaina.fotos.shared.data.repositories.AuthRepositoryImpl
 import com.cmaina.fotos.shared.data.repositories.PhotosRepositoryImpl

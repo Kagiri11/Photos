@@ -21,6 +21,7 @@ kotlin {
             dependencies {
                 implementation(compose.material)
                 implementation(compose.foundation)
+                implementation ("io.github.aakira:napier:2.7.1")
                 implementation("moe.tlaster:precompose:1.6.0-beta02")
                 implementation("moe.tlaster:precompose-viewmodel:1.6.0-beta02")
                 implementation("moe.tlaster:precompose-koin:1.6.0-beta02")

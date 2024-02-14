@@ -8,4 +8,4 @@ val delegate: Properties // ...
     get() {
         TODO()
     }
-val PhotosSettings: Settings = PropertiesSettings(delegate)
+actual val PhotosSettings: Settings = PropertiesSettings(delegate)

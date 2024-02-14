@@ -1,7 +1,7 @@
 package com.cmaina.fotos.shared.data.network.client
 
-import android.util.Log
 import com.cmaina.fotos.shared.data.network.utils.TokenStorage
+import io.github.aakira.napier.Napier
 import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
@@ -32,7 +32,7 @@ class Network(engine: HttpClientEngine) {
         install(Logging) {
             logger = object : Logger {
                 override fun log(message: String) {
-                    Log.d("Ktor Log ==> ", message)
+                    Napier.d(tag = "Ktor Log ==> ", message = message)
                 }
             }
 
@@ -41,7 +41,7 @@ class Network(engine: HttpClientEngine) {
 
         install(ResponseObserver) {
             onResponse { response ->
-                Log.d("HTTP response:", "${response.body<Any>()}")
+                Napier.d(tag = "HTTP response:", message = "${response.body<Any>()}")
             }
         }
 
