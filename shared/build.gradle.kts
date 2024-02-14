@@ -1,21 +1,20 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    alias(libs.plugins.compose.multiplatform)
+    id("org.jetbrains.compose")
 }
 
 kotlin {
-    jvm()
+    jvm("desktop")
     androidTarget()
 
     sourceSets {
 
+        val desktopMain by getting{
+
+        }
         androidMain.dependencies {
             api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-        }
-
-        jvmMain.dependencies {
-
         }
 
         val commonMain by getting {
@@ -25,6 +24,7 @@ kotlin {
                 implementation("moe.tlaster:precompose:1.6.0-beta02")
                 implementation("moe.tlaster:precompose-viewmodel:1.6.0-beta02")
                 implementation("moe.tlaster:precompose-koin:1.6.0-beta02")
+                implementation("com.russhwolf:multiplatform-settings:1.1.1")
                 implementation(compose.animation)
                 implementation(libs.koin.core)
                 implementation(libs.kotlin.coroutines.core)

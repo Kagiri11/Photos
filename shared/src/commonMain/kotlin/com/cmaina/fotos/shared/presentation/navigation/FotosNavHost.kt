@@ -31,7 +31,7 @@ fun FotosNavHost() {
     NavHost(
         navigator = navigator,
         navTransition = NavTransition(),
-        initialRoute = ""
+        initialRoute = "/home"
     ) {
 
         scene("/home", navTransition = NavTransition()) {
