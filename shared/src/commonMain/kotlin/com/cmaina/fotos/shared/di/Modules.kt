@@ -25,7 +25,7 @@ val networkModule = module {
 }
 
 val dataModule = module {
-    single { provideDataStore(get()) }
+//    single { provideDataStore(get()) }
 }
 
 val repositoryModule = module {

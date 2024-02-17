@@ -43,7 +43,6 @@ fun NotAuthenticatedDialog(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
-                    val painter =
                     Icon(
                         painter = PainterResource.BaselineKey(),
                         tint = MaterialTheme.colors.onPrimary,
