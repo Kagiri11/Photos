@@ -7,6 +7,7 @@ buildscript {
 
     dependencies {
         classpath("com.google.gms:google-services:4.3.14")
+        classpath("dev.icerock.moko:resources-generator:0.23.0")
     }
 }
 
